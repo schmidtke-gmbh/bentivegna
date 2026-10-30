@@ -458,20 +458,28 @@ p,li,.ans{text-wrap:pretty}
 
 /* Hero: Nutzenzeile als Wechselzeile (Variante 5, 30.10.2026) */
 .hero-wechsel{margin-top:28px;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px .34em;font-size:1.35rem;line-height:1.3;font-weight:600;color:var(--ink);max-width:640px}
-.hw-slot{display:inline-block;height:1.3em;overflow:hidden;color:var(--navy);border-bottom:2px solid var(--beige-l);padding-bottom:2px;max-width:100%}
-.hw-lauf{display:flex;flex-direction:column;will-change:transform}
+.hw-slot{position:relative;display:inline-block;padding-bottom:5px;color:var(--navy);max-width:100%}
+.hw-fenster{display:block;height:1.3em;overflow:hidden}
+.hw-lauf{display:flex;flex-direction:column;align-items:flex-start;will-change:transform}
 .hw-lauf span{display:block;height:1.3em;line-height:1.3em;white-space:nowrap;font-family:var(--serif);font-style:italic;font-weight:600}
-.yt-pill{display:inline-flex;align-items:center;gap:10px;padding:7px 18px 7px 7px;border-radius:50px;border:1px solid var(--line);background:#fff;color:var(--navy);font-weight:700;font-size:.9rem;box-shadow:var(--shadow-s);transition:transform .3s var(--ease),box-shadow .3s}
+.hw-strich{position:absolute;left:0;bottom:0;width:100%;height:2px;border-radius:2px;background:var(--beige);transform-origin:left center;will-change:transform}
+.yt-pill{display:inline-flex;align-items:center;gap:11px;padding:7px 22px 7px 7px;border-radius:50px;border:1px solid var(--line);background:#fff;color:var(--navy);font-weight:700;font-size:.9rem;box-shadow:var(--shadow-s);transition:transform .3s var(--ease),box-shadow .3s}
 .yt-pill:hover{transform:translateY(-1px);box-shadow:var(--shadow-m)}
-.yt-pill .yt-ic{width:30px;height:30px;border-radius:50%;background:#ff0033;color:#fff;display:grid;place-items:center;flex:0 0 auto}
-.yt-pill .yt-ic svg{width:16px;height:16px}
+.yt-pill .yt-ic{width:38px;height:38px;border-radius:50%;background:#ff0033;color:#fff;display:grid;place-items:center;flex:0 0 auto}
+.yt-pill .yt-ic svg{width:18px;height:18px}
+.yt-txt{display:flex;flex-direction:column;gap:1px;line-height:1.25}
+.yt-label{font-size:.72rem;font-weight:600;color:var(--muted);letter-spacing:.01em}
+.yt-zeile{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 .45em}
 .yt-pill .yt-sub{color:var(--muted);font-weight:400}
 @media(max-width:560px){
   .hero-wechsel{font-size:1.16rem}
-  .yt-pill{border-radius:16px;flex-wrap:wrap;row-gap:2px}
-  .yt-pill .yt-sub{flex-basis:100%;padding-left:40px;margin-top:-6px;font-size:.82rem}
+  .yt-pill{border-radius:20px;padding-right:18px}
+  .yt-zeile{flex-direction:column;gap:1px}
+  .yt-pill .yt-sub{font-size:.82rem}
 }
 @media(prefers-reduced-motion:reduce){
-  .hw-slot{height:auto;border-bottom:0}
+  .hw-slot{padding-bottom:0}
+  .hw-fenster{height:auto}
   .hw-lauf{flex-direction:row;flex-wrap:wrap;gap:0 .34em;transform:none!important}
+  .hw-klon,.hw-strich{display:none}
 }

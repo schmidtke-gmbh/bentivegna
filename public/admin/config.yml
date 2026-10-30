@@ -320,7 +320,7 @@ collections:
           name: eintrag
           widget: string
         required: false
-      - label: Satzanfang vor den drei Punkten (die Punkte laufen danach einmal durch)
+      - label: Satzanfang vor den drei Punkten (die Punkte wechseln danach in Schleife)
         name: nutzen_einleitung
         widget: string
         required: false
@@ -351,6 +351,10 @@ collections:
       - label: Video ist hochkant gedreht (Player im Hochformat)
         name: video_hochkant
         widget: boolean
+        required: false
+      - label: 'YouTube: kleine Zeile über dem Kanalnamen'
+        name: youtube_label
+        widget: string
         required: false
       - label: 'YouTube: Kanalname'
         name: youtube_zeile

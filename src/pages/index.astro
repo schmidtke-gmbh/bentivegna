@@ -58,7 +58,7 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
       <!-- Nutzenzeile: das Satzende läuft einmal durch die Punkte und bleibt auf dem letzten stehen -->
       <p class="hero-wechsel hero-in h5" data-wechsel>
         <span class="hw-ein">{S.hero.nutzen_einleitung}</span>
-        <span class="hw-slot" aria-hidden="true"><span class="hw-lauf">{S.hero.bullets.map((b) => <span>{b.replace(/\.$/, '')}.</span>)}</span></span>
+        <span class="hw-slot" aria-hidden="true"><span class="hw-fenster"><span class="hw-lauf">{(S.hero.bullets.length > 1 ? [...S.hero.bullets, S.hero.bullets[0]] : S.hero.bullets).map((b, i) => <span class={i === S.hero.bullets.length ? 'hw-klon' : undefined}>{b.replace(/\.$/, '')}.</span>)}</span></span><span class="hw-strich"></span></span>
         <span class="sr-only">{S.hero.bullets.join(', ')}.</span>
       </p>
       <div class="hero-trust-row hero-in h5">
@@ -75,7 +75,7 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
           </a>
         )}
         <a class="yt-pill" href={E.youtube} target="_blank" rel="noopener" data-track="youtube_klick">
-          <span class="yt-ic"><Brand name="youtube" class="" /></span><b>{S.hero.youtube_zeile}</b><span class="yt-sub">{E.youtube_titel}</span>
+          <span class="yt-ic"><Brand name="youtube" class="" /></span><span class="yt-txt"><span class="yt-label">{S.hero.youtube_label}</span><span class="yt-zeile"><b>{S.hero.youtube_zeile}</b><span class="yt-sub">{E.youtube_titel}</span></span></span>
         </a>
       </div>
     </div>
@@ -695,25 +695,40 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
 </Base>
 
 <script>
-  // Nutzenzeile im Hero: Satzende läuft einmal durch alle Punkte und bleibt auf dem letzten stehen, beim Darüberfahren erneut
+  // Nutzenzeile im Hero: Satzende wechselt in Endlosschleife durch alle Punkte (letzter Eintrag ist eine Kopie des ersten,
+  // damit der Übergang nahtlos ist). Der Strich darunter wird jeweils so lang wie das eingeblendete Wort.
   const hw = document.querySelector<HTMLElement>('[data-wechsel]');
   const lauf = hw?.querySelector<HTMLElement>('.hw-lauf');
-  if (hw && lauf && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const n = lauf.children.length;
-    const spiel = (verz: number) => {
-      if (n < 2) return;
-      const frames: Keyframe[] = [];
-      for (let k = 0; k < n - 1; k++) {
-        frames.push({ offset: k / (n - 1), transform: `translateY(${-k * 1.3}em)` });
-        frames.push({ offset: (k + 0.62) / (n - 1), transform: `translateY(${-k * 1.3}em)`, easing: 'cubic-bezier(.65,0,.35,1)' });
+  const strich = hw?.querySelector<HTMLElement>('.hw-strich');
+  if (hw && lauf && strich && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const teile = [...lauf.children] as HTMLElement[];
+    const n = teile.length - 1;
+    const SCHRITT = 2600, STEHEN = 0.75, EASE = 'cubic-bezier(.65,0,.35,1)';
+    let aText: Animation | undefined, aStrich: Animation | undefined;
+    const bauen = () => {
+      const zeit = aText?.currentTime ?? 0;
+      aText?.cancel(); aStrich?.cancel();
+      const breit = lauf.offsetWidth || 1;
+      const w = teile.map((t) => (t.offsetWidth / breit).toFixed(4));
+      if (n < 1) { strich.style.transform = `scaleX(${w[0]})`; return; }
+      const fText: Keyframe[] = [], fStrich: Keyframe[] = [];
+      for (let k = 0; k < n; k++) {
+        fText.push({ offset: k / n, transform: `translateY(${-k * 1.3}em)` });
+        fText.push({ offset: (k + STEHEN) / n, transform: `translateY(${-k * 1.3}em)`, easing: EASE });
+        fStrich.push({ offset: k / n, transform: `scaleX(${w[k]})` });
+        fStrich.push({ offset: (k + STEHEN) / n, transform: `scaleX(${w[k]})`, easing: EASE });
       }
-      frames.push({ offset: 1, transform: `translateY(${-(n - 1) * 1.3}em)` });
-      lauf.getAnimations().forEach((a) => a.cancel());
-      lauf.animate(frames, { duration: (n - 1) * 1500, delay: verz, fill: 'both' });
+      fText.push({ offset: 1, transform: `translateY(${-n * 1.3}em)` });
+      fStrich.push({ offset: 1, transform: `scaleX(${w[n]})` });
+      const opt: KeyframeAnimationOptions = { duration: n * SCHRITT, iterations: Infinity };
+      aText = lauf.animate(fText, opt);
+      aStrich = strich.animate(fStrich, opt);
+      aText.currentTime = aStrich.currentTime = zeit;
     };
-    spiel(1500);
-    let laeuft = 0;
-    hw.addEventListener('mouseenter', () => { if (Date.now() - laeuft > (n - 1) * 1500) { laeuft = Date.now(); spiel(0); } });
+    strich.style.transform = `scaleX(${(teile[0].offsetWidth / (lauf.offsetWidth || 1)).toFixed(4)})`;
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(bauen);
+    let warte = 0;
+    addEventListener('resize', () => { clearTimeout(warte); warte = window.setTimeout(bauen, 150); });
   }
 </script>
 <script>
