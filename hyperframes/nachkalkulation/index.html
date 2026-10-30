@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Nachkalkulation | Bentivegna Startseite (Schleife)</title>
+<!--
+  HyperFrames-Komposition für die Karte „Nachkalkulation“ im Abschnitt „Deine Entwicklung mit uns“.
+  Gestaltet in 520 × 340 (Breite der Karte auf dem Desktop), gerendert zweifach (1040 × 680). 30 fps, 12 s, nahtlose Schleife:
+  Kopfzeile und leerer Balken stehen am Anfang wie am Ende. Alle Zahlen sind Beispielwerte.
+
+  Ablauf
+  0,3 s   Auftragswert zählt hoch auf 38.400 €
+  1,4 s   Material, 2,2 s Lohn, 3,0 s Gemeinkosten schieben sich in den Balken
+  3,8 s   der Rest wird zum Deckungsbeitrag: 6.200 €, 16,1 % Marge
+  5,9 s   Wechsel zur Hochrechnung: Umsatz im Jahr × 2 Prozentpunkte mehr Marge = mehr Gewinn
+  6,6 s   1,5 Mio € ergibt 30.000 €, 8,0 s 3 Mio € ergibt 60.000 €, 9,2 s 5 Mio € ergibt 100.000 €
+  11,2 s  Inhalte blenden aus, Kopfzeile bleibt
+-->
+<style>
+  @font-face{font-family:"Source Sans 3";font-weight:400;src:url("assets/fonts/source-sans-3-latin-400-normal.woff2") format("woff2")}
+  @font-face{font-family:"Source Sans 3";font-weight:600;src:url("assets/fonts/source-sans-3-latin-600-normal.woff2") format("woff2")}
+  @font-face{font-family:"Source Sans 3";font-weight:700;src:url("assets/fonts/source-sans-3-latin-700-normal.woff2") format("woff2")}
+  @font-face{font-family:"Source Sans 3";font-weight:900;src:url("assets/fonts/source-sans-3-latin-900-normal.woff2") format("woff2")}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1040px;height:680px;overflow:hidden;background:#fbfaf7}
+  #root{position:relative;width:1040px;height:680px;overflow:hidden;background:#fbfaf7;font-family:"Source Sans 3",sans-serif;color:#273365;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+  #stage{position:absolute;left:0;top:0;width:520px;height:340px;zoom:2;overflow:hidden;background:#fbfaf7}
+
+  #kopf{position:absolute;left:24px;right:24px;top:18px;height:26px;display:flex;align-items:center;gap:10px}
+  #kopf .nr{font-size:14px;font-weight:700;color:#273365}
+  #kopf .was{font-size:14px;color:#5d6273}
+  #kopf .bsp{margin-left:auto;font-size:11px;font-weight:700;letter-spacing:.02em;color:#7f7566;background:#efece4;border-radius:20px;padding:3px 9px}
+  .trenn{position:absolute;left:24px;right:24px;top:52px;height:1px;background:#e6e2d8}
+
+  /* Szene 1: Balken */
+  #s1{position:absolute;inset:0}
+  #auftrag{position:absolute;left:24px;right:24px;top:70px;display:flex;align-items:baseline;justify-content:space-between}
+  #auftrag span{font-size:15px;color:#5d6273}
+  #auftrag b{font-size:30px;font-weight:900;letter-spacing:-.02em}
+  #balken{position:absolute;left:24px;top:116px;width:472px;height:38px;border-radius:8px;overflow:hidden;background:#e8eaef}
+  #balken i{position:absolute;top:0;bottom:0;display:block;transform-origin:0 50%}
+  #seg-mat{left:0;width:183px;background:#ccc4af}
+  #seg-lohn{left:183px;width:138px;background:#bcb098}
+  #seg-gk{left:321px;width:75px;background:#a89a7e}
+  #seg-db{left:396px;width:76px;background:#273365}
+  #balken i + i{box-shadow:inset 1.5px 0 0 #fbfaf7}
+  .leg{position:absolute;top:164px;font-size:13px;line-height:1.25;color:#5d6273}
+  .leg b{display:block;font-size:15px;font-weight:700;color:#7f7566}
+  #leg-mat{left:24px}#leg-lohn{left:207px}#leg-gk{left:345px}
+  #db{position:absolute;left:24px;right:24px;top:226px;height:88px;border-radius:12px;background:#fff;box-shadow:0 1px 0 #e6e2d8,0 12px 28px rgba(39,51,101,.08);display:flex;align-items:center;padding:0 22px;gap:16px}
+  #db .l{font-size:15px;color:#5d6273;line-height:1.25}
+  #db .l b{display:block;font-size:17px;color:#273365}
+  #db .zahl{margin-left:auto;font-size:40px;font-weight:900;letter-spacing:-.025em;color:#273365}
+  #db .pill{font-size:13px;font-weight:700;color:#fff;background:#998a6d;border-radius:20px;padding:5px 11px;white-space:nowrap}
+
+  /* Szene 2: Hochrechnung */
+  #s2{position:absolute;inset:0}
+  #frage{position:absolute;left:24px;right:24px;top:68px;font-size:17px;font-weight:700;color:#273365}
+  .reihe{position:absolute;left:24px;right:24px;display:flex;align-items:baseline;justify-content:space-between}
+  .reihe span{font-size:15px;color:#5d6273}
+  #r-umsatz{top:104px}#r-umsatz b{font-size:30px;font-weight:900;letter-spacing:-.02em}
+  #spur{position:absolute;left:24px;right:24px;top:150px;height:22px}
+  #spur .bahn{position:absolute;left:0;right:0;top:9px;height:4px;border-radius:4px;background:#e8eaef}
+  #spur .voll{position:absolute;left:0;top:9px;height:4px;width:472px;border-radius:4px;background:#345c9a;transform-origin:0 50%}
+  #spur .knopf{position:absolute;left:-9px;top:2px;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid #345c9a;box-shadow:0 3px 8px rgba(39,51,101,.2)}
+  #spur small{position:absolute;top:22px;font-size:11px;color:#8a8e9b}
+  #r-marge{top:196px}#r-marge b{font-size:22px;font-weight:700;color:#345c9a}
+  #strich{position:absolute;left:24px;right:24px;top:236px;height:2px;background:#273365;transform-origin:0 50%}
+  #r-gewinn{top:252px}#r-gewinn span{font-size:16px;font-weight:700;color:#273365}
+  #r-gewinn b{font-size:50px;font-weight:900;letter-spacing:-.03em;color:#998a6d;line-height:1}
+</style>
+<script src="assets/js/gsap.min.js"></script>
+</head>
+<body>
+<div id="root" data-composition-id="nachkalkulation" data-start="0" data-duration="12" data-width="1040" data-height="680" data-fps="30">
+  <div id="stage" data-layout-allow-overflow data-layout-ignore>
+    <div id="kopf"><span class="nr">Baustelle 26-114</span><span class="was">Heizungstausch, Einfamilienhaus</span><span class="bsp">Beispiel</span></div>
+    <div class="trenn"></div>
+
+    <div id="s1">
+      <div id="auftrag"><span>Auftragswert</span><b id="n-auftrag">38.400 €</b></div>
+      <div id="balken"><i id="seg-mat"></i><i id="seg-lohn"></i><i id="seg-gk"></i><i id="seg-db"></i></div>
+      <div class="leg" id="leg-mat">Material<b>−14.900 €</b></div>
+      <div class="leg" id="leg-lohn">Lohn, 160 Stunden<b>−11.200 €</b></div>
+      <div class="leg" id="leg-gk">Gemeinkosten<b>−6.100 €</b></div>
+      <div id="db"><div class="l"><b>Deckungsbeitrag</b>was die Baustelle verdient</div><span class="zahl" id="n-db">6.200 €</span><span class="pill" id="pill">16,1 % Marge</span></div>
+    </div>
+
+    <div id="s2">
+      <div id="frage">Und was bringen 2 Prozentpunkte mehr Marge im Jahr?</div>
+      <div class="reihe" id="r-umsatz"><span>Umsatz im Jahr</span><b id="n-umsatz">1,5 Mio €</b></div>
+      <div id="spur"><i class="bahn"></i><i class="voll" id="spur-voll"></i><i class="knopf" id="spur-knopf"></i><small style="left:0">1 Mio</small><small style="right:0">5 Mio</small></div>
+      <div class="reihe" id="r-marge"><span>mehr Marge durch Nachkalkulation</span><b>× 2 Prozentpunkte</b></div>
+      <div id="strich"></div>
+      <div class="reihe" id="r-gewinn"><span>mehr Gewinn im Jahr</span><b id="n-gewinn">+30.000 €</b></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var tl = gsap.timeline({ paused: true });
+      var fmt = function (v) { return Math.round(v).toLocaleString("de-DE") + " €"; };
+      var mio = function (v) { return v.toLocaleString("de-DE", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + " Mio €"; };
+      function zaehlen(sel, von, bis, t, dauer, format) {
+        var el = document.querySelector(sel), o = { v: von };
+        tl.fromTo(o, { v: von }, { v: bis, duration: dauer, ease: "power2.out", immediateRender: false,
+          onUpdate: function () { el.textContent = format(o.v); } }, t);
+      }
+      function setzen(sel, text, t) {
+        var el = document.querySelector(sel), o = { v: 0 };
+        tl.fromTo(o, { v: 0 }, { v: 1, duration: 0.01, ease: "none", immediateRender: false, onUpdate: function () { el.textContent = text; } }, t);
+      }
+      var s1Teile = ["#auftrag", "#leg-mat", "#leg-lohn", "#leg-gk", "#db"];
+
+      // Startbild: Kopfzeile, leerer Balken
+      tl.fromTo(s1Teile, { opacity: 0 }, { opacity: 0, duration: 0.01, ease: "none" }, 0);
+      tl.fromTo(["#seg-mat", "#seg-lohn", "#seg-gk", "#seg-db"], { scaleX: 0 }, { scaleX: 0, duration: 0.01, ease: "none" }, 0);
+      tl.fromTo("#s2", { opacity: 0 }, { opacity: 0, duration: 0.01, ease: "none" }, 0);
+      tl.fromTo("#balken", { opacity: 1 }, { opacity: 1, duration: 0.01, ease: "none" }, 0);
+      setzen("#n-auftrag", "0 €", 0); setzen("#n-db", "0 €", 0);
+      setzen("#n-umsatz", mio(1.5), 0); setzen("#n-gewinn", "+0 €", 0);
+
+      // Szene 1
+      tl.fromTo("#auftrag", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: false }, 0.3);
+      zaehlen("#n-auftrag", 0, 38400, 0.35, 1.0, fmt);
+      [["#seg-mat", "#leg-mat", 1.4], ["#seg-lohn", "#leg-lohn", 2.2], ["#seg-gk", "#leg-gk", 3.0]].forEach(function (s) {
+        tl.fromTo(s[0], { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power3.out", immediateRender: false }, s[2]);
+        tl.fromTo(s[1], { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out", immediateRender: false }, s[2] + 0.15);
+      });
+      tl.fromTo("#seg-db", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power3.out", immediateRender: false }, 3.8);
+      tl.fromTo("#db", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.4)", immediateRender: false }, 3.85);
+      zaehlen("#n-db", 0, 6200, 4.0, 1.2, fmt);
+      tl.fromTo("#pill", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 4.9);
+
+      // Wechsel zu Szene 2
+      tl.fromTo(s1Teile.concat(["#balken"]), { opacity: 1, y: 0 }, { opacity: 0, y: -10, duration: 0.4, ease: "power2.in", stagger: 0.03, immediateRender: false }, 5.9);
+      tl.fromTo("#s2", { opacity: 0 }, { opacity: 1, duration: 0.01, ease: "none", immediateRender: false }, 6.25);
+      tl.fromTo(["#frage", "#r-umsatz", "#spur", "#r-marge"], { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out", stagger: 0.08, immediateRender: false }, 6.25);
+      tl.fromTo("#strich", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.inOut", immediateRender: false }, 6.6);
+      tl.fromTo("#r-gewinn", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: false }, 6.75);
+      // Spur 1 bis 5 Mio
+      var pos = function (m) { return (m - 1) / 4; };
+      tl.fromTo("#spur-voll", { scaleX: 0 }, { scaleX: pos(1.5), duration: 0.5, ease: "power2.out", immediateRender: false }, 6.5);
+      tl.fromTo("#spur-knopf", { x: 0 }, { x: 472 * pos(1.5), duration: 0.5, ease: "power2.out", immediateRender: false }, 6.5);
+      zaehlen("#n-gewinn", 0, 30000, 6.85, 1.0, function (v) { return "+" + fmt(v); });
+      [[1.5, 3, 30000, 60000, 8.0], [3, 5, 60000, 100000, 9.2]].forEach(function (s) {
+        zaehlen("#n-umsatz", s[0], s[1], s[4], 0.9, mio);
+        tl.fromTo("#spur-voll", { scaleX: pos(s[0]) }, { scaleX: pos(s[1]), duration: 0.9, ease: "power2.out", immediateRender: false }, s[4]);
+        tl.fromTo("#spur-knopf", { x: 472 * pos(s[0]) }, { x: 472 * pos(s[1]), duration: 0.9, ease: "power2.out", immediateRender: false }, s[4]);
+        zaehlen("#n-gewinn", s[2], s[3], s[4] + 0.1, 0.9, function (v) { return "+" + fmt(v); });
+      });
+      tl.fromTo("#n-gewinn", { scale: 1, transformOrigin: "100% 70%" }, { scale: 1.08, duration: 0.2, ease: "power2.out", yoyo: true, repeat: 1, immediateRender: false }, 10.1);
+
+      // Ausblenden: zurück zum Startbild
+      tl.fromTo("#s2", { opacity: 1 }, { opacity: 0, duration: 0.45, ease: "power2.in", immediateRender: false }, 11.2);
+      tl.fromTo("#balken", { opacity: 0, y: 0 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: false }, 11.5);
+      tl.fromTo(["#seg-mat", "#seg-lohn", "#seg-gk", "#seg-db"], { scaleX: 1 }, { scaleX: 0, duration: 0.01, ease: "none", immediateRender: false }, 11.45);
+      tl.fromTo(["#frage", "#r-umsatz", "#spur", "#r-marge", "#r-gewinn"], { opacity: 1 }, { opacity: 0, duration: 0.01, ease: "none", immediateRender: false }, 11.7);
+      tl.fromTo("#strich", { scaleX: 1 }, { scaleX: 0, duration: 0.01, ease: "none", immediateRender: false }, 11.7);
+      tl.fromTo(".trenn", { opacity: 1 }, { opacity: 1, duration: 0.01, ease: "none" }, 11.98);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["nachkalkulation"] = tl;
+    })();
+  </script>
+</div>
+</body>
+</html>

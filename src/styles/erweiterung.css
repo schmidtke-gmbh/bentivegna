@@ -493,3 +493,9 @@ p,li,.ans{text-wrap:pretty}
 .cmp2-card.feature .cmp2-logo{filter:none}
 .cmp2-card.feature .cmp2-list li{color:var(--ink);border-top-color:var(--line)}
 .cmp2-card.feature .ci2.ok{background:rgba(31,122,69,.09);color:#1f7a45;border-color:rgba(31,122,69,.32)}
+
+/* Entwicklung: HyperFrames-Filme in den Karten Nachkalkulation und Liquidität (30.10.2026) */
+.uz-film{margin:20px 0 2px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#fbfaf7;aspect-ratio:520/340;box-shadow:0 14px 30px rgba(39,51,101,.06)}
+.uz-film video{display:block;width:100%;height:100%;object-fit:cover}
+.uz-cell p{font-size:.95rem;margin-top:16px}
+@media(max-width:600px){.uz-film{margin-left:-12px;margin-right:-12px}}

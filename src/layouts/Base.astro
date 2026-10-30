@@ -15,6 +15,7 @@ import '../styles/erweiterung.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Brand from '../components/Brand.astro';
+import WaWidget from '../components/WaWidget.astro';
 import { u, E, absUrl, waLink } from '../lib/site';
 
 interface Props {
@@ -78,7 +79,8 @@ const matomo = E.tracking.matomo_url && E.tracking.matomo_site_id;
     <slot />
   </main>
   <Footer variante={footer} />
-  <a href={wa || '#whatsapp'} class="fab" target={wa ? '_blank' : undefined} rel="noopener" aria-label="Per WhatsApp schreiben" data-track="whatsapp_klick" title={wa ? undefined : 'WhatsApp-Nummer wird noch ergänzt'} onclick={wa ? undefined : 'return false'}><Brand name="whatsapp" class="wa" /> WhatsApp</a>
+  <button type="button" class="fab" aria-label="Chat per WhatsApp öffnen" aria-expanded="false" aria-controls="wa-fenster" data-wa-auf data-track="whatsapp_klick"><Brand name="whatsapp" class="wa" /> WhatsApp</button>
+  <WaWidget />
   <script>
     import '../scripts/site.ts';
   </script>

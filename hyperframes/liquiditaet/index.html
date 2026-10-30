@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Liquidität | Bentivegna Startseite (Schleife)</title>
+<!--
+  HyperFrames-Komposition für die Karte „Liquidität“ im Abschnitt „Deine Entwicklung mit uns“.
+  Gestaltet in 520 × 340, gerendert zweifach (1040 × 680). 30 fps, 12 s, nahtlose Schleife:
+  Kopfzeile, Umschalter und leere Achsen stehen am Anfang wie am Ende. Alle Werte sind Beispielwerte.
+
+  Ablauf
+  0,5 s   Kontostand ohne Steuerung zeichnet sich über 13 Wochen: Material, Löhne, Konto rutscht ins Minus
+  3,1 s   tiefster Stand −42.000 €, Fläche unter null wird sichtbar
+  4,9 s   Umschalter springt auf „Mit Abschlagsplan“, alte Linie tritt zurück
+  5,2 s   neue Linie mit Anzahlung und Abschlägen, bleibt über null
+  7,4 s   tiefster Stand +18.000 €
+  11,1 s  Linien und Markierungen blenden aus
+-->
+<style>
+  @font-face{font-family:"Source Sans 3";font-weight:400;src:url("assets/fonts/source-sans-3-latin-400-normal.woff2") format("woff2")}
+  @font-face{font-family:"Source Sans 3";font-weight:600;src:url("assets/fonts/source-sans-3-latin-600-normal.woff2") format("woff2")}
+  @font-face{font-family:"Source Sans 3";font-weight:700;src:url("assets/fonts/source-sans-3-latin-700-normal.woff2") format("woff2")}
+  @font-face{font-family:"Source Sans 3";font-weight:900;src:url("assets/fonts/source-sans-3-latin-900-normal.woff2") format("woff2")}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1040px;height:680px;overflow:hidden;background:#fbfaf7}
+  #root{position:relative;width:1040px;height:680px;overflow:hidden;background:#fbfaf7;font-family:"Source Sans 3",sans-serif;color:#273365;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+  #stage{position:absolute;left:0;top:0;width:520px;height:340px;zoom:2;overflow:hidden;background:#fbfaf7}
+
+  #kopf{position:absolute;left:24px;right:24px;top:16px;height:30px;display:flex;align-items:center;gap:10px}
+  #kopf .t{font-size:14px;font-weight:700}
+  #schalter{position:relative;margin-left:auto;display:flex;background:#efece4;border-radius:20px;padding:3px;font-size:12px;font-weight:700}
+  #schalter > span{position:relative;padding:4px 10px;color:#7f7566;white-space:nowrap}
+  #schalter .bg{position:absolute;inset:0;border-radius:20px;background:#fff;box-shadow:0 1px 3px rgba(39,51,101,.18)}
+  #schalter em{position:relative;font-style:normal}
+  #bg-b{opacity:0}
+  #opt-a{color:#273365}
+  .trenn{position:absolute;left:24px;right:24px;top:54px;height:1px;background:#e6e2d8}
+
+  #kpi{position:absolute;left:24px;top:62px;display:flex;align-items:baseline;gap:10px}
+  #kpi span{font-size:14px;color:#5d6273}
+  #kpi b{font-size:30px;font-weight:900;letter-spacing:-.02em;color:#b0563b}
+  #bsp{position:absolute;right:24px;top:72px;font-size:11px;font-weight:700;color:#7f7566;background:#efece4;border-radius:20px;padding:3px 9px}
+
+  svg#diagramm{position:absolute;left:0;top:0;width:520px;height:340px;overflow:visible}
+  .achse{stroke:#e2ded4;stroke-width:1}
+  .null{stroke:#9aa0ad;stroke-width:1;stroke-dasharray:3 3}
+  .wtxt{fill:#8a8e9b;font-size:10.5px;font-weight:600}
+  .ytxt{fill:#8a8e9b;font-size:10.5px;font-weight:600}
+  .chip{position:absolute;font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:12px;white-space:nowrap;transform:translate(-50%,0)}
+  .chip.raus{background:#f6e7e1;color:#9a4630}
+  .chip.rein{background:#e3e9f4;color:#273365}
+  .marke{position:absolute;transform:translate(-50%,-100%);font-size:13px;font-weight:900;padding:4px 9px;border-radius:8px;color:#fff;white-space:nowrap}
+  .marke::after{content:"";position:absolute;left:50%;bottom:-4px;margin-left:-4px;border:4px solid transparent;border-bottom:0;border-top-color:inherit}
+  #marke-a{background:#b0563b;border-color:#b0563b}
+  #marke-b{background:#273365;border-color:#273365}
+</style>
+<script src="assets/js/gsap.min.js"></script>
+</head>
+<body>
+<div id="root" data-composition-id="liquiditaet" data-start="0" data-duration="12" data-width="1040" data-height="680" data-fps="30">
+  <div id="stage" data-layout-allow-overflow data-layout-allow-overlap data-layout-ignore>
+    <div id="kopf"><span class="t">Kontostand der nächsten 13 Wochen</span>
+      <div id="schalter"><span id="opt-a"><i class="bg" id="bg-a"></i><em>Ohne Plan</em></span><span id="opt-b"><i class="bg" id="bg-b"></i><em>Mit Abschlagsplan</em></span></div>
+    </div>
+    <div class="trenn"></div>
+    <div id="kpi"><span>Tiefster Stand</span><b id="n-kpi">0 €</b></div>
+    <span id="bsp">Beispiel</span>
+
+    <svg id="diagramm" viewBox="0 0 520 340">
+      <defs><clipPath id="unter-null"><rect x="0" y="0" width="520" height="340" id="clip-rect"/></clipPath><linearGradient id="verlauf-b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#345c9a" stop-opacity=".2"/><stop offset="1" stop-color="#345c9a" stop-opacity="0"/></linearGradient></defs>
+      <g id="achsen"></g>
+      <g clip-path="url(#unter-null)"><path id="flaeche-a" d="" fill="#b0563b" fill-opacity=".16"/></g>
+      <path id="linie-a" d="" fill="none" stroke="#b0563b" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1 1"/>
+      <path id="flaeche-b" d="" fill="url(#verlauf-b)"/>
+      <path id="linie-b" d="" fill="none" stroke="#273365" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1 1"/>
+      <circle id="punkt-a" r="5" fill="#fff" stroke="#b0563b" stroke-width="2.5"/>
+      <circle id="punkt-b" r="5" fill="#fff" stroke="#273365" stroke-width="2.5"/>
+    </svg>
+
+    <span class="chip raus" id="ev-mat">Material</span>
+    <span class="chip raus" id="ev-lohn1">Löhne</span>
+    <span class="chip raus" id="ev-lohn2">Löhne</span>
+    <span class="chip rein" id="ev-schluss">Schlusszahlung</span>
+    <span class="chip rein" id="ev-anz">Anzahlung</span>
+    <span class="chip rein" id="ev-ab1">Abschlag</span>
+    <span class="chip rein" id="ev-ab2">Abschlag</span>
+    <span class="marke" id="marke-a">−42.000 €</span>
+    <span class="marke" id="marke-b">+18.000 €</span>
+  </div>
+
+  <script>
+    (function () {
+      // Beispielwerte in Tausend Euro, Woche 0 bis 13
+      var A = [20, 18, 2, -6, -20, -26, -34, -42, -38, -30, -28, 30, 32, 35];
+      var B = [20, 34, 22, 18, 26, 38, 32, 28, 40, 34, 30, 44, 46, 48];
+      var X0 = 52, X1 = 496, YO = 112, YU = 300, VMAX = 60, VMIN = -50;
+      var x = function (w) { return X0 + w * (X1 - X0) / 13; };
+      var y = function (v) { return YO + (VMAX - v) * (YU - YO) / (VMAX - VMIN); };
+      var NULLY = y(0);
+
+      // monotone kubische Kurve (kein Überschwingen bei Sprüngen)
+      function kurve(V) {
+        var P = V.map(function (v, i) { return [x(i), y(v)]; }), n = P.length, d = [], m = [];
+        for (var i = 0; i < n - 1; i++) d.push((P[i + 1][1] - P[i][1]) / (P[i + 1][0] - P[i][0]));
+        m[0] = d[0]; m[n - 1] = d[n - 2];
+        for (i = 1; i < n - 1; i++) m[i] = d[i - 1] * d[i] <= 0 ? 0 : (d[i - 1] + d[i]) / 2;
+        for (i = 0; i < n - 1; i++) { if (d[i] === 0) { m[i] = m[i + 1] = 0; continue; } var a = m[i] / d[i], b = m[i + 1] / d[i], s = a * a + b * b; if (s > 9) { var t = 3 / Math.sqrt(s); m[i] = t * a * d[i]; m[i + 1] = t * b * d[i]; } }
+        var s2 = "M" + P[0][0].toFixed(1) + " " + P[0][1].toFixed(1);
+        for (i = 0; i < n - 1; i++) { var h = (P[i + 1][0] - P[i][0]) / 3; s2 += " C" + (P[i][0] + h).toFixed(1) + " " + (P[i][1] + m[i] * h).toFixed(1) + " " + (P[i + 1][0] - h).toFixed(1) + " " + (P[i + 1][1] - m[i + 1] * h).toFixed(1) + " " + P[i + 1][0].toFixed(1) + " " + P[i + 1][1].toFixed(1); }
+        return s2;
+      }
+      var la = kurve(A), lb = kurve(B);
+      document.getElementById("linie-a").setAttribute("d", la);
+      document.getElementById("linie-b").setAttribute("d", lb);
+      document.getElementById("flaeche-a").setAttribute("d", la + " L" + x(13) + " " + NULLY + " L" + x(0) + " " + NULLY + " Z");
+      document.getElementById("flaeche-b").setAttribute("d", lb + " L" + x(13) + " " + YU + " L" + x(0) + " " + YU + " Z");
+      var cr = document.getElementById("clip-rect"); cr.setAttribute("y", NULLY); cr.setAttribute("height", 340 - NULLY);
+
+      // Achsen
+      var g = document.getElementById("achsen"), ns = "http://www.w3.org/2000/svg", html = "";
+      [40, 20, -20, -40].forEach(function (v) { html += '<line class="achse" x1="' + X0 + '" x2="' + X1 + '" y1="' + y(v) + '" y2="' + y(v) + '"/>'; });
+      html += '<line class="null" x1="' + X0 + '" x2="' + X1 + '" y1="' + NULLY + '" y2="' + NULLY + '"/>';
+      html += '<text class="ytxt" x="' + (X0 - 8) + '" y="' + (NULLY + 3.5) + '" text-anchor="end">0 €</text>';
+      [1, 4, 7, 10, 13].forEach(function (w) { html += '<text class="wtxt" x="' + x(w) + '" y="' + (YU + 18) + '" text-anchor="middle">Woche ' + w + '</text>'; });
+      g.innerHTML = html;
+
+      // Punkte und Beschriftungen positionieren
+      var setze = function (id, w, v, dy) { var el = document.getElementById(id); el.style.left = x(w) + "px"; el.style.top = (y(v) + dy) + "px"; };
+      setze("ev-mat", 2, 2, 12); setze("ev-lohn1", 4.2, -20, 12); setze("ev-lohn2", 9.6, -29, 14);
+      setze("ev-schluss", 11, 30, -30); setze("ev-anz", 1, 34, -30); setze("ev-ab1", 5, 38, -30); setze("ev-ab2", 8, 40, -30);
+      setze("marke-a", 7, -42, -10); setze("marke-b", 3, 18, -10);
+      var pa = document.getElementById("punkt-a"), pb = document.getElementById("punkt-b");
+      pa.setAttribute("cx", x(7)); pa.setAttribute("cy", y(-42)); pb.setAttribute("cx", x(3)); pb.setAttribute("cy", y(18));
+
+      var tl = gsap.timeline({ paused: true });
+      var euro = function (v) { var r = Math.round(v / 100) * 100; return (r < 0 ? "−" : r > 0 ? "+" : "") + Math.abs(r).toLocaleString("de-DE") + " €"; };
+      var kpi = document.getElementById("n-kpi");
+      function zaehlen(von, bis, t, dauer) {
+        var o = { v: von };
+        tl.fromTo(o, { v: von }, { v: bis, duration: dauer, ease: "power2.out", immediateRender: false, onUpdate: function () { kpi.textContent = euro(o.v); } }, t);
+      }
+      var chipsA = ["#ev-mat", "#ev-lohn1", "#ev-lohn2", "#ev-schluss"], chipsB = ["#ev-anz", "#ev-ab1", "#ev-ab2"];
+      var allesWeg = chipsA.concat(chipsB, ["#marke-a", "#marke-b", "#punkt-a", "#punkt-b", "#flaeche-a", "#flaeche-b", "#kpi"]);
+
+      // Startbild: nur Kopf, Umschalter und Achsen
+      tl.fromTo(allesWeg, { opacity: 0 }, { opacity: 0, duration: 0.01, ease: "none" }, 0);
+      tl.fromTo(["#linie-a", "#linie-b"], { strokeDashoffset: 1, opacity: 0 }, { strokeDashoffset: 1, opacity: 0, duration: 0.01, ease: "none" }, 0);
+      tl.fromTo("#linie-a", { opacity: 0 }, { opacity: 1, duration: 0.01, ease: "none", immediateRender: false }, 0.5);
+      tl.fromTo("#linie-b", { opacity: 0 }, { opacity: 1, duration: 0.01, ease: "none", immediateRender: false }, 5.2);
+      tl.fromTo("#bg-a", { opacity: 1 }, { opacity: 1, duration: 0.01, ease: "none" }, 0);
+      tl.fromTo("#bg-b", { opacity: 0 }, { opacity: 0, duration: 0.01, ease: "none" }, 0);
+      tl.fromTo("#kpi b", { color: "#b0563b" }, { color: "#b0563b", duration: 0.01, ease: "none" }, 0);
+      zaehlen(0, 0, 0, 0.01);
+
+      // Phase 1: ohne Plan
+      tl.fromTo("#kpi", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out", immediateRender: false }, 0.4);
+      tl.fromTo("#linie-a", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 2.6, ease: "power1.inOut", immediateRender: false }, 0.5);
+      tl.fromTo("#flaeche-a", { opacity: 0, clipPath: "inset(0 100% 0 0)" }, { opacity: 1, clipPath: "inset(0 0% 0 0)", duration: 2.6, ease: "power1.inOut", immediateRender: false }, 0.5);
+      [["#ev-mat", 0.85], ["#ev-lohn1", 1.25], ["#ev-lohn2", 2.05], ["#ev-schluss", 2.6]].forEach(function (c) {
+        tl.fromTo(c[0], { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(2)", immediateRender: false }, c[1]);
+      });
+      zaehlen(20000, -42000, 0.6, 1.9);
+      tl.fromTo("#punkt-a", { opacity: 0, scale: 0, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.5)", immediateRender: false }, 3.1);
+      tl.fromTo("#marke-a", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 3.15);
+
+      // Phase 2: mit Abschlagsplan
+      tl.fromTo("#bg-a", { opacity: 1, x: 0 }, { opacity: 0, x: 24, duration: 0.35, ease: "power2.inOut", immediateRender: false }, 4.9);
+      tl.fromTo("#bg-b", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.inOut", immediateRender: false }, 4.95);
+      tl.fromTo("#opt-a", { color: "#273365" }, { color: "#7f7566", duration: 0.3, ease: "none", immediateRender: false }, 4.95);
+      tl.fromTo("#opt-b", { color: "#7f7566" }, { color: "#273365", duration: 0.3, ease: "none", immediateRender: false }, 4.95);
+      tl.fromTo(["#linie-a"], { opacity: 1 }, { opacity: 0.28, duration: 0.5, ease: "power1.out", immediateRender: false }, 5.0);
+      tl.fromTo(["#flaeche-a", "#marke-a", "#punkt-a"].concat(chipsA), { opacity: 1 }, { opacity: 0, duration: 0.4, ease: "power1.out", immediateRender: false }, 5.0);
+      tl.fromTo("#linie-b", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 2.2, ease: "power1.inOut", immediateRender: false }, 5.2);
+      tl.fromTo("#flaeche-b", { opacity: 0, clipPath: "inset(0 100% 0 0)" }, { opacity: 1, clipPath: "inset(0 0% 0 0)", duration: 2.2, ease: "power1.inOut", immediateRender: false }, 5.2);
+      [["#ev-anz", 5.35], ["#ev-ab1", 6.0], ["#ev-ab2", 6.6]].forEach(function (c) {
+        tl.fromTo(c[0], { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(2)", immediateRender: false }, c[1]);
+      });
+      zaehlen(-42000, 18000, 5.6, 1.8);
+      tl.fromTo("#kpi b", { color: "#b0563b" }, { color: "#273365", duration: 0.6, ease: "none", immediateRender: false }, 6.2);
+      tl.fromTo("#punkt-b", { opacity: 0, scale: 0, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.5)", immediateRender: false }, 7.4);
+      tl.fromTo("#marke-b", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 7.45);
+
+      // Ausblenden und Umschalter zurück
+      tl.fromTo(["#linie-a", "#linie-b"], { opacity: function (i) { return i === 0 ? 0.28 : 1; } }, { opacity: 0, duration: 0.45, ease: "power2.in", immediateRender: false }, 11.1);
+      tl.fromTo(chipsB.concat(["#marke-b", "#punkt-b", "#flaeche-b", "#kpi"]), { opacity: 1 }, { opacity: 0, duration: 0.45, ease: "power2.in", immediateRender: false }, 11.1);
+      tl.fromTo("#bg-b", { opacity: 1, x: 0 }, { opacity: 0, x: -24, duration: 0.35, ease: "power2.inOut", immediateRender: false }, 11.3);
+      tl.fromTo("#bg-a", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.inOut", immediateRender: false }, 11.35);
+      tl.fromTo("#opt-a", { color: "#7f7566" }, { color: "#273365", duration: 0.3, ease: "none", immediateRender: false }, 11.35);
+      tl.fromTo("#opt-b", { color: "#273365" }, { color: "#7f7566", duration: 0.3, ease: "none", immediateRender: false }, 11.35);
+      tl.fromTo(["#linie-a", "#linie-b"], { strokeDashoffset: 0, opacity: 0 }, { strokeDashoffset: 1, opacity: 0, duration: 0.01, ease: "none", immediateRender: false }, 11.8);
+      tl.fromTo("#kpi b", { color: "#273365" }, { color: "#b0563b", duration: 0.01, ease: "none", immediateRender: false }, 11.8);
+      tl.fromTo(".trenn", { opacity: 1 }, { opacity: 1, duration: 0.01, ease: "none" }, 11.98);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["liquiditaet"] = tl;
+    })();
+  </script>
+</div>
+</body>
+</html>

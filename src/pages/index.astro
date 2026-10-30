@@ -429,12 +429,14 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
       <div class="uz-cell">
         <span class="uz-eyebrow"><Icon name="calculator" /> {ent.karte1_eyebrow}</span>
         <h3>{ent.karte1_titel}</h3>
+        <figure class="uz-film"><video src={u('/uploads/entwicklung/nachkalkulation.mp4')} poster={u('/uploads/entwicklung/nachkalkulation-ende.webp')} data-startbild={u('/uploads/entwicklung/nachkalkulation-start.webp')} muted loop playsinline preload="none" aria-label="Animierte Beispielrechnung: Deckungsbeitrag einer Baustelle und was 2 Prozentpunkte mehr Marge im Jahr bringen" data-film></video></figure>
         <p>{ent.karte1_text}</p>
         <div class="uz-chiprow">{ent.karte1_chips.map((c, i) => <span class="uz-pill"><em>{i === 0 ? '+' : '✓'}</em> {c}</span>)}</div>
       </div>
       <div class="uz-cell">
         <span class="uz-eyebrow"><Icon name="wallet" /> {ent.karte2_eyebrow}</span>
         <h3>{ent.karte2_titel}</h3>
+        <figure class="uz-film"><video src={u('/uploads/entwicklung/liquiditaet.mp4')} poster={u('/uploads/entwicklung/liquiditaet-ende.webp')} data-startbild={u('/uploads/entwicklung/liquiditaet-start.webp')} muted loop playsinline preload="none" aria-label="Animierter Beispielverlauf: Kontostand über 13 Wochen ohne und mit Abschlagsplan" data-film></video></figure>
         <p>{ent.karte2_text}</p>
         <div class="uz-chiprow">{ent.karte2_chips.map((c, i) => <span class="uz-pill"><em>{i === 0 ? '↑' : '✓'}</em> {c}</span>)}</div>
       </div>
@@ -735,6 +737,13 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
 <script>
   // WhatsApp-Handy: HyperFrames-Film im Bildschirm, läuft nur sichtbar und nicht bei reduzierter Bewegung.
   // Ohne Film (reduzierte Bewegung, Autoplay blockiert) bleibt der Chat aus dem CMS sichtbar.
+  // Entwicklung: zwei HyperFrames-Filme in den Karten. Bei reduzierter Bewegung bleibt das Schlussbild stehen.
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    const beobachter = new IntersectionObserver((eintraege) => {
+      eintraege.forEach((e) => { const v = e.target as HTMLVideoElement; if (e.isIntersecting) v.play().catch(() => {}); else v.pause(); });
+    }, { threshold: 0.35 });
+    document.querySelectorAll<HTMLVideoElement>('video[data-film]').forEach((v) => { if (v.dataset.startbild) v.poster = v.dataset.startbild; beobachter.observe(v); });
+  }
   const film = document.querySelector<HTMLVideoElement>('[data-wa-film]');
   if (film && !matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
     film.classList.add('an');

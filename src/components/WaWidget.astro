@@ -1,0 +1,127 @@
+---
+// Chat-Fenster hinter dem WhatsApp-Button (alle Seiten). Vorschau im Stil eines Superchat-Web-Widgets:
+// sendet nichts. Ist eine WhatsApp-Nummer hinterlegt, öffnet „Per WhatsApp senden“ WhatsApp mit der Nachricht.
+// Später ersetzt das Superchat-Skript dieses Fenster (dann diese Komponente in Base.astro entfernen).
+import Brand from './Brand.astro';
+import { u, E } from '../lib/site';
+
+const nummer = (E.whatsapp || '').replace(/[^0-9]/g, '');
+const themen = ['Kostenloses Analysegespräch', 'Frage zu meinen Zahlen', 'Bewerbung'];
+---
+<div class="waw" id="wa-fenster" role="dialog" aria-modal="false" aria-labelledby="waw-titel" hidden data-nummer={nummer}>
+  <div class="waw-kopf">
+    <span class="waw-av"><img src={u('/uploads/logos/schild.svg')} alt="" width="22" height="26"></span>
+    <div class="waw-wer">
+      <b id="waw-titel">Bentivegna</b>
+      <span><i class="waw-online"></i>Antwortet meist innerhalb von 24 Stunden</span>
+    </div>
+    <button type="button" class="waw-zu" aria-label="Chat schließen" data-wa-zu>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <div class="waw-verlauf">
+    <div class="waw-blase">Hallo, schön, dass du da bist. Schreib uns deine Frage, wir antworten dir direkt per WhatsApp.<small>Montag bis Freitag, {E.erreichbar || '9:00 bis 16:00 Uhr'}</small></div>
+    <div class="waw-blase waw-eigen" hidden data-waw-eigen></div>
+    <div class="waw-blase waw-danke" hidden data-waw-danke></div>
+  </div>
+
+  <form class="waw-form" data-waw-form novalidate>
+    <div class="waw-themen" role="group" aria-label="Worum geht es?">
+      {themen.map((t) => <button type="button" class="waw-thema" data-thema={t}>{t}</button>)}
+    </div>
+    <label class="waw-feld"><span class="sr-only">Deine Nachricht</span><textarea name="nachricht" rows="2" required placeholder="Deine Nachricht …"></textarea></label>
+    <div class="waw-zeile">
+      <label class="waw-feld"><span class="sr-only">Dein Name</span><input name="name" autocomplete="name" required placeholder="Dein Name"></label>
+      <label class="waw-feld"><span class="sr-only">Handynummer</span><input name="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="Handynummer" required></label>
+    </div>
+    <label class="waw-ok"><input type="checkbox" name="einwilligung" required> <span>Ich bin einverstanden, dass Bentivegna mich zu meiner Anfrage per WhatsApp kontaktiert. <a href={u('/datenschutz/')}>Datenschutz</a></span></label>
+    <p class="waw-fehler" role="alert" hidden data-waw-fehler>Bitte Name, Handynummer, Nachricht und Einverständnis ausfüllen.</p>
+    <button type="submit" class="waw-senden"><Brand name="whatsapp" class="" /> Per WhatsApp senden</button>
+  </form>
+  <p class="waw-fuss">Vorschau: Die Anbindung über Superchat folgt.</p>
+</div>
+
+<style is:global>
+  .waw{position:fixed;right:24px;bottom:96px;z-index:1001;width:370px;max-height:min(680px,calc(100dvh - 120px));display:flex;flex-direction:column;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 30px 70px rgba(20,29,58,.32),0 0 0 1px rgba(20,29,58,.06);transform-origin:calc(100% - 40px) calc(100% + 30px);animation:wawAuf .32s cubic-bezier(.2,.9,.3,1.15)}
+  .waw[hidden]{display:none}
+  @keyframes wawAuf{from{opacity:0;transform:translateY(14px) scale(.92)}to{opacity:1;transform:none}}
+  .waw-kopf{display:flex;align-items:center;gap:12px;padding:16px 14px 16px 16px;background:var(--navy);color:#fff}
+  .waw-av{width:42px;height:42px;border-radius:50%;background:#fff;display:grid;place-items:center;flex:0 0 auto;box-shadow:0 0 0 2px rgba(255,255,255,.25)}
+  .waw-wer{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.25}
+  .waw-wer b{font-size:1rem}
+  .waw-wer span{font-size:.78rem;color:rgba(255,255,255,.75);display:flex;align-items:center;gap:6px}
+  .waw-online{width:8px;height:8px;border-radius:50%;background:#25D366;box-shadow:0 0 0 3px rgba(37,211,102,.25);flex:0 0 auto}
+  .waw-zu{width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.1);color:#fff;display:grid;place-items:center;cursor:pointer;transition:background .2s}
+  .waw-zu:hover{background:rgba(255,255,255,.2)}
+  .waw-zu svg{width:16px;height:16px}
+  .waw-verlauf{flex:1 1 auto;min-height:70px;overflow:auto;padding:16px 14px 12px;display:flex;flex-direction:column;gap:8px;background:#efeae2 url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22%3E%3Ccircle cx=%222%22 cy=%222%22 r=%221%22 fill=%22%23d9d2c3%22/%3E%3C/svg%3E')}
+  .waw-blase{position:relative;align-self:flex-start;max-width:86%;background:#fff;border-radius:10px;border-top-left-radius:2px;padding:9px 12px 8px;font-size:.9rem;line-height:1.45;color:#111b21;box-shadow:0 1px 1px rgba(11,20,26,.12);animation:wawBlase .4s cubic-bezier(.2,.9,.3,1.2) both}
+  .waw-blase:nth-child(2){animation-delay:.35s}
+  .waw-blase small{display:block;margin-top:3px;font-size:.68rem;color:#667781}
+  .waw-blase.waw-eigen{align-self:flex-end;background:#d9fdd3;border-top-left-radius:10px;border-top-right-radius:2px;white-space:pre-wrap}
+  .waw-blase[hidden]{display:none}
+  @keyframes wawBlase{from{opacity:0;transform:translateY(8px) scale(.96)}to{opacity:1;transform:none}}
+  .waw-form{flex:none;padding:12px 14px 14px;display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line)}
+  .waw-form[hidden]{display:none}
+  .waw-themen{display:flex;gap:6px;flex-wrap:wrap}
+  .waw-thema{border:1px solid var(--line);background:var(--cream);color:var(--navy);font:600 .76rem var(--sans);padding:6px 10px;border-radius:30px;cursor:pointer;transition:background .2s,border-color .2s}
+  .waw-thema:hover,.waw-thema.an{background:#e7f8ee;border-color:#9fdcb6}
+  .waw-zeile{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .waw-feld{display:flex;flex-direction:column;gap:3px}
+  .waw-feld span{font-size:.72rem;font-weight:700;color:var(--muted)}
+  .waw-feld input,.waw-feld textarea{font:400 .9rem var(--sans);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:#fff;resize:none;width:100%;caret-color:#128C7E}
+  .waw-feld input:focus,.waw-feld textarea:focus{outline:2px solid #25D366;outline-offset:0;border-color:transparent}
+  .waw-ok{display:flex;gap:8px;align-items:flex-start;font-size:.72rem;line-height:1.4;color:var(--muted)}
+  .waw-ok input{margin-top:2px;accent-color:#128C7E;flex:0 0 auto}
+  .waw-ok a{color:var(--navy);text-decoration:underline;text-underline-offset:2px}
+  .waw-fehler{margin:0;font-size:.76rem;color:#b0563b}
+  .waw-fehler[hidden]{display:none}
+  .waw-senden{display:flex;align-items:center;justify-content:center;gap:9px;border:0;border-radius:12px;background:#25D366;color:#fff;font:700 .95rem var(--sans);padding:12px;cursor:pointer;box-shadow:0 10px 24px rgba(37,211,102,.32);transition:transform .2s,box-shadow .2s}
+  .waw-senden:hover{transform:translateY(-1px);box-shadow:0 14px 28px rgba(37,211,102,.42)}
+  .waw-senden svg{width:20px;height:20px}
+  .waw-fuss{margin:0;padding:7px 14px 9px;font-size:.68rem;color:var(--muted);text-align:center;background:#fafafa;border-top:1px solid var(--line)}
+  .fab[aria-expanded="true"]{box-shadow:0 0 0 4px rgba(37,211,102,.25),0 12px 30px rgba(37,211,102,.45)}
+  @media(max-width:560px){
+    .waw{left:10px;right:10px;bottom:84px;width:auto;max-height:calc(100dvh - 96px);border-radius:16px}
+  }
+  @media(prefers-reduced-motion:reduce){.waw,.waw-blase{animation:none}}
+</style>
+
+<script>
+  const fenster = document.getElementById('wa-fenster') as HTMLElement | null;
+  const fab = document.querySelector<HTMLElement>('[data-wa-auf]');
+  if (fenster && fab) {
+    const form = fenster.querySelector<HTMLFormElement>('[data-waw-form]')!;
+    const fehler = fenster.querySelector<HTMLElement>('[data-waw-fehler]')!;
+    const eigen = fenster.querySelector<HTMLElement>('[data-waw-eigen]')!;
+    const danke = fenster.querySelector<HTMLElement>('[data-waw-danke]')!;
+    const nummer = fenster.dataset.nummer || '';
+    const offen = () => !fenster.hidden;
+    const auf = () => { fenster.hidden = false; fab.setAttribute('aria-expanded', 'true'); setTimeout(() => form.querySelector<HTMLInputElement>('input[name="name"]')?.focus({ preventScroll: true }), 350); };
+    const zu = () => { fenster.hidden = true; fab.setAttribute('aria-expanded', 'false'); fab.focus({ preventScroll: true }); };
+    fab.addEventListener('click', (e) => { e.preventDefault(); offen() ? zu() : auf(); });
+    document.querySelectorAll<HTMLAnchorElement>('a[href="#whatsapp"]').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); auf(); }));
+    fenster.querySelector('[data-wa-zu]')?.addEventListener('click', zu);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && offen()) zu(); });
+    fenster.querySelectorAll<HTMLButtonElement>('.waw-thema').forEach((b) => b.addEventListener('click', () => {
+      fenster.querySelectorAll('.waw-thema').forEach((x) => x.classList.toggle('an', x === b));
+      const feld = form.elements.namedItem('nachricht') as HTMLTextAreaElement;
+      if (!feld.value.trim() || fenster.querySelector('.waw-thema.an') && [...fenster.querySelectorAll<HTMLElement>('.waw-thema')].some((x) => x.dataset.thema === feld.value.trim())) feld.value = b.dataset.thema || '';
+      feld.focus();
+    }));
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const d = new FormData(form);
+      const name = String(d.get('name') || '').trim(), tel = String(d.get('telefon') || '').trim(), text = String(d.get('nachricht') || '').trim();
+      if (!name || !tel || !text || !d.get('einwilligung')) { fehler.hidden = false; return; }
+      fehler.hidden = true;
+      if (nummer) { window.open(`https://wa.me/${nummer}?text=${encodeURIComponent(`${text}\n\n${name}`)}`, '_blank', 'noopener'); }
+      eigen.textContent = text; eigen.hidden = false;
+      danke.innerHTML = `Danke, ${name.replace(/[<>&]/g, '')}! Deine Nachricht ist angekommen. Wir melden uns per WhatsApp bei dir.<small>Bentivegna</small>`;
+      setTimeout(() => { danke.hidden = false; danke.scrollIntoView({ block: 'nearest' }); }, 700);
+      form.hidden = true;
+      (window as any).dataLayer?.push({ event: 'whatsapp_chat_absenden' });
+    });
+  }
+</script>

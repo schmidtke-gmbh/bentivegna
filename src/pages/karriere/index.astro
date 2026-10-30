@@ -81,17 +81,17 @@ const faqLd = {
         <span class="eyebrow">{K.mit_wem.eyebrow}</span>
         <h2 style="margin-top:16px;font-size:clamp(2rem,4vw,3rem)">{K.mit_wem.titel}</h2>
         <p>{K.mit_wem.text}</p>
+        <div class="mitwem-tiles">
+          {K.mit_wem.kacheln.map((k, i) => (
+            <div class={`mitwem-tile reveal d${i + 1}`}>
+              <span class="ico-box"><Icon name={k.icon} /></span>
+              <h3>{k.titel}</h3>
+              <p>{k.text}</p>
+            </div>
+          ))}
+        </div>
       </div>
       <div class="mitwem-media reveal d2"><img src={u(K.mit_wem.bild)} alt={K.mit_wem.bild_alt} loading="lazy"></div>
-    </div>
-    <div class="mitwem-tiles">
-      {K.mit_wem.kacheln.map((k, i) => (
-        <div class={`mitwem-tile reveal d${i + 1}`}>
-          <span class="ico-box"><Icon name={k.icon} /></span>
-          <h3>{k.titel}</h3>
-          <p>{k.text}</p>
-        </div>
-      ))}
     </div>
   </div>
 </section>
@@ -112,22 +112,57 @@ const faqLd = {
   </div>
 </section>
 
-<!-- EIN TAG BEI BENTIVEGNA -->
-<section class="section tag-sec">
+<!-- EIN TAG BEI BENTIVEGNA: beim Scrollen bleibt die Uhr stehen und läuft durch den Tag -->
+<section class="section tag-sec" data-tagscroll>
   <div class="wrap">
     <div class="section-head reveal" style="max-width:760px">
       <span class="eyebrow">{K.tag.eyebrow}</span>
       <h2 style="margin-top:16px">{K.tag.titel}</h2>
       <p>{K.tag.intro}</p>
     </div>
-    <div class="tag-line reveal d1">
-      {K.tag.stationen.map((s) => (
-        <div class="tag-stop">
-          <time>{s.zeit}</time>
-          <span class="ico-box"><Icon name={s.icon} /></span>
-          <p>{s.text}</p>
+    <div class="ts-grid">
+      <ol class="ts-list">
+        <span class="ts-schiene" aria-hidden="true"><span class="ts-fill"></span></span>
+        {K.tag.stationen.map((s, i) => (
+          <li class={`ts-step${i === 0 ? ' an' : ''}`} data-zeit={s.zeit}>
+            <time>{s.zeit}</time>
+            <div class="ts-inhalt"><span class="ico-box"><Icon name={s.icon} /></span><p>{s.text}</p></div>
+          </li>
+        ))}
+      </ol>
+      <div class="ts-rechts" aria-hidden="true">
+        <div class="ts-sticky">
+          <svg class="ts-uhr" viewBox="0 0 240 240">
+            <circle cx="120" cy="120" r="113" fill="none" stroke="rgba(204,196,175,.18)" stroke-width="1.5" />
+            <path class="ts-bogen" d="" fill="none" stroke="#ccc4af" stroke-width="3.2" stroke-linecap="round" />
+            <circle cx="120" cy="120" r="102" fill="rgba(255,255,255,.035)" stroke="rgba(255,255,255,.08)" />
+            {Array.from({ length: 60 }, (_, i) => {
+              const gross = i % 5 === 0;
+              const a = (i * 6 * Math.PI) / 180;
+              const r1 = gross ? 86 : 92, r2 = 98;
+              return <line x1={120 + r1 * Math.sin(a)} y1={120 - r1 * Math.cos(a)} x2={120 + r2 * Math.sin(a)} y2={120 - r2 * Math.cos(a)} stroke={gross ? '#ccc4af' : 'rgba(255,255,255,.22)'} stroke-width={gross ? 2.2 : 1} stroke-linecap="round" />;
+            })}
+            {[['12', 0], ['3', 90], ['6', 180], ['9', 270]].map(([z, w]) => {
+              const a = ((w as number) * Math.PI) / 180;
+              return <text x={120 + 72 * Math.sin(a)} y={120 - 72 * Math.cos(a) + 6} text-anchor="middle" class="ts-ziffer">{z}</text>;
+            })}
+            {K.tag.stationen.map((s) => {
+              const [h, m] = s.zeit.split(':').map(Number);
+              const a = ((((h % 12) + m / 60) * 30) * Math.PI) / 180;
+              return <circle class="ts-punkt" cx={120 + 113 * Math.sin(a)} cy={120 - 113 * Math.cos(a)} r="4.2" />;
+            })}
+            <text x="120" y="96" text-anchor="middle" class="ts-marke">BENTIVEGNA</text>
+            <text x="120" y="160" text-anchor="middle" class="ts-ort">Überlingen</text>
+            <g class="ts-std"><line x1="120" y1="132" x2="120" y2="66" stroke="#ccc4af" stroke-width="6.5" stroke-linecap="round" /></g>
+            <g class="ts-min"><line x1="120" y1="138" x2="120" y2="36" stroke="#fff" stroke-width="3.6" stroke-linecap="round" /></g>
+            <circle cx="120" cy="120" r="7" fill="#998a6d" /><circle cx="120" cy="120" r="2.6" fill="#273365" />
+          </svg>
+          <div class="ts-anzeige">
+            <span class="ts-digital">{K.tag.stationen[0].zeit}</span>
+            <span class="ts-label">{K.tag.stationen[0].text}</span>
+          </div>
         </div>
-      ))}
+      </div>
     </div>
   </div>
 </section>
@@ -354,6 +389,54 @@ const faqLd = {
 
 </Base>
 
+<script>
+  // Ein Tag bei Bentivegna: Uhrzeit folgt dem Scrollen zwischen den Stationen (Zeiger, Bogen, Digitalanzeige)
+  const ts = document.querySelector<HTMLElement>('[data-tagscroll]');
+  if (ts) {
+    const schritte = [...ts.querySelectorAll<HTMLElement>('.ts-step')];
+    const zeiten = schritte.map((s) => { const [h, m] = (s.dataset.zeit || '0:0').split(':').map(Number); return h * 60 + m; });
+    const std = ts.querySelector('.ts-std'), min = ts.querySelector('.ts-min'), bogen = ts.querySelector('.ts-bogen');
+    const digital = ts.querySelector<HTMLElement>('.ts-digital'), label = ts.querySelector<HTMLElement>('.ts-label');
+    const fill = ts.querySelector<HTMLElement>('.ts-fill');
+    const punkte = [...ts.querySelectorAll('.ts-punkt')];
+    const ruhig = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const start = zeiten[0], ende = zeiten[zeiten.length - 1];
+    const punkt = (grad: number, r: number) => { const a = (grad * Math.PI) / 180; return [120 + r * Math.sin(a), 120 - r * Math.cos(a)]; };
+    let aktiv = -1, warte = false;
+    const zeichnen = () => {
+      warte = false;
+      const mitte = innerHeight * 0.52;
+      const pos = schritte.map((s) => { const r = s.getBoundingClientRect(); return r.top + 24; });
+      let k = 0;
+      while (k < pos.length - 1 && pos[k + 1] <= mitte) k++;
+      let t = zeiten[0];
+      if (mitte > pos[0]) {
+        if (k >= pos.length - 1) t = ende;
+        else t = ruhig ? zeiten[k] : zeiten[k] + (zeiten[k + 1] - zeiten[k]) * Math.min(1, (mitte - pos[k]) / (pos[k + 1] - pos[k]));
+      }
+      const neu = mitte > pos[0] ? k : 0;
+      std?.setAttribute('transform', `rotate(${(t * 0.5) % 360} 120 120)`);
+      min?.setAttribute('transform', `rotate(${(t * 6) % 360} 120 120)`);
+      const a0 = (start * 0.5) % 360, a1 = a0 + (t - start) * 0.5;
+      if (bogen) {
+        if (t - start < 1) bogen.setAttribute('d', '');
+        else { const [x0, y0] = punkt(a0, 113), [x1, y1] = punkt(a1, 113); bogen.setAttribute('d', `M${x0} ${y0} A113 113 0 ${a1 - a0 > 180 ? 1 : 0} 1 ${x1} ${y1}`); }
+      }
+      const gerundet = Math.round(t / 5) * 5;
+      if (digital) digital.textContent = `${Math.floor(gerundet / 60)}:${String(gerundet % 60).padStart(2, '0')}`;
+      if (fill) fill.style.transform = `scaleY(${(t - start) / (ende - start)})`;
+      if (neu !== aktiv) {
+        aktiv = neu;
+        schritte.forEach((s, i) => s.classList.toggle('an', i === aktiv));
+        punkte.forEach((p, i) => p.classList.toggle('an', i <= aktiv));
+        if (label) { label.classList.remove('neu'); void label.offsetWidth; label.textContent = schritte[aktiv].querySelector('p')?.textContent || ''; label.classList.add('neu'); }
+      }
+    };
+    addEventListener('scroll', () => { if (!warte) { warte = true; requestAnimationFrame(zeichnen); } }, { passive: true });
+    addEventListener('resize', zeichnen);
+    zeichnen();
+  }
+</script>
 <script>
   // Stellen-Akkordeon
   document.querySelectorAll<HTMLButtonElement>('.job-head').forEach((h) => h.addEventListener('click', () => {
