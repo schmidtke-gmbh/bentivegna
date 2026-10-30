@@ -1,0 +1,15 @@
+---
+import Base from '../../layouts/Base.astro';
+import F from '../../data/funnel.json';
+import { u } from '../../lib/site';
+---
+<Base titel="Danke für deine Anfrage | Bentivegna" beschreibung="Deine Anfrage ist angekommen." noindex>
+  <section class="page-head" style="min-height:70vh">
+    <div class="wrap">
+      <span class="eyebrow">Anfrage</span>
+      <h1 style="margin-top:16px">{F.danke.titel}</h1>
+      <p class="lead">{F.danke.text}</p>
+      <p style="margin-top:30px"><a href={u('/')} class="btn btn--gold">Zur Startseite <span class="arr"></span></a></p>
+    </div>
+  </section>
+</Base>

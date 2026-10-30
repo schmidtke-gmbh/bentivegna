@@ -1,0 +1,36 @@
+{
+  "firma": "Bentivegna Unternehmerberatung & Steuerstrategie",
+  "claim": "Unternehmerberatung & Steuerstrategie",
+  "strasse": "Krummebergstraße 1",
+  "plz_ort": "88662 Überlingen",
+  "telefon": "+49 7551 8411 0",
+  "erreichbar": "9:00 bis 16:00 Uhr",
+  "email": "info@bentivegna.de",
+  "whatsapp": "",
+  "youtube": "https://www.youtube.com/channel/UC3EWTVvsQsLxDs94vO5GWdg",
+  "youtube_titel": "Steueroptimierung für Unternehmer",
+  "steuerstrategie_url": "https://www.steuergestaltung-bodensee.de/steuerstrategie",
+  "bewertungen": {
+    "trustpilot_aktiv": false,
+    "trustpilot_wert": "",
+    "trustpilot_anzahl": "",
+    "trustpilot_url": "",
+    "google_aktiv": false,
+    "google_wert": "",
+    "google_anzahl": "",
+    "google_url": ""
+  },
+  "karriere": {
+    "kontakt_name": "Christine Hanss",
+    "kontakt_email": "",
+    "kontakt_telefon": "+49 7551 8411 0",
+    "whatsapp": ""
+  },
+  "tracking": {
+    "matomo_url": "",
+    "matomo_site_id": ""
+  },
+  "seo": {
+    "standard_bild": "/uploads/og-bentivegna.jpg"
+  }
+}

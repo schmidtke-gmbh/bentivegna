@@ -1,0 +1,53 @@
+---
+import Icon from './Icon.astro';
+import { u, E } from '../lib/site';
+interface Props { aktiv?: string; cta?: { text: string; href: string } }
+const { aktiv = '', cta = { text: 'Termin vereinbaren', href: u('/anfrage/') } } = Astro.props;
+const links = [
+  { t: 'Leistungen', h: u('/#leistungen'), k: 'leistungen' },
+  { t: 'Methode', h: u('/#system'), k: 'methode' },
+  { t: 'Referenzen', h: u('/#referenzen'), k: 'referenzen' },
+  { t: 'Vorteile', h: u('/#vorteile'), k: 'vorteile' },
+  { t: 'Über uns', h: u('/#team'), k: 'ueber-uns' }
+];
+const wissen = [
+  { t: 'Der Chef auf der Baustelle', s: 'Die Buchreihe, jede Woche ein neuer Teil', h: u('/der-chef-auf-der-baustelle/'), i: 'book-open' },
+  { t: 'Selbstcheck „Sechs Baustellen“', s: 'Wo steht dein Betrieb wirklich?', h: u('/der-chef-auf-der-baustelle/selbstcheck/'), i: 'list-checks' },
+  { t: 'Hilfe-Center für Mandanten', s: 'Anleitungen zu DATEV & Co.', h: u('/hilfe-center/'), i: 'circle-help' }
+];
+---
+<div id="progress"></div>
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href={u('/')} class="nav-brand" aria-label="Bentivegna Unternehmerberatung & Steuerstrategie, zur Startseite">
+      <img class="nav-logo voll" src={u('/uploads/logos/logo-quer.svg')} alt="Bentivegna Unternehmerberatung & Steuerstrategie" width="313" height="60">
+      <img class="nav-logo kurz" src={u('/uploads/logos/logo-quer-ohne-claim.svg')} alt="Bentivegna" width="230" height="44">
+    </a>
+    <nav aria-label="Hauptnavigation">
+      <ul class="nav-links">
+        {links.map((l) => <li><a href={l.h} aria-current={aktiv === l.k ? 'page' : undefined}>{l.t}</a></li>)}
+        <li class="nav-drop">
+          <button type="button" aria-haspopup="true">Wissen <Icon name="chevron-down" /></button>
+          <div class="nav-drop-menu">
+            {wissen.map((w) => (
+              <a href={w.h}><span class="ico-box"><Icon name={w.i} /></span><span><b>{w.t}</b><small>{w.s}</small></span></a>
+            ))}
+          </div>
+        </li>
+        <li><a href={u('/karriere/')} class="nav-karriere" aria-current={aktiv === 'karriere' ? 'page' : undefined}>Karriere</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a href={cta.href} class="btn btn--gold">{cta.text} <span class="arr"></span></a>
+      <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="mobile-overlay" id="mOverlay"></div>
+<aside class="mobile-menu" id="mMenu" aria-label="Mobiles Menü">
+  {links.map((l) => <a href={l.h}>{l.t}</a>)}
+  <span class="mm-label">Wissen</span>
+  <div class="mm-sub">{wissen.map((w) => <a href={w.h}>{w.t}</a>)}</div>
+  <a href={u('/karriere/')} class="nav-karriere">Karriere</a>
+  <a href={cta.href} class="btn btn--gold">{cta.text} <span class="arr"></span></a>
+</aside>

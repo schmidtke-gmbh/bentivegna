@@ -1,0 +1,127 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import Brand from '../../components/Brand.astro';
+import ArtikelBild from '../../components/ArtikelBild.astro';
+import R from '../../data/buchreihe.json';
+import { u, E, absUrl, md, mdBlock, istVeroeffentlicht, lesezeit, datumDE } from '../../lib/site';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const alle = (await getCollection('artikel')).filter((a) => istVeroeffentlicht(a.data)).sort((a, b) => a.data.teil - b.data.teil);
+  const kapitel = await getCollection('kapitel');
+  return alle.map((a, i) => ({
+    params: { slug: a.id },
+    props: { a, vor: alle[i - 1] || null, nach: alle[i + 1] || null, kap: kapitel.find((k) => k.id === a.data.kapitel) || null }
+  }));
+}
+const { a, vor, nach, kap } = Astro.props;
+const d = a.data;
+const pfad = `/der-chef-auf-der-baustelle/${a.id}/`;
+const url = absUrl(pfad);
+const minuten = d.lesezeit || lesezeit(a.body);
+const kapName = kap ? `Kapitel ${kap.data.nummer} · ${kap.data.titel}` : '';
+
+// Text an der letzten Zwischenüberschrift teilen, damit die Aufgabe vor dem Ausblick steht
+const body = a.body || '';
+let teilA = body, teilB = '';
+if (d.aufgabe && d.aufgabe_vor_ausblick) {
+  const idx = body.lastIndexOf('\n## ');
+  if (idx > 0) { teilA = body.slice(0, idx); teilB = body.slice(idx); }
+}
+const teilen = {
+  linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+  whatsapp: `https://wa.me/?text=${encodeURIComponent(d.titel + ' ' + url)}`,
+  facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`
+};
+const ld = [
+  {
+    '@context': 'https://schema.org', '@type': 'Article',
+    headline: d.titel, description: d.meta_beschreibung || d.lead,
+    image: d.bild ? absUrl(d.bild) : absUrl(E.seo.standard_bild),
+    datePublished: new Date(d.datum).toISOString(), dateModified: new Date(d.datum).toISOString(),
+    author: { '@type': 'Person', name: R.autor.name, jobTitle: 'Steuerberater, Fachberater für Unternehmensnachfolge (DStV e. V.)', url: absUrl('/#ueber-uns') },
+    publisher: { '@type': 'Organization', name: E.firma, logo: { '@type': 'ImageObject', url: absUrl('/uploads/logos/logo-hoch.svg') } },
+    mainEntityOfPage: url, isPartOf: { '@type': 'CreativeWorkSeries', name: R.titel }, position: d.teil,
+    keywords: d.suchbegriff || undefined
+  },
+  {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Startseite', item: absUrl('/') },
+      { '@type': 'ListItem', position: 2, name: R.titel, item: absUrl('/der-chef-auf-der-baustelle/') },
+      { '@type': 'ListItem', position: 3, name: `Teil ${d.teil}: ${d.titel}`, item: url }
+    ]
+  }
+];
+---
+<Base titel={d.meta_titel || `${d.titel} | ${R.titel}`} beschreibung={d.meta_beschreibung || d.lead} pfad={pfad} bild={d.bild || undefined} ogType="article" jsonld={ld}>
+  <article class="artikel">
+    <header class="page-head art-head">
+      <div class="wrap art-wrap">
+        <nav class="crumbs" aria-label="Brotkrumen"><a href={u('/der-chef-auf-der-baustelle/')}>Der Chef auf der Baustelle</a> <Icon name="chevron-right" /> <span>Teil {d.teil}</span></nav>
+        <span class="chef-badge"><span class="r">Der Chef auf der Baustelle</span><span class="t">Teil {d.teil}</span></span>
+        {kapName && <span class="art-kap">{kapName}</span>}
+        <h1>{d.titel}</h1>
+        <p class="art-meta">Von {R.autor.name} · Lesezeit {minuten} Minuten · {datumDE(d.datum)}</p>
+        {d.lead && <p class="lead art-lead">{d.lead}</p>}
+      </div>
+    </header>
+
+    <div class="wrap art-wrap">
+      <figure class="art-figur"><ArtikelBild bild={d.bild} alt={d.bild_alt} teil={d.teil} titel={d.titel} kapitel={kapName} eager /></figure>
+
+      {R.audio_aktiv && d.audio && (
+        <div class="art-audio">
+          <span class="ico-box"><Icon name="headphones" /></span>
+          <div><b>Diesen Teil anhören</b><audio controls preload="none" src={u(d.audio)}></audio></div>
+        </div>
+      )}
+
+      <div class="prose art-text" set:html={mdBlock(teilA)} />
+
+      {d.aufgabe && (
+        <aside class="aufgabe" aria-label="Deine Aufgabe für diese Woche">
+          <span class="aufgabe-kopf"><Icon name="target" /> Deine Aufgabe für diese Woche</span>
+          <p set:html={md(d.aufgabe)} />
+        </aside>
+      )}
+
+      {teilB && <div class="prose art-text" set:html={mdBlock(teilB)} />}
+
+      <div class="teilen">
+        <span>Teilen:</span>
+        <a href={teilen.linkedin} target="_blank" rel="noopener" aria-label="Auf LinkedIn teilen" data-track="teilen_linkedin"><Brand name="linkedin" class="" /></a>
+        <a href={teilen.whatsapp} target="_blank" rel="noopener" aria-label="Per WhatsApp teilen" data-track="teilen_whatsapp"><Brand name="whatsapp" class="" /></a>
+        <a href={teilen.facebook} target="_blank" rel="noopener" aria-label="Auf Facebook teilen" data-track="teilen_facebook"><Brand name="facebook" class="" /></a>
+      </div>
+
+      <section class="abschluss">
+        <img class="wm" src={u('/uploads/logos/schild-mono.svg')} alt="" aria-hidden="true">
+        <h2>{R.abschluss.titel}</h2>
+        <p>{R.abschluss.text}</p>
+        <div class="hero-cta">
+          <a href={u('/der-chef-auf-der-baustelle/selbstcheck/')} class="btn btn--light" data-track="artikel_selbstcheck">{R.abschluss.selbstcheck_link} <span class="arr"></span></a>
+          <a href={u('/anfrage/')} class="btn btn--gold" data-track="artikel_analysegespraech">{R.abschluss.button} <span class="arr"></span></a>
+        </div>
+      </section>
+
+      {R.newsletter_aktiv && (
+        <section class="newsletter">
+          <h2>{R.newsletter_titel}</h2>
+          <p>{R.newsletter_text}</p>
+          <p class="hinweis-box">Platzhalter: Hier wird das Anmeldeformular des E-Mail-Dienstes eingebunden.</p>
+        </section>
+      )}
+
+      <nav class="teil-nav" aria-label="Weitere Teile">
+        {vor ? <a class="vor" href={u(`/der-chef-auf-der-baustelle/${vor.id}/`)}><small><Icon name="chevron-left" /> Vorheriger Teil</small><b>Teil {vor.data.teil}: {vor.data.titel}</b></a> : <span></span>}
+        {nach ? <a class="nach" href={u(`/der-chef-auf-der-baustelle/${nach.id}/`)}><small>Nächster Teil <Icon name="chevron-right" /></small><b>Teil {nach.data.teil}: {nach.data.titel}</b></a> : <span class="nach bald"><small>Nächster Teil</small><b>erscheint in Kürze</b></span>}
+      </nav>
+
+      <aside class="autor">
+        <img src={u(R.autor.bild)} alt={R.autor.name} loading="lazy" width="96" height="96">
+        <div><b>{R.autor.name}</b><p>{R.autor.text}</p><a href={u('/#ueber-uns')}>Mehr über Domenico Bentivegna</a></div>
+      </aside>
+    </div>
+  </article>
+</Base>

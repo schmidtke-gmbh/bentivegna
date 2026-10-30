@@ -1,0 +1,26 @@
+{
+  "seo": {
+    "titel": "Der Chef auf der Baustelle | Buchreihe von Domenico Bentivegna",
+    "beschreibung": "Das Buch für SHK-Unternehmer, Teil für Teil online: Gewinn, Kalkulation, Liquidität, Führung und Struktur. Jede Woche ein neuer Teil mit konkreter Aufgabe."
+  },
+  "eyebrow": "Wissen für SHK-Unternehmer",
+  "titel": "Der Chef auf der Baustelle",
+  "untertitel": "Das Buch von Domenico Bentivegna, Teil für Teil.",
+  "einleitung": "Domenico Bentivegna schreibt ein Buch für SHK-Unternehmer, die mehr wollen als volle Auftragsbücher. Hier erscheint es Kapitel für Kapitel: jede Woche ein neuer Teil, jeweils mit einer konkreten Aufgabe für deinen Betrieb. Lies von vorne, die Reihenfolge ist Absicht.",
+  "bild": "/uploads/domenico-profil.jpg",
+  "autor": {
+    "name": "Domenico Bentivegna",
+    "bild": "/uploads/domenico-portrait.jpg",
+    "text": "Domenico Bentivegna ist Steuerberater und Fachberater für Unternehmensnachfolge (DStV e. V.). Seit über 20 Jahren begleitet er Unternehmer, heute mit seiner Kanzlei ausschließlich SHK-Betriebe ab 1 Mio. € Umsatz."
+  },
+  "abschluss": {
+    "titel": "Wo steht dein Betrieb wirklich?",
+    "text": "Sechs Baustellen, eine Zahl von 1 bis 10. Der Selbstcheck zeigt dir in fünf Minuten, wo du anfangen solltest. Und wenn du darüber sprechen willst: Im kostenlosen Analysegespräch klären wir, ob wir dir helfen können.",
+    "selbstcheck_link": "Selbstcheck online ausfüllen",
+    "button": "Analysegespräch anfragen"
+  },
+  "audio_aktiv": false,
+  "newsletter_aktiv": false,
+  "newsletter_titel": "Reihe per E-Mail erhalten",
+  "newsletter_text": "Jeden neuen Teil direkt in dein Postfach. Kein Spam, jederzeit abbestellbar."
+}

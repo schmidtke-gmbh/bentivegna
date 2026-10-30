@@ -1,0 +1,470 @@
+{
+  "seo": {
+    "titel": "Karriere bei Bentivegna | Steuergestalter statt Steuerverwalter",
+    "beschreibung": "Steuergestalter statt Steuerverwalter: Karriere in einer modernen Unternehmerkanzlei in Überlingen am Bodensee. Digital, strukturiert, mit 3.000 bis 5.000 € Weiterbildungsbudget und echter Beratung."
+  },
+  "hero": {
+    "eyebrow": "Wir stellen ein · Überlingen am Bodensee",
+    "zeile1": "WIR SUCHEN STEUERGESTALTER.",
+    "zeile2": "KEINE VERWALTER.",
+    "subline": "Bei Bentivegna arbeitest du mit Unternehmern, die Beratung wollen: an Struktur, Holding, Vermögen und Nachfolge. Digital, auf Augenhöhe, mit echter Verantwortung. Nicht für jeden. Vielleicht für dich.",
+    "button_primaer": "Zu den offenen Stellen",
+    "button_sekundaer": "Initiativ bewerben",
+    "bild": "/uploads/karriere-hero-bodensee.jpg",
+    "bild_alt": "Das Team von Bentivegna am Bodensee",
+    "team_bild": "/uploads/team-komplett.webp",
+    "team_bild_alt": "Das Team von Bentivegna mit Domenico Bentivegna in der Mitte",
+    "stil": "hell",
+    "kennzahlen": [
+      {
+        "wert": "2014",
+        "label": "gegründet"
+      },
+      {
+        "wert": "12",
+        "label": "im Team"
+      },
+      {
+        "wert": "100 %",
+        "label": "Unternehmer-Mandate"
+      }
+    ]
+  },
+  "willkommen": {
+    "eyebrow": "Willkommen",
+    "titel": "Schön, dass du da bist.",
+    "zitat": "„Uns ist wichtig, dass du schon vor unserem ersten Gespräch ein ehrliches Gefühl für unsere Arbeitsweise, unser Team und unseren Anspruch bekommst.“",
+    "absaetze": [
+      "Wir sind bewusst keine klassische Steuerkanzlei, sondern eine moderne Unternehmerkanzlei mit echter Beratung, klaren Strukturen und hohem Qualitätsanspruch. Gute Zusammenarbeit beginnt mit gegenseitigem Verständnis und einem guten Gefühl auf beiden Seiten.",
+      "Unser Team ist das Herzstück unserer Kanzlei. Vielleicht bist schon bald auch du ein Teil davon."
+    ],
+    "schlusssatz": "Ich freue mich darauf, dich persönlich kennenzulernen.",
+    "name": "Domenico Bentivegna",
+    "rolle": "Gründer",
+    "bild": "/uploads/karriere-willkommen-domenico.jpg",
+    "bild_alt": "Domenico Bentivegna, Gründer der Kanzlei",
+    "unterschrift": "/uploads/unterschrift-domenico.png"
+  },
+  "wer_wir_sind": {
+    "eyebrow": "Wer wir sind",
+    "titel": "Beratung statt Verwaltung.",
+    "absaetze": [
+      "Unsere Kanzlei wurde 2014 mit einer klaren Idee gegründet: Steuerberatung neu zu denken. Nicht als reine Deklarations- und Verwaltungskanzlei, sondern als moderne Unternehmerberatung mit echter Beratung, klaren Prozessen und einem hohen Qualitätsanspruch.",
+      "Heute betreuen wir mit einem Team von 12 Mitarbeitern ausschließlich Unternehmer: mit Beratungs- und Wachstumsanspruch, Holdingstrukturen, Immobilien, Vermögensaufbau und Nachfolgethemen. Bewusst keine reinen Deklarations- oder Kleinmandate. Unsere Beratung reicht von Steuergestaltung und Controlling bis zu strategischer Unternehmensbegleitung."
+    ],
+    "zeitleiste": [
+      "2014 gegründet",
+      "heute 12 Mitarbeiter",
+      "Fokus Unternehmerberatung"
+    ],
+    "bloecke": [
+      {
+        "titel": "Qualität statt Masse",
+        "text": "Wir betreuen bewusst eine überschaubare Zahl an Mandaten: intensiv, persönlich und mit Premiumanspruch. Das gibt uns den Raum, aktiv und vorausschauend zu beraten, statt nur vergangene Zahlen zu verwalten."
+      },
+      {
+        "titel": "Unser Anspruch, auch nach innen",
+        "text": "Wir wollen eine Kanzlei sein, auf die man stolz ist. Mit Anspruch, Teamgeist, modernen Strukturen und Menschen, die gemeinsam etwas aufbauen möchten."
+      }
+    ],
+    "bild": "/uploads/karriere-wer-wir-sind.jpg",
+    "bild_alt": "Mitarbeiterin der Kanzlei Bentivegna im Telefonat mit einem Mandanten"
+  },
+  "mit_wem": {
+    "eyebrow": "Mit wem du arbeitest",
+    "titel": "Mandanten, die du dir wünschst.",
+    "text": "Wir nehmen nicht jeden Mandanten an. Jede Anfrage durchläuft eine Vorselektion und ein Analysegespräch, bevor daraus ein Mandat wird. Bei uns bleiben Unternehmer, die digital arbeiten, ihre Unterlagen verlässlich liefern, echte Beratung wollen und uns auf Augenhöhe begegnen. Wer Chaos produziert, alles auf den letzten Drücker schickt oder nur die billigste Steuererklärung sucht, wird bei uns nicht Mandant. Deshalb bleibt bei uns Zeit für das, was zählt.",
+    "kacheln": [
+      {
+        "icon": "laptop",
+        "titel": "Keine Zettelwirtschaft",
+        "text": "Alle Mandanten arbeiten digital. Belege kommen über DATEV Unternehmen online, nicht im Schuhkarton."
+      },
+      {
+        "icon": "handshake",
+        "titel": "Respekt in beide Richtungen",
+        "text": "Wir behandeln unsere Mandanten mit Respekt und erwarten dasselbe. Wer das nicht kann, passt nicht zu uns, egal wie groß der Umsatz ist."
+      },
+      {
+        "icon": "layers",
+        "titel": "Echte Themen",
+        "text": "Holding, Umwandlung, Immobilien, Nachfolge, Controlling. Beratung, an der du wächst, statt Massendeklaration."
+      }
+    ],
+    "bild": "/uploads/karriere-mit-wem.jpg",
+    "bild_alt": "Beratungsgespräch mit einem Unternehmer"
+  },
+  "werte": {
+    "eyebrow": "Unsere Werte",
+    "titel": "Wofür wir stehen und wie wir uns verhalten.",
+    "intro": "Unsere Werte geben dir Orientierung, wie wir zusammenarbeiten, Entscheidungen treffen und Verantwortung übernehmen. Wir handeln nach den gleichen Maßstäben: klar, respektvoll und mit dem Anspruch, gemeinsam besser zu werden.",
+    "liste": [
+      {
+        "titel": "Wir setzen auf Qualität",
+        "text": "Qualität statt Masse. Wir betreuen bewusst wenige Mandate, dafür intensiv, persönlich und mit **Premiumanspruch**. So bleibt Zeit für echte Beratung.",
+        "bild": "/uploads/werte-qualitaet.jpg"
+      },
+      {
+        "titel": "Wir lieben Struktur",
+        "text": "Struktur schlägt Chaos. Klare Prozesse, digitale Leitfäden und planbare Kapazitäten. Du arbeitest **eigenständig**, aber nie allein.",
+        "bild": "/uploads/werte-struktur.jpg"
+      },
+      {
+        "titel": "Wir halten zusammen",
+        "text": "Miteinander, nicht gegeneinander. Gegenseitige Unterstützung, ehrliches Feedback und **echter Teamgeist**. Erfolge entstehen bei uns gemeinsam.",
+        "bild": "/uploads/werte-zusammen.jpg"
+      },
+      {
+        "titel": "Wir bleiben modern",
+        "text": "Digital ist kein Projekt, sondern der Standard. Papierlos, cloudbasiert und mit **KI im Alltag**. Wir wollen Fortschritt statt Stillstand.",
+        "bild": "/uploads/werte-modern.jpg"
+      },
+      {
+        "titel": "Wir gestalten, statt zu verwalten",
+        "text": "Steuergestalter statt Steuerverwalter: Wir suchen für unsere Mandanten die Struktur, die wirklich etwas bringt, und für dich die **Aufgabe, an der du wächst**.",
+        "bild": "/uploads/werte-gestalten.jpg"
+      }
+    ]
+  },
+  "tag": {
+    "eyebrow": "Ein Tag bei Bentivegna",
+    "titel": "So fühlt sich Steuergestaltung im Alltag an.",
+    "intro": "Arbeitsweise, Mandanten und Technik in einem Tag. Kein Stapel, keine Belegsortierung, dafür Themen, an denen du wächst.",
+    "stationen": [
+      {
+        "zeit": "8:30",
+        "icon": "monitor",
+        "text": "Teams-Call mit einem Unternehmer zu seinen Zahlen"
+      },
+      {
+        "zeit": "10:00",
+        "icon": "network",
+        "text": "Holdingstruktur mit Domenico vorbereiten"
+      },
+      {
+        "zeit": "12:30",
+        "icon": "sun",
+        "text": "Pause am See"
+      },
+      {
+        "zeit": "14:00",
+        "icon": "sparkles",
+        "text": "KI-gestützte Auswertung, keine Belege sortieren"
+      },
+      {
+        "zeit": "16:30",
+        "icon": "calendar",
+        "text": "Feierabend, Kapazität geplant"
+      }
+    ]
+  },
+  "benefits": {
+    "eyebrow": "Deine Benefits",
+    "titel": "Wertschätzung, die ankommt.",
+    "intro": "Weiterbildung, Gesundheit, Flexibilität und echte finanzielle Vorteile. Damit du dich fachlich wie persönlich weiterentwickeln kannst.",
+    "karten": [
+      {
+        "tag": "Weiterbildung",
+        "titel": "Hier hörst du nicht auf zu wachsen.",
+        "zahlen": [
+          {
+            "wert": "3.000 €",
+            "label": "Steuerfachwirt / Bilanzbuchhalter"
+          },
+          {
+            "wert": "5.000 €",
+            "label": "Weg zum Steuerberater"
+          }
+        ],
+        "punkte": [
+          "Freistellungen für Lern- und Prüfungsphasen",
+          "Regelmäßige Steuerupdates, Online- und Live-Seminare",
+          "Eigene Trainingsplattform im Aufbau"
+        ],
+        "zusatz": "Bei uns kannst du den Steuerberater machen. Katrin hat es vorgemacht."
+      },
+      {
+        "tag": "Flexibel arbeiten",
+        "titel": "Planbar und flexibel.",
+        "zahlen": [],
+        "punkte": [
+          "Keine Kernarbeitszeiten, strukturierte Kapazitätsplanung",
+          "Echte Homeoffice-Möglichkeit, ortsunabhängig",
+          "Vollständig digitale Arbeitsweise",
+          "Moderne Geräteausstattung"
+        ],
+        "zusatz": ""
+      },
+      {
+        "tag": "Gesundheit & Vorsorge",
+        "titel": "Wir denken an später. Schon heute.",
+        "zahlen": [
+          {
+            "wert": "1.200 €",
+            "label": "Gesundheitsbudget pro Jahr"
+          }
+        ],
+        "punkte": [
+          "Betriebliche Krankenversicherung auf Premium-Niveau: ohne Wartezeit, ohne Gesundheitsprüfung, voll arbeitgeberfinanziert",
+          "Chefarzt, Zweibettzimmer, Zahn- & Telemedizin",
+          "Betriebliche Altersvorsorge über dem Standard"
+        ],
+        "zusatz": ""
+      },
+      {
+        "tag": "Finanzielle Vorteile",
+        "titel": "Extras, die im Alltag zählen.",
+        "zahlen": [],
+        "punkte": [
+          "Sachbezugskarte, monatlich steuerfrei aufgeladen",
+          "BusinessBike: Fahrrad oder E-Bike leasen & bezuschusst",
+          "Hochwertige Verpflegung & PrepMyMeal in der Teamküche",
+          "Ergonomische, höhenverstellbare Arbeitsplätze"
+        ],
+        "zusatz": ""
+      }
+    ],
+    "awards_titel": "Ausgezeichnet, zertifiziert & starke Benefit-Partner",
+    "awards": [
+      {
+        "bild": "/uploads/logos/datev-digitale-kanzlei-2025.png",
+        "alt": "DATEV Digitale Kanzlei 2025",
+        "gross": true
+      },
+      {
+        "bild": "/uploads/logos/kununu-top-company-2026.png",
+        "alt": "kununu Top Company 2026",
+        "gross": true
+      },
+      {
+        "bild": "/uploads/logos/kanzleibooster-2026.png",
+        "alt": "Kanzleibooster-Award 2026",
+        "gross": true
+      },
+      {
+        "bild": "/uploads/logos/taxflix.png",
+        "alt": "Taxflix",
+        "gross": false
+      },
+      {
+        "bild": "/uploads/logos/prepmymeal.png",
+        "alt": "PrepMyMeal",
+        "gross": false
+      },
+      {
+        "bild": "/uploads/logos/businessbike.png",
+        "alt": "BusinessBike",
+        "gross": false
+      },
+      {
+        "bild": "/uploads/logos/pointchamp.png",
+        "alt": "Pointchamp",
+        "gross": false
+      },
+      {
+        "bild": "/uploads/logos/givve-card.png",
+        "alt": "givve Card",
+        "gross": false
+      },
+      {
+        "bild": "/uploads/logos/allianz.png",
+        "alt": "Allianz",
+        "gross": false
+      }
+    ]
+  },
+  "standort": {
+    "eyebrow": "Standort & Arbeitsumfeld",
+    "titel": "Arbeiten, wo andere Urlaub machen.",
+    "bild": "/uploads/karriere-standort-bodensee.jpg",
+    "bild_alt": "Überlingen am Bodensee im Abendlicht",
+    "text": "Unsere Kanzlei liegt mitten in der Überlinger Altstadt, nur wenige Schritte vom Bodensee entfernt. Eine Lage, die nicht nur unseren Alltag prägt, sondern auch die Atmosphäre, in der wir arbeiten.",
+    "raeume_titel": "Räume mit Wohlfühlatmosphäre",
+    "raeume_text": "Helle Altbauräume, hochwertige Einrichtung, moderne Arbeitsplätze und bewusst gestaltete Sozialbereiche: ein Umfeld, in dem konzentriertes Arbeiten ebenso möglich ist wie eine entspannte Pause.",
+    "erreichbar_titel": "Optimal erreichbar",
+    "erreichbar": [
+      "Bahnhof und Busbahnhof in unmittelbarer Nähe",
+      "Eigene Mitarbeiterparkplätze und weitere Parkmöglichkeiten",
+      "Sogar per Kursschiff über den Bodensee erreichbar"
+    ],
+    "pause": "Promenade, Cafés, Restaurants und der See selbst sind in wenigen Minuten erreichbar: perfekt für eine bewusste Mittagspause am Wasser.",
+    "fakten": [
+      {
+        "icon": "laptop",
+        "text": "Papierlos und cloudbasiert"
+      },
+      {
+        "icon": "headphones",
+        "text": "Moderne Geräteausstattung, cloudbasierte Telefonie"
+      },
+      {
+        "icon": "coffee",
+        "text": "Höhenverstellbare Arbeitsplätze, Teamküche"
+      }
+    ],
+    "galerie": [
+      {
+        "bild": "/uploads/galerie-arbeitsplatz.jpg",
+        "alt": "Arbeitsplatz mit Bildschirmen in der Kanzlei"
+      },
+      {
+        "bild": "/uploads/galerie-teamkueche.jpg",
+        "alt": "Teamküche der Kanzlei"
+      },
+      {
+        "bild": "/uploads/galerie-team.jpg",
+        "alt": "Besprechung im Team"
+      },
+      {
+        "bild": "/uploads/galerie-buero.jpg",
+        "alt": "Helle Büroräume in der Überlinger Altstadt"
+      }
+    ]
+  },
+  "passt": {
+    "eyebrow": "Unser Anspruch",
+    "titel": "Nicht für jeden. Vielleicht für dich.",
+    "intro_vor": "Viele sagen nach einiger Zeit bei uns:",
+    "zitat": "„Ich arbeite strukturierter, moderner und mit mehr Freude als früher – und habe mich fachlich wie persönlich enorm weiterentwickelt.“",
+    "intro_nach": "Genau das ist unser Ziel.",
+    "ja_titel": "Du passt zu uns, wenn du …",
+    "ja": [
+      "strukturiert arbeitest und Verantwortung übernehmen möchtest",
+      "gerne digital arbeitest und offen für moderne Technologien bist",
+      "keine Lust mehr auf Chaos hast",
+      "dich fachlich weiterentwickeln willst",
+      "Teil eines starken, verlässlichen Teams sein möchtest"
+    ],
+    "nein_titel": "Wir sind nicht die richtige Kanzlei, wenn …",
+    "nein": "… du „Dienst nach Vorschrift“ machen möchtest, keine Verantwortung übernehmen willst oder dich gegen moderne Prozesse sträubst. Dann wirst du dich bei uns vermutlich nicht wohlfühlen, und das ist völlig in Ordnung."
+  },
+  "stellen": {
+    "eyebrow": "Offene Stellen",
+    "titel": "Werde Teil des Teams.",
+    "intro": "Alle Stellen: vor Ort, Homeoffice oder hybrid in Überlingen, Baden-Württemberg.",
+    "satz": "Du arbeitest mit Unternehmern, die Beratung wollen, nicht mit Massenmandaten.",
+    "initiativ": "Nichts Passendes dabei?",
+    "initiativ_link": "Bewirb dich initiativ."
+  },
+  "ablauf": {
+    "eyebrow": "Der Ablauf",
+    "titel": "In vier Schritten zu uns.",
+    "schritte": [
+      {
+        "titel": "Deine Bewerbung",
+        "text": "Ganz unkompliziert per Formular oder WhatsApp. Ein Lebenslauf genügt für den Anfang. Du bekommst innerhalb von fünf Werktagen eine Antwort."
+      },
+      {
+        "titel": "Kennenlernen",
+        "text": "Ein lockeres Gespräch, digital oder vor Ort. Wir wollen dich kennenlernen, nicht ausfragen."
+      },
+      {
+        "titel": "Schnuppern",
+        "text": "Du lernst Team und Kanzlei kennen und bekommst ein echtes Gefühl für die Arbeit bei uns."
+      },
+      {
+        "titel": "Willkommen",
+        "text": "Strukturiertes Onboarding mit festem Ansprechpartner und klarem Einarbeitungsplan."
+      }
+    ]
+  },
+  "stimmen": {
+    "eyebrow": "Stimmen aus dem Team",
+    "titel": "Was unser Team sagt.",
+    "liste": [
+      {
+        "name": "Katrin",
+        "rolle": "Steuerberaterin",
+        "bild": "/uploads/team-katrin.jpg",
+        "zitat": "Hier durfte ich fachlich enorm wachsen: Ich habe hier meinen Steuerberater gemacht und dabei immer Unterstützung erhalten. Von Anfang an konnte ich Verantwortung übernehmen und mich an fachlich anspruchsvollen Themen weiterentwickeln."
+      },
+      {
+        "name": "Steffi",
+        "rolle": "Steuerfachangestellte",
+        "bild": "/uploads/team-steffi.jpg",
+        "zitat": "Hier habe ich das Gefühl, wirklich strukturiert arbeiten zu können – mit klaren Abläufen und einem Team, das sich jederzeit gegenseitig unterstützt."
+      },
+      {
+        "name": "Carmen",
+        "rolle": "Steuerfachangestellte",
+        "bild": "/uploads/team-carmen.jpg",
+        "zitat": "Besonders schätze ich die flexiblen Arbeitszeiten – sie erleichtern den Alltag mit Kind deutlich. Die Möglichkeit, im Homeoffice zu arbeiten, erspart mir lange Fahrten ins Büro."
+      },
+      {
+        "name": "Anja",
+        "rolle": "Fachassistentin Lohn und Gehalt",
+        "bild": "/uploads/team-anja.jpg",
+        "zitat": "Ich schätze sehr, dass hier jeder seine individuellen Stärken einbringen kann und sich das Team gleichzeitig optimal ergänzt. Trotz räumlicher Distanz durch Homeoffice funktioniert die Zusammenarbeit mit den verschiedenen Schnittstellen als starke Einheit."
+      },
+      {
+        "name": "Dominique",
+        "rolle": "Bilanzbuchhalterin",
+        "bild": "/uploads/team-dominique.jpg",
+        "zitat": "Am meisten schätze ich unser harmonisches Team – hier arbeitet man miteinander statt gegeneinander. Die Mischung aus Flexibilität, Verantwortung und Teamgefühl macht für mich den Unterschied."
+      },
+      {
+        "name": "Isabell",
+        "rolle": "Steuerfachwirtin",
+        "bild": "/uploads/team-isabell.jpg",
+        "zitat": "Ich unterstütze meine Kolleginnen jederzeit sehr gerne und schätze die enge Zusammenarbeit im Team. Besonders motivierend ist für mich die Vielfalt an neuen Themen, die sich aus der Arbeit mit den Mandanten ergeben und die wir lösungsorientiert bearbeiten."
+      },
+      {
+        "name": "Sabine",
+        "rolle": "Steuerfachangestellte",
+        "bild": "/uploads/team-sabine.jpg",
+        "zitat": "Ich schätze die flexiblen Arbeitszeiten und die Möglichkeit, problemlos im Homeoffice zu arbeiten. Besonders hervorheben möchte ich den vertrauensvollen Umgang und die Wertschätzung zwischen jüngeren und älteren Kollegen. Obwohl ich bereits Rentnerin bin, macht mir die Arbeit so viel Freude, dass Aufhören für mich kaum vorstellbar ist."
+      }
+    ]
+  },
+  "faq": {
+    "eyebrow": "Häufige Fragen",
+    "titel": "Gut zu wissen.",
+    "fragen": [
+      {
+        "frage": "Was unterscheidet euch von einer klassischen Kanzlei?",
+        "antwort": "Wir verwalten keine Steuern, wir gestalten sie. Unsere Mandanten sind Unternehmer mit Beratungsanspruch: Holding, Umwandlung, Immobilien, Nachfolge, Controlling. Du arbeitest an Lösungen, nicht an Stapeln."
+      },
+      {
+        "frage": "Welche Mandanten betreue ich?",
+        "antwort": "Unternehmer, die wir bewusst ausgewählt haben: digital, verlässlich, auf Augenhöhe. Wer Chaos produziert oder nur die billigste Steuererklärung sucht, wird bei uns nicht Mandant."
+      },
+      {
+        "frage": "Wie sieht die Arbeitszeit aus?",
+        "antwort": "38-Stunden-Woche, keine Kernarbeitszeiten, strukturierte Kapazitätsplanung. Fristen gibt es in jeder Kanzlei, bei uns sind sie geplant, nicht überraschend."
+      },
+      {
+        "frage": "Wie läuft die Einarbeitung?",
+        "antwort": "Strukturiertes Onboarding mit festem Ansprechpartner, Einarbeitungsplan und digitalen Leitfäden für jeden Prozess."
+      },
+      {
+        "frage": "Kann ich auch als Quereinsteiger anfangen?",
+        "antwort": "Wir suchen keine perfekten Lebensläufe, sondern Menschen, die mitdenken und Verantwortung übernehmen wollen. Wenn du Lust auf moderne Kanzleiarbeit hast, sprich uns an."
+      },
+      {
+        "frage": "Wie läuft das mit Homeoffice?",
+        "antwort": "Echt und ortsunabhängig. Wir arbeiten vollständig digital, mit moderner Geräteausstattung und cloudbasierter Kommunikation."
+      },
+      {
+        "frage": "Unterstützt ihr Weiterbildungen?",
+        "antwort": "Ja, sehr. 3.000 € für den Abschluss als Steuerfachwirt oder Bilanzbuchhalter, 5.000 € für den Weg zum Steuerberater, plus Freistellungen für Lern- und Prüfungsphasen."
+      },
+      {
+        "frage": "Welche Unterlagen brauche ich für die Bewerbung?",
+        "antwort": "Für den ersten Schritt reicht dein Lebenslauf. Alles Weitere klären wir gemeinsam im Kennenlerngespräch."
+      }
+    ]
+  },
+  "bewerbung": {
+    "eyebrow": "Bewirb dich",
+    "titel": "Wir freuen uns, dich kennenzulernen.",
+    "text": "Nicht für jeden. Vielleicht für dich. Wenn du mehr willst als klassische Steuerberatung, sollten wir uns kennenlernen.",
+    "formular_titel": "Kurz bewerben, in zwei Minuten",
+    "button": "Bewerbung absenden",
+    "whatsapp_button": "Per WhatsApp bewerben",
+    "whatsapp_text": "Hallo Bentivegna, ich möchte mich bewerben. Name: , Stelle: . Meinen Lebenslauf schicke ich gleich als Foto oder PDF.",
+    "anruf_button": "Ruf uns an",
+    "danke_titel": "Danke für deine Bewerbung!",
+    "danke_text": "Wir melden uns innerhalb von fünf Werktagen bei dir.",
+    "einwilligung": "Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Bewerbung verarbeitet werden. Mehr dazu in der [Datenschutzerklärung](/datenschutz/)."
+  }
+}

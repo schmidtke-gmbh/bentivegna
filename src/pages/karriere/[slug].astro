@@ -1,0 +1,55 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import K from '../../data/karriere.json';
+import { u, E, absUrl, telLink } from '../../lib/site';
+import { getCollection, render } from 'astro:content';
+import '../../styles/karriere.css';
+
+export async function getStaticPaths() {
+  const stellen = await getCollection('stellen');
+  return stellen.filter((s) => s.data.aktiv).map((s) => ({ params: { slug: s.id }, props: { stelle: s } }));
+}
+const { stelle } = Astro.props;
+const d = stelle.data;
+const { Content } = await render(stelle);
+const kontaktTel = E.karriere.kontakt_telefon || E.telefon;
+const jobLd = {
+  '@context': 'https://schema.org', '@type': 'JobPosting',
+  title: d.titel,
+  description: `<p>${K.stellen.satz}</p><h3>Deine Aufgaben</h3><ul>${d.aufgaben.map((a) => `<li>${a}</li>`).join('')}</ul><h3>Das bringst du mit</h3><ul>${d.anforderungen.map((a) => `<li>${a}</li>`).join('')}</ul>`,
+  datePosted: (d.datum || new Date()).toISOString().slice(0, 10),
+  employmentType: d.umfang.includes('Teilzeit') ? ['FULL_TIME', 'PART_TIME'] : ['FULL_TIME'],
+  hiringOrganization: { '@type': 'Organization', name: E.firma, sameAs: absUrl('/'), logo: absUrl('/uploads/logos/logo-hoch.svg') },
+  jobLocation: { '@type': 'Place', address: { '@type': 'PostalAddress', streetAddress: E.strasse, postalCode: '88662', addressLocality: 'Überlingen', addressRegion: 'Baden-Württemberg', addressCountry: 'DE' } },
+  jobLocationType: d.arbeitsmodell.toLowerCase().includes('homeoffice') ? 'TELECOMMUTE' : undefined,
+  applicantLocationRequirements: { '@type': 'Country', name: 'Deutschland' },
+  directApply: true
+};
+---
+<Base titel={`${d.titel} | Karriere bei Bentivegna`} beschreibung={`${d.titel} in Überlingen am Bodensee (${d.arbeitsmodell}). ${K.stellen.satz}`} aktiv="karriere" bodyClass="page-karriere" footer="karriere" cta={{ text: 'Jetzt bewerben', href: u('/karriere/#bewerben') }} jsonld={[jobLd]}>
+  <section class="page-head">
+    <img class="wm" src={u('/uploads/logos/schild-mono.svg')} alt="" aria-hidden="true">
+    <div class="wrap">
+      <a href={u('/karriere/#jobs')} class="back-link"><Icon name="chevron-left" /> Alle offenen Stellen</a>
+      <span class="eyebrow" style="margin-top:22px">Stellenprofil</span>
+      <h1 style="margin-top:16px">{d.titel}</h1>
+      <div class="job-meta" style="margin-top:18px;font-size:1rem"><span class="chip">{d.umfang}</span> <span><Icon name="map-pin" />{d.ort}</span> <span>· {d.arbeitsmodell}</span> <span>· {d.start}</span></div>
+    </div>
+  </section>
+  <section class="section" style="padding-top:56px">
+    <div class="wrap legal-wrap">
+      <p class="passt-quote" style="margin-top:0">{K.stellen.satz}</p>
+      <div class="job-cols" style="padding:0;margin-top:30px">
+        <div><h4>Deine Aufgaben</h4><ul>{d.aufgaben.map((a) => <li>{a}</li>)}</ul></div>
+        <div><h4>Das bringst du mit</h4><ul>{d.anforderungen.map((a) => <li>{a}</li>)}</ul></div>
+      </div>
+      <div class="prose" style="margin-top:36px"><Content /></div>
+      {d.profil_pdf && <p style="margin-top:20px"><a class="btn btn--ghost" href={u(d.profil_pdf)} target="_blank" rel="noopener">Stellenprofil als PDF <span class="arr"></span></a></p>}
+      <div class="hinweis-box" style="margin-top:40px">
+        <b>Ansprechperson:</b> {E.karriere.kontakt_name} · <a href={telLink(kontaktTel)}>{kontaktTel}</a>
+      </div>
+      <a href={u('/karriere/#bewerben')} class="btn btn--gold" data-track="karriere_bewerben_profil">Jetzt bewerben <span class="arr"></span></a>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,86 @@
+---
+import '@fontsource/source-sans-3/latin-400.css';
+import '@fontsource/source-sans-3/latin-400-italic.css';
+import '@fontsource/source-sans-3/latin-500.css';
+import '@fontsource/source-sans-3/latin-600.css';
+import '@fontsource/source-sans-3/latin-700.css';
+import '@fontsource/source-sans-3/latin-800.css';
+import '@fontsource/source-sans-3/latin-900.css';
+import '@fontsource/source-serif-4/latin-400.css';
+import '@fontsource/source-serif-4/latin-400-italic.css';
+import '@fontsource/source-serif-4/latin-500.css';
+import '@fontsource/source-serif-4/latin-600.css';
+import '../styles/basis.css';
+import '../styles/erweiterung.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Brand from '../components/Brand.astro';
+import { u, E, absUrl, waLink } from '../lib/site';
+
+interface Props {
+  titel: string;
+  beschreibung: string;
+  bild?: string;
+  pfad?: string;
+  aktiv?: string;
+  bodyClass?: string;
+  footer?: 'start' | 'karriere';
+  cta?: { text: string; href: string };
+  jsonld?: object[];
+  noindex?: boolean;
+  ogType?: string;
+}
+const { titel, beschreibung, bild = E.seo.standard_bild, pfad = Astro.url.pathname, aktiv, bodyClass = '', footer = 'start', cta, jsonld = [], noindex = false, ogType = 'website' } = Astro.props;
+const canonical = absUrl(pfad.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '') || '/');
+const ogBild = bild.startsWith('http') ? bild : absUrl(bild);
+const org = {
+  '@context': 'https://schema.org', '@type': 'AccountingService', name: E.firma, url: absUrl('/'),
+  telephone: E.telefon, email: E.email,
+  address: { '@type': 'PostalAddress', streetAddress: E.strasse, postalCode: E.plz_ort.split(' ')[0], addressLocality: E.plz_ort.split(' ').slice(1).join(' '), addressCountry: 'DE' },
+  sameAs: [E.youtube]
+};
+const wa = waLink(E.whatsapp);
+const matomo = E.tracking.matomo_url && E.tracking.matomo_site_id;
+---
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{titel}</title>
+  <meta name="description" content={beschreibung}>
+  <link rel="canonical" href={canonical}>
+  {(noindex || import.meta.env.PUBLIC_VORSCHAU === '1') && <meta name="robots" content="noindex, nofollow">}
+  <meta property="og:type" content={ogType}>
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:site_name" content="Bentivegna">
+  <meta property="og:title" content={titel}>
+  <meta property="og:description" content={beschreibung}>
+  <meta property="og:url" content={canonical}>
+  <meta property="og:image" content={ogBild}>
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href={u('/uploads/logos/schild.svg')}>
+  <meta name="theme-color" content="#273365">
+  <script type="application/ld+json" set:html={JSON.stringify(org)} />
+  {jsonld.map((j) => <script type="application/ld+json" set:html={JSON.stringify(j)} />)}
+  {matomo && (
+    <script is:inline define:vars={{ mu: E.tracking.matomo_url, sid: E.tracking.matomo_site_id }}>
+      var _paq = window._paq = window._paq || [];
+      _paq.push(['disableCookies']); _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']);
+      (function(){ var url = mu.replace(/\/?$/, '/'); _paq.push(['setTrackerUrl', url + 'matomo.php']); _paq.push(['setSiteId', sid]);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=url+'matomo.js'; s.parentNode.insertBefore(g,s); })();
+    </script>
+  )}
+</head>
+<body class={bodyClass}>
+  <Header aktiv={aktiv} cta={cta} />
+  <main id="inhalt">
+    <slot />
+  </main>
+  <Footer variante={footer} />
+  <a href={wa || '#whatsapp'} class="fab" target={wa ? '_blank' : undefined} rel="noopener" aria-label="Per WhatsApp schreiben" data-track="whatsapp_klick" title={wa ? undefined : 'WhatsApp-Nummer wird noch ergänzt'} onclick={wa ? undefined : 'return false'}><Brand name="whatsapp" class="wa" /> WhatsApp</a>
+  <script>
+    import '../scripts/site.ts';
+  </script>
+</body>
+</html>

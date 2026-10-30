@@ -1,0 +1,9 @@
+---
+import Base from '../layouts/Base.astro';
+import R from '../data/rechtliches.json';
+import { mdBlock } from '../lib/site';
+---
+<Base titel="Impressum | Bentivegna" beschreibung="Impressum der Bentivegna Unternehmerberatung & Steuerstrategie, Überlingen." pfad="/impressum/">
+  <section class="page-head"><div class="wrap"><span class="eyebrow">Rechtliches</span><h1 style="margin-top:16px">Impressum</h1></div></section>
+  <section class="section" style="padding-top:50px"><div class="wrap legal-wrap prose" set:html={mdBlock(R.impressum)} /></section>
+</Base>

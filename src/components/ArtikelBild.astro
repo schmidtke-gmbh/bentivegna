@@ -1,0 +1,17 @@
+---
+// Artikelbild im Format 1,91:1. Ohne hochgeladenes Bild entsteht eine Titelkarte im Raster der Seite.
+import { u } from '../lib/site';
+interface Props { bild?: string; alt?: string; teil: number; titel: string; kapitel?: string; klein?: boolean; eager?: boolean }
+const { bild, alt = '', teil, titel, kapitel = '', klein = false, eager = false } = Astro.props;
+---
+{bild ? (
+  <img class={`art-bild${klein ? ' klein' : ''}`} src={u(bild)} alt={alt} width="1200" height="628" loading={eager ? 'eager' : 'lazy'}>
+) : (
+  <div class={`art-bild art-karte${klein ? ' klein' : ''}`} role="img" aria-label={alt || `Der Chef auf der Baustelle, Teil ${teil}: ${titel}`}>
+    <img class="ak-wm" src={u('/uploads/logos/schild-mono.svg')} alt="">
+    <span class="chef-badge light"><span class="r">Der Chef auf der Baustelle</span><span class="t">Teil {teil}</span></span>
+    <span class="ak-nr">{String(teil).padStart(2, '0')}</span>
+    <span class="ak-titel">{titel}</span>
+    {kapitel && <span class="ak-kap">{kapitel}</span>}
+  </div>
+)}

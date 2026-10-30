@@ -1,0 +1,87 @@
+{
+  "seo": {
+    "titel": "Kostenloses Analysegespräch anfragen | Bentivegna",
+    "beschreibung": "In fünf Klicks zum Rückruf: Wir prüfen, ob wir zueinander passen, und vereinbaren dein kostenloses Analysegespräch mit Domenico Bentivegna."
+  },
+  "kopf": {
+    "eyebrow": "Kostenloses Analysegespräch",
+    "titel": "Fünf Klicks, dann rufen wir dich an.",
+    "text": "Ein paar kurze Fragen, damit wir dich sofort richtig einordnen. Danach ruft dich unser Sekretariat zurück und vereinbart dein kostenloses Analysegespräch mit Domenico Bentivegna."
+  },
+  "schritte": {
+    "s1": {
+      "frage": "Wer bist du?",
+      "optionen": [
+        { "id": "shk", "text": "Inhaber eines SHK-, Elektro-, PV- oder Gebäudetechnik-Betriebs" },
+        { "id": "andere", "text": "Inhaber eines Betriebs in einer anderen Branche" },
+        { "id": "gruender", "text": "Existenzgründer oder in Gründung" },
+        { "id": "privat", "text": "Privatperson" }
+      ]
+    },
+    "s2": {
+      "frage": "Worum geht es?",
+      "optionen": [
+        { "id": "betreuung", "text": "Laufende Betreuung und unternehmerische Begleitung (Buchhaltung, Jahresabschluss, Beratung)" },
+        { "id": "gestaltung", "text": "Ein konkretes Gestaltungsthema: GmbH-Umwandlung, Holding, Immobilien, Investition" },
+        { "id": "nachfolge", "text": "Nachfolge, Verkauf oder Übergabe" },
+        { "id": "guenstig", "text": "Nur Steuererklärung und Jahresabschluss, möglichst günstig" }
+      ]
+    },
+    "s2p": {
+      "frage": "Worum geht es?",
+      "optionen": [
+        { "id": "nachfolge", "text": "Nachfolge, Schenkung, Erbschaft oder Übergabe von Vermögen" },
+        { "id": "vermoegen", "text": "Vermögensaufbau und private Finanzstrategie" },
+        { "id": "steuererklaerung", "text": "Private Steuererklärung" }
+      ]
+    },
+    "s3": {
+      "frage": "Wie hoch ist der Jahresumsatz deines Betriebs?",
+      "optionen": [
+        { "id": "unter750", "text": "unter 750.000 €" },
+        { "id": "750bis1", "text": "750.000 € bis 1 Mio. €" },
+        { "id": "1bis5", "text": "1 bis 5 Mio. €" },
+        { "id": "ueber5", "text": "über 5 Mio. €" }
+      ]
+    },
+    "s4": {
+      "frage": "Wo steht dein Betrieb gerade?",
+      "optionen": [
+        { "id": "wachsen", "text": "Wir wachsen: Umsatz und Team sind in den letzten Jahren gestiegen" },
+        { "id": "umbauen", "text": "Wir bauen um: Struktur, Rechtsform, zweite Führungsebene" },
+        { "id": "stabil", "text": "Stabil: läuft und soll so bleiben" },
+        { "id": "verkauf", "text": "Verkauf oder Übergabe in den nächsten Jahren" }
+      ]
+    },
+    "s5": {
+      "frage": "So arbeiten wir: vollständig digital, Termine per Teams, die Buchhaltung läuft komplett über uns. Passt das für dich?",
+      "optionen": [
+        { "id": "ja", "text": "Ja, passt" },
+        { "id": "nein", "text": "Nein, ich will es klassisch" }
+      ]
+    }
+  },
+  "exits": {
+    "A": { "titel": "Dafür sind wir nicht die Richtigen.", "text": "Gründer brauchen in den ersten Jahren eine sehr intensive Betreuung, und das geben unsere Kapazitäten nicht her. Wir versprechen lieber nichts, was wir nicht halten können. Eine passende Kanzlei findest du hier:", "buttons": [ { "text": "Kanzlei finden", "ziel": "https://www.smartexperts.de/suche" } ] },
+    "B": { "titel": "Für die laufende Betreuung sind wir auf SHK spezialisiert.", "text": "Betriebe aus anderen Branchen betreuen wir nicht laufend, dafür sind andere Kanzleien besser. Wenn es bei dir um Struktur, GmbH-Umwandlung, Holding oder Nachfolge geht, gibt es ein eigenes Angebot:", "buttons": [ { "text": "Steuerstrategie-Gespräch", "ziel": "bruecke:steuerstrategie" }, { "text": "Kanzlei finden", "ziel": "https://www.smartexperts.de/suche" } ] },
+    "C": { "titel": "Dafür sind wir zu teuer, ehrlich.", "text": "Wer nur die Steuererklärung oder den Jahresabschluss möglichst günstig braucht, ist bei uns falsch; unser Kerngeschäft ist die laufende Beratung. Eine passende Kanzlei findest du hier:", "buttons": [ { "text": "Kanzlei finden", "ziel": "https://www.smartexperts.de/suche" } ] },
+    "D": { "titel": "Dafür gibt es Bentivegna Vermögensstrategie.", "text": "Unabhängige, provisionsfreie Beratung für den Aufbau und die Strukturierung deines privaten Vermögens, von Domenico Bentivegna persönlich.", "buttons": [ { "text": "Zu Bentivegna Vermögensstrategie", "ziel": "https://www.bentivegna-vermoegen.de" } ] },
+    "E": { "titel": "Dein Betrieb ist für uns aktuell noch zu klein.", "text": "Wir sind auf wachsende SHK-Betriebe ab etwa 1 Mio. € Umsatz spezialisiert; darunter wären wir für eine laufende Betreuung unterm Strich zu teuer. Wenn du in den nächsten ein, zwei Jahren weiter wächst, melde dich wieder, wir freuen uns. Bis dahin:", "buttons": [ { "text": "Kanzlei finden", "ziel": "https://www.smartexperts.de/suche" } ] },
+    "F": { "titel": "Dann passen wir nicht zusammen, alles andere wäre gelogen.", "text": "Wir arbeiten komplett digital und per Teams, die Buchhaltung läuft über uns. Es gibt viele Kanzleien, die klassischer arbeiten; so jemand passt besser zu dir:", "buttons": [ { "text": "Kanzlei finden", "ziel": "https://www.smartexperts.de/suche" } ] }
+  },
+  "bruecken": {
+    "steuerstrategie": { "titel": "Dafür haben wir ein eigenes Angebot.", "text": "Für Gestaltungsthemen wie GmbH-Umwandlung, Holding, Immobilienstruktur oder größere Investitionen gibt es das Steuerstrategie-Gespräch: ein einmaliges Gespräch mit Domenico Bentivegna per Teams, zum Festpreis, mit konkretem Maßnahmenpapier.", "button": "Zum Steuerstrategie-Gespräch" },
+    "nachfolge": { "titel": "Nachfolge ist unser Spezialgebiet.", "text": "Domenico Bentivegna ist Fachberater für Unternehmensnachfolge (DStV e. V.) und begleitet Übergaben, Verkäufe, Schenkungen und Erbfolgen: steuerlich, rechtlich und mit Blick auf die Familie.", "button": "Nachfolge-Gespräch anfragen" }
+  },
+  "formular": {
+    "titel": "Fast geschafft: Wie erreichen wir dich?",
+    "button": "Rückruf anfordern",
+    "einwilligung": "Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage und für den Rückruf verarbeitet werden. Details in der [Datenschutzerklärung](/datenschutz/). (Platzhalter: Text liefert die Kanzlei.)"
+  },
+  "danke": {
+    "titel": "Danke, wir melden uns.",
+    "text": "Unser Sekretariat ruft dich innerhalb von zwei Werktagen an, klärt noch ein paar Fragen und vereinbart dann dein kostenloses Analysegespräch mit Domenico Bentivegna (ca. 30 Minuten, Teams oder Telefon).",
+    "text_nachfolge": "Unser Sekretariat ruft dich innerhalb von zwei Werktagen an, klärt noch ein paar Fragen und vereinbart ein Nachfolge-Gespräch mit Domenico Bentivegna.",
+    "whatsapp": "Du willst nicht warten? Schreib uns per WhatsApp."
+  }
+}

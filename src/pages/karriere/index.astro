@@ -1,0 +1,383 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import Brand from '../../components/Brand.astro';
+import K from '../../data/karriere.json';
+import { u, E, md, telLink, waLink } from '../../lib/site';
+import { getCollection } from 'astro:content';
+import '../../styles/karriere.css';
+
+const stellen = (await getCollection('stellen')).filter((s) => s.data.aktiv).sort((a, b) => a.data.reihenfolge - b.data.reihenfolge);
+const kontaktTel = E.karriere.kontakt_telefon || E.telefon;
+const kontaktMail = E.karriere.kontakt_email;
+const waNr = E.karriere.whatsapp || E.whatsapp;
+const wa = waLink(waNr, K.bewerbung.whatsapp_text);
+const faqLd = {
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: K.faq.fragen.map((f) => ({ '@type': 'Question', name: f.frage, acceptedAnswer: { '@type': 'Answer', text: f.antwort } }))
+};
+---
+<Base titel={K.seo.titel} beschreibung={K.seo.beschreibung} pfad="/karriere/" aktiv="karriere" bodyClass="page-karriere" footer="karriere" cta={{ text: 'Offene Stellen', href: '#jobs' }} jsonld={[faqLd]} bild={K.hero.bild}>
+
+<!-- HERO: Headline mittig, freigestelltes Teamfoto steht unten auf der Kante zum nächsten Abschnitt -->
+<section class={`khero khero--team${K.hero.stil === 'navy' ? ' khero--navy' : ''}`}>
+  <div class="wrap khero-mitte">
+    <div class="reveal"><span class="eyebrow">{K.hero.eyebrow}</span></div>
+    <h1 class="reveal d1">{K.hero.zeile1}<br><span class="ln2">{K.hero.zeile2}</span></h1>
+    <p class="sub reveal d2">{K.hero.subline}</p>
+    <div class="khero-cta reveal d3">
+      <a href="#jobs" class="btn btn--gold" data-track="karriere_stellen">{K.hero.button_primaer} <span class="arr"></span></a>
+      <a href="#bewerben" class="btn btn--ghost" data-track="karriere_initiativ">{K.hero.button_sekundaer} <span class="arr"></span></a>
+    </div>
+  </div>
+  <div class="khero-team">
+    <img src={u(K.hero.team_bild)} alt={K.hero.team_bild_alt} width="1600" height="495" fetchpriority="high">
+  </div>
+</section>
+
+<!-- WILLKOMMEN -->
+<section class="section welcome">
+  <div class="wrap welcome-grid">
+    <div class="welcome-media reveal">
+      <img src={u(K.willkommen.bild)} alt={K.willkommen.bild_alt} loading="lazy">
+    </div>
+    <div class="welcome-text reveal d2">
+      <span class="eyebrow">{K.willkommen.eyebrow}</span>
+      <h2 style="margin-top:16px;font-size:clamp(1.9rem,3.6vw,2.7rem)">{K.willkommen.titel}</h2>
+      <p class="welcome-quote" style="margin-top:22px">{K.willkommen.zitat}</p>
+      {K.willkommen.absaetze.map((p) => <p>{p}</p>)}
+      <p class="final-line">{K.willkommen.schlusssatz}</p>
+      <div class="welcome-sign">
+        <img src={u(K.willkommen.unterschrift)} alt="Unterschrift Domenico Bentivegna" loading="lazy">
+        <b>{K.willkommen.name}</b><em>{K.willkommen.rolle}</em>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WER WIR SIND -->
+<section class="section">
+  <div class="wrap k-about-grid">
+    <div class="reveal">
+      <span class="eyebrow">{K.wer_wir_sind.eyebrow}</span>
+      <h2 style="margin-top:16px;font-size:clamp(2rem,4vw,3rem)">{K.wer_wir_sind.titel}</h2>
+      {K.wer_wir_sind.absaetze.map((p) => <p style="margin-top:16px;color:var(--muted);font-size:1.08rem">{p}</p>)}
+      <div class="k-timeline-line">
+        {K.wer_wir_sind.zeitleiste.map((z, i) => <>{i > 0 && <Icon name="chevron-right" />}<span>{z}</span></>)}
+      </div>
+      {K.wer_wir_sind.bloecke.map((b) => <div class="k-about-block"><h4>{b.titel}</h4><p>{b.text}</p></div>)}
+    </div>
+    <div class="k-about-media reveal d2">
+      <img src={u(K.wer_wir_sind.bild)} alt={K.wer_wir_sind.bild_alt} loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- MIT WEM DU ARBEITEST -->
+<section class="section mitwem">
+  <div class="wrap">
+    <div class="mitwem-grid">
+      <div class="mitwem-copy reveal">
+        <span class="eyebrow">{K.mit_wem.eyebrow}</span>
+        <h2 style="margin-top:16px;font-size:clamp(2rem,4vw,3rem)">{K.mit_wem.titel}</h2>
+        <p>{K.mit_wem.text}</p>
+      </div>
+      <div class="mitwem-media reveal d2"><img src={u(K.mit_wem.bild)} alt={K.mit_wem.bild_alt} loading="lazy"></div>
+    </div>
+    <div class="mitwem-tiles">
+      {K.mit_wem.kacheln.map((k, i) => (
+        <div class={`mitwem-tile reveal d${i + 1}`}>
+          <span class="ico-box"><Icon name={k.icon} /></span>
+          <h3>{k.titel}</h3>
+          <p>{k.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- WERTE -->
+<section class="section values">
+  <div class="wrap">
+    <div class="section-head reveal" style="text-align:center;max-width:760px;margin:0 auto 52px">
+      <span class="eyebrow" style="justify-content:center">{K.werte.eyebrow}</span>
+      <h2 class="serif-head" style="margin-top:16px;font-size:clamp(2rem,4.4vw,3.1rem)">{K.werte.titel}</h2>
+      <p style="margin-top:16px;color:var(--muted);font-size:1.08rem">{K.werte.intro}</p>
+    </div>
+    <div class="val-grid">
+      {K.werte.liste.map((w, i) => (
+        <div class={`val-card reveal d${(i % 3) + 1}`}><div class="pic"><img src={u(w.bild)} alt="" loading="lazy"><h3>{w.titel}</h3></div><p set:html={md(w.text)} /></div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- EIN TAG BEI BENTIVEGNA -->
+<section class="section tag-sec">
+  <div class="wrap">
+    <div class="section-head reveal" style="max-width:760px">
+      <span class="eyebrow">{K.tag.eyebrow}</span>
+      <h2 style="margin-top:16px">{K.tag.titel}</h2>
+      <p>{K.tag.intro}</p>
+    </div>
+    <div class="tag-line reveal d1">
+      {K.tag.stationen.map((s) => (
+        <div class="tag-stop">
+          <time>{s.zeit}</time>
+          <span class="ico-box"><Icon name={s.icon} /></span>
+          <p>{s.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="section benefits">
+  <div class="wrap">
+    <div class="section-head reveal" style="text-align:center;max-width:640px;margin:0 auto 52px">
+      <span class="eyebrow" style="justify-content:center">{K.benefits.eyebrow}</span>
+      <h2 style="margin-top:16px">{K.benefits.titel}</h2>
+      <p>{K.benefits.intro}</p>
+    </div>
+    <div class="ben-grid">
+      {K.benefits.karten.map((b, i) => (
+        <div class={`ben-card reveal d${(i % 2) + 1}`}>
+          <span class="tag">{b.tag}</span>
+          <h3>{b.titel}</h3>
+          {b.zahlen.length > 0 && (
+            <div style="display:flex;gap:26px;margin:12px 0 4px;flex-wrap:wrap">
+              {b.zahlen.map((z) => <div class="ben-num">{z.wert}<br><small>{z.label}</small></div>)}
+            </div>
+          )}
+          <ul class="ben-list">{b.punkte.map((p) => <li><span class="ck"><Icon name="check" /></span> {p}</li>)}</ul>
+          {b.zusatz && <p class="ben-extra">{b.zusatz}</p>}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="awards" aria-label={K.benefits.awards_titel}>
+  <div class="wrap">
+    <p class="lead reveal">{K.benefits.awards_titel}</p>
+    <div class="logo-row reveal d1">
+      {K.benefits.awards.map((a) => <img src={u(a.bild)} alt={a.alt} class={a.gross ? 'gross' : ''} loading="lazy">)}
+    </div>
+  </div>
+</section>
+
+<!-- STANDORT & ARBEITSUMFELD -->
+<section class="section">
+  <div class="wrap">
+    <div class="ort-hero reveal">
+      <img src={u(K.standort.bild)} alt={K.standort.bild_alt} loading="lazy">
+      <div class="ort-cap">
+        <span class="eyebrow">{K.standort.eyebrow}</span>
+        <h2>{K.standort.titel}</h2>
+      </div>
+    </div>
+    <div class="ort-text">
+      <div class="reveal"><p>{K.standort.text}</p><p style="margin-top:14px">{K.standort.pause}</p></div>
+      <div class="reveal d1"><h3>{K.standort.raeume_titel}</h3><p>{K.standort.raeume_text}</p></div>
+      <div class="reveal d2"><h3>{K.standort.erreichbar_titel}</h3><ul class="ort-list">{K.standort.erreichbar.map((e) => <li><span class="ck"><Icon name="check" /></span> {e}</li>)}</ul></div>
+    </div>
+    <div class="ort-facts reveal">
+      {K.standort.fakten.map((f) => <span><Icon name={f.icon} /> {f.text}</span>)}
+    </div>
+    <div class="gallery reveal">
+      {K.standort.galerie.map((g) => <figure><img src={u(g.bild)} alt={g.alt} loading="lazy"></figure>)}
+    </div>
+  </div>
+</section>
+
+<!-- PASST DAS? -->
+<section class="section passt">
+  <div class="wrap">
+    <div class="section-head reveal" style="max-width:860px;margin-bottom:34px">
+      <span class="eyebrow">{K.passt.eyebrow}</span>
+      <h2 style="margin-top:16px">{K.passt.titel}</h2>
+      <p>{K.passt.intro_vor}</p>
+      <p class="passt-quote">{K.passt.zitat}</p>
+      <p>{K.passt.intro_nach}</p>
+    </div>
+    <div class="passt-grid">
+      <div class="passt-yes reveal d1">
+        <h3>{K.passt.ja_titel}</h3>
+        <ul>{K.passt.ja.map((j) => <li><span class="ck"><Icon name="check" /></span> {j}</li>)}</ul>
+      </div>
+      <div class="passt-no reveal d2">
+        <h3>{K.passt.nein_titel}</h3>
+        <p>{K.passt.nein}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFENE STELLEN -->
+<section class="section jobs" id="jobs">
+  <div class="wrap">
+    <div class="section-head reveal" style="text-align:center;max-width:640px;margin:0 auto 44px">
+      <span class="eyebrow" style="justify-content:center">{K.stellen.eyebrow}</span>
+      <h2 style="margin-top:16px">{K.stellen.titel}</h2>
+      <p>{K.stellen.intro}</p>
+    </div>
+    <div class="jobs-list">
+      {stellen.map((s, i) => (
+        <article class={`job reveal d${i}`}>
+          <button class="job-head" type="button" aria-expanded="false">
+            <div class="grow">
+              <h3>{s.data.titel}</h3>
+              <div class="job-meta"><span class="chip">{s.data.umfang}</span> <span><Icon name="map-pin" />{s.data.ort}</span> <span>· {s.data.arbeitsmodell}</span> <span>· {s.data.start}</span></div>
+            </div>
+            <svg class="job-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="job-body"><div class="job-inner">
+            <div class="job-cols">
+              <div><h4>Deine Aufgaben</h4><ul>{s.data.aufgaben.slice(0, 3).map((a) => <li>{a}</li>)}</ul></div>
+              <div><h4>Das bringst du mit</h4><ul>{s.data.anforderungen.slice(0, 3).map((a) => <li>{a}</li>)}</ul></div>
+            </div>
+            <p class="job-note">{K.stellen.satz}</p>
+            <div class="job-apply">
+              <span>Ansprechperson: {E.karriere.kontakt_name} · {kontaktTel}</span>
+              <div class="job-links">
+                <a class="profil" href={u(`/karriere/${s.id}/`)}>Vollständiges Stellenprofil</a>
+                <a href="#bewerben" class="btn btn--gold" data-stelle={s.data.titel} data-track="karriere_bewerben_stelle">Jetzt bewerben <span class="arr"></span></a>
+              </div>
+            </div>
+          </div></div>
+        </article>
+      ))}
+    </div>
+    <p style="text-align:center;color:var(--muted);margin-top:26px;font-size:.95rem">{K.stellen.initiativ} <a href="#bewerben" style="color:var(--navy);font-weight:700;text-decoration:underline">{K.stellen.initiativ_link}</a></p>
+  </div>
+</section>
+
+<!-- ABLAUF -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal" style="text-align:center;max-width:600px;margin:0 auto 48px">
+      <span class="eyebrow" style="justify-content:center">{K.ablauf.eyebrow}</span>
+      <h2 style="margin-top:16px">{K.ablauf.titel}</h2>
+    </div>
+    <div class="prozess-grid">
+      {K.ablauf.schritte.map((s, i) => <div class={`pstep reveal d${i + 1}`}><div class="no">{String(i + 1).padStart(2, '0')}</div><h3>{s.titel}</h3><p>{s.text}</p></div>)}
+    </div>
+  </div>
+</section>
+
+<!-- STIMMEN -->
+<section class="section stimmen">
+  <div class="wrap">
+    <div class="section-head reveal" style="text-align:center;max-width:640px;margin:0 auto 48px">
+      <span class="eyebrow" style="justify-content:center">{K.stimmen.eyebrow}</span>
+      <h2 style="margin-top:16px">{K.stimmen.titel}</h2>
+    </div>
+    <div class="stimmen-grid alle">
+      {K.stimmen.liste.map((s, i) => (
+        <figure class={`stimme reveal d${i % 4}`} style="margin:0">
+          <blockquote style="margin:0"><p>„{s.zitat}“</p></blockquote>
+          <figcaption class="who"><img class="av-img" src={u(s.bild)} alt={`Porträt ${s.name}`} loading="lazy" width="54" height="54"><div><b>{s.name}</b><span>{s.rolle}</span></div></figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section faq">
+  <div class="wrap">
+    <div class="section-head reveal" style="text-align:center;max-width:640px;margin:0 auto 44px">
+      <span class="eyebrow" style="justify-content:center">{K.faq.eyebrow}</span>
+      <h2 style="margin-top:16px">{K.faq.titel}</h2>
+    </div>
+    <div class="faq-list">
+      {K.faq.fragen.map((f, i) => (
+        <details class={`faq-item reveal d${Math.min(i, 3)}`} open={i === 0}>
+          <summary>{f.frage} <span class="pl">+</span></summary>
+          <div class="ans">{f.antwort}</div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- BEWERBUNG -->
+<section class="section final" id="bewerben">
+  <div class="wrap">
+    <div class="final-band reveal">
+      <div class="final-grid">
+        <div class="final-copy">
+          <span class="eyebrow" style="color:var(--beige-l)">{K.bewerbung.eyebrow}</span>
+          <h2 style="margin-top:16px">{K.bewerbung.titel}</h2>
+          <p>{K.bewerbung.text}</p>
+          <div class="final-alt">
+            {wa ? (
+              <a href={wa} target="_blank" rel="noopener" class="btn btn--light" data-track="karriere_whatsapp"><Brand name="whatsapp" /> {K.bewerbung.whatsapp_button} <span class="arr"></span></a>
+            ) : (
+              <a href="#whatsapp" class="btn btn--light" aria-disabled="true" title="WhatsApp-Nummer wird noch ergänzt"><Brand name="whatsapp" /> {K.bewerbung.whatsapp_button} <span class="arr"></span></a>
+            )}
+            <a href={telLink(kontaktTel)} class="btn btn--ghost" style="--fg:#fff;--bd:rgba(255,255,255,.45);--badge:var(--brown)" data-track="karriere_anruf">{K.bewerbung.anruf_button}: {kontaktTel} <span class="arr"></span></a>
+          </div>
+          <p class="final-contact">Ansprechperson: <b>{E.karriere.kontakt_name}</b> · {kontaktTel}{kontaktMail && <> · <a href={`mailto:${kontaktMail}`} style="color:#fff">{kontaktMail}</a></>} · Überlingen am Bodensee</p>
+        </div>
+
+        <form class="bw-form" name="bewerbung" method="POST" data-netlify="true" netlify-honeypot="bot-feld" enctype="multipart/form-data" action={u('/karriere/danke/')} id="bwForm">
+          <input type="hidden" name="form-name" value="bewerbung">
+          <p class="hp-feld"><label>Nicht ausfüllen: <input name="bot-feld" tabindex="-1" autocomplete="off"></label></p>
+          <h3>{K.bewerbung.formular_titel}</h3>
+          <div class="fld"><label for="bw-name">Vor- und Nachname</label><input id="bw-name" name="name" required autocomplete="name"></div>
+          <div class="bw-row">
+            <div class="fld"><label for="bw-mail">E-Mail</label><input id="bw-mail" name="email" type="email" required autocomplete="email"></div>
+            <div class="fld"><label for="bw-tel">Telefon</label><input id="bw-tel" name="telefon" type="tel" required autocomplete="tel"></div>
+          </div>
+          <div class="fld"><label for="bw-stelle">Stelle</label>
+            <select id="bw-stelle" name="stelle">
+              {stellen.map((s) => <option>{s.data.titel}</option>)}
+              <option selected>Initiativbewerbung</option>
+            </select>
+          </div>
+          <div class="fld"><label for="bw-datei">Lebenslauf (optional)</label><input id="bw-datei" name="lebenslauf" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"><small>PDF, Foto oder Word, bis 8 MB</small></div>
+          <label class="chk"><input type="checkbox" name="einwilligung" required> <span set:html={md(K.bewerbung.einwilligung).replace('href="/', `href="${u('/')}`)} /></label>
+          <button class="btn btn--gold" type="submit">{K.bewerbung.button} <span class="arr"></span></button>
+          <p class="bw-err" role="alert" hidden>Das hat leider nicht geklappt. Bitte versuch es noch einmal oder ruf uns an.</p>
+          <div class="bw-ok" role="status">
+            <span class="ico-box" style="margin:0 auto"><Icon name="check" /></span>
+            <h3>{K.bewerbung.danke_titel}</h3>
+            <p>{K.bewerbung.danke_text}</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+</Base>
+
+<script>
+  // Stellen-Akkordeon
+  document.querySelectorAll<HTMLButtonElement>('.job-head').forEach((h) => h.addEventListener('click', () => {
+    const open = h.closest('.job')!.classList.toggle('open');
+    h.setAttribute('aria-expanded', String(open));
+  }));
+  // „Jetzt bewerben“ bei einer Stelle wählt die Stelle im Formular vor
+  const sel = document.getElementById('bw-stelle') as HTMLSelectElement | null;
+  document.querySelectorAll<HTMLElement>('[data-stelle]').forEach((b) => b.addEventListener('click', () => { if (sel) sel.value = b.dataset.stelle || ''; }));
+  // Bewerbung ohne Seitenwechsel an Netlify Forms senden (keine Daten in der URL)
+  const f = document.getElementById('bwForm') as HTMLFormElement | null;
+  f?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = f.querySelector('button[type=submit]') as HTMLButtonElement;
+    btn.disabled = true;
+    try {
+      const res = await fetch(f.getAttribute('action') || '/', { method: 'POST', body: new FormData(f) });
+      if (!res.ok) throw new Error(String(res.status));
+      f.classList.add('sent');
+      window.bvTrack?.('bewerbung_abgeschickt', { stelle: sel?.value || '' });
+    } catch (err) {
+      btn.disabled = false;
+      const msg = f.querySelector('.bw-err') as HTMLElement | null;
+      if (msg) msg.hidden = false;
+    }
+  });
+</script>

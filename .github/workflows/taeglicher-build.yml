@@ -1,0 +1,30 @@
+# Baut die Seite morgens neu, aber nur an Tagen, an denen ein terminierter Artikel der Buchreihe erscheint.
+# So kostet der automatische Build bei Netlify nur etwa vier Deploys im Monat statt dreißig.
+# Einrichtung: In Netlify unter Site configuration > Build hooks einen Hook anlegen und die URL
+# hier im Repository unter Settings > Secrets and variables > Actions als NETLIFY_BUILD_HOOK speichern.
+name: Täglicher Build
+on:
+  schedule:
+    - cron: '0 4 * * *'   # 4:00 UTC = 5:00 Uhr Winterzeit, 6:00 Uhr Sommerzeit
+  workflow_dispatch:      # von Hand starten baut immer
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Steht heute ein Artikel an?
+        id: pruefen
+        run: |
+          heute=$(TZ=Europe/Berlin date +%F)
+          if grep -lE "^datum: *['\"]?${heute}" src/content/artikel/*.md > /dev/null 2>&1; then
+            echo "faellig=ja" >> "$GITHUB_OUTPUT"; echo "Artikel für ${heute} gefunden, Build wird ausgelöst."
+          else
+            echo "faellig=nein" >> "$GITHUB_OUTPUT"; echo "Heute ist kein Artikel geplant, kein Build nötig."
+          fi
+      - name: Netlify-Build auslösen
+        if: steps.pruefen.outputs.faellig == 'ja' || github.event_name == 'workflow_dispatch'
+        env:
+          HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then echo "Noch kein Netlify-Build-Hook hinterlegt, nichts zu tun."; exit 0; fi
+          curl -fsS -X POST -d '{}' "$HOOK"

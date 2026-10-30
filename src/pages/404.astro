@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import { u } from '../lib/site';
+---
+<Base titel="Seite nicht gefunden | Bentivegna" beschreibung="Diese Seite gibt es nicht (mehr)." noindex>
+  <section class="page-head" style="min-height:70vh">
+    <img class="wm" src={u('/uploads/logos/schild-mono.svg')} alt="" aria-hidden="true">
+    <div class="wrap">
+      <span class="eyebrow">Fehler 404</span>
+      <h1 style="margin-top:16px">Diese Seite gibt es nicht.</h1>
+      <p class="lead">Vielleicht hat sich die Adresse geändert. Hier geht es weiter:</p>
+      <div class="hero-cta" style="margin-top:28px">
+        <a href={u('/')} class="btn btn--gold">Zur Startseite <span class="arr"></span></a>
+        <a href={u('/der-chef-auf-der-baustelle/')} class="btn btn--ghost">Zur Buchreihe <span class="arr"></span></a>
+      </div>
+    </div>
+  </section>
+</Base>

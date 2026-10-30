@@ -1,0 +1,88 @@
+/* Redaktionssystem im Bentivegna-Look. Erzeugt von scripts/cms-oberflaeche.py, nicht von Hand ändern. */
+@font-face{font-family:"Source Sans 3";font-weight:400;font-display:swap;src:url(schriften/source-sans-3-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Source Sans 3";font-weight:600;font-display:swap;src:url(schriften/source-sans-3-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:"Source Sans 3";font-weight:700;font-display:swap;src:url(schriften/source-sans-3-latin-700-normal.woff2) format("woff2")}
+:root{--bv-navy:#273365;--bv-navy-d:#1d2750;--bv-blau:#345c9a;--bv-gold:#998a6d;--bv-gold-d:#857759;--bv-sand:#ccc4af;--bv-creme:#f0efeb;--bv-linie:rgba(39,51,101,.12)}
+body,button,input,textarea,select,[class*="css-"]{font-family:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif!important}
+body{background:var(--bv-creme)!important;color:#1c2233}
+
+/* Kopfzeile */
+[class*="-AppHeader-"]{background:var(--bv-navy)!important;box-shadow:0 6px 24px rgba(20,29,58,.18)!important;border:0!important}
+[class*="-AppHeaderContent"]{max-width:1360px;padding-left:24px!important}
+[class*="-AppHeaderContent"]{align-items:center!important}
+[class*="-AppHeaderContent"]::before{content:"Bentivegna · Redaktion";display:flex;align-items:center;align-self:center;gap:10px;padding-left:46px;margin-right:34px;height:40px;flex:0 0 auto;color:#fff;font-weight:700;font-size:17px;letter-spacing:.01em;white-space:nowrap;
+  background:url(../uploads/logos/schild.svg) 8px center/20px auto no-repeat,radial-gradient(circle at 18px 50%,#fff 0 17px,transparent 17.6px)}
+[class*="-AppHeaderNavLink"],[class*="-AppHeaderButton"]{color:rgba(255,255,255,.78)!important;font-weight:600!important;border-radius:10px!important}
+[class*="-AppHeaderNavLink"] svg,[class*="-AppHeaderButton"] svg,[class*="-AppHeaderNavLink"] [class*="-IconWrapper"],[class*="-AppHeaderButton"] [class*="-IconWrapper"]{color:inherit!important;fill:currentColor!important}
+[class*="-AppHeaderNavLink"]:hover,[class*="-AppHeaderButton"]:hover{color:#fff!important;background:rgba(255,255,255,.08)!important}
+[class*="-AppHeaderNavLink"].header-link-active{color:#fff!important;background:rgba(255,255,255,.12)!important;box-shadow:inset 0 -3px 0 var(--bv-gold)}
+[class*="-AppHeaderQuickNewButton"]{background:var(--bv-gold)!important;color:#fff!important;border-radius:10px!important;font-weight:700!important;height:40px!important;line-height:40px!important;padding:0 34px 0 18px!important;font-size:14.5px!important}
+[class*="-AppHeaderQuickNewButton"]::after{border-top-color:#fff!important}
+[class*="-AppHeaderQuickNewButton"]:hover{background:var(--bv-gold-d)!important}
+[class*="-AppHeaderSiteLink"]{color:#fff!important;font-weight:600}
+[class*="-AppHeaderTestRepoIndicator"]{display:none!important}
+[class*="-AvatarPlaceholderIcon"]{color:var(--bv-sand)!important}
+
+/* Grundflächen */
+[class*="-AppMainContainer"]{max-width:1360px!important}
+[class*="-card-card"]{border-radius:16px!important;box-shadow:0 10px 30px rgba(20,29,58,.07),0 1px 3px rgba(20,29,58,.05)!important;border:1px solid var(--bv-linie)!important}
+[class*="-SidebarHeading"],[class*="-CollectionTopHeading"],[class*="-WorkflowTopHeading"]{color:var(--bv-navy)!important;font-weight:700!important;letter-spacing:-.01em}
+[class*="-CollectionTopDescription"],[class*="-WorkflowTopDescription"]{color:#5d6473!important;font-size:15.5px!important;line-height:1.55!important;max-width:640px}
+[class*="-CollectionTopNewButton"],[class*="-SaveButton"],[class*="-PublishButton"]{background:var(--bv-gold)!important;color:#fff!important;border-radius:10px!important;font-weight:700!important;box-shadow:0 6px 16px rgba(153,138,109,.35)!important}
+[class*="-CollectionTopNewButton"]:hover{background:var(--bv-gold-d)!important}
+[class*="-SearchInput"]{border-radius:10px!important;background:var(--bv-creme)!important}
+
+/* Seitenleiste mit Gruppen und Symbolen */
+[class*="-SidebarNavList"] li{list-style:none}
+[class*="-SidebarNavLink"]{border-radius:10px!important;margin:2px 10px!important;padding:11px 14px!important;font-weight:600!important;color:#3b4252!important;border-left:0!important;gap:12px}
+[class*="-SidebarNavLink"]:hover{background:rgba(39,51,101,.06)!important;color:var(--bv-navy)!important}
+[class*="-SidebarNavLink"].active,[class*="-SidebarNavLink"][aria-current="page"]{background:var(--bv-navy)!important;color:#fff!important}
+[class*="-SidebarNavLink"] [class*="-IconWrapper"]{display:none!important}
+[class*="-SidebarNavLink"]::before{content:"";flex:0 0 20px;width:20px;height:20px;background:currentColor;-webkit-mask:var(--bv-symbol) center/contain no-repeat;mask:var(--bv-symbol) center/contain no-repeat;opacity:.9}
+[class*="-SidebarNavList"] li.bv-gruppe::before,[class*="-SidebarNavList"] li:has(> a.bv-gruppe)::before{display:block}
+
+a[href$="/collections/artikel"]{--bv-symbol:url("data:image/svg+xml,%3Csvg class='lucide lucide-newspaper' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' %3E %3Cpath d='M15 18h-5' /%3E %3Cpath d='M18 14h-8' /%3E %3Cpath d='M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2' /%3E %3Crect width='8' height='4' x='10' y='6' rx='1' /%3E %3C/svg%3E")}
+a[href$="/collections/kapitel"]{--bv-symbol:url("data:image/svg+xml,%3Csvg class='lucide lucide-book-open-text' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' %3E %3Cpath d='M12 5v16' /%3E %3Cpath d='M16 13h2' /%3E %3Cpath d='M16 9h2' /%3E %3Cpath d='M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z' /%3E %3Cpath d='M6 13h2' /%3E %3Cpath d='M6 9h2' /%3E %3C/svg%3E")}
+a[href$="/collections/buchreihe"]{--bv-symbol:url("data:image/svg+xml,%3Csvg class='lucide lucide-sliders-horizontal' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' %3E %3Cpath d='M10 5H3' /%3E %3Cpath d='M12 19H3' /%3E %3Cpath d='M14 3v4' /%3E %3Cpath d='M16 17v4' /%3E %3Cpath d='M21 12h-9' /%3E %3Cpath d='M21 19h-5' /%3E %3Cpath d='M21 5h-7' /%3E %3Cpath d='M8 10v4' /%3E %3Cpath d='M8 12H3' /%3E %3C/svg%3E")}
+a[href$="/collections/startseite"]{--bv-symbol:url("data:image/svg+xml,%3Csvg class='lucide lucide-house' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' %3E %3Cpath d='M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8' /%3E %3Cpath d='M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z' /%3E %3C/svg%3E")}
+a[href$="/collections/karriere"]{--bv-symbol:url("data:image/svg+xml,%3Csvg class='lucide lucide-briefcase-business' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' %3E %3Cpath d='M12 12h.01' /%3E %3Cpath d='M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2' /%3E %3Cpath d='M22 13a18.15 18.15 0 0 1-20 0' /%3E %3Crect width='20' height='14' x='2' y='6' rx='2' /%3E %3C/svg%3E")}
+a[href$="/collections/stellen"]{--bv-symbol:url("data:image/svg+xml,%3Csvg class='lucide lucide-user-plus' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' %3E %3Cpath d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2' /%3E %3Ccircle cx='9' cy='7' r='4' /%3E %3Cline x1='19' x2='19' y1='8' y2='14' /%3E %3Cline x1='22' x2='16' y1='11' y2='11' /%3E %3C/svg%3E")}
+a[href$="/collections/funnel"]{--bv-symbol:url("data:image/svg+xml,%3Csvg class='lucide lucide-list-checks' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' %3E %3Cpath d='M13 5h8' /%3E %3Cpath d='M13 12h8' /%3E %3Cpath d='M13 19h8' /%3E %3Cpath d='m3 17 2 2 4-4' /%3E %3Cpath d='m3 7 2 2 4-4' /%3E %3C/svg%3E")}
+a[href$="/collections/einstellungen"]{--bv-symbol:url("data:image/svg+xml,%3Csvg class='lucide lucide-contact' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' %3E %3Cpath d='M16 2v2' /%3E %3Cpath d='M7 21v-2a2 2 0 012-2h6a2 2 0 012 2v2' /%3E %3Cpath d='M8 2v2' /%3E %3Ccircle cx='12' cy='10' r='3' /%3E %3Crect x='3' y='3' width='18' height='18' rx='2' /%3E %3C/svg%3E")}
+a[href$="/collections/rechtliches"]{--bv-symbol:url("data:image/svg+xml,%3Csvg class='lucide lucide-scale' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' %3E %3Cpath d='M12 3v18' /%3E %3Cpath d='m19 8 3 8a5 5 0 0 1-6 0zV7' /%3E %3Cpath d='M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1' /%3E %3Cpath d='m5 8 3 8a5 5 0 0 1-6 0zV7' /%3E %3Cpath d='M7 21h10' /%3E %3C/svg%3E")}
+[class*="-SidebarNavList"] li:has(> a[href$="/collections/artikel"])::before{content:"Buchreihe";display:block;margin:18px 24px 6px;font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--bv-gold)}
+[class*="-SidebarNavList"] li:has(> a[href$="/collections/startseite"])::before{content:"Seiten der Website";display:block;margin:18px 24px 6px;font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--bv-gold)}
+[class*="-SidebarNavList"] li:has(> a[href$="/collections/einstellungen"])::before{content:"Allgemein";display:block;margin:18px 24px 6px;font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--bv-gold)}
+[class*="-SidebarNavList"] li:first-child:has(> a[href$="/collections/artikel"])::before{margin-top:6px}
+
+/* Listen */
+[class*="-ListCard-card"]{border-radius:12px!important;transition:transform .15s,box-shadow .15s!important}
+[class*="-ListCard-card"]:hover{transform:translateY(-1px);box-shadow:0 14px 30px rgba(20,29,58,.1)!important}
+[class*="-ListCardTitle"]{color:var(--bv-navy)!important;font-weight:600!important;font-size:16.5px!important}
+
+/* Arbeitsablauf in Markenfarben */
+[class*="-ColumnHeader"]{border-radius:12px!important;font-weight:700!important;padding:10px 14px!important;border:0!important}
+[class*="-WorkflowListContainer"] > div:nth-child(1) [class*="-ColumnHeader"]{background:#ece8de!important;color:#6b5f47!important}
+[class*="-WorkflowListContainer"] > div:nth-child(2) [class*="-ColumnHeader"]{background:#e4dcc8!important;color:#5d5035!important}
+[class*="-WorkflowListContainer"] > div:nth-child(3) [class*="-ColumnHeader"]{background:#dfe5f0!important;color:var(--bv-navy)!important}
+[class*="-WorkflowTop"] [class*="-StyledDropdownButton"]{background:var(--bv-gold)!important;color:#fff!important;border-radius:10px!important;font-weight:700!important}
+[class*="-WorkflowCardContainer"]{border-radius:12px!important}
+
+/* Bearbeiten */
+[class*="-ToolbarContainer"]{box-shadow:0 4px 16px rgba(20,29,58,.08)!important}
+[class*="-BackArrow"],[class*="-BackCollection"]{color:var(--bv-navy)!important}
+[class*="-FieldLabel"]{background:none!important;color:var(--bv-navy)!important;border:0!important;padding:0 0 6px 2px!important;font-weight:700!important;letter-spacing:.01em;text-transform:none!important;font-size:14.5px!important}
+.nc-controlPane-widget{border:1.5px solid #ddd8cb!important;border-radius:12px!important;background:#fff!important;font-size:16px!important}
+.nc-controlPane-widget:focus,.nc-controlPane-widget:focus-within{border-color:var(--bv-navy)!important;box-shadow:0 0 0 3px rgba(39,51,101,.12)!important}
+[class*="-ControlContainer"]{margin-top:22px!important}
+[class*="-ControlHint"]{font-size:13.5px!important;line-height:1.45!important}
+[class*="-ControlContainer"] input,[class*="-ControlContainer"] textarea{font-size:16px!important}
+
+/* Anmeldung */
+[class*="AuthenticationPage"]{background:radial-gradient(900px 500px at 80% 0,#e8eaef,rgba(232,234,239,0) 60%),var(--bv-creme)!important}
+[class*="-LoginButton"]{background:var(--bv-gold)!important;color:#fff!important;border-radius:12px!important;font-weight:700!important;padding:12px 26px!important;height:auto!important;box-shadow:0 10px 24px rgba(153,138,109,.35)!important}
+[class*="AuthenticationPage"] [class*="PageLogoIcon"],[class*="AuthenticationPage"] [class*="CustomIconWrapper"],[class*="AuthenticationPage"] > span:first-child{display:none!important}
+[class*="AuthenticationPage"]::before{content:"";order:0;display:block;width:360px;max-width:80vw;height:70px;margin:0 auto 6px;background:url(../uploads/logos/logo-quer.svg) center/contain no-repeat}
+[class*="AuthenticationPage"]::after{content:"Hier bearbeitest du die Inhalte der Website.";order:1;display:block;margin:4px 0 26px;color:#5d6473;font-size:17px;text-align:center}
+[class*="AuthenticationPage"] > button{order:2}
+[class*="AuthenticationPage"] > a,[class*="AuthenticationPage"] > p{order:3}

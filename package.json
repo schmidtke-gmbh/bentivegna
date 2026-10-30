@@ -1,0 +1,21 @@
+{
+  "name": "bentivegna-website",
+  "type": "module",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "cms-config": "python3 scripts/cms-config.py",
+    "doppelklick": "astro build && node scripts/doppelklick.mjs dist vorschau-doppelklick"
+  },
+  "dependencies": {
+    "@fontsource/source-sans-3": "5.3.1",
+    "@fontsource/source-serif-4": "5.3.1",
+    "astro": "5.18.2",
+    "lucide-static": "1.64.0",
+    "marked": "18.1.2",
+    "yaml": "2.8.1"
+  }
+}

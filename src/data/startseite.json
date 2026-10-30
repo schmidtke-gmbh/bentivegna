@@ -1,0 +1,563 @@
+{
+  "seo": {
+    "titel": "Bentivegna | Steuer- & Unternehmerberatung für SHK-Betriebe",
+    "beschreibung": "Steuer- & Unternehmerberatung nur für SHK-Betriebe ab 1 Mio. € Umsatz: Steuergestaltung, GmbH & Holding, Kalkulation, Liquidität, Führung. Digital, deutschlandweit."
+  },
+  "hero": {
+    "marker_tag": "",
+    "marker_text": "Die Steuer- & Unternehmerberatung nur für SHK-Betriebe ab 1 Mio. € Umsatz",
+    "kicker": "Sanitär · Heizung · Klima",
+    "zeile1": "DEIN BETRIEB:",
+    "zeile2": "RENTABEL. STEUERLICH GESTALTET. VERKAUFSFÄHIG.",
+    "subline": "Wir verbinden Steuerberatung, betriebswirtschaftliche 1:1-Beratung und Coaching für SHK-Betriebe. Du bekommst Klarheit über deine Zahlen und deine Liquidität, wir gestalten deine Steuern, damit dein Betrieb rentabel wird, ohne dich läuft und verkaufsfähig ist.",
+    "button_primaer": "Kostenloses Analysegespräch",
+    "button_sekundaer": "Unsere Leistungen",
+    "bullets": [
+      "Klarheit über deine Zahlen",
+      "Liquidität im Griff",
+      "Steuern clever gestaltet"
+    ],
+    "bild": "/uploads/hero-domenico-hochkant.jpg",
+    "bild_alt": "Domenico Bentivegna, Steuerberater für SHK-Betriebe",
+    "fokus_label": "100 % SHK-Fokus",
+    "badge_titel": "Mehr Gewinn, nicht nur mehr Umsatz",
+    "badge_text": "Klarheit über Zahlen & Liquidität",
+    "video_youtube_id": "DLg6dO8Lx0c",
+    "video_hochkant": false,
+    "youtube_zeile": "Unser YouTube-Kanal"
+  },
+  "kennzahlen": [
+    {
+      "zahl": 150,
+      "praefix": "",
+      "suffix": "+",
+      "label": "Betreute Unternehmen",
+      "alt_zahl": "",
+      "alt_label": ""
+    },
+    {
+      "zahl": 20,
+      "praefix": "",
+      "suffix": "+",
+      "label": "Jahre an der Seite von Unternehmern",
+      "alt_zahl": "",
+      "alt_label": ""
+    },
+    {
+      "zahl": 100,
+      "praefix": "",
+      "suffix": " %",
+      "label": "Persönliches Engagement",
+      "alt_zahl": "",
+      "alt_label": "Unternehmerisch denkend"
+    },
+    {
+      "zahl": 100,
+      "praefix": "",
+      "suffix": "+",
+      "label": "Umwandlungen in die GmbH begleitet",
+      "alt_zahl": "Deutschlandweit",
+      "alt_label": "Digital, persönlich, per Teams"
+    }
+  ],
+  "auszeichnungen": {
+    "titel": "Ausgezeichnet & zertifiziert",
+    "logos": [
+      {
+        "bild": "/uploads/logos/kanzleibooster-2026.png",
+        "alt": "Kanzleibooster-Award 2026 für vorbildliche Kanzleiführung"
+      },
+      {
+        "bild": "/uploads/logos/datev-digitale-kanzlei-2025.png",
+        "alt": "DATEV-Label Digitale Kanzlei 2025"
+      }
+    ],
+    "textsiegel_titel": "Fachberater für Unternehmensnachfolge",
+    "textsiegel_unter": "DStV e. V."
+  },
+  "problem": {
+    "eyebrow": "Das Problem, das niemand sieht",
+    "titel": "Volle Auftragsbücher, und am Monatsende bleibt",
+    "akzent": "trotzdem zu wenig übrig.",
+    "intro": "Die meisten erfolgreichen SHK-Unternehmer kennen das: Top-Auslastung, aber die Liquidität ist ständig knapp, und keiner weiß genau, warum. Wert entsteht nicht auf der Baustelle, sondern in der Steuerung.",
+    "karten": [
+      {
+        "icon": "droplets",
+        "titel": "Liquidität ständig knapp",
+        "text": "Material und Löhne sind über Wochen vorfinanziert, während Kundenzahlungen spät kommen. Abschläge und Forderungen sind ein Dauerthema."
+      },
+      {
+        "icon": "calculator",
+        "titel": "Kalkulation aus dem Bauch",
+        "text": "Ob ein Projekt am Ende wirklich verdient hat, weiß niemand. Steigende Material- und Lohnkosten fressen unbemerkt die Marge."
+      },
+      {
+        "icon": "refresh-cw",
+        "titel": "Alles hängt am Inhaber",
+        "text": "Hamsterrad statt Freiheit: ständig verfügbar, abends Büro. Mehr Umsatz heißt mehr Stress, nicht mehr Gewinn."
+      },
+      {
+        "icon": "scale",
+        "titel": "Steuer & § 13b als Risiko",
+        "text": "Überraschende Nachzahlungen, Stress bei der Betriebsprüfung, Unsicherheit bei Bauleistungs-Umsatzsteuer und Freistellungsbescheinigungen."
+      },
+      {
+        "icon": "landmark",
+        "titel": "Steuern verwaltet statt gestaltet",
+        "text": "Seit Jahren Einzelunternehmen, volle Haftung, höchste Steuerlast, keine Holding, Nachfolge ungeklärt. Weil nie jemand gestaltet hat. Der teuerste Fehler, den niemand sieht."
+      }
+    ]
+  },
+  "zitat": {
+    "zeile1": "Keine Sorge, wenn du dich hier wiedererkennst.",
+    "zeile2": "So geht es den meisten Betrieben.",
+    "unter": "Genau deshalb gibt es Bentivegna."
+  },
+  "unterschied": {
+    "eyebrow": "Der Unterschied",
+    "titel": "Vorher Bauchgefühl. Danach",
+    "akzent": "Steuerung.",
+    "links_pill": "Ohne klare Steuerung",
+    "links_titel": "So fühlt es sich heute an",
+    "links": [
+      "Volle Auftragsbücher, leeres Konto, und keiner weiß genau, warum.",
+      "Kalkuliert wird aus dem Bauch; ob ein Auftrag verdient, bleibt offen.",
+      "Alles hängt an dir. Urlaub ist Stress, nie echtes Abschalten.",
+      "Steuernachzahlungen und § 13b sind ein Risiko, das überrascht.",
+      "Einzelunternehmen, volle Haftung, höchste Steuerlast, weil nie jemand gestaltet hat."
+    ],
+    "rechts_pill": "Mit Bentivegna",
+    "rechts_titel": "So führst du mit uns",
+    "rechts": [
+      "Du weißt, was jedes Projekt verdient, weil du es selbst nachkalkulieren kannst. Planbar, ohne böse Überraschungen.",
+      "Belastbarer Stundensatz und Nachkalkulation. Du weißt, woran du verdienst.",
+      "Ein Betrieb, der auch ohne dich läuft, mit zweiter Führungsebene und Struktur.",
+      "§ 13b sicher aufgesetzt, keine Überraschungen bei der Betriebsprüfung.",
+      "Rechtsform, Holding und Familienstruktur passen zu Haftung, Steuerlast und Nachfolge: gestaltet statt verwaltet."
+    ]
+  },
+  "laufband": [
+    "Spezialisiert auf SHK",
+    "Nur für SHK-Betriebe ab 1 Mio. €",
+    "Beratung statt Verwaltung",
+    "Steuergestalter statt Steuerverwalter",
+    "Mehr Gewinn, nicht nur mehr Umsatz",
+    "Vom Einzelunternehmen in die GmbH",
+    "Vom Macher zum Unternehmer",
+    "Zahlen, die Klartext reden"
+  ],
+  "leistungen": {
+    "eyebrow": "Unsere Leistungen",
+    "titel": "Klare Lösungen für deinen Erfolg",
+    "intro": "Buchhaltung und Jahresabschluss sind für uns nur das Fundament. Unser Kerngeschäft ist die laufende strategische Begleitung, damit dein Betrieb wächst, läuft und wertvoll wird.",
+    "unternehmensberatung": {
+      "titel": "Unternehmensberatung",
+      "text": "Aus dem Macher wird ein Unternehmer. Wir arbeiten mit dir an der ganzen Wertschöpfungskette: Digitalisierung, Vertriebsstruktur, Preisfindung, Rollenmodell im Team, Finanzierung, Marketing. Ziel: ein Betrieb, der rentabel ist, ohne dich läuft und verkaufsfähig wird. Beratung statt Verwaltung.",
+      "zusatz": "Du wählst: Coaching-Programm mit Trainingsplattform für dich und dein Team, oder 1:1-Beratung mit Umsetzung an deiner Seite."
+    },
+    "vermoegen": {
+      "titel": "Vermögen & Nachfolge",
+      "text": "Der Unternehmer hinter dem Unternehmen: Vermögensaufbau, private Investitionen steuerlich und rechtlich sauber strukturiert, Nachfolge und Verkauf vorbereitet. Begleitet vom Fachberater für Unternehmensnachfolge."
+    },
+    "prozesse": {
+      "titel": "Prozesse & Kalkulation",
+      "text": "Wir leiten mit dir deinen betriebsindividuellen Stundenverrechnungssatz her und bauen mit dir eine Vor- und Nachkalkulation auf, die du selbst beherrschst. Du weißt endlich, ob und woran du verdienst.",
+      "kasten": "Du kalkulierst jede Baustelle selbst nach, mit einem System, das wir gemeinsam aufsetzen. Wenige Prozentpunkte Marge sind bei 1 bis 5 Mio. € Umsatz schnell fünf- bis sechsstellig im Jahr."
+    },
+    "liquiditaet": {
+      "titel": "Liquidität & Controlling",
+      "text": "Rollierende Liquiditätsplanung, sauberes Abschlags- und Forderungsmanagement, klare Kennzahlen statt Blindflug. Auf Wunsch begleiten wir die Umsetzung in deinem Betrieb."
+    },
+    "mitarbeiter": {
+      "titel": "Mitarbeiter & Führung",
+      "text": "Monteure finden, halten und richtig führen, damit du keinen Auftrag mehr absagen musst, weil die Leute fehlen. Dazu ein Rollenmodell für dein Team und eine zweite Führungsebene."
+    },
+    "steuerstrategie": {
+      "titel": "Steuerstrategie & Struktur",
+      "text": "Vom Einzelunternehmen in die GmbH, Holding- und Familienstrukturen, Nachfolge vorbereitet: Umwandlungen sind unser Spezialgebiet, **100+ haben wir begleitet.** Rechtsform, Holding und Investitionen so aufgesetzt, dass die Steuerlast sinkt, die Haftung begrenzt ist und der Betrieb verkaufsfähig wird. § 13b sicher.",
+      "grafik": [
+        "Einzelunternehmen",
+        "GmbH",
+        "Holding"
+      ]
+    }
+  },
+  "deutschland": {
+    "eyebrow": "Deutschlandweit für SHK-Betriebe",
+    "titel_vor": "Wir sind in",
+    "titel_akzent": "ganz Deutschland",
+    "titel_nach": "für dich da.",
+    "text": "Ob Bodensee, Ruhrgebiet oder Berlin: Weil wir vollständig digital arbeiten, betreuen wir SHK-Betriebe in ganz Deutschland, persönlich und ohne dass du dafür nach Überlingen kommen musst.",
+    "punkte": [
+      "Spezialisiert ausschließlich auf SHK-Betriebe",
+      "Digital und persönlich, deutschlandweit",
+      "Verwurzelt in Überlingen am Bodensee",
+      "Beratungstermine bequem per Teams"
+    ],
+    "button": "Kostenloses Analysegespräch",
+    "klein": "100 % unverbindlich",
+    "trust": "**Mehr als 150** betreute Unternehmen"
+  },
+  "kontaktblock": {
+    "eyebrow": "Kanzlei am Bodensee",
+    "titel": "Setz dich mit uns an einen Tisch.",
+    "titel_akzent": "Per Teams oder am Bodensee.",
+    "text": "So arbeiten wir: digital, strukturiert und persönlich. Im kostenlosen Analysegespräch (ca. 30 Minuten, Teams oder Telefon) schauen wir gemeinsam auf deinen Betrieb und deine Zahlen und klären, ob wir dir helfen können und ob wir zueinander passen. Wenn ja, folgt ein Erstgespräch (Teams, ca. 1 Stunde), in dem du uns genauso auf den Prüfstand stellst.",
+    "button": "Kostenloses Analysegespräch",
+    "bild": "/uploads/beratung-1.jpg",
+    "bild_alt": "Beratungsgespräch in der Kanzlei Bentivegna",
+    "ki_titel": "Digitale, KI-gestützte Kanzlei",
+    "ki_text": "Wir leben, was wir beraten: vollständig digital, strukturiert und KI-gestützt, damit du deine Zahlen jederzeit im Blick hast und dein Betrieb runde, klare Prozesse bekommt.",
+    "siegel_titel": "Ausgezeichnet für unsere Arbeitsweise"
+  },
+  "stufen": {
+    "eyebrow": "Unsere Methode",
+    "titel": "Unser Weg in 6 Stufen",
+    "intro": "In den ersten Wochen schaffen wir Klarheit und erste Ergebnisse, danach begleiten wir dich dauerhaft. Kein einmaliges Projekt, sondern eine Partnerschaft, die mit deinem Unternehmen mitwächst.",
+    "schritte": [
+      {
+        "titel": "Fundament & Diagnose",
+        "text": "Wir setzen deine Buchhaltung digital und KI-gestützt auf: Umsatz, voraussichtlicher Gewinn und Steuerlast jederzeit im Blick. Dazu ein ehrlicher Status-Check zu Kalkulation, Liquidität, Struktur und Steuer.",
+        "tags": [
+          "Digitale Buchhaltung",
+          "Status-Check",
+          "Echtzeit-Zahlen"
+        ],
+        "bild": "/uploads/step-1.jpg",
+        "bild_unter": "Zahlen digital & in Echtzeit"
+      },
+      {
+        "titel": "Sofort Steuern sparen",
+        "text": "Direkt umsetzbare Maßnahmen bringen sofort Liquidität: Firmenwagen- und Fuhrparkbesteuerung, Investitionsabzugsbetrag für anstehende Anschaffungen, Gewährleistungsrückstellungen und richtig bewertete halbfertige Arbeiten.",
+        "tags": [
+          "Investitionsabzugsbetrag",
+          "Rückstellungen",
+          "Halbfertige Arbeiten"
+        ],
+        "bild": "/uploads/step-2.jpg",
+        "bild_unter": "Mehr Liquidität, sofort"
+      },
+      {
+        "titel": "Kalkulation reparieren",
+        "text": "Wir leiten mit dir deinen betriebsindividuellen Stundenverrechnungssatz her und bauen mit dir eine Vor- und Nachkalkulation auf, die du selbst beherrschst. Du weißt endlich, was du abrechnen musst und ob du verdienst.",
+        "tags": [
+          "Stundenverrechnungssatz",
+          "Nachkalkulation",
+          "Marge"
+        ],
+        "bild": "/uploads/step-3.jpg",
+        "bild_unter": "Endlich wissen, was verdient ist"
+      },
+      {
+        "titel": "Liquidität & Steuerung",
+        "text": "Rollierende Liquiditätsplanung, sauberes Abschlags- und Forderungsmanagement und wenige klare Kennzahlen: Auslastung, Deckungsbeitrag je Projekt, Auftragsbestand. Steuerung statt Blindflug. Auf Wunsch begleiten wir die Umsetzung direkt in deinem Betrieb.",
+        "tags": [
+          "Liquiditätsplanung",
+          "Deckungsbeitrag",
+          "Forderungen"
+        ],
+        "bild": "/uploads/step-4.jpg",
+        "bild_unter": "Steuerung statt Blindflug"
+      },
+      {
+        "titel": "Struktur & Strategie",
+        "text": "Vom Einzelunternehmen in die GmbH, Holding oder Familienstruktur: Steuerlast gesenkt, Haftung begrenzt, Nachfolge vorbereitet. § 13b sicher aufgesetzt. Dazu ein Betrieb mit dokumentierten Prozessen und zweiter Führungsebene, der auch ohne dich läuft und verkaufsfähig wird.",
+        "tags": [
+          "GmbH & Holding",
+          "§ 13b",
+          "Verkaufsfähig"
+        ],
+        "bild": "/uploads/step-5.jpg",
+        "bild_unter": "Gestaltet statt verwaltet"
+      },
+      {
+        "titel": "Laufend begleiten",
+        "text": "Regelmäßiges unternehmerisches Sparring auf Augenhöhe: vorausschauende Steuer- und Wachstumsstrategie, Jahr für Jahr umgesetzt. Kein einmaliges Projekt, sondern eine Partnerschaft, die mitwächst.",
+        "tags": [
+          "Sparring",
+          "Steuerstrategie",
+          "Wachstum"
+        ],
+        "bild": "/uploads/step-6.jpg",
+        "bild_unter": "Partnerschaft, die mitwächst"
+      }
+    ]
+  },
+  "referenzen": {
+    "eyebrow": "Erfolge, die für sich sprechen",
+    "titel": "Unsere Kunden. Echte Ergebnisse.",
+    "eintraege": [
+      {
+        "kategorie": "Steuergestaltung & Vermögen",
+        "titel": "Strategische Beratung für nachhaltigen Erfolg",
+        "zitat": "Dank der innovativen Steuergestaltung konnten wir nicht nur unsere Steuerlast signifikant senken, sondern auch unsere Vermögensbildung strategisch optimieren. Die enge Zusammenarbeit ermöglicht es uns, wichtige Entscheidungen schnell und fundiert zu treffen.",
+        "name": "Jürgen Rossegger",
+        "rolle": "Geschäftsführer der Jürgen Rossegger GmbH, Immobilienexperte",
+        "youtube_id": "OWjkEAOKuPE"
+      },
+      {
+        "kategorie": "Wachstum & Begleitung",
+        "titel": "Von klein zu groß: Partnerschaftliche Begleitung durch alle Wachstumsphasen",
+        "zitat": "Durch die kontinuierliche Begleitung und strategische Beratung konnten wir unser Unternehmen erfolgreich durch verschiedene Wachstumsphasen steuern und unseren Umsatz innerhalb weniger Jahre verfünffachen.",
+        "name": "Thomas Bellgardt",
+        "rolle": "Geschäftsführer der Bellgardt Medientechnik Vertriebs-GmbH",
+        "youtube_id": "Fzaw0d61eco"
+      },
+      {
+        "kategorie": "Struktur & Vermögensaufbau",
+        "titel": "Strategisches Wachstum und Vermögensaufbau: Mehr als nur Steuerberatung",
+        "zitat": "Durch die innovative Beratung konnten wir unsere Unternehmensstruktur optimieren, effektive Steuersparmodelle umsetzen und einen nachhaltigen Vermögensaufbau realisieren, während wir gleichzeitig unser Geschäft weiter ausbauten.",
+        "name": "Jürgen Schäfer",
+        "rolle": "Geschäftsführer der Schäfer Fenster und Türen Markdorf GmbH",
+        "youtube_id": "Siqf8uXzXI0"
+      }
+    ]
+  },
+  "entwicklung": {
+    "eyebrow": "Deine Entwicklung mit uns",
+    "titel": "Wir machen sichtbar, was dein Betrieb verdient.",
+    "intro": "Aus vollen Auftragsbüchern werden planbare Zahlen. Fahr mit der Maus über die Kurven und sieh Umsatz und Gewinn Monat für Monat.",
+    "karte1_eyebrow": "Nachkalkulation",
+    "karte1_titel": "Jede Baustelle zählt. Du weißt, was sie verdient.",
+    "karte1_text": "Mit einer Nachkalkulation, die du selbst beherrschst, siehst du pro Projekt, was wirklich verdient ist. Wenige Prozentpunkte Marge sind bei 1 bis 5 Mio. € Umsatz schnell fünf- bis sechsstellig im Jahr.",
+    "karte1_chips": [
+      "Deckungsbeitrag je Projekt",
+      "Stundensatz belastbar"
+    ],
+    "karte2_eyebrow": "Liquidität",
+    "karte2_titel": "Geld liegt nicht mehr auf der Baustelle.",
+    "karte2_text": "Abschläge, Anzahlungen und Forderungen sauber gesteuert, damit Material und Löhne nicht über Wochen vorfinanziert werden.",
+    "karte2_chips": [
+      "mehr Liquidität",
+      "rollierende Planung"
+    ],
+    "kpi_umsatz": 32,
+    "kpi_umsatz_text": "Umsatz im ersten Jahr der Zusammenarbeit",
+    "kpi_marge_von": 4,
+    "kpi_marge_auf": 9,
+    "kpi_marge_text": "Gewinnmarge, vorher 4 %",
+    "kpi_unter": "Beispielhafte Entwicklung eines SHK-Betriebs mit sauberer Kalkulation und Steuerung.",
+    "umsatz_start": 1200,
+    "umsatz_ende": 1580,
+    "hinweis": "Beispielwerte zur Veranschaulichung, keine garantierten Ergebnisse."
+  },
+  "mandant": {
+    "eyebrow": "Das erwartet dich als Mandant",
+    "titel": "So läuft die Zusammenarbeit mit Bentivegna",
+    "intro": "Bei uns arbeitest du digital, persönlich und ohne Umwege. Du hast feste Ansprechpartner, klare Abläufe und direkten Zugriff auf alles, was wichtig ist.",
+    "whatsapp_titel": "WhatsApp-Support",
+    "whatsapp_text": "Stell deine Fragen direkt per WhatsApp. Wir melden uns meist innerhalb von 24 Stunden und du weißt sofort, was zu tun ist.",
+    "chat": [
+      {
+        "von": "mandant",
+        "text": "Kurze Frage: Ein Bauträger will uns als Nachunternehmer beauftragen. Gilt § 13b, und was brauche ich für die Freistellungsbescheinigung?"
+      },
+      {
+        "von": "kanzlei",
+        "text": "Ja, Reverse-Charge. Ich schick dir gleich die Einordnung und die Checkliste zur Freistellungsbescheinigung."
+      },
+      {
+        "von": "mandant",
+        "text": "Perfekt, danke!"
+      }
+    ],
+    "meetings_titel": "Meetings mit deinem Berater",
+    "meetings_text": "Sprich regelmäßig mit uns über deine Zahlen und nächsten Schritte, per Teams, egal wo in Deutschland dein Betrieb sitzt. Fest eingeplant: alle sechs Monate ein Strategiegespräch zu aktuellen Zahlen, steuerlichen Änderungen und dem, was bei dir ansteht, etwa Investitionen.",
+    "meetings_bild": "/uploads/beratung-2.jpg",
+    "onboarding_titel": "Digitales Onboarding",
+    "onboarding_text": "Lade Belege und Dokumente bequem online hoch. Wir richten alles für dich ein, erklären dir kurz, wie es funktioniert, und übernehmen den Rest.",
+    "betreuung_titel": "Persönliche Betreuung",
+    "betreuung_text": "Bleib im direkten Austausch mit deinem festen Ansprechpartner. Er kennt deinen Betrieb, denkt mit und sorgt dafür, dass im Hintergrund alles läuft.",
+    "betreuung_bild": "/uploads/domenico-portrait.jpg",
+    "auswertung_titel": "Monatliche Auswertungen",
+    "auswertung_text": "Klarer Überblick über Umsatz, Kosten und Steuern. So siehst du jederzeit, wo dein Betrieb steht und wo Potenzial liegt.",
+    "hilfe_link": "Schon Mandant? Zum Hilfe-Center mit Anleitungen zu DATEV Unternehmen online & Co."
+  },
+  "passen": {
+    "eyebrow": "Passen wir zueinander?",
+    "titel": "Für wen wir arbeiten und für wen nicht",
+    "intro": "Wir nehmen bewusst nur wenige neue Mandate an. Damit die Zusammenarbeit für beide Seiten passt, sind wir hier ehrlich.",
+    "karten": [
+      {
+        "icon": "hard-hat",
+        "titel": "Etablierte SHK-Betriebe",
+        "text": "Sanitär, Heizung, Klima oder energiegetriebene Elektro-/PV-Betriebe ab ca. 1 Mio. € Umsatz. Die Mitarbeiterzahl ist egal, auch 2 Mio. € mit drei Leuten passen. Rechtsform egal: Wenn du noch Einzelunternehmer bist, ist die GmbH oft der erste Hebel."
+      },
+      {
+        "icon": "target",
+        "titel": "Inhaber mit Anspruch",
+        "text": "Unternehmer, die vom Macher zum Unternehmer wollen und bereit sind, in echte Beratung zu investieren statt in die billigste Deklaration."
+      },
+      {
+        "icon": "handshake",
+        "titel": "Bereit für Zusammenarbeit",
+        "text": "Betriebe, die digital arbeiten, Termine per Teams selbstverständlich finden, Buchhaltung in unsere Hände geben und einen Partner auf Augenhöhe suchen. Über Jahre, nicht für ein Projekt."
+      }
+    ],
+    "hinweis": "**Und für wen (noch) nicht:** Existenzgründer, reine Schnäppchenjäger oder wer nur die günstigste Steuererklärung sucht: dafür sind wir der falsche Partner. Das ist völlig in Ordnung."
+  },
+  "vergleich": {
+    "titel_serif": "Echte Unternehmerberatung",
+    "titel": "statt reiner Buchhaltung und Software von der Stange.",
+    "intro": "Wir kennen deinen Betrieb, deine Baustellen und deine Zahlen, und wir gestalten, statt nur zu verwalten.",
+    "links_titel": "Der klassische Steuerberater",
+    "links": [
+      "Betreut jede Branche, keine SHK-Tiefe",
+      "Bucht die Vergangenheit, statt zu beraten",
+      "Verwaltet Steuern, statt sie zu gestalten",
+      "§ 13b und Kalkulation oft Grauzone",
+      "Meldet sich einmal im Jahr",
+      "Wechselnde Sachbearbeiter",
+      "Papier und Zettelwirtschaft"
+    ],
+    "mitte_badge": "Nur für SHK-Betriebe ab 1 Mio. €",
+    "mitte": [
+      "Spezialisiert ausschließlich auf SHK-Betriebe",
+      "Versteht § 13b und Baustellen-Kalkulation",
+      "Laufende Beratung statt nur Jahresabschluss",
+      "Macht dich zum Herrn deiner Zahlen: Du weißt, was jede Baustelle verdient",
+      "Wandelt um und strukturiert: GmbH, Holding, Nachfolge",
+      "Fester Berater und WhatsApp-Draht",
+      "Digital und KI-gestützt",
+      "Macht deinen Betrieb verkaufsfähig"
+    ],
+    "rechts_titel": "Software & DIY",
+    "rechts": [
+      "Zahlen ja, echte Beratung nein",
+      "Du machst die Arbeit selbst",
+      "Kein Blick auf Liquidität und Marge",
+      "Keine Strategie, kein Sparring",
+      "Kein persönlicher Ansprechpartner",
+      "Standard von der Stange"
+    ]
+  },
+  "marken": {
+    "titel": "Die Marken, mit denen unsere Kunden arbeiten",
+    "liste": [
+      "GEBERIT",
+      "VIESSMANN",
+      "VAILLANT",
+      "BOSCH",
+      "REHAU",
+      "TECE"
+    ]
+  },
+  "software": {
+    "titel": "Die Software, mit der ihr arbeitet und die wir kennen",
+    "liste": [
+      "Hero",
+      "Orgamax",
+      "ToolTime",
+      "pds",
+      "Streit V.1",
+      "Taifun",
+      "KWP bnWin",
+      "Sykasoft",
+      "Plancraft",
+      "Craftnote",
+      "openHandwerk",
+      "Lexware"
+    ]
+  },
+  "team": {
+    "eyebrow": "Das Team hinter Bentivegna",
+    "titel": "Gemeinsam für deinen Erfolg",
+    "text": "Ein starkes Team aus Beratern, Unternehmern und Steuerexperten, mit Erfahrung, Weitblick und Leidenschaft für deinen SHK-Betrieb.",
+    "button": "Mehr über uns",
+    "bild": "/uploads/team-komplett.webp",
+    "bild_alt": "Das vollständige Team von Bentivegna mit Domenico Bentivegna"
+  },
+  "profil": {
+    "eyebrow": "Der Mensch hinter Bentivegna",
+    "name": "Domenico Bentivegna",
+    "zitat": "„Buchhaltung und Jahresabschluss sind das Pflichtprogramm. Mein Kerngeschäft ist, deinen Betrieb profitabel, steuerlich sicher und unabhängig von dir aufzustellen.“",
+    "unterzeile": "Domenico Bentivegna · Steuerberater · Fachberater für Unternehmensnachfolge (DStV e. V.)",
+    "bild": "/uploads/domenico-profil.jpg",
+    "bild_alt": "Domenico Bentivegna, Steuerberater und Fachberater für Unternehmensnachfolge",
+    "bilder_zusatz": [
+      {
+        "bild": "/uploads/domenico-studio.jpg",
+        "alt": "Domenico Bentivegna im Porträt"
+      },
+      {
+        "bild": "/uploads/domenico-mit-team.jpg",
+        "alt": "Domenico Bentivegna mit Kolleginnen aus seinem Team"
+      }
+    ],
+    "swoosh": "seit 20+ Jahren",
+    "unterschrift": "/uploads/unterschrift-domenico.png",
+    "punkte": [
+      {
+        "titel": "Über 20 Jahre an der Seite von Unternehmern",
+        "text": "Als Steuerberater und unternehmerischer Sparringspartner, nicht als Verwalter, der nur abarbeitet."
+      },
+      {
+        "titel": "Bewusst auf SHK spezialisiert",
+        "text": "Statt für alle ein bisschen, alles für eine Branche: Bentivegna ist konsequent auf SHK-Betriebe ausgerichtet, mit dem Wissen aus zahllosen Handwerksmandaten."
+      },
+      {
+        "titel": "Umwandlungs-Experte",
+        "text": "Vom Einzelunternehmen in die GmbH, Holdingstrukturen, Familiengesellschaften: um Steuern zu senken, Haftung zu begrenzen und die Nachfolge einzuleiten. Seine zweite Leidenschaft, 100+ Umwandlungen begleitet."
+      },
+      {
+        "titel": "Fachberater für Unternehmensnachfolge (DStV e. V.)",
+        "text": "Wer seinen Betrieb verkaufsfähig machen will, braucht jemanden, der weiß, wie Käufer rechnen."
+      },
+      {
+        "titel": "Vermögen des Unternehmers",
+        "text": "Berät auch die private Investition, steuerlich und rechtlich so aufgesetzt, dass aus Betriebsgewinn Vermögen wird."
+      },
+      {
+        "titel": "Lebt, was er berät",
+        "text": "Eine vollständig digitale, KI-gestützte Kanzlei, die selbst vormacht, wie strukturierte, runde Prozesse aussehen."
+      }
+    ]
+  },
+  "wissen": {
+    "eyebrow": "Wissen für SHK-Unternehmer",
+    "titel": "Der Chef auf der Baustelle",
+    "text": "Domenico Bentivegna veröffentlicht sein Buch Kapitel für Kapitel. Jede Woche ein neuer Teil, mit einer konkreten Aufgabe für deinen Betrieb.",
+    "button": "Zur Buchreihe",
+    "check_titel": "Wo steht dein Betrieb wirklich?",
+    "check_text": "Sechs Baustellen, eine Zahl von 1 bis 10. Der Selbstcheck zeigt dir in fünf Minuten, wo du anfangen solltest.",
+    "check_button": "Selbstcheck starten"
+  },
+  "faq": {
+    "eyebrow": "Häufige Fragen",
+    "titel": "Was du dich jetzt vielleicht fragst",
+    "fragen": [
+      {
+        "frage": "Wie läuft der Einstieg?",
+        "antwort": "In zwei Schritten, beide kostenlos: Im Analysegespräch (ca. 30 Min., Teams oder Telefon) klären wir, ob wir dir helfen können und ob wir zueinander passen. Danach lernst du uns im Erstgespräch (Teams, ca. 1 Std.) genauer kennen, und wir deine Zahlen."
+      },
+      {
+        "frage": "Betreut ihr wirklich nur SHK-Betriebe?",
+        "antwort": "Ja. Sanitär, Heizung, Klima sowie energiegetriebene Elektro- und PV-Betriebe. Genau diese Spezialisierung ist dein Vorteil: wir kennen § 13b, das Projektgeschäft und die Kalkulationsfallen deiner Branche."
+      },
+      {
+        "frage": "Ich bin noch Einzelunternehmer. Passt das?",
+        "antwort": "Ja. Oft ist die Umwandlung in die GmbH der erste Hebel, den wir gemeinsam prüfen: steuerlich, haftungsseitig und mit Blick auf die Nachfolge."
+      },
+      {
+        "frage": "Müssen wir unseren bisherigen Steuerberater wechseln?",
+        "antwort": "Ja. Beratung funktioniert nur mit Zahlen aus erster Hand, deshalb übernehmen wir Buchhaltung und Jahresabschluss komplett. Den Wechsel organisieren wir gemeinsam, ohne Aufwand für dich."
+      },
+      {
+        "frage": "Arbeitet ihr auch deutschlandweit?",
+        "antwort": "Ja. Wir sitzen in Überlingen am Bodensee und arbeiten digital mit Betrieben in ganz Deutschland, Beratungstermine laufen bequem per Teams."
+      },
+      {
+        "frage": "Was kostet die laufende Begleitung?",
+        "antwort": "Das hängt von Größe und Bedarf ab. Was die Begleitung kostet, sagen wir dir konkret schon im Analysegespräch."
+      }
+    ]
+  },
+  "cta": {
+    "eyebrow": "Bereit für den nächsten Schritt?",
+    "titel": "Volle Auftragsbücher verdienen ein volles Konto.",
+    "text": "Wir nehmen bewusst nur wenige neue Mandate an. In einem kostenlosen Analysegespräch klären wir ehrlich, ob wir dir helfen können, und ob wir zueinander passen.",
+    "button": "Jetzt Termin vereinbaren",
+    "whatsapp_button": "Frage per WhatsApp",
+    "klein": "Unverbindlich · kostenfrei · diskret"
+  }
+}

@@ -1,0 +1,95 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import ArtikelBild from '../../components/ArtikelBild.astro';
+import R from '../../data/buchreihe.json';
+import { u, absUrl, istVeroeffentlicht, lesezeit, datumDE } from '../../lib/site';
+import { getCollection } from 'astro:content';
+
+const kapitel = (await getCollection('kapitel')).sort((a, b) => a.data.nummer - b.data.nummer);
+const artikel = (await getCollection('artikel')).filter((a) => istVeroeffentlicht(a.data)).sort((a, b) => a.data.teil - b.data.teil);
+const neuester = artikel[artikel.length - 1];
+const proKapitel = kapitel.map((k) => ({ k, liste: artikel.filter((a) => a.data.kapitel === k.id) }));
+const ohneKapitel = artikel.filter((a) => !kapitel.some((k) => k.id === a.data.kapitel));
+const ld = {
+  '@context': 'https://schema.org', '@type': 'CollectionPage', name: R.titel, description: R.seo.beschreibung, url: absUrl('/der-chef-auf-der-baustelle/'),
+  author: { '@type': 'Person', name: R.autor.name },
+  hasPart: artikel.map((a) => ({ '@type': 'Article', headline: a.data.titel, url: absUrl(`/der-chef-auf-der-baustelle/${a.id}/`) }))
+};
+---
+<Base titel={R.seo.titel} beschreibung={R.seo.beschreibung} pfad="/der-chef-auf-der-baustelle/" jsonld={[ld]}>
+  <section class="page-head buch-head">
+    <img class="wm" src={u('/uploads/logos/schild-mono.svg')} alt="" aria-hidden="true">
+    <div class="wrap buch-head-grid">
+      <div>
+        <span class="chef-badge"><span class="r">Der Chef auf der Baustelle</span><span class="t">Buchreihe</span></span>
+        <h1 style="margin-top:22px">{R.titel}</h1>
+        <p class="buch-unter">{R.untertitel}</p>
+        <p class="lead">{R.einleitung}</p>
+        <div class="hero-cta" style="margin-top:30px">
+          {artikel[0] && <a href={u(`/der-chef-auf-der-baustelle/${artikel[0].id}/`)} class="btn btn--gold">Mit Teil 1 beginnen <span class="arr"></span></a>}
+          <a href={u('/der-chef-auf-der-baustelle/selbstcheck/')} class="btn btn--ghost">Selbstcheck starten <span class="arr"></span></a>
+        </div>
+      </div>
+      {neuester && (
+        <a class="buch-neu" href={u(`/der-chef-auf-der-baustelle/${neuester.id}/`)}>
+          <ArtikelBild bild={neuester.data.bild} alt={neuester.data.bild_alt} teil={neuester.data.teil} titel={neuester.data.titel} eager />
+          <span class="buch-neu-txt"><small>Neuester Teil</small><b>Teil {neuester.data.teil}: {neuester.data.titel}</b></span>
+        </a>
+      )}
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:64px">
+    <div class="wrap">
+      <div class="section-head" style="margin-bottom:34px">
+        <span class="eyebrow">Inhalt</span>
+        <h2 style="margin-top:16px">Kapitel und Teile</h2>
+      </div>
+      <div class="kap-liste">
+        {proKapitel.map(({ k, liste }) => (
+          <div class="kap">
+            <div class="kap-kopf">
+              <span class="kap-nr">Kapitel {k.data.nummer}</span>
+              <h3>{k.data.titel}</h3>
+              {k.data.beschreibung && <p>{k.data.beschreibung}</p>}
+            </div>
+            {liste.length > 0 ? (
+              <ol class="teil-liste">
+                {liste.map((a) => (
+                  <li><a href={u(`/der-chef-auf-der-baustelle/${a.id}/`)}>
+                    <span class="teil-nr">Teil {a.data.teil}</span>
+                    <span class="teil-txt"><b>{a.data.titel}</b><small>{a.data.lead}</small></span>
+                    <span class="teil-meta"><Icon name="clock" /> {a.data.lesezeit || lesezeit(a.body)} Min.</span>
+                  </a></li>
+                ))}
+              </ol>
+            ) : (
+              <p class="teil-bald">Die ersten Teile dieses Kapitels erscheinen in Kürze.</p>
+            )}
+          </div>
+        ))}
+        {ohneKapitel.length > 0 && (
+          <div class="kap"><div class="kap-kopf"><h3>Weitere Teile</h3></div>
+            <ol class="teil-liste">{ohneKapitel.map((a) => <li><a href={u(`/der-chef-auf-der-baustelle/${a.id}/`)}><span class="teil-nr">Teil {a.data.teil}</span><span class="teil-txt"><b>{a.data.titel}</b></span></a></li>)}</ol>
+          </div>
+        )}
+      </div>
+      {artikel.length === 0 && <p class="teil-bald">Der erste Teil erscheint in Kürze.</p>}
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="wissen-card check" style="border-radius:14px">
+        <img class="wm" src={u('/uploads/logos/schild-mono.svg')} alt="" aria-hidden="true">
+        <h3>{R.abschluss.titel}</h3>
+        <p>{R.abschluss.text}</p>
+        <div class="hero-cta" style="margin-top:6px">
+          <a href={u('/der-chef-auf-der-baustelle/selbstcheck/')} class="btn btn--light">{R.abschluss.selbstcheck_link} <span class="arr"></span></a>
+          <a href={u('/anfrage/')} class="btn btn--gold" data-track="cta_buchreihe">{R.abschluss.button} <span class="arr"></span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,708 @@
+---
+// Selbstcheck „Sechs Baustellen“ als Quiz: Baustelle für Baustelle, mit Zwischenschritten, Auswertung und Ergebnis.
+// Inhalte (Fragen, Stufen, Hinweise, Logik): selbstcheck.html von Domenico Bentivegna.
+// Gestaltung im SHK-Look: Bauplan-Raster, Heizkreis-Skizze, Manometer, Rohrleitung als Fortschritt, Handrad am Regler, Prüfstempel.
+import Base from '../../layouts/Base.astro';
+import { u } from '../../lib/site';
+const q = (n: string) => u(`/uploads/quiz/${n}.webp`);
+---
+<Base titel="Selbstcheck „Sechs Baustellen“ | Der Chef auf der Baustelle" beschreibung="Sechs Baustellen, eine Skala von 1 bis 10. Der Selbstcheck für SHK-Unternehmer aus dem Buch „Der Chef auf der Baustelle“ von Domenico Bentivegna." pfad="/der-chef-auf-der-baustelle/selbstcheck/" bodyClass="page-quiz">
+  <section class="qz" id="qz" data-anfrage={u('/anfrage/')} data-buch={u('/der-chef-auf-der-baustelle/')}
+    data-b1={q('baustelle-1')} data-b2={q('baustelle-2')} data-b3={q('baustelle-3')} data-b4={q('baustelle-4')} data-b5={q('baustelle-5')} data-b6={q('baustelle-6')}
+    data-haus={q('quiz-start')} data-lot={q('quiz-wasserwaage')}>
+    <svg class="qz-plan" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+      <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <g transform="translate(-30 236) scale(.75)">
+        <!-- Heizkreis links unten: Vorlauf, Rücklauf, Absperrventil, Pumpe, Manometer, Ausdehnungsgefäß -->
+        <path d="M0 700H186a14 14 0 0 0 14-14V540"/>
+        <path d="M0 744H226a14 14 0 0 0 14-14V604"/>
+        <path d="M194 552l6-12 6 12"/>
+        <path d="M92 690l16 20v-20l-16 20z" fill="#f8f7f3"/>
+        <path d="M100 700v-15M93 685h14"/>
+        <circle cx="140" cy="744" r="13" fill="#f8f7f3"/>
+        <path d="M134 736l14 8-14 8z"/>
+        <path d="M200 620h-22"/>
+        <circle cx="164" cy="620" r="13" fill="#f8f7f3"/>
+        <path d="M164 620l7-7M155 626h18"/>
+        <rect x="226" y="552" width="28" height="52" rx="14" fill="#f8f7f3"/>
+        <path d="M40 806h200M34 812l12-12M234 812l12-12"/>
+        </g>
+        <!-- Heizkörper rechts oben mit Thermostatventil und Bemaßung -->
+        <rect x="1196" y="176" width="132" height="64" rx="3" fill="#fbfaf7"/>
+        <path d="M1208 184v48M1220 184v48M1232 184v48M1244 184v48M1256 184v48M1268 184v48M1280 184v48M1292 184v48M1304 184v48M1316 184v48"/>
+        <path d="M1440 272H1316v-32"/>
+        <path d="M1440 300H1208v-60"/>
+        <path d="M1308 248l16 16h-16l16-16z" fill="#fbfaf7"/>
+        <circle cx="1338" cy="256" r="6"/><path d="M1324 256h8"/>
+        <path d="M1196 148h132M1190 154l12-12M1322 154l12-12M1196 140v16M1328 140v16"/>
+        <path d="M1150 80v300" stroke-dasharray="14 5 2 5"/>
+        <circle cx="1150" cy="396" r="13"/>
+      </g>
+      <g fill="currentColor" font-size="11" font-weight="700" letter-spacing="1.6">
+        <g transform="translate(-30 236) scale(.75)" font-size="14"><text x="56" y="691">VL</text><text x="56" y="735">RL</text>
+        <text x="262" y="583">MAG</text>
+        <text x="140" y="797" text-anchor="middle">DN 20</text></g>
+        <text x="1262" y="137" text-anchor="middle">1.200</text>
+        <text x="1346" y="214">HK 1</text>
+        <text x="1396" y="265">VL</text><text x="1396" y="293">RL</text>
+        <text x="1150" y="400" text-anchor="middle">A</text>
+      </g>
+    </svg>
+    <div class="qz-wrap" id="qzApp" aria-live="polite">
+      <noscript><p class="qz-noscript">Der Selbstcheck braucht JavaScript. Bitte aktiviere es in deinem Browser.</p></noscript>
+    </div>
+    <div class="qz-druck" id="qzDruck" aria-hidden="true"></div>
+  </section>
+</Base>
+
+<style is:global>
+  .page-quiz .fab{display:none}
+  .qz{--gold:#998a6d;--sand:#ccc4af;--messing:linear-gradient(90deg,#7c6e52,#d9cfb6 38%,#b3a37f 62%,#7c6e52);position:relative;min-height:100vh;padding:118px 0 70px;background:radial-gradient(900px 520px at 85% 0,var(--cool),rgba(232,234,239,0) 60%),linear-gradient(180deg,#fff,var(--cream));overflow:hidden}
+  /* Bauplan-Raster */
+  .qz::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:linear-gradient(rgba(39,51,101,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(39,51,101,.05) 1px,transparent 1px),linear-gradient(rgba(39,51,101,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(39,51,101,.08) 1px,transparent 1px);
+    background-size:24px 24px,24px 24px,120px 120px,120px 120px;background-position:-1px -1px;
+    -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 160px,#000 calc(100% - 90px),transparent);mask-image:linear-gradient(180deg,transparent 0,#000 160px,#000 calc(100% - 90px),transparent)}
+  .qz-plan{position:absolute;inset:0;width:100%;height:100%;color:var(--navy);opacity:.17;pointer-events:none}
+  .qz-wrap{max-width:720px;margin:0 auto;padding:0 18px;position:relative;z-index:1}
+  .qz-noscript{text-align:center;color:var(--muted)}
+  .qz-wrap.breit{max-width:1120px}
+  .qz-wrap.mittel{max-width:940px}
+  .qz [tabindex="-1"]:focus{outline:none}
+
+  /* Bildschirme */
+  .qz-screen{animation:qzIn .55s var(--ease) both}
+  .qz-screen.raus{animation:qzOut .28s ease both}
+  @keyframes qzIn{from{opacity:0;transform:translateY(22px) scale(.985)}to{opacity:1;transform:none}}
+  @keyframes qzOut{to{opacity:0;transform:translateY(-14px)}}
+  @keyframes qzSchweben{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  .qz-card{background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 22px 60px rgba(20,29,58,.10),0 3px 10px rgba(20,29,58,.04);padding:30px 34px 32px}
+
+  /* Kopf mit Fortschritt als Rohrleitung */
+  .qz-top{display:grid;grid-template-columns:90px 1fr 90px;align-items:center;margin-bottom:14px}
+  .qz-back{justify-self:start;background:none;border:0;font:inherit;font-size:.86rem;font-weight:700;color:var(--muted);cursor:pointer;padding:6px 0}
+  .qz-back:hover{color:var(--navy)}
+  .qz-count{justify-self:center;font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .qz-rohr{position:relative;height:14px;margin:6px 8px 34px;border-radius:8px;background:linear-gradient(180deg,#f6f3ec 0,#e3ddcf 42%,#d3cbb8 62%,#eeeae1 100%);box-shadow:inset 0 1px 2px rgba(20,29,58,.16),0 1px 0 #fff}
+  .qz-rohr::before,.qz-rohr::after{content:"";position:absolute;top:-4px;width:9px;height:22px;border-radius:3px;background:var(--messing);box-shadow:0 2px 4px rgba(20,29,58,.18)}
+  .qz-rohr::before{left:-7px}
+  .qz-rohr::after{right:-7px}
+  .qz-rohr .wasser{position:absolute;left:0;top:2px;bottom:2px;border-radius:6px;min-width:10px;transition:width .9s var(--ease);
+    background:radial-gradient(circle,rgba(255,255,255,.7) 0 1.3px,transparent 1.9px) 0 3px/23px 10px,radial-gradient(circle,rgba(255,255,255,.45) 0 1px,transparent 1.6px) 9px 6px/31px 10px,linear-gradient(180deg,#7ea0d6 0,#345c9a 48%,#273365 100%);
+    animation:qzFluss 1.4s linear infinite}
+  .qz-rohr .wasser::after{content:"";position:absolute;right:0;top:0;bottom:0;width:8px;border-radius:0 6px 6px 0;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.55))}
+  @keyframes qzFluss{to{background-position:23px 3px,40px 6px,0 0}}
+  .qz-rohr .muffe{position:absolute;top:-5px;width:12px;height:24px;margin-left:-6px;border-radius:3px;background:var(--messing);box-shadow:0 2px 5px rgba(20,29,58,.22);transition:filter .5s,opacity .5s}
+  .qz-rohr .muffe:not(.voll){filter:grayscale(.85) brightness(1.12);opacity:.7}
+  .qz-rohr .nr{position:absolute;top:22px;transform:translateX(-50%);font-size:.64rem;font-weight:800;color:rgba(93,100,115,.7);letter-spacing:.06em}
+  .qz-rohr .nr.jetzt{color:var(--navy)}
+  .qz-rohr .nr.fertig{color:var(--gold)}
+
+  /* Startbildschirm */
+  .qz-start{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;min-height:calc(100vh - 260px)}
+  .qz-pill{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:50px;padding:7px 15px;font-size:.82rem;font-weight:700;color:var(--navy);box-shadow:var(--shadow-s)}
+  .qz-pill::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold)}
+  .qz h1{font-size:clamp(2.2rem,5vw,3.4rem);line-height:1.04;margin:18px 0 0}
+  .qz h1 em{font-family:var(--serif);font-weight:500;color:var(--gold)}
+  .qz-lead{font-size:1.12rem;color:var(--muted);margin-top:16px;line-height:1.6}
+  .qz-lead em{color:var(--navy);font-style:italic;font-family:var(--serif)}
+  .qz-mass{display:flex;margin:22px 0 0;max-width:470px}
+  .qz-mass span{position:relative;flex:1 1 auto;text-align:center;font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);padding:0 10px 8px;border-bottom:1.5px solid rgba(39,51,101,.55)}
+  .qz-mass span::before,.qz-mass span:last-child::after{content:"";position:absolute;bottom:-7px;height:13px;border-left:1.5px solid var(--navy);transform:rotate(45deg)}
+  .qz-mass span::before{left:0}
+  .qz-mass span:last-child::after{right:0}
+  .qz-start .btn{margin-top:26px}
+  .qz-wieder{display:block;margin-top:14px;background:none;border:0;font:inherit;font-weight:700;color:var(--navy);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:0}
+  .qz-buehne{position:relative}
+  .qz-haus{display:block;width:min(100%,500px);height:auto;margin:-20px 0 0 auto;filter:drop-shadow(0 26px 30px rgba(20,29,58,.16));animation:qzSchweben 7s ease-in-out infinite}
+  .qz-vorschau{position:relative;background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px 20px 18px;box-shadow:0 18px 50px rgba(20,29,58,.12);margin:-120px 70px 0 0}
+  .qz-vorschau .badge{position:absolute;top:-11px;right:18px;background:var(--navy);color:#fff;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800;padding:5px 11px;border-radius:50px}
+  .qz-vorschau .cap{text-align:center;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:var(--gold);margin-bottom:14px}
+  .qz-vorschau .hint{text-align:center;font-size:.8rem;color:var(--muted);margin-top:12px}
+
+  /* Raster der sechs Baustellen */
+  .qz-raster{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+  .qz-zelle{position:relative;background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:9px 7px 8px;min-height:128px;display:flex;flex-direction:column;transition:border-color .4s,box-shadow .4s,background .4s}
+  .qz-zelle .n{font-size:.7rem;font-weight:800;color:var(--gold)}
+  .qz-zelle .t{font-size:.7rem;font-weight:700;color:var(--navy);line-height:1.15;min-height:2.3em;margin:1px 0 6px}
+  .qz-bar{position:relative;flex:1;min-height:56px;border-left:1.5px solid rgba(39,51,101,.18);margin-left:4px}
+  .qz-bar .fill{position:absolute;left:0;bottom:0;width:11px;height:var(--h,0%);background:linear-gradient(90deg,#3a4a7a,var(--navy) 60%,#1d2750);border-radius:0 3px 3px 0;transform-origin:bottom;animation:qzGrow 1.2s cubic-bezier(.2,.8,.3,1) var(--d,0s) both}
+  .qz-bar .ziel{position:absolute;left:0;width:19px;height:3px;background:var(--gold);bottom:calc(var(--z,0%) - 1px);border-radius:2px;animation:qzFade .6s ease calc(var(--d,0s) + .9s) both}
+  .qz-bar .wert{position:absolute;left:15px;bottom:var(--h,0%);transform:translateY(50%);font-size:.82rem;font-weight:900;color:var(--navy);animation:qzFade .5s ease calc(var(--d,0s) + .8s) both}
+  .qz-zelle.leer .fill,.qz-zelle.leer .ziel,.qz-zelle.leer .wert{display:none}
+  .qz-zelle.fertig{background:#fff}
+  .qz-zelle.start{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold),0 12px 26px rgba(153,138,109,.28);background:#fff}
+  .qz-zelle.start::after{content:"Start";position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:50px;animation:qzPulse 2.2s ease-in-out 1.6s infinite}
+  @keyframes qzGrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+  @keyframes qzFade{from{opacity:0}to{opacity:1}}
+  @keyframes qzPulse{0%,100%{box-shadow:0 0 0 0 rgba(153,138,109,.5)}50%{box-shadow:0 0 0 7px rgba(153,138,109,0)}}
+
+  /* Frage: links Illustration und Manometer, rechts Text und Regler */
+  .qz-q-grid{display:grid;grid-template-columns:270px 1fr;gap:20px 44px;align-items:center}
+  .qz-q-vis{display:flex;flex-direction:column;align-items:center;gap:16px}
+  .qz-bild{margin:0;display:flex;justify-content:center;align-items:flex-end;height:178px}
+  .qz-bild img{display:block;max-height:100%;max-width:250px;width:auto;height:auto;filter:drop-shadow(0 16px 18px rgba(20,29,58,.12));animation:qzSchweben 5.5s ease-in-out infinite}
+  .qz-eyebrow{font-size:.74rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+  .qz-eyebrow b{color:var(--navy)}
+  .qz h2{font-size:clamp(1.6rem,3.6vw,2.2rem);line-height:1.15;margin:10px 0 0}
+  .qz h2 em{font-family:var(--serif);font-weight:500;color:var(--gold)}
+  .qz-frage{font-family:var(--serif);font-size:1.16rem;line-height:1.5;color:var(--ink);margin:12px 0 0}
+  .qz-helfer{font-size:.9rem;color:var(--muted);margin:10px 0 0}
+  .qz-skala{margin:30px 0 0}
+  .qz-range-wrap{position:relative;margin:0 0 4px}
+  .qz-range{-webkit-appearance:none;appearance:none;width:100%;height:16px;border-radius:16px;outline:none;cursor:pointer;margin:12px 0;
+    background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,0) 45%,rgba(0,0,0,.06)),linear-gradient(90deg,#4f78b8 0,var(--navy) var(--p,50%),#e6e1d5 var(--p,50%),#d8d0bf 100%);
+    box-shadow:inset 0 2px 3px rgba(20,29,58,.2),0 1px 0 #fff}
+  .qz-ziel .qz-range{background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,0) 45%,rgba(0,0,0,.06)),linear-gradient(90deg,#c9bb9a 0,var(--gold) var(--p,50%),#e6e1d5 var(--p,50%),#d8d0bf 100%)}
+  /* Handrad wie am Absperrventil, dreht sich mit dem Wert */
+  .qz-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:42px;height:42px;border:0;border-radius:50%;cursor:grab;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='17' fill='%23fff'/%3E%3Ccircle cx='20' cy='20' r='16.5' fill='none' stroke='%23273365' stroke-width='5'/%3E%3Cg stroke='%23273365' stroke-width='3.4' stroke-linecap='round'%3E%3Cpath d='M20 20V4.5M20 20l14.7-4.8M20 20l9.1 12.5M20 20l-9.1 12.5M20 20L5.3 15.2'/%3E%3C/g%3E%3Ccircle cx='20' cy='20' r='5.6' fill='%23273365'/%3E%3Ccircle cx='20' cy='20' r='2.2' fill='%23ccc4af'/%3E%3C/svg%3E") center/100% no-repeat;
+    box-shadow:0 0 0 3px rgba(255,255,255,.9),0 0 16px rgba(20,29,58,.28);transform:rotate(var(--rot,0deg));transition:transform .3s cubic-bezier(.3,1.4,.5,1)}
+  .qz-range::-moz-range-thumb{width:40px;height:40px;border:0;border-radius:50%;cursor:grab;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='17' fill='%23fff'/%3E%3Ccircle cx='20' cy='20' r='16.5' fill='none' stroke='%23273365' stroke-width='5'/%3E%3Cg stroke='%23273365' stroke-width='3.4' stroke-linecap='round'%3E%3Cpath d='M20 20V4.5M20 20l14.7-4.8M20 20l9.1 12.5M20 20l-9.1 12.5M20 20L5.3 15.2'/%3E%3C/g%3E%3Ccircle cx='20' cy='20' r='5.6' fill='%23273365'/%3E%3Ccircle cx='20' cy='20' r='2.2' fill='%23ccc4af'/%3E%3C/svg%3E") center/100% no-repeat;
+    box-shadow:0 0 0 3px rgba(255,255,255,.9),0 0 16px rgba(20,29,58,.28);transform:rotate(var(--rot,0deg))}
+  .qz-ziel .qz-range::-webkit-slider-thumb{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='17' fill='%23fff'/%3E%3Ccircle cx='20' cy='20' r='16.5' fill='none' stroke='%23998a6d' stroke-width='5'/%3E%3Cg stroke='%23998a6d' stroke-width='3.4' stroke-linecap='round'%3E%3Cpath d='M20 20V4.5M20 20l14.7-4.8M20 20l9.1 12.5M20 20l-9.1 12.5M20 20L5.3 15.2'/%3E%3C/g%3E%3Ccircle cx='20' cy='20' r='5.6' fill='%23998a6d'/%3E%3Ccircle cx='20' cy='20' r='2.2' fill='%23fff'/%3E%3C/svg%3E")}
+  .qz-ziel .qz-range::-moz-range-thumb{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='17' fill='%23fff'/%3E%3Ccircle cx='20' cy='20' r='16.5' fill='none' stroke='%23998a6d' stroke-width='5'/%3E%3Cg stroke='%23998a6d' stroke-width='3.4' stroke-linecap='round'%3E%3Cpath d='M20 20V4.5M20 20l14.7-4.8M20 20l9.1 12.5M20 20l-9.1 12.5M20 20L5.3 15.2'/%3E%3C/g%3E%3Ccircle cx='20' cy='20' r='5.6' fill='%23998a6d'/%3E%3Ccircle cx='20' cy='20' r='2.2' fill='%23fff'/%3E%3C/svg%3E")}
+  .qz-range:active::-webkit-slider-thumb{cursor:grabbing}
+  .qz-range:focus-visible{box-shadow:inset 0 2px 3px rgba(20,29,58,.2),0 0 0 4px rgba(52,92,154,.25)}
+  .qz-heute-marke{position:absolute;top:-22px;transform:translateX(-50%);font-size:.7rem;font-weight:800;color:var(--navy);background:var(--cool);border-radius:6px;padding:3px 7px;white-space:nowrap;pointer-events:none}
+  .qz-heute-marke::after{content:"";position:absolute;left:50%;bottom:-5px;transform:translateX(-50%);border:5px solid transparent;border-bottom:0;border-top-color:var(--cool)}
+  .qz-ticks{position:relative;height:1.2em;font-size:.72rem;color:var(--muted);font-weight:700}
+  .qz-ticks span{position:absolute;top:0;transform:translateX(-50%)}
+  /* Stufentext als Typenschild mit Nieten */
+  .qz-anker{margin:20px 0 0;position:relative;border:1px solid rgba(153,138,109,.45);border-radius:10px;padding:14px 26px 15px;min-height:5.6em;
+    background:radial-gradient(circle at 11px 11px,#b3a37f 0 2.4px,transparent 2.9px),radial-gradient(circle at calc(100% - 11px) 11px,#b3a37f 0 2.4px,transparent 2.9px),radial-gradient(circle at 11px calc(100% - 11px),#b3a37f 0 2.4px,transparent 2.9px),radial-gradient(circle at calc(100% - 11px) calc(100% - 11px),#b3a37f 0 2.4px,transparent 2.9px),linear-gradient(180deg,#faf8f3,var(--cream))}
+  .qz-anker b{display:block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+  .qz-anker p{font-family:var(--serif);font-size:1.04rem;line-height:1.5;color:var(--ink)}
+  .qz-anker.neu{animation:qzAnker .4s var(--ease)}
+  @keyframes qzAnker{from{opacity:.2;transform:translateX(8px)}to{opacity:1;transform:none}}
+  .qz-hinweis{font-size:.92rem;color:var(--muted);min-height:2.8em;margin:16px 0 0}
+  .qz-hinweis.warn{color:#7f6d47;font-weight:600}
+  .qz-weiter{display:flex;margin-top:22px}
+
+  /* Manometer */
+  .qz-mano{width:220px;position:relative}
+  .qz-mano svg{display:block;width:100%;height:auto;overflow:visible;filter:drop-shadow(0 14px 22px rgba(20,29,58,.2))}
+  .qz-mano .zone{fill:none;stroke-width:5}
+  .qz-mano .tick{stroke:#273365;stroke-width:2;stroke-linecap:round}
+  .qz-mano .tick.k{stroke-width:1.1;stroke:rgba(39,51,101,.45)}
+  .qz-mano .ziff{font:700 11px var(--sans);fill:#273365;text-anchor:middle;dominant-baseline:central}
+  .qz-mano .lbl{font:800 7.4px var(--sans);letter-spacing:.2em;fill:#998a6d;text-anchor:middle}
+  .qz-mano .zahl{font:600 40px var(--serif);fill:#273365;text-anchor:middle;transform-box:fill-box;transform-origin:center}
+  .qz-mano.ziel .zahl{fill:#998a6d}
+  .qz-mano .zahl.hops{animation:qzHop .32s cubic-bezier(.3,1.6,.5,1)}
+  @keyframes qzHop{0%{transform:scale(1)}40%{transform:scale(1.16)}100%{transform:scale(1)}}
+  .qz-mano .einheit{font:800 7px var(--sans);letter-spacing:.22em;fill:#5d6473;text-anchor:middle}
+  .qz-mano .nadel{transform-origin:100px 100px;transition:transform .8s cubic-bezier(.34,1.56,.64,1)}
+  .qz-mano .nadel path{fill:#273365}
+  .qz-mano.ziel .nadel path{fill:#998a6d}
+  .qz-mano .nadel.geist path{fill:#273365;opacity:.2}
+  .qz-mano .bogen{fill:none;stroke:#998a6d;stroke-width:3.4;stroke-linecap:round}
+  .qz-mano.laden .nadel{animation:qzSuchen 2.6s ease-in-out infinite}
+  @keyframes qzSuchen{0%{transform:rotate(-112deg)}30%{transform:rotate(70deg)}48%{transform:rotate(22deg)}75%{transform:rotate(104deg)}100%{transform:rotate(-112deg)}}
+
+  /* Zwischenschritt */
+  .qz-pause{text-align:center}
+  .qz-pause-bild{display:block;margin:-6px auto 10px;height:auto}
+  .qz-pause-bild.lot{width:min(240px,62%);animation:qzLot 1.6s cubic-bezier(.3,1.3,.5,1) .15s both}
+  .qz-pause-bild.haus{width:min(220px,56%);animation:qzBloom .8s cubic-bezier(.3,1.4,.5,1) both}
+  @keyframes qzLot{0%{opacity:0;transform:rotate(-7deg) translateY(10px)}40%{opacity:1;transform:rotate(3deg)}70%{transform:rotate(-1.2deg)}100%{transform:none}}
+  .qz-pause .gross{font-family:var(--serif);font-weight:600;font-size:clamp(3.2rem,9vw,4.6rem);line-height:1;color:var(--navy);animation:qzBloom .7s cubic-bezier(.3,1.4,.5,1) .2s both}
+  .qz-pause .gross small{font-size:.42em;color:var(--gold)}
+  .qz-pause h2{margin-top:6px}
+  .qz-pause p{color:var(--muted);font-size:1.05rem;margin:12px auto 22px;max-width:480px}
+  .qz-pause blockquote{font-family:var(--serif);font-style:italic;font-size:1.2rem;color:var(--navy);margin:0 auto 24px;max-width:480px}
+  .qz-pause .qz-weiter{justify-content:center}
+  @keyframes qzBloom{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.08);opacity:1}100%{transform:scale(1)}}
+
+  /* Auswertung */
+  .qz-laden{text-align:center;padding:34px 20px 36px}
+  .qz-laden .qz-mano{width:170px;margin:0 auto}
+  .qz-laden h2{margin-top:18px}
+  .qz-laden .zyklus{color:var(--muted);margin-top:10px;min-height:1.6em}
+  .qz-laden .qz-rohr{max-width:320px;margin:22px auto 6px}
+  .qz-laden .qz-rohr .wasser{transition:width 2.6s cubic-bezier(.4,0,.2,1)}
+
+  /* Ergebnis */
+  .qz-ergebnis{position:relative;overflow:hidden;background:var(--navy);color:#fff;border-radius:22px;padding:32px 30px 30px;box-shadow:0 26px 70px rgba(20,29,58,.3);animation:qzWumms .25s ease 1.62s}
+  @keyframes qzWumms{50%{transform:translateY(3px)}}
+  .qz-ergebnis::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:24px 24px}
+  .qz-ergebnis>*{position:relative}
+  .qz-ergebnis .qz-eyebrow{color:var(--sand);text-align:center}
+  .qz-ergebnis h2{color:#fff;text-align:center;animation:qzBloom .8s cubic-bezier(.3,1.4,.5,1) both}
+  .qz-ergebnis .sub{text-align:center;color:rgba(255,255,255,.75);margin:8px 0 18px}
+  .qz-legende{display:flex;justify-content:center;gap:18px;font-size:.78rem;color:rgba(255,255,255,.75);margin-bottom:18px}
+  .qz-legende i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+  .qz-ergebnis .qz-zelle{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.16)}
+  .qz-ergebnis .qz-zelle .t{color:#fff}
+  .qz-ergebnis .qz-zelle .n{color:var(--sand)}
+  .qz-ergebnis .qz-bar{border-color:rgba(255,255,255,.3)}
+  .qz-ergebnis .qz-bar .fill{background:linear-gradient(90deg,#e2dccd,var(--sand) 60%,#b3a98f)}
+  .qz-ergebnis .qz-bar .wert{color:#fff}
+  .qz-ergebnis .qz-zelle.start{background:rgba(153,138,109,.18)}
+  .qz-stempel{position:absolute!important;top:16px;right:16px;width:104px;color:var(--sand);opacity:.92;transform:rotate(-14deg);animation:qzStempel .5s cubic-bezier(.3,1.5,.5,1) 1.3s both;z-index:2;pointer-events:none}
+  .qz-stempel svg{display:block;width:100%;height:auto}
+  @keyframes qzStempel{0%{opacity:0;transform:scale(2.4) rotate(-3deg)}60%{opacity:1;transform:scale(.93) rotate(-15deg)}100%{opacity:.92;transform:scale(1) rotate(-14deg)}}
+  .qz-startbild{display:flex;justify-content:center;margin:26px 0 0}
+  .qz-startbild img{display:block;height:130px;width:auto;max-width:70%;filter:drop-shadow(0 14px 22px rgba(0,0,0,.35));animation:qzBloom .8s cubic-bezier(.3,1.4,.5,1) 1.4s both}
+  .qz-urteil{font-family:var(--serif);font-size:1.28rem;line-height:1.45;text-align:center;margin:14px auto 6px;max-width:560px;animation:qzFade .6s ease 1.7s both}
+  .qz-urteil strong{font-family:var(--sans);font-weight:800;color:var(--sand)}
+  .qz-reihenfolge{text-align:center;font-size:.95rem;color:rgba(255,255,255,.78);max-width:540px;margin:8px auto 0}
+  .qz-termin{display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:16px 18px;margin-top:22px;font-size:.98rem;color:rgba(255,255,255,.86)}
+  .qz-termin strong{color:#fff}
+  .qz-termin .ico-box{background:rgba(255,255,255,.1);color:var(--sand);width:40px;height:40px;flex:0 0 auto}
+  .qz-aktionen{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;justify-content:center}
+  .qz-klein{display:inline-flex;align-items:center;gap:8px;background:transparent;border:1px solid rgba(255,255,255,.4);color:#fff;font:inherit;font-weight:700;font-size:.92rem;padding:11px 16px;border-radius:10px;cursor:pointer}
+  .qz-klein:hover{background:rgba(255,255,255,.1)}
+  .qz-fuss{text-align:center;font-size:.86rem;color:var(--muted);margin-top:18px}
+  .qz-fuss a{color:var(--navy);font-weight:700}
+  .qz-funken{position:absolute!important;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+  .qz-funken i{position:absolute;bottom:-14px;width:10px;height:10px;background:var(--sand);clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);animation:qzFunke var(--t,3s) ease-out var(--d,0s) both}
+  .qz-funken i.blase{clip-path:none;background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.55),rgba(255,255,255,.05) 60%);border:1.5px solid rgba(255,255,255,.6);border-radius:50%;animation-name:qzBlase}
+  @keyframes qzFunke{0%{opacity:0;transform:translateY(0) rotate(0) scale(.4)}15%{opacity:1;transform:translateY(-30px) rotate(45deg) scale(1)}100%{opacity:0;transform:translateY(-420px) rotate(260deg) scale(.6)}}
+  @keyframes qzBlase{0%{opacity:0;transform:translate(0,0)}15%{opacity:.9}35%{transform:translate(9px,-150px)}65%{transform:translate(-8px,-290px)}100%{opacity:0;transform:translate(6px,-430px)}}
+  .qz-druck{display:none}
+
+  @media(max-width:900px){
+    .qz-plan{display:none}
+    .qz-start{grid-template-columns:1fr;gap:20px;min-height:0}
+    .qz-haus{width:min(100%,380px);margin:0 auto}
+    .qz-vorschau{margin:-70px 0 0}
+    /* Frage einspaltig: Bild, Text, Manometer, Regler */
+    .qz-q-grid{display:flex;flex-direction:column;align-items:stretch;gap:0;text-align:center}
+    .qz-q-vis,.qz-q-txt{display:contents}
+    .qz-bild{order:1;height:104px;margin-bottom:12px}
+    .qz-bild img{max-width:190px}
+    .qz-q-txt .qz-eyebrow{order:2}
+    .qz-q-txt h2{order:3}
+    .qz-frage{order:4}
+    .qz-helfer{order:5}
+    .qz-mano{order:6;width:178px;margin:20px auto 0}
+    .qz-skala{order:7;margin-top:18px}
+    .qz-ziel .qz-skala{margin-top:32px}
+    .qz-anker,.qz-hinweis{order:8;text-align:left}
+    .qz-hinweis{text-align:center}
+    .qz-weiter{order:9;justify-content:center}
+  }
+  @media(max-width:600px){
+    .qz{padding:96px 0 40px}
+    .qz-wrap{padding:0 12px}
+    .qz-card{padding:22px 18px 24px;border-radius:18px}
+    .qz-raster{grid-template-columns:repeat(3,1fr);gap:8px}
+    .qz-zelle{min-height:112px}
+    .qz-mass span{font-size:.6rem;letter-spacing:.06em;padding:0 5px 7px}
+    .qz-vorschau{padding:18px 14px 14px;margin-top:-56px}
+    .qz-weiter{position:sticky;bottom:12px;z-index:5}
+    .qz-weiter .btn{width:100%;justify-content:center}
+    .qz-weiter .btn>.arr{right:7px}
+    .qz-ergebnis{padding:24px 16px 22px;border-radius:18px}
+    .qz-stempel{width:66px;top:10px;right:10px}
+    .qz-startbild img{height:104px}
+    .qz-anker{padding:13px 22px 14px}
+    .qz-top{grid-template-columns:70px 1fr 70px}
+    .qz-rohr{margin-bottom:30px}
+  }
+  @media (prefers-reduced-motion:reduce){.qz *,.qz *::before,.qz *::after{animation:none!important;transition:none!important}}
+  @media print{
+    .nav,#progress,.mobile-menu,.mobile-overlay,footer,.fab,.qz-wrap,.qz-plan{display:none!important}
+    .qz{padding:0;min-height:0;background:#fff}
+    .qz::before{display:none}
+    .qz-druck{display:block!important;font-family:var(--sans);color:#000;padding:10px}
+    .qz-druck h1{font-size:20pt;margin:0 0 4pt}
+    .qz-druck table{width:100%;border-collapse:collapse;margin-top:10pt;font-size:10.5pt}
+    .qz-druck td,.qz-druck th{border-bottom:1px solid #ccc;padding:6pt 4pt;text-align:left;vertical-align:top}
+  }
+</style>
+
+<script>
+  // Inhalte aus dem Selbstcheck von Domenico Bentivegna (unverändert)
+  const B = [
+    { t: 'Der Inhaber', k: 'Inhaber', q: 'Wie viele Tage pro Woche stehst du selbst auf der Baustelle, und kennst du deine Zahlen?',
+      a: ['Fünf Tage draußen. Die Zahlen kommen einmal im Jahr vom Steuerberater.',
+          'Zwei bis drei Tage draußen. Die BWA kommt monatlich, wird gelesen, aber nichts folgt daraus.',
+          'Höchstens ein Tag draußen. Fünf Zahlen jeden Monat, und du triffst Entscheidungen daraus.'] },
+    { t: 'Die Aufträge', k: 'Aufträge', q: 'Weißt du, mit welchen Kunden du Geld verdienst, und sagst du Nein?',
+      a: ['Jeder Auftrag wird angenommen. Wer der Auftraggeber ist, spielt keine Rolle.',
+          'Du hast ein Gefühl für gute und schlechte Kunden und lehnst gelegentlich ab.',
+          'Wunschkunde beschrieben, Kunden nach A, B und C sortiert, C-Kunden abgegeben, der Betrieb steht für etwas.'] },
+    { t: 'Der Preis', k: 'Preis', q: 'Ist dein Stundensatz aus deinen Kosten kalkuliert, und wird jede Baustelle nachgerechnet?',
+      a: ['Der Satz ist der Branchenschnitt. Nachkalkulation gibt es nicht.',
+          'Der Satz ist kalkuliert. Nachgerechnet wird, wenn etwas schiefging.',
+          'Eigener Satz, Preismodell passt zum Geschäft, jede Baustelle Soll gegen Ist.'] },
+    { t: 'Die Liquidität', k: 'Liquidität', q: 'Weißt du, wie dein Konto in acht Wochen aussieht?',
+      a: ['Das Konto entscheidet, was geht. Die Steuernachzahlung überrascht jedes Jahr.',
+          'Abschläge bei großen Aufträgen, Mahnungen unregelmäßig, Steuer irgendwie eingeplant.',
+          'Abschläge sind Standard, Mahnlauf läuft, 13-Wochen-Plan liegt vor, Steuer ist zurückgelegt.'] },
+    { t: 'Die Leute', k: 'Leute', q: 'Läuft der Betrieb zwei Wochen ohne dich?',
+      a: ['Nein. Jede Entscheidung geht über dich, auch die kleine.',
+          'Es gibt einen Meister oder eine Büroleitung, aber wer wofür zuständig ist, weiß keiner genau.',
+          'Rollen sind beschrieben, es gibt eine zweite Führungsebene, Urlaub ohne Handy ist möglich.'] },
+    { t: 'Die Prozesse', k: 'Prozesse', q: 'Läuft ein Auftrag jedes Mal gleich durch den Betrieb, oder jedes Mal anders?',
+      a: ['Jedes Mal anders. Der Ablauf ist in deinem Kopf.',
+          'Software ist da, Abläufe sind halb dokumentiert, jeder macht es ein bisschen anders.',
+          'Von der Anfrage bis zur Nachkalkulation ein fester Weg mit Prüfpunkten, dokumentiert, digital, Monat nach zehn Tagen abgeschlossen.'] }
+  ];
+  const KEY = 'chef-selbstcheck-v1';
+  const root = document.getElementById('qz')!;
+  const app = document.getElementById('qzApp')!;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const bild = (i: number) => root.dataset['b' + (i + 1)] || '';
+  type State = { ist: number[]; ziel: number[]; fertig?: boolean };
+  let state: State = { ist: [5, 5, 5, 5, 5, 5], ziel: [5, 5, 5, 5, 5, 5] };
+  try { const s = localStorage.getItem(KEY); if (s) { const p = JSON.parse(s); if (p && p.ist && p.ziel && p.ist.length === 6) state = p; } } catch (e) { /* ohne Speicher */ }
+  const speichern = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* ohne Speicher */ } };
+  const track = (ev: string, d: Record<string, unknown> = {}) => window.bvTrack?.(ev, d);
+
+  // Ablauf: Start, je Baustelle „heute“ und „Ziel“, zwei Zwischenschritte, Auswertung, Ergebnis
+  type Schritt = { typ: 'start' | 'ist' | 'ziel' | 'pause' | 'laden' | 'ergebnis'; i?: number; p?: 'halbzeit' | 'fast' };
+  const SCHRITTE: Schritt[] = [{ typ: 'start' }];
+  B.forEach((_, i) => {
+    SCHRITTE.push({ typ: 'ist', i }, { typ: 'ziel', i });
+    if (i === 2) SCHRITTE.push({ typ: 'pause', p: 'halbzeit' });
+    if (i === 4) SCHRITTE.push({ typ: 'pause', p: 'fast' });
+  });
+  SCHRITTE.push({ typ: 'laden' }, { typ: 'ergebnis' });
+  let pos = 0;
+  let letzterStand = 0;
+
+  const anker = (v: number) => (v <= 4 ? 0 : v <= 7 ? 1 : 2);
+  const ankerLabel = (v: number) => (v <= 4 ? 'So sieht eine Drei aus' : v <= 7 ? 'So sieht eine Sechs aus' : 'So sieht eine Neun aus');
+  const startIndex = () => state.ist.findIndex((v) => v < 7);
+  const fragenFertig = () => SCHRITTE.slice(1, pos + 1).filter((s) => s.typ === 'ist' || s.typ === 'ziel').length;
+  const baustelleNr = (s: Schritt) => (s.i ?? 0) + 1;
+  const wiederholung = (() => { const d = new Date(); d.setMonth(d.getMonth() + 6); return d; })();
+  const datumText = wiederholung.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
+
+  // Manometer: 240 Grad Skala, 1 links unten, 10 rechts unten
+  const winkel = (v: number) => -120 + ((v - 1) / 9) * 240;
+  const pol = (r: number, w: number) => { const a = (w * Math.PI) / 180; return [100 + r * Math.sin(a), 100 - r * Math.cos(a)]; };
+  const bogen = (r: number, w1: number, w2: number) => {
+    const [x1, y1] = pol(r, w1), [x2, y2] = pol(r, w2);
+    return `M${x1.toFixed(2)} ${y1.toFixed(2)}A${r} ${r} 0 ${w2 - w1 > 180 ? 1 : 0} 1 ${x2.toFixed(2)} ${y2.toFixed(2)}`;
+  };
+  const NADEL = 'M100 30L103.6 100L101.8 117H98.2L96.4 100Z';
+  function mano(v: number, o: { label: string; ziel?: boolean; heute?: number; laden?: boolean }) {
+    let skala = '';
+    for (let s = 1; s <= 10; s += 0.5) {
+      const w = winkel(s), gross = s % 1 === 0;
+      const [x1, y1] = pol(gross ? 63 : 68, w), [x2, y2] = pol(73, w);
+      skala += `<line class="tick${gross ? '' : ' k'}" x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/>`;
+      if (gross) { const [tx, ty] = pol(53, w); skala += `<text class="ziff" x="${tx.toFixed(1)}" y="${ty.toFixed(1)}">${s}</text>`; }
+    }
+    const zonen = [['#ccc4af', 1, 4.5], ['#998a6d', 4.5, 7.5], ['#345c9a', 7.5, 10]]
+      .map(([c, a, b]) => `<path class="zone" stroke="${c}" d="${bogen(79, winkel(+a), winkel(+b))}"/>`).join('');
+    const geist = o.heute !== undefined ? `<g class="nadel geist" style="transform:rotate(${winkel(o.heute)}deg)"><path d="${NADEL}"/></g>` : '';
+    return `<div class="qz-mano${o.ziel ? ' ziel' : ''}${o.laden ? ' laden' : ''}" aria-hidden="true"><svg viewBox="0 0 200 200">
+      <defs>
+        <radialGradient id="qzFace" cx="50%" cy="38%" r="62%"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#ece8de"/></radialGradient>
+        <linearGradient id="qzRing" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b4b86"/><stop offset="1" stop-color="#1b244b"/></linearGradient>
+        <linearGradient id="qzMessing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ece3cc"/><stop offset=".5" stop-color="#b3a37f"/><stop offset="1" stop-color="#7c6e52"/></linearGradient>
+      </defs>
+      <circle cx="100" cy="100" r="97" fill="url(#qzRing)"/>
+      <circle cx="100" cy="100" r="88.6" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="1.2"/>
+      <circle cx="100" cy="100" r="86" fill="url(#qzFace)"/>
+      ${zonen}${o.ziel ? '<path class="bogen" id="qzBogen" d=""/>' : ''}${skala}
+      <text class="lbl" x="100" y="127">${o.label.toUpperCase()}</text>
+      ${geist}
+      <g class="nadel"${o.laden ? '' : ` id="qzNadel" style="transform:rotate(${winkel(1) - 10}deg)"`}><path d="${NADEL}"/></g>
+      <circle cx="100" cy="100" r="10" fill="url(#qzMessing)"/><circle cx="100" cy="100" r="3.6" fill="#5b5140"/>
+      ${o.laden ? '' : `<text class="zahl" id="qzZahl" x="100" y="165">${v}</text><text class="einheit" x="100" y="180">VON 10</text>`}
+      <path d="M33 96A67 67 0 0 1 96 33" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="5" stroke-linecap="round"/>
+    </svg></div>`;
+  }
+
+  // Fortschritt als Rohrleitung: Wasser fließt bis zur aktuellen Baustelle, Muffen trennen die sechs Abschnitte
+  function rohr(prozent: number, nr = 0, pause = false, laden = false) {
+    const muffen = [1, 2, 3, 4, 5].map((k) => `<i class="muffe${!laden && prozent >= (k / 6) * 100 - 0.5 ? ' voll' : ''}" style="left:${(k / 6) * 100}%"></i>`).join('');
+    const nummern = laden ? '' : B.map((_, k) => `<span class="nr${k < nr - 1 || (pause && k < nr) ? ' fertig' : k === nr - 1 && !pause ? ' jetzt' : ''}" style="left:${((k + 0.5) / 6) * 100}%">${k + 1}</span>`).join('');
+    return `<div class="qz-rohr" role="progressbar" aria-label="Fortschritt" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${prozent}">
+      <span class="wasser" ${laden ? 'id="qzBalken" style="width:0"' : `data-ziel="${prozent}" style="width:${letzterStand}%"`}></span>${muffen}${nummern}</div>`;
+  }
+
+  function kopf(s: Schritt) {
+    const prozent = Math.round((fragenFertig() - (s.typ === 'ist' || s.typ === 'ziel' ? 1 : 0)) / 12 * 100);
+    const nr = baustelleNr(s);
+    return `<div class="qz-top"><button type="button" class="qz-back" data-akt="zurueck">← zurück</button>
+      <span class="qz-count">${s.typ === 'pause' ? 'Zwischenstand' : `Baustelle ${nr} von 6`}</span><span></span></div>
+      ${rohr(prozent, nr, s.typ === 'pause')}`;
+  }
+
+  function raster(opts: { werte: boolean; bis?: number; start?: number; verzoegert?: boolean }) {
+    return `<div class="qz-raster">${B.map((b, i) => {
+      const leer = opts.bis !== undefined && i >= opts.bis;
+      const v = state.ist[i], z = state.ziel[i];
+      const cls = ['qz-zelle', leer ? 'leer' : 'fertig', opts.start === i ? 'start' : ''].join(' ');
+      return `<div class="${cls}" style="--h:${v * 10}%;--z:${z * 10}%;--d:${opts.verzoegert ? 0.25 + i * 0.12 : 0}s">
+        <span class="n">${i + 1}</span><span class="t">${b.k}</span>
+        <div class="qz-bar"><div class="fill"></div><div class="ziel"></div>${opts.werte ? `<div class="wert">${v}</div>` : ''}</div></div>`;
+    }).join('')}</div>`;
+  }
+
+  function startScreen() {
+    const vorhanden = state.fertig;
+    const beispiel = { ist: [3, 5, 4, 6, 2, 5], ziel: [5, 6, 6, 7, 4, 6] };
+    const alt = state; state = { ...state, ...beispiel };
+    const vorschau = raster({ werte: true, start: 0, verzoegert: true });
+    state = alt;
+    return `<div class="qz-screen qz-start">
+      <div>
+        <span class="qz-pill">Selbstcheck · Der Chef auf der Baustelle</span>
+        <h1>Wo steht dein Betrieb <em>wirklich</em>?</h1>
+        <p class="qz-lead">Sechs Baustellen, eine Zahl von 1 bis 10. Zu jeder Zahl steht, was sie bedeutet. <em>Ehrlich schlägt freundlich:</em> Die Note ist für dich, niemand sonst sieht sie.</p>
+        <p class="qz-mass"><span>6 Baustellen</span><span>ca. 5 Minuten</span><span>bleibt auf deinem Gerät</span></p>
+        <button type="button" class="btn btn--gold" data-akt="los">Selbstcheck starten <span class="arr"></span></button>
+        ${vorhanden ? '<button type="button" class="qz-wieder" data-akt="ergebnis">Mein letztes Ergebnis ansehen</button>' : ''}
+      </div>
+      <div class="qz-buehne">
+        <img class="qz-haus" src="${root.dataset.haus}" alt="" width="745" height="687">
+        <div class="qz-vorschau"><span class="badge">Beispiel</span><p class="cap">Dein Bild am Ende</p>${vorschau}<p class="hint">Am Ende siehst du, an welcher Baustelle du anfangen solltest.</p></div>
+      </div>
+    </div>`;
+  }
+
+  function frageScreen(s: Schritt) {
+    const i = s.i!, b = B[i], istZiel = s.typ === 'ziel';
+    const v = istZiel ? state.ziel[i] : state.ist[i];
+    const ersteFrage = i === 0 && !istZiel;
+    return `<div class="qz-screen qz-card ${istZiel ? 'qz-ziel' : ''}">${kopf(s)}
+      <div class="qz-q-grid">
+        <div class="qz-q-vis">
+          <figure class="qz-bild"><img src="${bild(i)}" alt=""></figure>
+          ${mano(v, { label: b.k, ziel: istZiel, heute: istZiel ? state.ist[i] : undefined })}
+        </div>
+        <div class="qz-q-txt">
+          <p class="qz-eyebrow">${istZiel ? '<b>Ziel</b> · in sechs Monaten' : '<b>Heute</b> · ehrlich eingeschätzt'}</p>
+          <h2>${istZiel ? `Und in <em>sechs Monaten</em>?` : b.t}</h2>
+          <p class="qz-frage">${istZiel ? `${b.t}: Welche Zahl willst du bis zum ${datumText} erreichen?` : b.q}</p>
+          ${ersteFrage ? '<p class="qz-helfer">Dreh am Regler, bis die Zahl zu deinem Betrieb passt. Wenn du zwischen zwei Stufen schwankst, nimm die niedrigere.</p>' : ''}
+          <div class="qz-skala">
+            <div class="qz-range-wrap">
+              ${istZiel ? `<span class="qz-heute-marke" id="qzMarke">heute ${state.ist[i]}</span>` : ''}
+              <input class="qz-range" id="qzRange" type="range" min="1" max="10" step="1" value="${v}" aria-label="${b.t}, ${istZiel ? 'Ziel in sechs Monaten' : 'heute'}, 1 bis 10">
+            </div>
+            <div class="qz-ticks">${[1, 5, 10].map((t) => { const p = ((t - 1) / 9) * 100; return `<span style="left:calc(${p}% + ${(21 - (p / 100) * 42).toFixed(1)}px)">${t}</span>`; }).join('')}</div>
+          </div>
+          ${istZiel ? `<p class="qz-hinweis" id="qzHinweis"></p>` : `<div class="qz-anker" id="qzAnker"><b>${ankerLabel(v)}</b><p>${b.a[anker(v)]}</p></div>`}
+          <div class="qz-weiter"><button type="button" class="btn btn--gold" data-akt="weiter">Weiter <span class="arr"></span></button></div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  function pauseScreen(s: Schritt) {
+    const halb = s.p === 'halbzeit';
+    const bis = halb ? 3 : 5;
+    return `<div class="qz-screen qz-card qz-pause">${kopf({ typ: 'pause', i: bis - 1 })}
+      <img class="qz-pause-bild ${halb ? 'lot' : 'haus'}" src="${halb ? root.dataset.lot : root.dataset.haus}" alt="">
+      <div class="gross">${bis}<small> von 6</small></div>
+      <h2>${halb ? 'Halbzeit.' : 'Fast geschafft.'}</h2>
+      <p>${halb ? 'Drei Baustellen hast du ehrlich bewertet. Noch drei, dann siehst du, wo du anfangen solltest.' : 'Eine Baustelle noch. Dann zeigt dir dein Bild, welche Baustelle zuerst dran ist.'}</p>
+      ${halb ? '<blockquote>„Ehrlich schlägt freundlich.“</blockquote>' : ''}
+      ${raster({ werte: true, bis, verzoegert: true })}
+      <div class="qz-weiter"><button type="button" class="btn btn--gold" data-akt="weiter">Weiter <span class="arr"></span></button></div>
+    </div>`;
+  }
+
+  function ladenScreen() {
+    return `<div class="qz-screen qz-card qz-laden">
+      ${mano(5, { label: 'Auswertung', laden: true })}
+      <h2>Wir werten deine <em>sechs Baustellen</em> aus …</h2>
+      <p class="zyklus" id="qzZyklus">Baustellen werden sortiert</p>
+      ${rohr(0, 0, false, true)}
+    </div>`;
+  }
+
+  function stempel() {
+    const heute = new Date().toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    return `<div class="qz-stempel" aria-hidden="true"><svg viewBox="0 0 120 120">
+      <defs><filter id="qzRau" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="2.4"/></filter>
+      <path id="qzKreis" d="M60 60m-43 0a43 43 0 1 1 86 0a43 43 0 1 1-86 0"/></defs>
+      <g filter="url(#qzRau)">
+        <circle cx="60" cy="60" r="56" fill="none" stroke="currentColor" stroke-width="3"/>
+        <circle cx="60" cy="60" r="50.5" fill="none" stroke="currentColor" stroke-width="1"/>
+        <circle cx="60" cy="60" r="35" fill="none" stroke="currentColor" stroke-width="1"/>
+        <text fill="currentColor" font-size="8.4" font-weight="800" letter-spacing="1.2" font-family="Source Sans 3, sans-serif"><textPath href="#qzKreis" textLength="266" lengthAdjust="spacing">SELBSTCHECK • SECHS BAUSTELLEN • </textPath></text>
+        <text x="60" y="58" text-anchor="middle" fill="currentColor" font-size="12.5" font-weight="900" letter-spacing=".6" font-family="Source Sans 3, sans-serif">GEPRÜFT</text>
+        <text x="60" y="72" text-anchor="middle" fill="currentColor" font-size="8.6" font-weight="700" font-family="Source Sans 3, sans-serif">${heute}</text>
+      </g></svg></div>`;
+  }
+
+  function ergebnisScreen() {
+    const st = startIndex();
+    let urteil = '';
+    if (st < 0) urteil = 'Alle sechs Baustellen stehen bei 7 oder höher. <strong>Dann ist Band 2 dran: die Struktur um den Betrieb.</strong>';
+    else urteil = `Hier fängst du an: <strong>Baustelle ${st + 1}, ${B[st].t.replace(/^\S+/, (w) => w.toLowerCase())}.</strong> Es ist die vorderste Baustelle, die noch nicht steht. Alles dahinter wartet, bis sie steht.`;
+    let reihenfolge = '';
+    if (st >= 0) for (let k = st + 1; k < 6; k++) {
+      if (state.ziel[k] > state.ist[k] && state.ziel[st] === state.ist[st]) { reihenfolge = `Hinweis: Du hast dir bei Baustelle ${k + 1} ein Ziel gesetzt, aber nicht bei Baustelle ${st + 1}. Erst vorne, dann hinten, sonst arbeitest du viel und änderst nichts.`; break; }
+    }
+    return `<div class="qz-screen">
+      <div class="qz-ergebnis"><div class="qz-funken" id="qzFunken"></div>${stempel()}
+        <p class="qz-eyebrow">Dein Ergebnis</p>
+        <h2>Dein Bild</h2>
+        <p class="sub">So sieht dein Betrieb heute aus, und wo du in sechs Monaten stehen willst.</p>
+        <div class="qz-legende"><span><i style="background:var(--sand)"></i>Heute</span><span><i style="background:var(--gold);height:3px;vertical-align:3px"></i>Ziel</span></div>
+        ${raster({ werte: true, start: st >= 0 ? st : undefined, verzoegert: true })}
+        <figure class="qz-startbild"><img src="${st >= 0 ? bild(st) : root.dataset.haus}" alt=""></figure>
+        <p class="qz-urteil">${urteil}</p>
+        ${reihenfolge ? `<p class="qz-reihenfolge">${reihenfolge}</p>` : ''}
+        <div class="qz-termin"><span class="ico-box"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></svg></span><p><strong>Deine Verabredung mit dir selbst:</strong> Trag dir den <strong>${datumText}</strong> in den Kalender ein: „Selbstcheck wiederholen“. Dann siehst du, was sich bewegt hat und was nicht.</p></div>
+        <div class="qz-aktionen">
+          <a class="btn btn--gold" href="${root.dataset.anfrage}" data-track="selbstcheck_analysegespraech">Analysegespräch anfragen <span class="arr"></span></a>
+          <button type="button" class="qz-klein" data-akt="ics">In den Kalender eintragen</button>
+          <button type="button" class="qz-klein" data-akt="drucken">Als PDF sichern oder drucken</button>
+          <button type="button" class="qz-klein" data-akt="neu">Neu starten</button>
+        </div>
+      </div>
+      <p class="qz-fuss">Aus „Der Chef auf der Baustelle“ von Domenico Bentivegna, Teil 3. Deine Werte bleiben nur auf diesem Gerät gespeichert und werden nirgendwohin übertragen. <a href="${root.dataset.buch}">Zur Buchreihe</a></p>
+    </div>`;
+  }
+
+  // Interaktion auf dem Regler: Zahl, Manometer-Nadel, Handrad und Stufentext laufen mit
+  function reglerBinden(s: Schritt) {
+    const r = document.getElementById('qzRange') as HTMLInputElement | null;
+    if (!r) return;
+    const i = s.i!, istZiel = s.typ === 'ziel';
+    const zahl = document.getElementById('qzZahl')!;
+    const nadel = document.getElementById('qzNadel');
+    const bogenEl = document.getElementById('qzBogen');
+    const setzeRegler = () => {
+      const v = +r.value;
+      r.style.setProperty('--p', ((v - 1) / 9) * 100 + '%');
+      r.style.setProperty('--rot', (v - 1) * 36 + 'deg');
+    };
+    const setzeNadel = () => {
+      if (nadel) nadel.style.transform = `rotate(${winkel(+r.value)}deg)`;
+      if (bogenEl) { const h = state.ist[i], z = state.ziel[i]; bogenEl.setAttribute('d', z > h ? bogen(84, winkel(h), winkel(z)) : ''); }
+    };
+    const marke = document.getElementById('qzMarke');
+    if (marke) { const p = ((state.ist[i] - 1) / 9) * 100; marke.style.left = `calc(${p}% + ${21 - (p / 100) * 42}px)`; }
+    let alteStufe = anker(+r.value);
+    const hinweis = () => {
+      const h = document.getElementById('qzHinweis'); if (!h) return;
+      const v = state.ist[i], t = state.ziel[i];
+      h.className = 'qz-hinweis';
+      if (t - v > 2) { h.textContent = 'Zwei Punkte in sechs Monaten sind viel. Jeder Punkt heißt: etwas anders machen, nicht anders finden.'; h.className = 'qz-hinweis warn'; }
+      else if (t - v === 0) h.textContent = 'Kein Ziel heißt: diese Baustelle ist noch nicht dran. Das ist in Ordnung, wenn vorne noch etwas klemmt.';
+      else h.textContent = `Von ${v} auf ${t} in sechs Monaten.`;
+    };
+    setzeRegler(); hinweis();
+    // Nadel schwingt beim Öffnen von 0 auf den Wert
+    requestAnimationFrame(() => requestAnimationFrame(setzeNadel));
+    r.addEventListener('input', () => {
+      let v = +r.value;
+      if (istZiel && v < state.ist[i]) { v = state.ist[i]; r.value = String(v); }
+      if (istZiel) state.ziel[i] = v;
+      else { state.ist[i] = v; if (state.ziel[i] < v) state.ziel[i] = v; }
+      zahl.textContent = String(v);
+      if (!reduce) { zahl.classList.remove('hops'); void (zahl as unknown as HTMLElement).getBoundingClientRect(); zahl.classList.add('hops'); }
+      setzeRegler(); setzeNadel();
+      const a = document.getElementById('qzAnker');
+      if (a) {
+        const stufe = anker(v);
+        a.innerHTML = `<b>${ankerLabel(v)}</b><p>${B[i].a[stufe]}</p>`;
+        if (stufe !== alteStufe) { a.classList.remove('neu'); void a.offsetWidth; a.classList.add('neu'); alteStufe = stufe; }
+      }
+      hinweis();
+      if (navigator.vibrate && !reduce) { try { navigator.vibrate(6); } catch (e) { /* leer */ } }
+      speichern();
+    });
+    r.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); gehe(pos + 1); } });
+  }
+
+  function funken() {
+    const box = document.getElementById('qzFunken'); if (!box || reduce) return;
+    const farben = ['#ccc4af', '#998a6d', '#ffffff', '#e2dccd'];
+    for (let n = 0; n < 36; n++) {
+      const f = document.createElement('i');
+      const blase = n % 3 === 0;
+      const g = blase ? 6 + Math.random() * 9 : 7 + Math.random() * 10;
+      if (blase) f.className = 'blase';
+      f.style.cssText = `left:${Math.random() * 100}%;width:${g}px;height:${g}px;${blase ? '' : `background:${farben[n % farben.length]};`}--t:${2.6 + Math.random() * 1.8}s;--d:${0.3 + Math.random() * 1.3}s`;
+      box.appendChild(f);
+    }
+  }
+
+  function druckFassung() {
+    const d = document.getElementById('qzDruck')!;
+    const st = startIndex();
+    d.innerHTML = `<h1>Selbstcheck „Sechs Baustellen“</h1><p>Der Chef auf der Baustelle · Stand ${new Date().toLocaleDateString('de-DE')} · Wiederholen am ${datumText}</p>
+      <table><tr><th>Baustelle</th><th>Heute</th><th>Ziel</th><th>Bedeutung heute</th></tr>
+      ${B.map((b, i) => `<tr><td>${i + 1}. ${b.t}${i === st ? ' (Start)' : ''}</td><td>${state.ist[i]}</td><td>${state.ziel[i]}</td><td>${b.a[anker(state.ist[i])]}</td></tr>`).join('')}</table>
+      <p style="margin-top:10pt">${st < 0 ? 'Alle sechs Baustellen stehen bei 7 oder höher.' : `Hier fängst du an: Baustelle ${st + 1}, ${B[st].t.replace(/^\S+/, (w) => w.toLowerCase())}.`}</p>`;
+  }
+
+  function ics() {
+    const d = wiederholung, p = (n: number) => String(n).padStart(2, '0');
+    const tag = `${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}`;
+    const f = new Date(d.getTime() + 86400000);
+    const tag2 = `${f.getFullYear()}${p(f.getMonth() + 1)}${p(f.getDate())}`;
+    const txt = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Bentivegna//Selbstcheck//DE', 'BEGIN:VEVENT', `UID:selbstcheck-${tag}@bentivegna`,
+      `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').slice(0, 15)}Z`, `DTSTART;VALUE=DATE:${tag}`, `DTEND;VALUE=DATE:${tag2}`,
+      'SUMMARY:Selbstcheck wiederholen (Der Chef auf der Baustelle)', 'DESCRIPTION:Sechs Baustellen\\, eine Zahl von 1 bis 10: Was hat sich bewegt?', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([txt], { type: 'text/calendar' }));
+    a.download = 'selbstcheck-wiederholen.ics';
+    document.body.appendChild(a); a.click(); a.remove();
+    track('selbstcheck_kalender');
+  }
+
+  // Bilder der nächsten Schritte vorladen, damit nichts nachruckelt
+  function vorladen() {
+    [0, 1, 2, 3, 4, 5].map(bild).concat([root.dataset.lot || '']).forEach((src) => { if (src) { const im = new Image(); im.src = src; } });
+  }
+
+  let ladeTimer = 0;
+  function zeichne() {
+    const s = SCHRITTE[pos];
+    clearTimeout(ladeTimer);
+    app.classList.toggle('breit', s.typ === 'start');
+    app.classList.toggle('mittel', s.typ === 'ist' || s.typ === 'ziel');
+    if (s.typ === 'start') app.innerHTML = startScreen();
+    else if (s.typ === 'ist' || s.typ === 'ziel') app.innerHTML = frageScreen(s);
+    else if (s.typ === 'pause') app.innerHTML = pauseScreen(s);
+    else if (s.typ === 'laden') app.innerHTML = ladenScreen();
+    else app.innerHTML = ergebnisScreen();
+    if (s.typ === 'ist' || s.typ === 'ziel') reglerBinden(s);
+    // Wasser im Rohr fließt vom letzten Stand zum neuen
+    const wasser = app.querySelector<HTMLElement>('.qz-rohr .wasser[data-ziel]');
+    if (wasser) { const z = wasser.dataset.ziel!; letzterStand = +z; requestAnimationFrame(() => requestAnimationFrame(() => { wasser.style.width = z + '%'; })); }
+    if (s.typ === 'laden') {
+      const msgs = ['Baustellen werden sortiert', 'Reihenfolge wird geprüft', 'Dein Startpunkt wird ermittelt'];
+      requestAnimationFrame(() => requestAnimationFrame(() => { const b = document.getElementById('qzBalken'); if (b) b.style.width = '100%'; }));
+      let k = 0;
+      const tick = () => { k++; const z = document.getElementById('qzZyklus'); if (z && k < msgs.length) { z.textContent = msgs[k]; ladeTimer = window.setTimeout(tick, 850); } else gehe(pos + 1, false); };
+      ladeTimer = window.setTimeout(tick, reduce ? 300 : 850);
+    }
+    if (s.typ === 'ergebnis') {
+      state.fertig = true; speichern(); druckFassung(); funken();
+      track('selbstcheck_fertig', { start: startIndex() + 1 });
+    }
+    if (s.typ === 'start') letzterStand = 0;
+    const top = root.getBoundingClientRect().top + window.scrollY;
+    if (window.scrollY > top + 40) window.scrollTo({ top: Math.max(0, top - 10), behavior: reduce ? 'auto' : 'smooth' });
+    const fokus = pos > 0 ? app.querySelector<HTMLElement>('h2, h1') : null;
+    if (fokus) { fokus.setAttribute('tabindex', '-1'); fokus.focus({ preventScroll: true }); }
+  }
+
+  function gehe(ziel: number, mitAusblenden = true) {
+    ziel = Math.max(0, Math.min(SCHRITTE.length - 1, ziel));
+    const alt = app.querySelector('.qz-screen');
+    if (alt && mitAusblenden && !reduce) { alt.classList.add('raus'); setTimeout(() => { pos = ziel; zeichne(); }, 220); }
+    else { pos = ziel; zeichne(); }
+  }
+
+  app.addEventListener('click', (e) => {
+    const el = (e.target as HTMLElement).closest<HTMLElement>('[data-akt]'); if (!el) return;
+    const akt = el.dataset.akt;
+    if (akt === 'los') { track('selbstcheck_start'); vorladen(); gehe(1); }
+    else if (akt === 'weiter') gehe(pos + 1);
+    else if (akt === 'zurueck') { let z = pos - 1; while (z > 0 && SCHRITTE[z].typ === 'laden') z--; gehe(z); }
+    else if (akt === 'ergebnis') gehe(SCHRITTE.length - 1);
+    else if (akt === 'neu') { state = { ist: [5, 5, 5, 5, 5, 5], ziel: [5, 5, 5, 5, 5, 5] }; try { localStorage.removeItem(KEY); } catch (er) { /* leer */ } gehe(0); }
+    else if (akt === 'drucken') window.print();
+    else if (akt === 'ics') ics();
+  });
+
+  zeichne();
+</script>

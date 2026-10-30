@@ -1,0 +1,2725 @@
+# Decap CMS – Konfiguration für die Bentivegna-Website
+# Erzeugt aus den Datendateien. Repository-Name unter backend.repo anpassen.
+backend:
+  name: github
+  repo: schmidtke-gmbh/bentivegna-website
+  branch: main
+  commit_messages:
+    create: 'Neu: {{collection}} „{{slug}}“'
+    update: 'Geändert: {{collection}} „{{slug}}“'
+    delete: 'Gelöscht: {{collection}} „{{slug}}“'
+    uploadMedia: 'Bild hochgeladen: {{path}}'
+    deleteMedia: 'Bild gelöscht: {{path}}'
+publish_mode: editorial_workflow
+locale: de
+site_url: https://www.bentivegna.de
+display_url: https://www.bentivegna.de
+logo_url: /uploads/logos/logo-quer.svg
+media_folder: public/uploads
+public_folder: /uploads
+show_preview_links: true
+collections:
+- name: artikel
+  label: Artikel
+  label_singular: Artikel
+  description: Hier legst du jeden Teil von „Der Chef auf der Baustelle“ an. Liegt das Datum in der Zukunft, geht der Artikel an diesem Tag morgens automatisch online.
+  folder: src/content/artikel
+  create: true
+  extension: md
+  format: frontmatter
+  slug: '{{url}}'
+  identifier_field: titel
+  summary: 'Teil {{teil}}: {{titel}} ({{datum | date(''DD.MM.YYYY'')}})'
+  sortable_fields:
+  - teil
+  - datum
+  - titel
+  preview_path: der-chef-auf-der-baustelle/{{slug}}/
+  fields:
+  - label: Titel (H1)
+    name: titel
+    widget: string
+  - label: URL-Endung
+    name: url
+    widget: string
+    hint: Kleinbuchstaben und Bindestriche, z. B. der-zustand-deines-betriebs-ist-kein-zufall. Nach der Veröffentlichung nicht mehr ändern.
+    pattern:
+    - ^[a-z0-9-]+$
+    - Nur Kleinbuchstaben, Zahlen und Bindestriche
+  - label: Teil-Nummer
+    name: teil
+    widget: number
+    value_type: int
+    min: 1
+  - label: Kapitel
+    name: kapitel
+    widget: relation
+    collection: kapitel
+    search_fields:
+    - titel
+    value_field: '{{slug}}'
+    display_fields:
+    - 'Kapitel {{nummer}}: {{titel}}'
+  - label: Veröffentlichen am
+    name: datum
+    widget: datetime
+    format: YYYY-MM-DD
+    date_format: DD.MM.YYYY
+    time_format: false
+    hint: Liegt das Datum in der Zukunft, erscheint der Artikel automatisch an diesem Tag.
+  - label: Als Entwurf zurückhalten
+    name: entwurf
+    widget: boolean
+    default: false
+    required: false
+  - label: Einleitung (kursiv unter dem Titel)
+    name: lead
+    widget: text
+    required: false
+  - label: Artikelbild (1,91:1, z. B. 1200 × 628 px)
+    name: bild
+    widget: image
+    required: false
+    hint: Wird auch als Vorschaubild für LinkedIn, WhatsApp und Facebook genutzt. Ohne Bild erscheint automatisch eine Titelkarte.
+  - label: Bildbeschreibung (Alt-Text)
+    name: bild_alt
+    widget: string
+    required: false
+  - label: Text
+    name: body
+    widget: markdown
+    buttons:
+    - bold
+    - italic
+    - link
+    - heading-two
+    - heading-three
+    - quote
+    - bulleted-list
+    - numbered-list
+    editor_components: []
+    hint: Zwischenüberschriften als H2. Texte aus Word einfach einfügen.
+  - label: Box „Deine Aufgabe für diese Woche“
+    name: aufgabe
+    widget: text
+    required: false
+  - label: Aufgabe vor dem letzten Abschnitt („Wie es weitergeht“) zeigen
+    name: aufgabe_vor_ausblick
+    widget: boolean
+    default: true
+    required: false
+  - label: Meta-Titel (Google)
+    name: meta_titel
+    widget: string
+    required: false
+  - label: Meta-Beschreibung (Google)
+    name: meta_beschreibung
+    widget: text
+    required: false
+  - label: Suchbegriff
+    name: suchbegriff
+    widget: string
+    required: false
+  - label: Lesezeit in Minuten (leer = automatisch)
+    name: lesezeit
+    widget: number
+    value_type: int
+    required: false
+  - label: Hörbuch-Datei (MP3, erscheint erst, wenn der Player unter „Übersicht & Einstellungen“ eingeschaltet ist)
+    name: audio
+    widget: file
+    required: false
+- name: kapitel
+  label: Kapitel
+  label_singular: Kapitel
+  description: Die Kapitel der Buchreihe. Jeder Artikel gehört zu einem Kapitel.
+  folder: src/content/kapitel
+  create: true
+  extension: json
+  format: json
+  slug: '{{slug}}'
+  identifier_field: titel
+  summary: 'Kapitel {{nummer}}: {{titel}}'
+  fields:
+  - label: Nummer
+    name: nummer
+    widget: number
+    value_type: int
+    min: 0
+  - label: Titel
+    name: titel
+    widget: string
+  - label: Beschreibung
+    name: beschreibung
+    widget: text
+    required: false
+- name: buchreihe
+  label: Übersicht & Einstellungen
+  description: Einleitung der Übersichtsseite, Autorenbox, Abschlussblock unter jedem Artikel und die Schalter für Hörbuch und E-Mail-Anmeldung.
+  editor:
+    preview: false
+  files:
+  - name: buchreihe
+    label: Übersicht & Einstellungen
+    file: src/data/buchreihe.json
+    format: json
+    fields:
+    - label: Google & Social Media
+      name: seo
+      widget: object
+      collapsed: true
+      fields:
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Beschreibung
+        name: beschreibung
+        widget: text
+        required: false
+    - label: Kleine Überzeile
+      name: eyebrow
+      widget: string
+      required: false
+    - label: Überschrift
+      name: titel
+      widget: string
+      required: false
+    - label: Untertitel
+      name: untertitel
+      widget: string
+      required: false
+    - label: Einleitung
+      name: einleitung
+      widget: text
+      required: false
+    - label: Bild
+      name: bild
+      widget: image
+      required: false
+    - label: Autorenbox
+      name: autor
+      widget: object
+      collapsed: true
+      fields:
+      - label: Name
+        name: name
+        widget: string
+        required: false
+      - label: Bild
+        name: bild
+        widget: image
+        required: false
+      - label: Text
+        name: text
+        widget: text
+        required: false
+    - label: Abschlussblock
+      name: abschluss
+      widget: object
+      collapsed: true
+      fields:
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Text
+        name: text
+        widget: text
+        required: false
+      - label: Selbstcheck link
+        name: selbstcheck_link
+        widget: string
+        required: false
+      - label: Button-Text
+        name: button
+        widget: string
+        required: false
+    - label: Hörbuch-Player anzeigen
+      name: audio_aktiv
+      widget: boolean
+      required: false
+    - label: E-Mail-Anmeldung anzeigen
+      name: newsletter_aktiv
+      widget: boolean
+      required: false
+    - label: Newsletter titel
+      name: newsletter_titel
+      widget: string
+      required: false
+    - label: Newsletter text
+      name: newsletter_text
+      widget: string
+      required: false
+- name: startseite
+  label: Startseite
+  description: Alle Texte, Bilder und Zahlen der Startseite, sortiert von oben nach unten wie auf der Seite.
+  editor:
+    preview: false
+  files:
+  - name: startseite
+    label: Startseite
+    file: src/data/startseite.json
+    format: json
+    fields:
+    - label: Google & Social Media
+      name: seo
+      widget: object
+      collapsed: true
+      fields:
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Beschreibung
+        name: beschreibung
+        widget: text
+        required: false
+    - label: Hero
+      name: hero
+      widget: object
+      collapsed: true
+      fields:
+      - label: Marker (kurz)
+        name: marker_tag
+        widget: string
+        required: false
+      - label: Marker-Text
+        name: marker_text
+        widget: string
+        required: false
+      - label: Kicker über der Headline
+        name: kicker
+        widget: string
+        required: false
+      - label: Headline Zeile 1
+        name: zeile1
+        widget: string
+        required: false
+      - label: Headline Zeile 2
+        name: zeile2
+        widget: string
+        required: false
+      - label: Text unter der Headline
+        name: subline
+        widget: text
+        required: false
+      - label: Button 1
+        name: button_primaer
+        widget: string
+        required: false
+      - label: Button 2
+        name: button_sekundaer
+        widget: string
+        required: false
+      - label: Drei Punkte unter den Buttons
+        name: bullets
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: string
+        required: false
+      - label: Bild
+        name: bild
+        widget: image
+        required: false
+      - label: Bildbeschreibung (Alt-Text)
+        name: bild_alt
+        widget: string
+        required: false
+      - label: Etikett auf dem Bild
+        name: fokus_label
+        widget: string
+        required: false
+      - label: 'Badge: Titel'
+        name: badge_titel
+        widget: string
+        required: false
+      - label: 'Badge: Text'
+        name: badge_text
+        widget: string
+        required: false
+      - label: Video hinter dem Bild (YouTube-ID)
+        name: video_youtube_id
+        widget: string
+        required: false
+      - label: Video ist hochkant gedreht (Player im Hochformat)
+        name: video_hochkant
+        widget: boolean
+        required: false
+      - label: Youtube zeile
+        name: youtube_zeile
+        widget: string
+        required: false
+    - label: Kennzahlen
+      name: kennzahlen
+      widget: list
+      fields:
+      - label: Zahl
+        name: zahl
+        widget: number
+        value_type: int
+        required: false
+      - label: Vor der Zahl
+        name: praefix
+        widget: string
+        required: false
+      - label: Nach der Zahl
+        name: suffix
+        widget: string
+        required: false
+      - label: Beschriftung
+        name: label
+        widget: string
+        required: false
+      - label: Alternative Zahl (Vorschau ?variante=b)
+        name: alt_zahl
+        widget: string
+        required: false
+      - label: Alternative Beschriftung (Vorschau ?variante=b)
+        name: alt_label
+        widget: string
+        required: false
+      summary: '{{fields.label}}'
+      required: false
+    - label: Auszeichnungen
+      name: auszeichnungen
+      widget: object
+      collapsed: true
+      fields:
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Logos
+        name: logos
+        widget: list
+        fields:
+        - label: Bild
+          name: bild
+          widget: image
+          required: false
+        - label: Bildbeschreibung (Alt-Text)
+          name: alt
+          widget: string
+          required: false
+        summary: '{{fields.alt}}'
+        required: false
+      - label: Textsiegel titel
+        name: textsiegel_titel
+        widget: string
+        required: false
+      - label: Textsiegel unter
+        name: textsiegel_unter
+        widget: string
+        required: false
+    - label: Problem
+      name: problem
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Hervorgehobener Teil
+        name: akzent
+        widget: string
+        required: false
+      - label: Einleitung
+        name: intro
+        widget: text
+        required: false
+      - label: Karten
+        name: karten
+        widget: list
+        fields:
+        - label: Icon
+          name: icon
+          widget: select
+          options: &id001
+          - arrow-right
+          - award
+          - book-open
+          - briefcase-business
+          - building
+          - building-2
+          - calculator
+          - calendar
+          - chart-column
+          - check
+          - chevron-down
+          - chevron-left
+          - chevron-right
+          - circle-help
+          - clock
+          - coffee
+          - coins
+          - droplets
+          - external-link
+          - file-text
+          - gem
+          - git-branch
+          - grid-2x2
+          - handshake
+          - hard-hat
+          - headphones
+          - house
+          - landmark
+          - laptop
+          - layers
+          - list-checks
+          - mail
+          - map-pin
+          - message-circle
+          - message-square-text
+          - monitor
+          - network
+          - phone
+          - play
+          - printer
+          - refresh-cw
+          - rocket
+          - rotate-ccw
+          - scale
+          - share-2
+          - shield
+          - shield-check
+          - sparkles
+          - sun
+          - target
+          - trending-up
+          - upload
+          - user-round
+          - users
+          - users-round
+          - wallet
+          - x
+          required: false
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        summary: '{{fields.titel}}'
+        required: false
+    - label: Zitat
+      name: zitat
+      widget: object
+      collapsed: true
+      fields:
+      - label: Headline Zeile 1
+        name: zeile1
+        widget: string
+        required: false
+      - label: Headline Zeile 2
+        name: zeile2
+        widget: string
+        required: false
+      - label: Unter
+        name: unter
+        widget: string
+        required: false
+    - label: Unterschied
+      name: unterschied
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Hervorgehobener Teil
+        name: akzent
+        widget: string
+        required: false
+      - label: Links pill
+        name: links_pill
+        widget: string
+        required: false
+      - label: Links titel
+        name: links_titel
+        widget: string
+        required: false
+      - label: Linke Spalte
+        name: links
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: text
+        required: false
+      - label: Rechts pill
+        name: rechts_pill
+        widget: string
+        required: false
+      - label: Rechts titel
+        name: rechts_titel
+        widget: string
+        required: false
+      - label: Rechte Spalte
+        name: rechts
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: text
+        required: false
+    - label: Laufband
+      name: laufband
+      widget: list
+      field:
+        label: Eintrag
+        name: eintrag
+        widget: string
+      required: false
+    - label: Leistungen
+      name: leistungen
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Einleitung
+        name: intro
+        widget: text
+        required: false
+      - label: Unternehmensberatung
+        name: unternehmensberatung
+        widget: object
+        collapsed: true
+        fields:
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        - label: Zusatz
+          name: zusatz
+          widget: text
+          required: false
+      - label: Vermögen
+        name: vermoegen
+        widget: object
+        collapsed: true
+        fields:
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+      - label: Prozesse
+        name: prozesse
+        widget: object
+        collapsed: true
+        fields:
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        - label: Kasten
+          name: kasten
+          widget: text
+          required: false
+      - label: Liquidität
+        name: liquiditaet
+        widget: object
+        collapsed: true
+        fields:
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+      - label: Mitarbeiter
+        name: mitarbeiter
+        widget: object
+        collapsed: true
+        fields:
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+      - label: Steürstrategie
+        name: steuerstrategie
+        widget: object
+        collapsed: true
+        fields:
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        - label: Grafik
+          name: grafik
+          widget: list
+          field:
+            label: Eintrag
+            name: eintrag
+            widget: string
+          required: false
+    - label: Deutschland
+      name: deutschland
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Titel vor
+        name: titel_vor
+        widget: string
+        required: false
+      - label: Titel akzent
+        name: titel_akzent
+        widget: string
+        required: false
+      - label: Titel nach
+        name: titel_nach
+        widget: string
+        required: false
+      - label: Text
+        name: text
+        widget: text
+        required: false
+      - label: Punkte
+        name: punkte
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: string
+        required: false
+      - label: Button-Text
+        name: button
+        widget: string
+        required: false
+      - label: Kleiner Text
+        name: klein
+        widget: string
+        required: false
+      - label: Trust
+        name: trust
+        widget: string
+        required: false
+    - label: Kontaktblock
+      name: kontaktblock
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Titel akzent
+        name: titel_akzent
+        widget: string
+        required: false
+      - label: Text
+        name: text
+        widget: text
+        required: false
+      - label: Button-Text
+        name: button
+        widget: string
+        required: false
+      - label: Bild
+        name: bild
+        widget: image
+        required: false
+      - label: Bildbeschreibung (Alt-Text)
+        name: bild_alt
+        widget: string
+        required: false
+      - label: Ki titel
+        name: ki_titel
+        widget: string
+        required: false
+      - label: Ki text
+        name: ki_text
+        widget: text
+        required: false
+      - label: Siegel titel
+        name: siegel_titel
+        widget: string
+        required: false
+    - label: Stufen
+      name: stufen
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Einleitung
+        name: intro
+        widget: text
+        required: false
+      - label: Schritte
+        name: schritte
+        widget: list
+        fields:
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        - label: Schlagworte
+          name: tags
+          widget: list
+          field:
+            label: Eintrag
+            name: eintrag
+            widget: string
+          required: false
+        - label: Bild
+          name: bild
+          widget: image
+          required: false
+        - label: Bild unter
+          name: bild_unter
+          widget: string
+          required: false
+        summary: '{{fields.titel}}'
+        required: false
+    - label: Referenzen
+      name: referenzen
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Einträge
+        name: eintraege
+        widget: list
+        fields:
+        - label: Kategorie
+          name: kategorie
+          widget: string
+          required: false
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Zitat
+          name: zitat
+          widget: text
+          required: false
+        - label: Name
+          name: name
+          widget: string
+          required: false
+        - label: Rolle
+          name: rolle
+          widget: string
+          required: false
+        - label: YouTube-Video-ID
+          name: youtube_id
+          widget: string
+          required: false
+        summary: '{{fields.titel}}'
+        required: false
+    - label: Entwicklung
+      name: entwicklung
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Einleitung
+        name: intro
+        widget: text
+        required: false
+      - label: Karte1 eyebrow
+        name: karte1_eyebrow
+        widget: string
+        required: false
+      - label: Karte1 titel
+        name: karte1_titel
+        widget: string
+        required: false
+      - label: Karte1 text
+        name: karte1_text
+        widget: text
+        required: false
+      - label: Karte1 chips
+        name: karte1_chips
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: string
+        required: false
+      - label: Karte2 eyebrow
+        name: karte2_eyebrow
+        widget: string
+        required: false
+      - label: Karte2 titel
+        name: karte2_titel
+        widget: string
+        required: false
+      - label: Karte2 text
+        name: karte2_text
+        widget: text
+        required: false
+      - label: Karte2 chips
+        name: karte2_chips
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: string
+        required: false
+      - label: Kpi umsatz
+        name: kpi_umsatz
+        widget: number
+        value_type: int
+        required: false
+      - label: Kpi umsatz text
+        name: kpi_umsatz_text
+        widget: string
+        required: false
+      - label: Kpi marge von
+        name: kpi_marge_von
+        widget: number
+        value_type: int
+        required: false
+      - label: Kpi marge auf
+        name: kpi_marge_auf
+        widget: number
+        value_type: int
+        required: false
+      - label: Kpi marge text
+        name: kpi_marge_text
+        widget: string
+        required: false
+      - label: Kpi unter
+        name: kpi_unter
+        widget: string
+        required: false
+      - label: Umsatz start
+        name: umsatz_start
+        widget: number
+        value_type: int
+        required: false
+      - label: Umsatz ende
+        name: umsatz_ende
+        widget: number
+        value_type: int
+        required: false
+      - label: Hinweis
+        name: hinweis
+        widget: text
+        required: false
+    - label: Mandant
+      name: mandant
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Einleitung
+        name: intro
+        widget: text
+        required: false
+      - label: Whatsapp titel
+        name: whatsapp_titel
+        widget: string
+        required: false
+      - label: Whatsapp text
+        name: whatsapp_text
+        widget: text
+        required: false
+      - label: WhatsApp-Dialog
+        name: chat
+        widget: list
+        fields:
+        - label: Absender (mandant oder kanzlei)
+          name: von
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        summary: '{{fields.text}}'
+        required: false
+      - label: Meetings titel
+        name: meetings_titel
+        widget: string
+        required: false
+      - label: Meetings text
+        name: meetings_text
+        widget: text
+        required: false
+      - label: Meetings bild
+        name: meetings_bild
+        widget: image
+        required: false
+      - label: Onboarding titel
+        name: onboarding_titel
+        widget: string
+        required: false
+      - label: Onboarding text
+        name: onboarding_text
+        widget: text
+        required: false
+      - label: Betreuung titel
+        name: betreuung_titel
+        widget: string
+        required: false
+      - label: Betreuung text
+        name: betreuung_text
+        widget: text
+        required: false
+      - label: Betreuung bild
+        name: betreuung_bild
+        widget: image
+        required: false
+      - label: Auswertung titel
+        name: auswertung_titel
+        widget: string
+        required: false
+      - label: Auswertung text
+        name: auswertung_text
+        widget: text
+        required: false
+      - label: Hilfe link
+        name: hilfe_link
+        widget: string
+        required: false
+    - label: Passen
+      name: passen
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Einleitung
+        name: intro
+        widget: text
+        required: false
+      - label: Karten
+        name: karten
+        widget: list
+        fields:
+        - label: Icon
+          name: icon
+          widget: select
+          options: *id001
+          required: false
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        summary: '{{fields.titel}}'
+        required: false
+      - label: Hinweis
+        name: hinweis
+        widget: text
+        required: false
+    - label: Vergleich
+      name: vergleich
+      widget: object
+      collapsed: true
+      fields:
+      - label: Titel serif
+        name: titel_serif
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Einleitung
+        name: intro
+        widget: text
+        required: false
+      - label: Links titel
+        name: links_titel
+        widget: string
+        required: false
+      - label: Linke Spalte
+        name: links
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: string
+        required: false
+      - label: Mitte badge
+        name: mitte_badge
+        widget: string
+        required: false
+      - label: Mittlere Spalte
+        name: mitte
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: text
+        required: false
+      - label: Rechts titel
+        name: rechts_titel
+        widget: string
+        required: false
+      - label: Rechte Spalte
+        name: rechts
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: string
+        required: false
+    - label: Marken
+      name: marken
+      widget: object
+      collapsed: true
+      fields:
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Liste
+        name: liste
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: string
+        required: false
+    - label: Software
+      name: software
+      widget: object
+      collapsed: true
+      fields:
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Liste
+        name: liste
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: string
+        required: false
+    - label: Team
+      name: team
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Text
+        name: text
+        widget: text
+        required: false
+      - label: Button-Text
+        name: button
+        widget: string
+        required: false
+      - label: Bild
+        name: bild
+        widget: image
+        required: false
+      - label: Bildbeschreibung (Alt-Text)
+        name: bild_alt
+        widget: string
+        required: false
+    - label: Profil
+      name: profil
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Name
+        name: name
+        widget: string
+        required: false
+      - label: Zitat
+        name: zitat
+        widget: text
+        required: false
+      - label: Unterzeile
+        name: unterzeile
+        widget: string
+        required: false
+      - label: Bild
+        name: bild
+        widget: image
+        required: false
+      - label: Bildbeschreibung (Alt-Text)
+        name: bild_alt
+        widget: string
+        required: false
+      - label: Bilder zusatz
+        name: bilder_zusatz
+        widget: list
+        fields:
+        - label: Bild
+          name: bild
+          widget: image
+          required: false
+        - label: Bildbeschreibung (Alt-Text)
+          name: alt
+          widget: string
+          required: false
+        summary: '{{fields.alt}}'
+        required: false
+      - label: Bild-Etikett
+        name: swoosh
+        widget: string
+        required: false
+      - label: Unterschrift
+        name: unterschrift
+        widget: image
+        required: false
+      - label: Punkte
+        name: punkte
+        widget: list
+        fields:
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        summary: '{{fields.titel}}'
+        required: false
+    - label: Wissen
+      name: wissen
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Text
+        name: text
+        widget: text
+        required: false
+      - label: Button-Text
+        name: button
+        widget: string
+        required: false
+      - label: Check titel
+        name: check_titel
+        widget: string
+        required: false
+      - label: Check text
+        name: check_text
+        widget: text
+        required: false
+      - label: Check button
+        name: check_button
+        widget: string
+        required: false
+    - label: Faq
+      name: faq
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Fragen
+        name: fragen
+        widget: list
+        fields:
+        - label: Frage
+          name: frage
+          widget: string
+          required: false
+        - label: Antwort
+          name: antwort
+          widget: text
+          required: false
+        summary: '{{fields.frage}}'
+        required: false
+    - label: Cta
+      name: cta
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Text
+        name: text
+        widget: text
+        required: false
+      - label: Button-Text
+        name: button
+        widget: string
+        required: false
+      - label: Whatsapp button
+        name: whatsapp_button
+        widget: string
+        required: false
+      - label: Kleiner Text
+        name: klein
+        widget: string
+        required: false
+- name: karriere
+  label: Karriereseite
+  description: Alle Texte und Bilder der Karriereseite. Die einzelnen Stellen pflegst du unter „Offene Stellen“.
+  editor:
+    preview: false
+  files:
+  - name: karriere
+    label: Karriereseite
+    file: src/data/karriere.json
+    format: json
+    fields:
+    - label: Google & Social Media
+      name: seo
+      widget: object
+      collapsed: true
+      fields:
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Beschreibung
+        name: beschreibung
+        widget: text
+        required: false
+    - label: Hero
+      name: hero
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Headline Zeile 1
+        name: zeile1
+        widget: string
+        required: false
+      - label: Headline Zeile 2
+        name: zeile2
+        widget: string
+        required: false
+      - label: Text unter der Headline
+        name: subline
+        widget: text
+        required: false
+      - label: Button 1
+        name: button_primaer
+        widget: string
+        required: false
+      - label: Button 2
+        name: button_sekundaer
+        widget: string
+        required: false
+      - label: Bild
+        name: bild
+        widget: image
+        required: false
+      - label: Bildbeschreibung (Alt-Text)
+        name: bild_alt
+        widget: string
+        required: false
+      - label: Teamfoto unten im Kopfbereich (freigestellt, PNG/WebP mit transparentem Hintergrund)
+        name: team_bild
+        widget: image
+        required: false
+      - label: Bildbeschreibung Teamfoto (Alt-Text)
+        name: team_bild_alt
+        widget: string
+        required: false
+      - label: Farbe des Kopfbereichs
+        name: stil
+        widget: select
+        options:
+        - label: Hell (wie die übrige Seite)
+          value: hell
+        - label: Navy (dunkel)
+          value: navy
+        default: hell
+        required: false
+      - label: Kennzahlen
+        name: kennzahlen
+        widget: list
+        fields:
+        - label: Wert
+          name: wert
+          widget: string
+          required: false
+        - label: Beschriftung
+          name: label
+          widget: string
+          required: false
+        summary: '{{fields.label}}'
+        required: false
+    - label: Willkommen
+      name: willkommen
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Zitat
+        name: zitat
+        widget: text
+        required: false
+      - label: Absätze
+        name: absaetze
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: text
+        required: false
+      - label: Schlusssatz
+        name: schlusssatz
+        widget: string
+        required: false
+      - label: Name
+        name: name
+        widget: string
+        required: false
+      - label: Rolle
+        name: rolle
+        widget: string
+        required: false
+      - label: Bild
+        name: bild
+        widget: image
+        required: false
+      - label: Bildbeschreibung (Alt-Text)
+        name: bild_alt
+        widget: string
+        required: false
+      - label: Unterschrift
+        name: unterschrift
+        widget: image
+        required: false
+    - label: Wer wir sind
+      name: wer_wir_sind
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Absätze
+        name: absaetze
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: text
+        required: false
+      - label: Zeitleiste
+        name: zeitleiste
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: string
+        required: false
+      - label: Blöcke
+        name: bloecke
+        widget: list
+        fields:
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        summary: '{{fields.titel}}'
+        required: false
+      - label: Bild
+        name: bild
+        widget: image
+        required: false
+      - label: Bildbeschreibung (Alt-Text)
+        name: bild_alt
+        widget: string
+        required: false
+    - label: Mit wem
+      name: mit_wem
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Text
+        name: text
+        widget: text
+        required: false
+      - label: Kacheln
+        name: kacheln
+        widget: list
+        fields:
+        - label: Icon
+          name: icon
+          widget: select
+          options: *id001
+          required: false
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        summary: '{{fields.titel}}'
+        required: false
+      - label: Bild
+        name: bild
+        widget: image
+        required: false
+      - label: Bildbeschreibung (Alt-Text)
+        name: bild_alt
+        widget: string
+        required: false
+    - label: Werte
+      name: werte
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Einleitung
+        name: intro
+        widget: text
+        required: false
+      - label: Liste
+        name: liste
+        widget: list
+        fields:
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        - label: Bild
+          name: bild
+          widget: image
+          required: false
+        summary: '{{fields.titel}}'
+        required: false
+    - label: Tag
+      name: tag
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Einleitung
+        name: intro
+        widget: text
+        required: false
+      - label: Stationen
+        name: stationen
+        widget: list
+        fields:
+        - label: Uhrzeit
+          name: zeit
+          widget: string
+          required: false
+        - label: Icon
+          name: icon
+          widget: select
+          options: *id001
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        summary: '{{fields.text}}'
+        required: false
+    - label: Benefits
+      name: benefits
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Einleitung
+        name: intro
+        widget: text
+        required: false
+      - label: Karten
+        name: karten
+        widget: list
+        fields:
+        - label: Tag
+          name: tag
+          widget: string
+          required: false
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Zahlen
+          name: zahlen
+          widget: list
+          fields:
+          - label: Wert
+            name: wert
+            widget: string
+            required: false
+          - label: Beschriftung
+            name: label
+            widget: string
+            required: false
+          summary: '{{fields.label}}'
+          required: false
+        - label: Punkte
+          name: punkte
+          widget: list
+          field:
+            label: Eintrag
+            name: eintrag
+            widget: string
+          required: false
+        - label: Zusatz
+          name: zusatz
+          widget: string
+          required: false
+        summary: '{{fields.titel}}'
+        required: false
+      - label: Awards titel
+        name: awards_titel
+        widget: string
+        required: false
+      - label: Awards
+        name: awards
+        widget: list
+        fields:
+        - label: Bild
+          name: bild
+          widget: image
+          required: false
+        - label: Bildbeschreibung (Alt-Text)
+          name: alt
+          widget: string
+          required: false
+        - label: Groß darstellen
+          name: gross
+          widget: boolean
+          required: false
+        summary: '{{fields.alt}}'
+        required: false
+    - label: Standort
+      name: standort
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Bild
+        name: bild
+        widget: image
+        required: false
+      - label: Bildbeschreibung (Alt-Text)
+        name: bild_alt
+        widget: string
+        required: false
+      - label: Text
+        name: text
+        widget: text
+        required: false
+      - label: Räume titel
+        name: raeume_titel
+        widget: string
+        required: false
+      - label: Räume text
+        name: raeume_text
+        widget: text
+        required: false
+      - label: Erreichbar titel
+        name: erreichbar_titel
+        widget: string
+        required: false
+      - label: Erreichbar
+        name: erreichbar
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: string
+        required: false
+      - label: Pause
+        name: pause
+        widget: text
+        required: false
+      - label: Fakten
+        name: fakten
+        widget: list
+        fields:
+        - label: Icon
+          name: icon
+          widget: select
+          options: *id001
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        summary: '{{fields.text}}'
+        required: false
+      - label: Galerie
+        name: galerie
+        widget: list
+        fields:
+        - label: Bild
+          name: bild
+          widget: image
+          required: false
+        - label: Bildbeschreibung (Alt-Text)
+          name: alt
+          widget: string
+          required: false
+        summary: '{{fields.alt}}'
+        required: false
+    - label: Passt
+      name: passt
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Intro vor
+        name: intro_vor
+        widget: string
+        required: false
+      - label: Zitat
+        name: zitat
+        widget: text
+        required: false
+      - label: Intro nach
+        name: intro_nach
+        widget: string
+        required: false
+      - label: Ja titel
+        name: ja_titel
+        widget: string
+        required: false
+      - label: Ja
+        name: ja
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: string
+        required: false
+      - label: Nein titel
+        name: nein_titel
+        widget: string
+        required: false
+      - label: Nein
+        name: nein
+        widget: text
+        required: false
+    - label: Stellen
+      name: stellen
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Einleitung
+        name: intro
+        widget: text
+        required: false
+      - label: Satz
+        name: satz
+        widget: string
+        required: false
+      - label: Initiativ
+        name: initiativ
+        widget: string
+        required: false
+      - label: Initiativ link
+        name: initiativ_link
+        widget: string
+        required: false
+    - label: Ablauf
+      name: ablauf
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Schritte
+        name: schritte
+        widget: list
+        fields:
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        summary: '{{fields.titel}}'
+        required: false
+    - label: Stimmen
+      name: stimmen
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Liste
+        name: liste
+        widget: list
+        fields:
+        - label: Name
+          name: name
+          widget: string
+          required: false
+        - label: Rolle
+          name: rolle
+          widget: string
+          required: false
+        - label: Bild
+          name: bild
+          widget: image
+          required: false
+        - label: Zitat
+          name: zitat
+          widget: text
+          required: false
+        summary: '{{fields.name}}'
+        required: false
+    - label: Faq
+      name: faq
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Fragen
+        name: fragen
+        widget: list
+        fields:
+        - label: Frage
+          name: frage
+          widget: string
+          required: false
+        - label: Antwort
+          name: antwort
+          widget: text
+          required: false
+        summary: '{{fields.frage}}'
+        required: false
+    - label: Bewerbung
+      name: bewerbung
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Text
+        name: text
+        widget: text
+        required: false
+      - label: Formular titel
+        name: formular_titel
+        widget: string
+        required: false
+      - label: Button-Text
+        name: button
+        widget: string
+        required: false
+      - label: Whatsapp button
+        name: whatsapp_button
+        widget: string
+        required: false
+      - label: Whatsapp text
+        name: whatsapp_text
+        widget: text
+        required: false
+      - label: Anruf button
+        name: anruf_button
+        widget: string
+        required: false
+      - label: Danke titel
+        name: danke_titel
+        widget: string
+        required: false
+      - label: Danke text
+        name: danke_text
+        widget: string
+        required: false
+      - label: Einwilligungstext
+        name: einwilligung
+        widget: text
+        required: false
+- name: stellen
+  label: Offene Stellen
+  label_singular: Stelle
+  description: Jede Stelle bekommt eine eigene Profilseite. Ist eine Stelle besetzt, schaltest du „Stelle ist aktiv“ aus.
+  folder: src/content/stellen
+  create: true
+  extension: md
+  format: frontmatter
+  slug: '{{slug}}'
+  identifier_field: titel
+  summary: '{{titel}}'
+  preview_path: karriere/{{slug}}/
+  fields:
+  - label: Stellentitel (exakt wie im Stellenprofil)
+    name: titel
+    widget: string
+  - label: Reihenfolge
+    name: reihenfolge
+    widget: number
+    value_type: int
+    default: 1
+  - label: Stelle ist aktiv
+    name: aktiv
+    widget: boolean
+    default: true
+  - label: Umfang
+    name: umfang
+    widget: string
+    default: Vollzeit / Teilzeit
+  - label: Ort
+    name: ort
+    widget: string
+    default: Überlingen
+  - label: Arbeitsmodell
+    name: arbeitsmodell
+    widget: string
+    default: vor Ort, Homeoffice, Hybrid
+  - label: Start
+    name: start
+    widget: string
+    default: ab sofort
+  - label: Aufgaben (die ersten drei erscheinen auf der Karriereseite)
+    name: aufgaben
+    widget: list
+    field:
+      label: Aufgabe
+      name: aufgabe
+      widget: string
+  - label: Anforderungen (die ersten drei erscheinen auf der Karriereseite)
+    name: anforderungen
+    widget: list
+    field:
+      label: Anforderung
+      name: anforderung
+      widget: string
+  - label: Stellenprofil als PDF
+    name: profil_pdf
+    widget: file
+    required: false
+  - label: Veröffentlicht am
+    name: datum
+    widget: datetime
+    format: YYYY-MM-DD
+    date_format: DD.MM.YYYY
+    time_format: false
+    required: false
+  - label: Vollständiges Stellenprofil
+    name: body
+    widget: markdown
+    required: false
+    buttons:
+    - bold
+    - italic
+    - link
+    - heading-two
+    - heading-three
+    - bulleted-list
+    - numbered-list
+    editor_components: []
+- name: funnel
+  label: Anfrage-Formular
+  description: Fragen, Antworten, Ausstiegstexte und Danke-Seite. Welche Antwort wohin führt, ist fest eingebaut. Hier änderst du nur die Texte.
+  editor:
+    preview: false
+  files:
+  - name: funnel
+    label: Anfrage-Formular
+    file: src/data/funnel.json
+    format: json
+    fields:
+    - label: Google & Social Media
+      name: seo
+      widget: object
+      collapsed: true
+      fields:
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Beschreibung
+        name: beschreibung
+        widget: text
+        required: false
+    - label: Kopf
+      name: kopf
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Text
+        name: text
+        widget: text
+        required: false
+    - label: Schritte
+      name: schritte
+      widget: object
+      collapsed: true
+      fields:
+      - label: S1
+        name: s1
+        widget: object
+        collapsed: true
+        fields:
+        - label: Frage
+          name: frage
+          widget: string
+          required: false
+        - label: Antwortmöglichkeiten
+          name: optionen
+          widget: list
+          fields:
+          - label: Interne Kennung
+            name: id
+            widget: hidden
+          - label: Text
+            name: text
+            widget: text
+            required: false
+          summary: '{{fields.text}}'
+          required: false
+      - label: S2
+        name: s2
+        widget: object
+        collapsed: true
+        fields:
+        - label: Frage
+          name: frage
+          widget: string
+          required: false
+        - label: Antwortmöglichkeiten
+          name: optionen
+          widget: list
+          fields:
+          - label: Interne Kennung
+            name: id
+            widget: hidden
+          - label: Text
+            name: text
+            widget: text
+            required: false
+          summary: '{{fields.text}}'
+          required: false
+      - label: S2p
+        name: s2p
+        widget: object
+        collapsed: true
+        fields:
+        - label: Frage
+          name: frage
+          widget: string
+          required: false
+        - label: Antwortmöglichkeiten
+          name: optionen
+          widget: list
+          fields:
+          - label: Interne Kennung
+            name: id
+            widget: hidden
+          - label: Text
+            name: text
+            widget: text
+            required: false
+          summary: '{{fields.text}}'
+          required: false
+      - label: S3
+        name: s3
+        widget: object
+        collapsed: true
+        fields:
+        - label: Frage
+          name: frage
+          widget: string
+          required: false
+        - label: Antwortmöglichkeiten
+          name: optionen
+          widget: list
+          fields:
+          - label: Interne Kennung
+            name: id
+            widget: hidden
+          - label: Text
+            name: text
+            widget: text
+            required: false
+          summary: '{{fields.text}}'
+          required: false
+      - label: S4
+        name: s4
+        widget: object
+        collapsed: true
+        fields:
+        - label: Frage
+          name: frage
+          widget: string
+          required: false
+        - label: Antwortmöglichkeiten
+          name: optionen
+          widget: list
+          fields:
+          - label: Interne Kennung
+            name: id
+            widget: hidden
+          - label: Text
+            name: text
+            widget: text
+            required: false
+          summary: '{{fields.text}}'
+          required: false
+      - label: S5
+        name: s5
+        widget: object
+        collapsed: true
+        fields:
+        - label: Frage
+          name: frage
+          widget: text
+          required: false
+        - label: Antwortmöglichkeiten
+          name: optionen
+          widget: list
+          fields:
+          - label: Interne Kennung
+            name: id
+            widget: hidden
+          - label: Text
+            name: text
+            widget: text
+            required: false
+          summary: '{{fields.text}}'
+          required: false
+    - label: Exits
+      name: exits
+      widget: object
+      collapsed: true
+      fields:
+      - label: A
+        name: A
+        widget: object
+        collapsed: true
+        fields:
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        - label: Buttons
+          name: buttons
+          widget: list
+          fields:
+          - label: Text
+            name: text
+            widget: text
+            required: false
+          - label: Ziel (Link)
+            name: ziel
+            widget: string
+            required: false
+            hint: Link (https://…) oder „bruecke:steuerstrategie“ für den Brücken-Screen
+          summary: '{{fields.text}}'
+          required: false
+      - label: B
+        name: B
+        widget: object
+        collapsed: true
+        fields:
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        - label: Buttons
+          name: buttons
+          widget: list
+          fields:
+          - label: Text
+            name: text
+            widget: text
+            required: false
+          - label: Ziel (Link)
+            name: ziel
+            widget: string
+            required: false
+            hint: Link (https://…) oder „bruecke:steuerstrategie“ für den Brücken-Screen
+          summary: '{{fields.text}}'
+          required: false
+      - label: C
+        name: C
+        widget: object
+        collapsed: true
+        fields:
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        - label: Buttons
+          name: buttons
+          widget: list
+          fields:
+          - label: Text
+            name: text
+            widget: text
+            required: false
+          - label: Ziel (Link)
+            name: ziel
+            widget: string
+            required: false
+            hint: Link (https://…) oder „bruecke:steuerstrategie“ für den Brücken-Screen
+          summary: '{{fields.text}}'
+          required: false
+      - label: D
+        name: D
+        widget: object
+        collapsed: true
+        fields:
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        - label: Buttons
+          name: buttons
+          widget: list
+          fields:
+          - label: Text
+            name: text
+            widget: text
+            required: false
+          - label: Ziel (Link)
+            name: ziel
+            widget: string
+            required: false
+            hint: Link (https://…) oder „bruecke:steuerstrategie“ für den Brücken-Screen
+          summary: '{{fields.text}}'
+          required: false
+      - label: E
+        name: E
+        widget: object
+        collapsed: true
+        fields:
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        - label: Buttons
+          name: buttons
+          widget: list
+          fields:
+          - label: Text
+            name: text
+            widget: text
+            required: false
+          - label: Ziel (Link)
+            name: ziel
+            widget: string
+            required: false
+            hint: Link (https://…) oder „bruecke:steuerstrategie“ für den Brücken-Screen
+          summary: '{{fields.text}}'
+          required: false
+      - label: F
+        name: F
+        widget: object
+        collapsed: true
+        fields:
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        - label: Buttons
+          name: buttons
+          widget: list
+          fields:
+          - label: Text
+            name: text
+            widget: text
+            required: false
+          - label: Ziel (Link)
+            name: ziel
+            widget: string
+            required: false
+            hint: Link (https://…) oder „bruecke:steuerstrategie“ für den Brücken-Screen
+          summary: '{{fields.text}}'
+          required: false
+    - label: Brücken
+      name: bruecken
+      widget: object
+      collapsed: true
+      fields:
+      - label: Steürstrategie
+        name: steuerstrategie
+        widget: object
+        collapsed: true
+        fields:
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        - label: Button-Text
+          name: button
+          widget: string
+          required: false
+      - label: Nachfolge
+        name: nachfolge
+        widget: object
+        collapsed: true
+        fields:
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        - label: Button-Text
+          name: button
+          widget: string
+          required: false
+    - label: Formular
+      name: formular
+      widget: object
+      collapsed: true
+      fields:
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Button-Text
+        name: button
+        widget: string
+        required: false
+      - label: Einwilligungstext
+        name: einwilligung
+        widget: text
+        required: false
+    - label: Danke-Seite
+      name: danke
+      widget: object
+      collapsed: true
+      fields:
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Text
+        name: text
+        widget: text
+        required: false
+      - label: Text nachfolge
+        name: text_nachfolge
+        widget: text
+        required: false
+      - label: WhatsApp-Nummer
+        name: whatsapp
+        widget: string
+        required: false
+- name: einstellungen
+  label: Kontakt & Einstellungen
+  description: Adresse, Telefon, WhatsApp, Bewertungen und Tracking. Änderungen hier wirken auf der ganzen Website.
+  editor:
+    preview: false
+  files:
+  - name: einstellungen
+    label: Kontakt & Einstellungen
+    file: src/data/einstellungen.json
+    format: json
+    fields:
+    - label: Firmenname
+      name: firma
+      widget: string
+      required: false
+    - label: Claim
+      name: claim
+      widget: string
+      required: false
+    - label: Straße
+      name: strasse
+      widget: string
+      required: false
+    - label: PLZ und Ort
+      name: plz_ort
+      widget: string
+      required: false
+    - label: Telefon
+      name: telefon
+      widget: string
+      required: false
+    - label: Erreichbar
+      name: erreichbar
+      widget: string
+      required: false
+    - label: E-Mail
+      name: email
+      widget: string
+      required: false
+    - label: WhatsApp-Nummer
+      name: whatsapp
+      widget: string
+      required: false
+    - label: YouTube-Kanal (Link)
+      name: youtube
+      widget: string
+      required: false
+    - label: Youtube titel
+      name: youtube_titel
+      widget: string
+      required: false
+    - label: Steürstrategie url
+      name: steuerstrategie_url
+      widget: string
+      required: false
+    - label: Bewertungen
+      name: bewertungen
+      widget: object
+      collapsed: true
+      fields:
+      - label: Trustpilot aktiv
+        name: trustpilot_aktiv
+        widget: boolean
+        required: false
+      - label: Trustpilot wert
+        name: trustpilot_wert
+        widget: string
+        required: false
+      - label: Trustpilot anzahl
+        name: trustpilot_anzahl
+        widget: string
+        required: false
+      - label: Trustpilot url
+        name: trustpilot_url
+        widget: string
+        required: false
+      - label: Google aktiv
+        name: google_aktiv
+        widget: boolean
+        required: false
+      - label: Google wert
+        name: google_wert
+        widget: string
+        required: false
+      - label: Google anzahl
+        name: google_anzahl
+        widget: string
+        required: false
+      - label: Google url
+        name: google_url
+        widget: string
+        required: false
+    - label: Karriere
+      name: karriere
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kontakt name
+        name: kontakt_name
+        widget: string
+        required: false
+      - label: Kontakt email
+        name: kontakt_email
+        widget: string
+        required: false
+      - label: Kontakt telefon
+        name: kontakt_telefon
+        widget: string
+        required: false
+      - label: WhatsApp-Nummer
+        name: whatsapp
+        widget: string
+        required: false
+    - label: Tracking
+      name: tracking
+      widget: object
+      collapsed: true
+      fields:
+      - label: Matomo url
+        name: matomo_url
+        widget: string
+        required: false
+      - label: Matomo site id
+        name: matomo_site_id
+        widget: string
+        required: false
+    - label: Google & Social Media
+      name: seo
+      widget: object
+      collapsed: true
+      fields:
+      - label: Standard bild
+        name: standard_bild
+        widget: image
+        required: false
+- name: rechtliches
+  label: Impressum & Datenschutz
+  description: Die Rechtstexte der Website.
+  editor:
+    preview: false
+  files:
+  - name: rechtliches
+    label: Impressum & Datenschutz
+    file: src/data/rechtliches.json
+    format: json
+    fields:
+    - label: Impressum
+      name: impressum
+      widget: markdown
+      buttons:
+      - bold
+      - italic
+      - link
+      - heading-two
+      - heading-three
+      - bulleted-list
+      - numbered-list
+      editor_components: []
+      required: false
+    - label: Datenschutzerklärung
+      name: datenschutz
+      widget: markdown
+      buttons:
+      - bold
+      - italic
+      - link
+      - heading-two
+      - heading-three
+      - bulleted-list
+      - numbered-list
+      editor_components: []
+      required: false

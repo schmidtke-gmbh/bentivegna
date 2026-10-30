@@ -1,0 +1,55 @@
+---
+import Icon from './Icon.astro';
+import Brand from './Brand.astro';
+import { u, E, telLink, waLink } from '../lib/site';
+interface Props { variante?: 'start' | 'karriere' }
+const { variante = 'start' } = Astro.props;
+const claim = variante === 'karriere'
+  ? 'Unternehmerberatung & Steuerstrategie, Überlingen am Bodensee'
+  : 'Steuer- & Unternehmerberatung, spezialisiert auf SHK-Betriebe in ganz Deutschland. Digital, persönlich, per Teams.';
+const wa = waLink(E.whatsapp);
+---
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img class="foot-logo" src={u('/uploads/logos/logo-quer.svg')} alt="Bentivegna" style="filter:brightness(0) invert(1)" width="210" height="40">
+        <p>{claim}</p>
+        <div class="foot-social">
+          <a href={E.youtube} target="_blank" rel="noopener" aria-label="YouTube-Kanal von Bentivegna"><Brand name="youtube" class="" /> YouTube</a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Kanzlei</h4>
+        <ul>
+          <li><a href={u('/#leistungen')}>Leistungen</a></li>
+          <li><a href={u('/#system')}>Unser Weg in 6 Stufen</a></li>
+          <li><a href={u('/#referenzen')}>Referenzen</a></li>
+          <li><a href={u('/#team')}>Über uns</a></li>
+          <li><a href={u('/anfrage/')}>Analysegespräch anfragen</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Wissen & Service</h4>
+        <ul>
+          <li><a href={u('/der-chef-auf-der-baustelle/')}>Der Chef auf der Baustelle</a></li>
+          <li><a href={u('/der-chef-auf-der-baustelle/selbstcheck/')}>Selbstcheck</a></li>
+          <li><a href={u('/hilfe-center/')}>Hilfe-Center für Mandanten</a></li>
+          <li><a href={u('/karriere/')}>Karriere</a></li>
+        </ul>
+      </div>
+      <div class="foot-col foot-contact">
+        <h4>Kontakt</h4>
+        <div><Icon name="map-pin" /><span>{E.firma.split(' & ')[0]}<br>{E.strasse}<br>{E.plz_ort}</span></div>
+        <div><Icon name="phone" /><span><a href={telLink(E.telefon)}>{E.telefon}</a><br><small>{E.erreichbar}</small></span></div>
+        <div><Icon name="mail" /><a href={`mailto:${variante === 'karriere' && E.karriere.kontakt_email ? E.karriere.kontakt_email : E.email}`}>{variante === 'karriere' && E.karriere.kontakt_email ? E.karriere.kontakt_email : E.email}</a></div>
+        {wa ? <div><Brand name="whatsapp" class="wa" /><a href={wa} target="_blank" rel="noopener" data-track="whatsapp_klick">WhatsApp</a></div> : <div><Brand name="whatsapp" class="wa" /><span>WhatsApp (Nummer folgt)</span></div>}
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span class="legal"><a href={u('/impressum/')}>Impressum</a> &nbsp;·&nbsp; <a href={u('/datenschutz/')}>Datenschutz</a></span>
+      <span class="copy">© {new Date().getFullYear()} {E.firma}</span>
+      <a href="https://www.schmidtke-gmbh.de" target="_blank" rel="noopener" class="foot-credit"><span class="cl">Webseite von</span><span class="sk-logo"><b>schmidtke</b><span class="dot"></span></span></a>
+    </div>
+  </div>
+</footer>

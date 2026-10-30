@@ -1,0 +1,15 @@
+---
+import Base from '../../layouts/Base.astro';
+import K from '../../data/karriere.json';
+import { u } from '../../lib/site';
+---
+<Base titel="Danke für deine Bewerbung | Bentivegna" beschreibung="Deine Bewerbung ist angekommen." noindex footer="karriere" cta={{ text: 'Offene Stellen', href: u('/karriere/#jobs') }}>
+  <section class="page-head" style="min-height:70vh">
+    <div class="wrap">
+      <span class="eyebrow">Bewerbung</span>
+      <h1 style="margin-top:16px">{K.bewerbung.danke_titel}</h1>
+      <p class="lead">{K.bewerbung.danke_text}</p>
+      <p style="margin-top:30px"><a href={u('/karriere/')} class="btn btn--gold">Zurück zur Karriereseite <span class="arr"></span></a></p>
+    </div>
+  </section>
+</Base>

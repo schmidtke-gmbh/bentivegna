@@ -1,0 +1,64 @@
+---
+// Klick-Demo des Redaktionssystems: läuft komplett im Browser (Decap „test-repo“), nichts wird gespeichert.
+import fs from 'node:fs';
+import path from 'node:path';
+import YAML from 'yaml';
+
+const root = process.cwd();
+const config = YAML.parse(fs.readFileSync(path.join(root, 'public/admin/config.yml'), 'utf8'));
+config.backend = { name: 'test-repo' };
+config.load_config_file = false;
+config.site_url = '/';
+config.display_url = '/';
+config.logo_url = `${import.meta.env.BASE_URL}uploads/logos/logo-quer.svg`;
+
+// Alle Dateien, die das CMS bearbeitet, in die Demo laden
+const dateien: Record<string, unknown> = {};
+const lege = (rel: string) => {
+  const teile = rel.split('/');
+  let knoten = dateien as Record<string, any>;
+  teile.slice(0, -1).forEach((t) => (knoten = knoten[t] = knoten[t] || {}));
+  knoten[teile[teile.length - 1]] = { content: fs.readFileSync(path.join(root, rel), 'utf8') };
+};
+['src/data/startseite.json', 'src/data/karriere.json', 'src/data/funnel.json', 'src/data/buchreihe.json', 'src/data/einstellungen.json', 'src/data/rechtliches.json'].forEach(lege);
+for (const ordner of ['src/content/artikel', 'src/content/kapitel', 'src/content/stellen']) {
+  for (const f of fs.readdirSync(path.join(root, ordner))) lege(`${ordner}/${f}`);
+  // Das Test-Backend listet Ordner über einen flachen Schlüssel („src/content/artikel“)
+  const teile = ordner.split('/');
+  let knoten = dateien as Record<string, any>;
+  teile.forEach((t) => (knoten = knoten[t]));
+  dateien[ordner] = knoten;
+}
+const base = import.meta.env.BASE_URL;
+---
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Bentivegna · Redaktionssystem (Demo)</title>
+  <link rel="stylesheet" href={`${base}admin/oberflaeche.css`}>
+  <style>
+    #demo-hinweis{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:99999;background:#273365;color:#fff;font:600 14px/1.4 system-ui,sans-serif;padding:10px 16px;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.25);max-width:92vw;text-align:center}
+    #demo-hinweis b{color:#ccc4af}
+  </style>
+</head>
+<body>
+  <div id="demo-hinweis"><b>Demo</b> · Hier kannst du alles ausprobieren. Änderungen werden nicht gespeichert und gehen beim Neuladen verloren.</div>
+  <script is:inline define:vars={{ config, dateien, base }}>
+    window.CMS_MANUAL_INIT = true;
+    window.repoFiles = dateien;
+    window.__demoConfig = config;
+    window.__demoBase = base;
+  </script>
+  <script is:inline src={`${base}admin/decap/decap-cms.js`}></script>
+  <script is:inline src={`${base}admin/vorschau.js`}></script>
+  <script is:inline>
+    var c = window.__demoConfig;
+    c.public_folder = window.__demoBase.replace(/\/$/, '') + '/uploads';
+    CMS.registerPreviewStyle(window.__demoBase.replace(/\/$/, '') + '/admin/vorschau.css');
+    CMS.init({ config: c });
+  </script>
+</body>
+</html>
