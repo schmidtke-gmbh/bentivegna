@@ -483,3 +483,13 @@ p,li,.ans{text-wrap:pretty}
   .hw-lauf{flex-direction:row;flex-wrap:wrap;gap:0 .34em;transform:none!important}
   .hw-klon,.hw-strich{display:none}
 }
+
+/* WhatsApp-Handy: HyperFrames-Film im Bildschirm (30.10.2026) */
+.eb-wa-film{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:3;opacity:0;pointer-events:none;background:#efeae2}
+.eb-wa-film.an{opacity:1}
+
+/* Vergleich: Bentivegna-Karte weiß, damit sie aus dem dunklen Abschnitt heraussticht (30.10.2026) */
+.cmp2-card.feature{background:#fff;border-color:#fff;box-shadow:0 30px 70px rgba(0,0,0,.5),0 0 0 1px rgba(189,176,156,.4)}
+.cmp2-card.feature .cmp2-logo{filter:none}
+.cmp2-card.feature .cmp2-list li{color:var(--ink);border-top-color:var(--line)}
+.cmp2-card.feature .ci2.ok{background:rgba(31,122,69,.09);color:#1f7a45;border-color:rgba(31,122,69,.32)}

@@ -473,9 +473,10 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
         <div class="eb-visual">
           <div class="eb-phone"><span class="eb-notch"></span>
             <div class="eb-screen">
+              <video class="eb-wa-film" src={u('/uploads/whatsapp/chat-schleife.mp4')} poster={u('/uploads/whatsapp/chat-schleife-start.webp')} muted loop playsinline preload="none" aria-hidden="true" data-wa-film></video>
               <div class="eb-wa-top"><span class="eb-wa-av">DB</span><div><div class="eb-wa-nm">Bentivegna</div><div class="eb-wa-st">online</div></div><span class="eb-wa-ic"><Icon name="phone" /></span></div>
               <div class="eb-wchat">
-                {S.mandant.chat.map((c) => <div class={`eb-wbub ${c.von === 'mandant' ? 'in' : 'out'}`}>{c.text}</div>)}
+                {S.mandant.chat.map((c) => <div class={`eb-wbub ${c.von === 'mandant' ? 'out' : 'in'}`}>{c.text}</div>)}
               </div>
             </div>
           </div>
@@ -729,6 +730,20 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
     (document.fonts ? document.fonts.ready : Promise.resolve()).then(bauen);
     let warte = 0;
     addEventListener('resize', () => { clearTimeout(warte); warte = window.setTimeout(bauen, 150); });
+  }
+</script>
+<script>
+  // WhatsApp-Handy: HyperFrames-Film im Bildschirm, läuft nur sichtbar und nicht bei reduzierter Bewegung.
+  // Ohne Film (reduzierte Bewegung, Autoplay blockiert) bleibt der Chat aus dem CMS sichtbar.
+  const film = document.querySelector<HTMLVideoElement>('[data-wa-film]');
+  if (film && !matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    film.classList.add('an');
+    new IntersectionObserver((eintraege) => {
+      eintraege.forEach((e) => {
+        if (e.isIntersecting) film.play().catch(() => film.classList.remove('an'));
+        else film.pause();
+      });
+    }, { threshold: 0.2 }).observe(film);
   }
 </script>
 <script>

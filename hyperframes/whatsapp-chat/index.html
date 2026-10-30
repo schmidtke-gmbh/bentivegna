@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="de" data-composition-variables='[{"id":"kontakt","type":"string","label":"Name im Chatkopf","default":"Bentivegna"},{"id":"frage","type":"string","label":"Frage des Mandanten","default":"Kurze Frage: Ein Bauträger will uns als Nachunternehmer beauftragen. Gilt § 13b, und was brauche ich für die Freistellungsbescheinigung?"},{"id":"antwort","type":"string","label":"Antwort der Kanzlei","default":"Ja, Reverse-Charge. Ich schick dir gleich die Einordnung und die Checkliste zur Freistellungsbescheinigung."},{"id":"datei","type":"string","label":"Dateiname des Anhangs","default":"Checkliste Freistellungsbescheinigung.pdf"}]'>
+<head>
+<meta charset="utf-8">
+<title>WhatsApp-Chat | Bentivegna Startseite (Schleife)</title>
+<!--
+  HyperFrames-Komposition für den Bildschirm des WhatsApp-Handys auf der Startseite (Abschnitt „So läuft die Zusammenarbeit“).
+  Bildschirm auf der Website: 192 × 394 CSS-Pixel. Gestaltet in diesen Maßen, gerendert dreifach (576 × 1182), damit es auf
+  Retina-Displays scharf bleibt. 30 fps, 12 s, nahtlose Schleife: das letzte Bild entspricht dem ersten (leerer Chat).
+  Perspektive: das Handy gehört dem Mandanten. Seine Nachrichten grün rechts, die der Kanzlei weiß links.
+
+  Ablauf
+  0,25 s  Frage erscheint im Eingabefeld, Mikrofon wird zum Senden-Pfeil
+  0,90 s  Frage wird gesendet (ein Haken, 1,35 s zwei Haken, 1,95 s blau = gelesen)
+  2,15 s  Kopfzeile „schreibt …“, Tipp-Blase mit drei Punkten
+  3,70 s  Antwort der Kanzlei
+  5,00 s  PDF-Anhang „Checkliste Freistellungsbescheinigung.pdf“
+  6,80 s  „Perfekt, danke!“ wird Buchstabe für Buchstabe getippt, 7,85 s gesendet, 8,90 s gelesen
+  11,2 s  Verlauf blendet aus, ab 11,8 s leerer Chat wie am Anfang
+-->
+<style>
+  @font-face{font-family:"Source Sans 3";font-weight:400;src:url("assets/fonts/source-sans-3-latin-400-normal.woff2") format("woff2")}
+  @font-face{font-family:"Source Sans 3";font-weight:600;src:url("assets/fonts/source-sans-3-latin-600-normal.woff2") format("woff2")}
+  @font-face{font-family:"Source Sans 3";font-weight:700;src:url("assets/fonts/source-sans-3-latin-700-normal.woff2") format("woff2")}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:576px;height:1182px;overflow:hidden;background:#efeae2}
+  #root{position:relative;width:576px;height:1182px;overflow:hidden;background:#efeae2;font-family:"Source Sans 3",sans-serif;color:#111b21;-webkit-font-smoothing:antialiased}
+  /* alles in Website-Maßen (192 × 394) gestaltet, dreifach vergrößert */
+  #stage{position:absolute;left:0;top:0;width:192px;height:394px;zoom:3;overflow:hidden;background:#efeae2 url("assets/img/muster.svg") 0 0/112px 112px}
+
+  /* Statusleiste und Kopf */
+  #kopf{position:absolute;left:0;right:0;top:0;height:55px;background:#0b7d6f;color:#fff}
+  #uhr{position:absolute;left:16px;top:4.5px;font-size:7.4px;font-weight:700;letter-spacing:.02em}
+  #sys{position:absolute;right:13px;top:5.5px;display:flex;gap:3px;align-items:center}
+  #sys svg{display:block}
+  #zeile{position:absolute;left:0;right:0;top:20px;height:32px;display:flex;align-items:center;padding:0 9px 0 4px}
+  #zurueck{width:11px;height:11px;flex:0 0 auto}
+  #avatar{width:25px;height:25px;border-radius:50%;background:#fff;display:grid;place-items:center;margin:0 6px 0 1px;flex:0 0 auto;box-shadow:0 0 0 1px rgba(255,255,255,.35)}
+  #avatar img{width:14px;height:16px;display:block}
+  #wer{position:relative;flex:1;min-width:0}
+  #name{font-size:10px;font-weight:700;line-height:1.15;letter-spacing:.005em}
+  #status{position:relative;height:9px;font-size:7px;line-height:9px}
+  #status span{position:absolute;left:0;top:0;white-space:nowrap;opacity:.88}
+  #status #st-ty{opacity:0}
+  #aktionen{display:flex;gap:13px;align-items:center}
+  #aktionen svg{width:12px;height:12px;display:block}
+
+  /* Verlauf */
+  #verlauf{position:absolute;left:0;right:0;top:55px;bottom:44px;padding:8px 8px 0;display:flex;flex-direction:column}
+  #datum{align-self:center;font-size:6.8px;font-weight:600;color:#54656f;background:rgba(255,255,255,.94);border-radius:5px;padding:2.5px 7px 2.5px;margin-bottom:8px;box-shadow:0 .5px .5px rgba(11,20,26,.1)}
+  .slot{position:relative;display:flex;flex-direction:column;margin-bottom:5px}
+  .slot.r{align-items:flex-end}.slot.l{align-items:flex-start}
+  .slot.wechsel{margin-top:3px}
+  .b{position:relative;max-width:82%;font-size:9.3px;line-height:1.34;padding:4.5px 7px 4.5px 7.5px;border-radius:7px;box-shadow:0 .6px .6px rgba(11,20,26,.14)}
+  .b.aus{background:#d9fdd3}
+  .b.ein{background:#fff}
+  .b.zipfel.aus{border-top-right-radius:0}
+  .b.zipfel.ein{border-top-left-radius:0}
+  .b.zipfel.aus::after{content:"";position:absolute;top:0;right:-5px;width:6px;height:8px;background:#d9fdd3;clip-path:polygon(0 0,100% 0,0 100%)}
+  .b.zipfel.ein::after{content:"";position:absolute;top:0;left:-5px;width:6px;height:8px;background:#fff;clip-path:polygon(100% 0,0 0,100% 100%)}
+  .platz{display:inline-block;width:36px;height:1px}
+  .b.ein .platz{width:22px}
+  .meta{position:absolute;right:6px;bottom:3px;display:flex;align-items:center;gap:2px;font-size:6.1px;color:#5b6b75;line-height:1}
+  .haken{position:relative;width:12px;height:8px;color:#8696a0}
+  .haken svg{position:absolute;left:0;top:0;width:12px;height:8px;display:block}
+  .haken .h2{opacity:0}
+
+  /* Tippen */
+  .tippt{position:absolute;left:0;top:0;width:36px;height:19px;border-radius:7px;border-top-left-radius:0;background:#fff;box-shadow:0 .6px .6px rgba(11,20,26,.14);display:flex;align-items:center;justify-content:center;gap:3px;opacity:0}
+  .tippt::after{content:"";position:absolute;top:0;left:-5px;width:6px;height:8px;background:#fff;clip-path:polygon(100% 0,0 0,100% 100%)}
+  .tippt i{display:block;width:4px;height:4px;border-radius:50%;background:#8696a0;opacity:.45}
+
+  /* Dokument */
+  .b.doc{padding:3px 3px 13px;width:148px}
+  .karte{display:flex;gap:6px;align-items:center;background:#f5f6f6;border-radius:5px;padding:6px 7px}
+  .pdf{width:19px;height:23px;flex:0 0 auto;display:block}
+  .dname{font-size:8.2px;font-weight:600;line-height:1.25;color:#111b21}
+  .dinfo{font-size:6.4px;color:#5b6b75;margin-top:2px}
+  .b.doc .meta{bottom:3.5px}
+
+  /* Eingabe */
+  #eingabe{position:absolute;left:5px;right:5px;bottom:13px;height:27px;display:flex;gap:4px;align-items:center}
+  #feld{position:relative;flex:1;height:27px;border-radius:14px;background:#fff;box-shadow:0 .6px .6px rgba(11,20,26,.12);display:flex;align-items:center;padding:0 8px 0 7px;gap:6px;overflow:hidden}
+  #feld svg{width:11px;height:11px;flex:0 0 auto;display:block}
+  #text{position:relative;flex:1;height:12px;font-size:9px;line-height:12px;white-space:nowrap;overflow:hidden}
+  #platzhalter{position:absolute;left:0;top:0;color:#6b7880}
+  #vorschau1{position:absolute;left:0;top:0;right:0;color:#111b21;opacity:0;overflow:hidden;text-overflow:ellipsis}
+  #getippt{position:absolute;left:0;top:0;color:#111b21;white-space:pre}
+  #getippt span{opacity:0}
+  #anhang{display:flex;gap:9px;align-items:center;color:#54656f}
+  #knopf{position:relative;width:27px;height:27px;border-radius:50%;background:#00a884;flex:0 0 auto;box-shadow:0 .6px .8px rgba(11,20,26,.18)}
+  #knopf svg{position:absolute;left:50%;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;display:block}
+  #ic-send{opacity:0}
+  #home{position:absolute;left:50%;bottom:4px;width:62px;height:3px;margin-left:-31px;border-radius:2px;background:#111b21;opacity:.82}
+</style>
+<script src="assets/js/gsap.min.js"></script>
+</head>
+<body>
+<div id="root" data-composition-id="whatsapp-chat" data-start="0" data-duration="12" data-width="576" data-height="1182" data-fps="30">
+  <div id="stage" data-layout-allow-overflow data-layout-ignore>
+
+    <div id="kopf">
+      <div id="uhr">9:41</div>
+      <div id="sys" aria-hidden="true">
+        <svg width="11" height="7" viewBox="0 0 11 7"><rect x="0" y="4.5" width="1.8" height="2.5" rx=".5" fill="#fff"/><rect x="3" y="3" width="1.8" height="4" rx=".5" fill="#fff"/><rect x="6" y="1.5" width="1.8" height="5.5" rx=".5" fill="#fff"/><rect x="9" y="0" width="1.8" height="7" rx=".5" fill="#fff"/></svg>
+        <svg width="10" height="7" viewBox="0 0 10 7"><path d="M5 7 3.4 5.3a2.3 2.3 0 0 1 3.2 0zM1.7 3.6a4.7 4.7 0 0 1 6.6 0l-.9.9a3.4 3.4 0 0 0-4.8 0zM0 1.9a7.1 7.1 0 0 1 10 0l-.9.9a5.8 5.8 0 0 0-8.2 0z" fill="#fff"/></svg>
+        <svg width="16" height="8" viewBox="0 0 16 8"><rect x=".5" y=".5" width="13" height="7" rx="2" fill="none" stroke="#fff" stroke-opacity=".55"/><rect x="2" y="2" width="9.5" height="4" rx="1" fill="#fff"/><rect x="14.5" y="2.6" width="1.2" height="2.8" rx=".6" fill="#fff" fill-opacity=".55"/></svg>
+      </div>
+      <div id="zeile">
+        <svg id="zurueck" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        <div id="avatar"><img src="assets/img/schild.svg" alt="Schild der Kanzlei Bentivegna"></div>
+        <div id="wer">
+          <div id="name" data-var-text="kontakt">Bentivegna</div>
+          <div id="status" data-layout-allow-overlap><span id="st-on">online</span><span id="st-ty">schreibt …</span></div>
+        </div>
+        <div id="aktionen" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div id="verlauf">
+      <div id="datum">Heute</div>
+
+      <div class="slot r" id="s1">
+        <div class="b aus zipfel" id="b1"><span data-var-text="frage">Kurze Frage: Ein Bauträger will uns als Nachunternehmer beauftragen. Gilt § 13b, und was brauche ich für die Freistellungsbescheinigung?</span><span class="platz"></span>
+          <span class="meta">09:41<span class="haken" id="h1"><svg class="h1" viewBox="0 0 16 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6.5-7.5"/></svg><svg class="h2" id="h1b" viewBox="0 0 16 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7.2 8.4 8 9l6.5-7.5"/></svg></span></span>
+        </div>
+      </div>
+
+      <div class="slot l wechsel" id="s2">
+        <div class="tippt" id="t2"><i id="t2a"></i><i id="t2b"></i><i id="t2c"></i></div>
+        <div class="b ein zipfel" id="b2"><span data-var-text="antwort">Ja, Reverse-Charge. Ich schick dir gleich die Einordnung und die Checkliste zur Freistellungsbescheinigung.</span><span class="platz"></span><span class="meta">09:42</span></div>
+      </div>
+
+      <div class="slot l" id="s3">
+        <div class="b ein doc" id="b3">
+          <div class="karte">
+            <svg class="pdf" viewBox="0 0 19 23" aria-hidden="true"><path d="M2.5.5h9.5l6.5 6.5v13.5a2 2 0 0 1-2 2h-14a2 2 0 0 1-2-2v-18a2 2 0 0 1 2-2z" fill="#fff" stroke="#d3d7da"/><path d="M12 .5V5a2 2 0 0 0 2 2h4.5" fill="#eef0f1" stroke="#d3d7da"/><rect x="0" y="11.5" width="14" height="7" rx="1.5" fill="#e5252a"/><text x="7" y="16.9" text-anchor="middle" font-family="Source Sans 3" font-weight="700" font-size="5.2" fill="#fff">PDF</text></svg>
+            <div><div class="dname" data-var-text="datei">Checkliste Freistellungsbescheinigung.pdf</div><div class="dinfo">PDF-Dokument</div></div>
+          </div>
+          <span class="meta">09:42</span>
+        </div>
+      </div>
+
+      <div class="slot r wechsel" id="s4">
+        <div class="b aus zipfel" id="b4"><span>Perfekt, danke!</span><span class="platz"></span>
+          <span class="meta">09:43<span class="haken" id="h4"><svg class="h1" viewBox="0 0 16 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6.5-7.5"/></svg><svg class="h2" id="h4b" viewBox="0 0 16 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7.2 8.4 8 9l6.5-7.5"/></svg></span></span>
+        </div>
+      </div>
+    </div>
+
+    <div id="eingabe">
+      <div id="feld">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#54656f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/></svg>
+        <div id="text">
+          <span id="platzhalter">Nachricht</span>
+          <span id="vorschau1">Kurze Frage: Ein Bauträger will uns als Nachunternehmer …</span>
+          <span id="getippt"><span id="c0">P</span><span id="c1">e</span><span id="c2">r</span><span id="c3">f</span><span id="c4">e</span><span id="c5">k</span><span id="c6">t</span><span id="c7">,</span><span id="c8"> </span><span id="c9">d</span><span id="c10">a</span><span id="c11">n</span><span id="c12">k</span><span id="c13">e</span><span id="c14">!</span></span>
+        </div>
+        <span id="anhang" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#54656f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#54656f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+        </span>
+      </div>
+      <div id="knopf">
+        <svg id="ic-mic" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/></svg>
+        <svg id="ic-send" viewBox="0 0 24 24" fill="#fff"><path d="M3.4 20.4 21.85 12.5a.55.55 0 0 0 0-1L3.4 3.6a.55.55 0 0 0-.76.63L4.6 11.2 13 12l-8.4.8-1.96 6.97a.55.55 0 0 0 .76.63z"/></svg>
+      </div>
+    </div>
+    <div id="home"></div>
+  </div>
+
+  <script>
+    (function () {
+      var tl = gsap.timeline({ paused: true });
+      var T = { m1: 0.9, m2: 3.7, pdf: 5.0, tipp: 6.8, m4: 7.85, aus: 11.2 };
+      var BLAU = "#53bdeb", GRAU = "#8696a0";
+      var blasen = ["#b1", "#b2", "#b3", "#b4"];
+      var zeichen = [];
+      for (var z = 0; z < 15; z++) zeichen.push("#c" + z);
+
+      // Startzustand: leerer Chat (fromTo, damit jedes Spulen dasselbe Bild ergibt)
+      tl.fromTo(blasen, { opacity: 0 }, { opacity: 0, duration: 0.01, ease: "none" }, 0);
+      tl.fromTo("#st-ty", { opacity: 0 }, { opacity: 0, duration: 0.01, ease: "none" }, 0);
+      tl.fromTo("#st-on", { opacity: 0.88 }, { opacity: 0.88, duration: 0.01, ease: "none" }, 0);
+
+      function blase(sel, t, rechts) {
+        tl.fromTo(sel, { opacity: 0, y: rechts ? 12 : 6, scale: 0.94, transformOrigin: rechts ? "100% 100%" : "0% 0%" },
+                       { opacity: 1, y: 0, scale: 1, duration: 0.42, ease: "back.out(1.5)", immediateRender: false }, t);
+      }
+      function gelesen(hb, h, t) {
+        tl.fromTo(hb, { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "none", immediateRender: false }, t + 0.45);
+        tl.fromTo(h, { color: GRAU }, { color: BLAU, duration: 0.25, ease: "power1.out", immediateRender: false }, t + 1.05);
+      }
+      function knopf(senden, t) {
+        tl.fromTo("#ic-mic", { opacity: senden ? 1 : 0, scale: senden ? 1 : 0.6 }, { opacity: senden ? 0 : 1, scale: senden ? 0.6 : 1, duration: 0.18, ease: "power2.out", immediateRender: false }, t);
+        tl.fromTo("#ic-send", { opacity: senden ? 0 : 1, scale: senden ? 0.6 : 1 }, { opacity: senden ? 1 : 0, scale: senden ? 1 : 0.6, duration: 0.18, ease: "power2.out", immediateRender: false }, t);
+      }
+      function antippen(t) {
+        tl.fromTo("#knopf", { scale: 1 }, { scale: 0.86, duration: 0.09, ease: "power1.in", immediateRender: false }, t);
+        tl.fromTo("#knopf", { scale: 0.86 }, { scale: 1, duration: 0.22, ease: "back.out(2.5)", immediateRender: false }, t + 0.09);
+      }
+      function schreibt(an, t) {
+        tl.fromTo("#st-on", { opacity: an ? 0.88 : 0 }, { opacity: an ? 0 : 0.88, duration: 0.18, ease: "none", immediateRender: false }, t);
+        tl.fromTo("#st-ty", { opacity: an ? 0 : 0.88 }, { opacity: an ? 0.88 : 0, duration: 0.18, ease: "none", immediateRender: false }, t);
+      }
+      function tippBlase(sel, punkte, t0, t1) {
+        tl.fromTo(sel, { opacity: 0, scale: 0.7, transformOrigin: "0% 0%" }, { opacity: 1, scale: 1, duration: 0.24, ease: "back.out(2)", immediateRender: false }, t0);
+        for (var k = 0; t0 + 0.3 + k * 0.6 < t1 - 0.25; k++) {
+          punkte.forEach(function (p, i) {
+            tl.fromTo(p, { y: 0, opacity: 0.45 }, { y: -2, opacity: 1, duration: 0.18, ease: "sine.out", yoyo: true, repeat: 1, immediateRender: false }, t0 + 0.3 + k * 0.6 + i * 0.12);
+          });
+        }
+        tl.fromTo(sel, { opacity: 1 }, { opacity: 0, duration: 0.12, ease: "power1.in", immediateRender: false }, t1);
+      }
+
+      // 1) Frage im Eingabefeld, senden
+      tl.fromTo("#platzhalter", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "none" }, 0.25);
+      tl.fromTo("#vorschau1", { opacity: 0, clipPath: "inset(0 100% 0 0)" }, { opacity: 1, clipPath: "inset(0 0% 0 0)", duration: 0.45, ease: "power1.out" }, 0.25);
+      knopf(true, 0.25);
+      antippen(T.m1 - 0.08);
+      tl.fromTo("#vorschau1", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "none", immediateRender: false }, T.m1);
+      tl.fromTo("#platzhalter", { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "none", immediateRender: false }, T.m1 + 0.05);
+      knopf(false, T.m1 + 0.05);
+      blase("#b1", T.m1, true);
+      gelesen("#h1b", "#h1", T.m1);
+
+      // 2) Kanzlei schreibt und antwortet
+      schreibt(true, 2.15);
+      tippBlase("#t2", ["#t2a", "#t2b", "#t2c"], 2.15, T.m2 - 0.05);
+      blase("#b2", T.m2, false);
+      schreibt(false, T.m2 + 0.05);
+
+      // 3) PDF-Anhang
+      blase("#b3", T.pdf, false);
+
+      // 4) Mandant tippt „Perfekt, danke!“ und sendet
+      tl.fromTo("#platzhalter", { opacity: 1 }, { opacity: 0, duration: 0.05, ease: "none", immediateRender: false }, T.tipp);
+      knopf(true, T.tipp);
+      zeichen.forEach(function (c, i) {
+        tl.fromTo(c, { opacity: 0 }, { opacity: 1, duration: 0.01, ease: "none" }, T.tipp + 0.04 + i * 0.055);
+      });
+      antippen(T.m4 - 0.08);
+      tl.fromTo(zeichen, { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "none", immediateRender: false }, T.m4);
+      tl.fromTo("#platzhalter", { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "none", immediateRender: false }, T.m4 + 0.05);
+      knopf(false, T.m4 + 0.05);
+      blase("#b4", T.m4, true);
+      gelesen("#h4b", "#h4", T.m4);
+
+      // 5) Ausblenden, danach wieder leerer Chat wie am Anfang
+      tl.fromTo(blasen, { opacity: 1, y: 0 }, { opacity: 0, y: -8, duration: 0.42, ease: "power2.in", stagger: 0.05, immediateRender: false }, T.aus);
+      tl.fromTo(["#h1b", "#h4b"], { opacity: 1 }, { opacity: 0, duration: 0.01, ease: "none", immediateRender: false }, 11.85);
+      tl.fromTo(["#h1", "#h4"], { color: BLAU }, { color: GRAU, duration: 0.01, ease: "none", immediateRender: false }, 11.85);
+      tl.fromTo(blasen, { y: -8 }, { y: 0, duration: 0.01, ease: "none", immediateRender: false }, 11.85);
+      // Zeitleiste auf volle Länge bringen
+      tl.fromTo("#home", { opacity: 0.82 }, { opacity: 0.82, duration: 0.01, ease: "none" }, 11.98);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["whatsapp-chat"] = tl;
+    })();
+  </script>
+</div>
+</body>
+</html>

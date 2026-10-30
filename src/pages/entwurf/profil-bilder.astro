@@ -1,0 +1,63 @@
+---
+// Entwurfsseite (nicht verlinkt, nicht in Sitemap, noindex): Bildvarianten für die zwei kleinen Fotos im Profil-Bento
+// der Startseite („Der Mensch hinter Bentivegna“), zur Abstimmung mit dem Kunden.
+import Base from '../../layouts/Base.astro';
+import { u } from '../../lib/site';
+import S from '../../data/startseite.json';
+
+const P = '/uploads/profil-optionen/';
+const V = [
+  { kurz: 'A', name: 'Aktuell', text: 'Domenico im Studio und das freigestellte Teamfoto. Domenico ist damit zweimal zu sehen, das Teamfoto wirkt montiert.', herkunft: 'Bestand',
+    a: { bild: S.profil.bilder_zusatz[0].bild, pos: 'center 12%' }, b: { bild: S.profil.bilder_zusatz[1].bild, pos: '68% 30%' } },
+  { kurz: 'B', name: 'Echte Kanzleifotos', text: 'Kollegin am Schreibtisch mit Ordner und die Kaffeepause an der Theke mit Domenico. Zeigt das echte Team im echten Büro.', herkunft: 'Fotoshooting April',
+    a: { bild: P + 'echt-kollegin-ordner.webp', pos: '40% 30%' }, b: { bild: P + 'echt-kaffeepause.webp', pos: '55% 40%' } },
+  { kurz: 'C', name: 'Echt, ruhiger', text: 'Die alte Rechenmaschine als Detail für „seit 20+ Jahren“ und eine zweite Aufnahme der Kaffeepause.', herkunft: 'Fotoshooting April',
+    a: { bild: P + 'echt-rechenmaschine.webp', pos: '50% 62%' }, b: { bild: P + 'echt-kaffeepause-2.webp', pos: '55% 40%' } },
+  { kurz: 'D', name: 'SHK-Bezug (KI)', text: 'Aufgeräumter Heizungsraum mit Kupferleitungen in Navy und Messing, dazu ein Beratungsgespräch am Tisch zwischen Berater und Handwerker.', herkunft: 'KI-Stimmungsbilder (Higgsfield), keine echten Personen',
+    a: { bild: P + 'ki-heizraum.webp', pos: '40% 50%' }, b: { bild: P + 'ki-beratung.webp', pos: '50% 45%' } },
+  { kurz: 'E', name: 'Handwerk trifft Zahlen (KI)', text: 'SHK-Meister von hinten mit Tablet und Auswertung vor der Wärmepumpe, dazu ein Schreibtisch mit Heizungsplan, BWA und Taschenrechner.', herkunft: 'KI-Stimmungsbilder (Higgsfield), keine echten Personen',
+    a: { bild: P + 'ki-meister-tablet.webp', pos: '35% 40%' }, b: { bild: P + 'ki-schreibtisch.webp', pos: '50% 50%' } },
+  { kurz: 'F', name: 'Mischung', text: 'Links der Heizungsraum als Zeichen für den SHK-Fokus, rechts das echte Team bei der Kaffeepause. Branche und Menschen in einem Blick.', herkunft: 'KI-Stimmungsbild und Fotoshooting April',
+    a: { bild: P + 'ki-heizraum.webp', pos: '40% 50%' }, b: { bild: P + 'echt-kaffeepause.webp', pos: '55% 40%' } },
+];
+---
+<Base titel="Entwurf: Bilder im Profil | Bentivegna" beschreibung="Interne Entwurfsseite" pfad="/entwurf/profil-bilder/" bodyClass="page-entwurf" noindex={true}>
+  <section class="section ent-kopf">
+    <div class="wrap">
+      <h1>Bilder im Profil-Bereich</h1>
+      <p>Sechs Varianten für die zwei kleinen Fotos unter dem großen Bild von Domenico. Das große Bild bleibt gleich. Bitte eine Variante auswählen oder einzelne Bilder mischen.</p>
+    </div>
+  </section>
+  <section class="section ent-raster-wrap">
+    <div class="wrap ent-raster">
+      {V.map((v) => (
+        <article class="ent-var">
+          <header><span class="ent-buchstabe">{v.kurz}</span><div><h2>{v.name}</h2><small>{v.herkunft}</small></div></header>
+          <div class="founder-media founder-bento">
+            <figure class="fb-main"><img src={u(S.profil.bild)} alt={S.profil.bild_alt} loading="lazy"><span class="swoosh">{S.profil.swoosh}</span></figure>
+            <figure class="fb-a"><img src={u(v.a.bild)} alt="" loading="lazy" style={`object-position:${v.a.pos}`}></figure>
+            <figure class="fb-b"><img src={u(v.b.bild)} alt="" loading="lazy" style={`object-position:${v.b.pos}`}></figure>
+          </div>
+          <p>{v.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style is:global>
+  .page-entwurf .ent-kopf{padding:150px 0 10px}
+  .page-entwurf .ent-kopf h1{font-size:clamp(1.9rem,4vw,2.6rem);color:var(--navy)}
+  .page-entwurf .ent-kopf p{max-width:640px;margin-top:12px;color:var(--muted);font-size:1.05rem;line-height:1.6}
+  .page-entwurf .ent-raster-wrap{padding-top:30px}
+  .page-entwurf .ent-raster{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:56px 40px}
+  .page-entwurf .ent-var header{display:flex;gap:12px;align-items:center;margin-bottom:16px}
+  .page-entwurf .ent-buchstabe{width:38px;height:38px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:700;flex:0 0 auto}
+  .page-entwurf .ent-var h2{font-size:1.15rem;color:var(--navy);line-height:1.2}
+  .page-entwurf .ent-var small{color:var(--muted);font-size:.82rem}
+  .page-entwurf .ent-var > p{margin-top:22px;color:var(--muted);line-height:1.55;font-size:.95rem}
+  .page-entwurf .founder-bento{max-width:none;margin:0}
+  .page-entwurf .founder-bento .fb-main{aspect-ratio:5/4.2}
+  .page-entwurf .founder-bento .fb-a,.page-entwurf .founder-bento .fb-b{height:210px}
+  .page-entwurf .founder-bento .swoosh{font-size:1.1rem;padding:8px 18px;right:-8px;bottom:-12px}
+</style>

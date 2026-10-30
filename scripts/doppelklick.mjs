@@ -36,7 +36,7 @@ for (const datei of dateien.filter((d) => d.endsWith('.html'))) {
     return `<script type="module">${code}</script>`;
   });
   // Interne Links, Bilder, Stylesheets und Pfade in data-Attributen (z. B. Selbstcheck-Bilder)
-  html = html.replace(/\b(href|src|action|data-[a-z0-9-]+)="(\/(?!\/)[^"]*)"/g, (_, attr, url) => `${attr}="${relativ(url, prefix)}"`);
+  html = html.replace(/\b(href|src|poster|action|data-[a-z0-9-]+)="(\/(?!\/)[^"]*)"/g, (_, attr, url) => `${attr}="${relativ(url, prefix)}"`);
   html = html.replace(/url\((\/_astro\/[^)]+)\)/g, (_, url) => `url(${prefix}${url.slice(1)})`);
   fs.writeFileSync(datei, html);
 }
