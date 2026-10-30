@@ -19,10 +19,6 @@ Neue Website für Bentivegna Unternehmerberatung & Steuerstrategie. Gebaut mit *
 
 Seiten: `/`, `/karriere/`, `/karriere/<stelle>/`, `/anfrage/`, `/der-chef-auf-der-baustelle/`, `/der-chef-auf-der-baustelle/<artikel>/`, `/der-chef-auf-der-baustelle/selbstcheck/`, `/hilfe-center/`, `/impressum/`, `/datenschutz/`, `/admin/` (CMS), `/cms-demo/` (Klick-Demo), `sitemap.xml`, `robots.txt`.
 
-## Vorschau auf GitHub Pages
-
-Jeder Push auf `main` baut die Vorschau unter https://schmidtke-gmbh.github.io/bentivegna/ neu (Workflow `.github/workflows/github-pages.yml`, mit `BASE=/bentivegna/` und `PUBLIC_VORSCHAU=1`, dadurch nicht in Google). Dort funktionieren alle Seiten und die Klick-Demo `/cms-demo/`. Formulare verschicken nichts und der echte CMS-Login unter `/admin/` braucht Netlify (siehe unten).
-
 ## Lokal starten
 
 ```bash

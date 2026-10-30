@@ -320,6 +320,10 @@ collections:
           name: eintrag
           widget: string
         required: false
+      - label: Satzanfang vor den drei Punkten (die Punkte laufen danach einmal durch)
+        name: nutzen_einleitung
+        widget: string
+        required: false
       - label: Bild
         name: bild
         widget: image
@@ -348,7 +352,7 @@ collections:
         name: video_hochkant
         widget: boolean
         required: false
-      - label: Youtube zeile
+      - label: 'YouTube: Kanalname'
         name: youtube_zeile
         widget: string
         required: false
