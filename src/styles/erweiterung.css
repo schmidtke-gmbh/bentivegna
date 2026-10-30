@@ -495,7 +495,21 @@ p,li,.ans{text-wrap:pretty}
 .cmp2-card.feature .ci2.ok{background:rgba(31,122,69,.09);color:#1f7a45;border-color:rgba(31,122,69,.32)}
 
 /* Entwicklung: HyperFrames-Filme in den Karten Nachkalkulation und Liquidität (30.10.2026) */
-.uz-film{margin:20px 0 2px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#fbfaf7;aspect-ratio:520/340;box-shadow:0 14px 30px rgba(39,51,101,.06)}
+.uz-film{margin:0;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#fbfaf7;aspect-ratio:520/340;box-shadow:0 14px 30px rgba(39,51,101,.07)}
 .uz-film video{display:block;width:100%;height:100%;object-fit:cover}
-.uz-cell p{font-size:.95rem;margin-top:16px}
-@media(max-width:600px){.uz-film{margin-left:-12px;margin-right:-12px}}
+
+/* Entwicklung: zwei Karten untereinander, die zweite schiebt sich beim Scrollen über die erste (30.10.2026) */
+.uz-stapel{position:relative;display:flex;flex-direction:column;gap:48px;margin-bottom:20px;padding-bottom:14vh}
+.uz-karte{position:sticky;top:calc(118px + var(--i) * 22px)}
+.uz-karte-innen{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:20px;padding:44px 48px;box-shadow:0 24px 60px rgba(39,51,101,.10);transform-origin:50% 0;will-change:transform}
+.uz-karte--gedreht .uz-karte-innen{grid-template-columns:1.15fr .85fr}
+.uz-text h3{font-size:clamp(1.5rem,2.4vw,2rem);margin-top:14px;color:var(--navy);line-height:1.15}
+.uz-text p{color:var(--muted);margin-top:14px;font-size:1rem;line-height:1.6}
+.uz-grid--zahlen{grid-template-columns:1fr}
+.uz-grid--zahlen > .uz-stat:first-child{border-top:0}
+@media(max-width:900px){
+  .uz-stapel{gap:24px;margin-bottom:36px;padding-bottom:0}
+  .uz-karte{position:static}
+  .uz-karte-innen,.uz-karte--gedreht .uz-karte-innen{grid-template-columns:1fr;gap:24px;padding:28px 22px}
+  .uz-karte--gedreht .uz-film{order:2}
+}

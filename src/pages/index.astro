@@ -425,21 +425,31 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
       <h2 style="margin-top:18px">{ent.titel}</h2>
       <p>{ent.intro}</p>
     </div>
-    <div class="uz-grid reveal d1">
-      <div class="uz-cell">
-        <span class="uz-eyebrow"><Icon name="calculator" /> {ent.karte1_eyebrow}</span>
-        <h3>{ent.karte1_titel}</h3>
-        <figure class="uz-film"><video src={u('/uploads/entwicklung/nachkalkulation.mp4')} poster={u('/uploads/entwicklung/nachkalkulation-ende.webp')} data-startbild={u('/uploads/entwicklung/nachkalkulation-start.webp')} muted loop playsinline preload="none" aria-label="Animierte Beispielrechnung: Deckungsbeitrag einer Baustelle und was 2 Prozentpunkte mehr Marge im Jahr bringen" data-film></video></figure>
-        <p>{ent.karte1_text}</p>
-        <div class="uz-chiprow">{ent.karte1_chips.map((c, i) => <span class="uz-pill"><em>{i === 0 ? '+' : '✓'}</em> {c}</span>)}</div>
-      </div>
-      <div class="uz-cell">
-        <span class="uz-eyebrow"><Icon name="wallet" /> {ent.karte2_eyebrow}</span>
-        <h3>{ent.karte2_titel}</h3>
-        <figure class="uz-film"><video src={u('/uploads/entwicklung/liquiditaet.mp4')} poster={u('/uploads/entwicklung/liquiditaet-ende.webp')} data-startbild={u('/uploads/entwicklung/liquiditaet-start.webp')} muted loop playsinline preload="none" aria-label="Animierter Beispielverlauf: Kontostand über 13 Wochen ohne und mit Abschlagsplan" data-film></video></figure>
-        <p>{ent.karte2_text}</p>
-        <div class="uz-chiprow">{ent.karte2_chips.map((c, i) => <span class="uz-pill"><em>{i === 0 ? '↑' : '✓'}</em> {c}</span>)}</div>
-      </div>
+    <div class="uz-stapel" data-stapel>
+      <article class="uz-karte" style="--i:0">
+        <div class="uz-karte-innen">
+          <div class="uz-text">
+            <span class="uz-eyebrow"><Icon name="calculator" /> {ent.karte1_eyebrow}</span>
+            <h3>{ent.karte1_titel}</h3>
+            <p>{ent.karte1_text}</p>
+            <div class="uz-chiprow">{ent.karte1_chips.map((c, i) => <span class="uz-pill"><em>{i === 0 ? '+' : '✓'}</em> {c}</span>)}</div>
+          </div>
+          <figure class="uz-film"><video src={u('/uploads/entwicklung/nachkalkulation.mp4')} poster={u('/uploads/entwicklung/nachkalkulation-ende.webp')} data-startbild={u('/uploads/entwicklung/nachkalkulation-start.webp')} muted loop playsinline preload="none" aria-label="Animierte Beispielrechnung: Deckungsbeitrag einer Baustelle und was 2 Prozentpunkte mehr Marge im Jahr bringen" data-film></video></figure>
+        </div>
+      </article>
+      <article class="uz-karte uz-karte--gedreht" style="--i:1">
+        <div class="uz-karte-innen">
+          <figure class="uz-film"><video src={u('/uploads/entwicklung/liquiditaet.mp4')} poster={u('/uploads/entwicklung/liquiditaet-ende.webp')} data-startbild={u('/uploads/entwicklung/liquiditaet-start.webp')} muted loop playsinline preload="none" aria-label="Animierter Beispielverlauf: Kontostand über 13 Wochen ohne und mit Abschlagsplan" data-film></video></figure>
+          <div class="uz-text">
+            <span class="uz-eyebrow"><Icon name="wallet" /> {ent.karte2_eyebrow}</span>
+            <h3>{ent.karte2_titel}</h3>
+            <p>{ent.karte2_text}</p>
+            <div class="uz-chiprow">{ent.karte2_chips.map((c, i) => <span class="uz-pill"><em>{i === 0 ? '↑' : '✓'}</em> {c}</span>)}</div>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="uz-grid uz-grid--zahlen reveal d1">
       <div class="uz-stat">
         <div class="uz-kpi"><span class="uz-big" data-to={ent.kpi_umsatz} data-fmt="plus">+{ent.kpi_umsatz} %</span><div class="cap"><b>{ent.kpi_umsatz_text}</b></div></div>
         <div class="uz-kpi"><span class="uz-big gold" data-from={ent.kpi_marge_von} data-to={ent.kpi_marge_auf} data-fmt="marge">{ent.kpi_marge_von} → {ent.kpi_marge_auf} %</span><div class="cap"><b>{ent.kpi_marge_text}</b></div></div>
@@ -737,6 +747,29 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
 <script>
   // WhatsApp-Handy: HyperFrames-Film im Bildschirm, läuft nur sichtbar und nicht bei reduzierter Bewegung.
   // Ohne Film (reduzierte Bewegung, Autoplay blockiert) bleibt der Chat aus dem CMS sichtbar.
+  // Entwicklung: gestapelte Karten. Die zweite Karte schiebt sich beim Scrollen über die erste, die erste tritt leicht zurück.
+  const stapel = document.querySelector<HTMLElement>('[data-stapel]');
+  if (stapel && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const karten = [...stapel.querySelectorAll<HTMLElement>('.uz-karte')];
+    let warteStapel = false;
+    const stapeln = () => {
+      warteStapel = false;
+      karten.forEach((k, i) => {
+        const naechste = karten[i + 1];
+        const innen = k.querySelector<HTMLElement>('.uz-karte-innen');
+        if (!naechste || !innen) return;
+        const a = k.getBoundingClientRect(), b = naechste.getBoundingClientRect();
+        const p = Math.min(1, Math.max(0, 1 - (b.top - a.top) / a.height));
+        innen.style.transform = p > 0 ? `scale(${(1 - 0.05 * p).toFixed(4)})` : '';
+        innen.style.filter = p > 0 ? `brightness(${(1 - 0.06 * p).toFixed(3)})` : '';
+        const v = innen.querySelector<HTMLVideoElement>('video');
+        if (v && p > 0.92 && !v.paused) v.pause();
+      });
+    };
+    addEventListener('scroll', () => { if (!warteStapel) { warteStapel = true; requestAnimationFrame(stapeln); } }, { passive: true });
+    addEventListener('resize', stapeln);
+    stapeln();
+  }
   // Entwicklung: zwei HyperFrames-Filme in den Karten. Bei reduzierter Bewegung bleibt das Schlussbild stehen.
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
     const beobachter = new IntersectionObserver((eintraege) => {
