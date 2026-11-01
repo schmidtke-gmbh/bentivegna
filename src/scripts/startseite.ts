@@ -99,7 +99,7 @@ function chart() {
     <path class="uz-line" d="${lineU}" fill="none" stroke="#998a6d" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/>
     <path class="uz-line" d="${lineG}" fill="none" stroke="#273365" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   const months = '<div class="uz-months">' + data.map((d) => `<span>${d.m}</span>`).join('') + '</div>';
-  wrap.insertAdjacentHTML('afterbegin', svg + months + '<div class="uz-guide"></div><div class="uz-dot"></div><div class="uz-dot g"></div><div class="uz-tip"></div>');
+  wrap.insertAdjacentHTML('afterbegin', (wrap.querySelector('svg') ? '' : svg + months) + '<div class="uz-guide"></div><div class="uz-dot"></div><div class="uz-dot g"></div><div class="uz-tip"></div>');
   const guide = wrap.querySelector<HTMLElement>('.uz-guide')!, dots = wrap.querySelectorAll<HTMLElement>('.uz-dot'), tip = wrap.querySelector<HTMLElement>('.uz-tip')!;
   if (!reduce) {
     const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { wrap.classList.add('gezeichnet'); io.disconnect(); } }), { threshold: 0.3 });
@@ -126,6 +126,7 @@ function kennzahl() {
     const to = +(big.dataset.to || 0), from = +(big.dataset.from || 0), fmt = big.dataset.fmt;
     const text = (v: number) => (fmt === 'marge' ? `${from} → ${Math.round(v)} %` : `+${Math.round(v)} %`);
     big.textContent = text(reduce ? to : from);
+    // Druck: Endwert zeigen, auch wenn die Zahl noch nicht ins Bild gescrollt wurde
     const io = new IntersectionObserver((es) => es.forEach((e) => {
       if (!e.isIntersecting) return;
       io.disconnect();
@@ -135,6 +136,7 @@ function kennzahl() {
       requestAnimationFrame(tick);
     }), { threshold: 0.5 });
     io.observe(big);
+    window.addEventListener('beforeprint', () => { io.disconnect(); big.textContent = text(to); });
   });
 }
 

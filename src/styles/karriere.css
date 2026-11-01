@@ -331,7 +331,7 @@ body:has(.khero--navy) .nav-inner{background:#fff}
 .ts-list{position:relative;list-style:none;margin:0;padding:0 0 0 34px}
 .ts-schiene{position:absolute;left:6px;top:14px;bottom:34vh;width:2px;background:rgba(204,196,175,.18);border-radius:2px}
 .ts-fill{position:absolute;inset:0;background:var(--beige-l);transform-origin:top;transform:scaleY(0);border-radius:2px}
-.ts-step{position:relative;min-height:44vh;padding-top:2px;opacity:.36;transition:opacity .45s var(--ease)}
+.ts-step{position:relative;min-height:44vh;padding-top:2px;opacity:.55;transition:opacity .45s var(--ease)}
 .ts-step:last-child{min-height:34vh}
 .ts-step::before{content:"";position:absolute;left:-34px;top:8px;width:14px;height:14px;border-radius:50%;background:var(--navy);border:3px solid rgba(204,196,175,.45);transition:border-color .4s,background .4s}
 .ts-step.an{opacity:1}

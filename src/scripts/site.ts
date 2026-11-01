@@ -38,6 +38,17 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
 document.querySelectorAll('.reveal, .feat-card').forEach((el) => io.observe(el));
 
+/* ---------- Druck: alles im Endzustand, FAQ offen ---------- */
+const offeneDetails: HTMLDetailsElement[] = [];
+window.addEventListener('beforeprint', () => {
+  document.querySelectorAll('.reveal, .feat-card, .geo-map').forEach((el) => el.classList.add('in'));
+  document.querySelectorAll<HTMLElement>('[data-count]').forEach((n) => { n.textContent = (n.dataset.prefix || '') + (n.dataset.count || '') + (n.dataset.suffix || ''); });
+  document.getElementById('uzChart')?.classList.add('gezeichnet');
+  document.querySelectorAll<HTMLDetailsElement>('details:not([open])').forEach((d) => { d.open = true; offeneDetails.push(d); });
+  document.querySelectorAll('video').forEach((v) => v.pause());
+});
+window.addEventListener('afterprint', () => { offeneDetails.splice(0).forEach((d) => (d.open = false)); });
+
 /* ---------- Zähler ---------- */
 function animateCount(el: HTMLElement) {
   const target = +(el.dataset.count || 0), pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';

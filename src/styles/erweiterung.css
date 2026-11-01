@@ -524,3 +524,75 @@ p,li,.ans{text-wrap:pretty}
 .cases2 .ref-intro{margin-left:auto;margin-right:auto}
 /* längste Zeile („DEIN BETRIEB: RENTABEL.“) ist ca. 11,4 em breit: Schrift so begrenzen, dass sie in den Bildschirm passt */
 .hero h1{font-size:min(clamp(2.3rem,4.8vw,4.1rem),calc((100vw - 60px) / 11.6))}
+
+/* ====== Ruhezustand (Runde 2, T2): alle Inhalte sichtbar ohne JavaScript, im Druck und bei reduzierter Bewegung ====== */
+/* ohne JavaScript (die Klasse .js setzt ein Inline-Skript im <head>) */
+html:not(.js) .reveal,html:not(.js) .hero-in{opacity:1!important;transform:none!important}
+html:not(.js) .fvb{transform:scaleY(1)!important;opacity:1!important;animation:none!important}
+html:not(.js) .fvdots,html:not(.js) .fvarea,html:not(.js) .fg-garea,html:not(.js) .fg-rarea,html:not(.js) .fg-pill{opacity:1!important;animation:none!important}
+html:not(.js) .fvline,html:not(.js) .fvpath,html:not(.js) .fg-gold,html:not(.js) .fg-red,html:not(.js) .fv-struct .sl{stroke-dashoffset:0!important;animation:none!important}
+html:not(.js) .fv-struct .sn{opacity:1!important;transform:none!important;animation:none!important}
+html:not(.js) .geo-pin{opacity:1!important;animation:none!important}
+html:not(.js) .uz-chart svg{clip-path:none!important}
+html:not(.js) .hw-slot{padding-bottom:0}
+html:not(.js) .hw-fenster{height:auto!important}
+html:not(.js) .hw-lauf{flex-direction:row!important;flex-wrap:wrap;gap:0 .34em;transform:none!important}
+html:not(.js) .hw-klon,html:not(.js) .hw-strich{display:none!important}
+html:not(.js) .macc-body{grid-template-rows:1fr!important}
+html:not(.js) .macc-body-in{padding-bottom:22px}
+html:not(.js) .macc-item .macc-title{opacity:1!important}
+html:not(.js) .method-slide:first-child{opacity:1!important;transform:none!important}
+html:not(.js) .cs-slide{opacity:1!important;transform:none!important;filter:none!important}
+html:not(.js) .ts-step{opacity:1!important;min-height:0!important;padding-bottom:34px}
+html:not(.js) .ts-step::before{border-color:var(--beige-l)!important}
+html:not(.js) .cs-viewport{overflow-x:auto}
+.uz-film-druck{display:none;width:100%;height:auto}
+@media print{
+.reveal,.hero-in{opacity:1!important;transform:none!important}
+.fvb{transform:scaleY(1)!important;opacity:1!important;animation:none!important}
+.fvdots,.fvarea,.fg-garea,.fg-rarea,.fg-pill{opacity:1!important;animation:none!important}
+.fvline,.fvpath,.fg-gold,.fg-red,.fv-struct .sl{stroke-dashoffset:0!important;animation:none!important}
+.fv-struct .sn{opacity:1!important;transform:none!important;animation:none!important}
+.geo-pin{opacity:1!important;animation:none!important}
+.uz-chart svg{clip-path:none!important}
+.hw-slot{padding-bottom:0}
+.hw-fenster{height:auto!important}
+.hw-lauf{flex-direction:row!important;flex-wrap:wrap;gap:0 .34em;transform:none!important}
+.hw-klon,.hw-strich{display:none!important}
+.macc-body{grid-template-rows:1fr!important}
+.macc-body-in{padding-bottom:22px}
+.macc-item .macc-title{opacity:1!important}
+.method-slide:first-child{opacity:1!important;transform:none!important}
+.cs-slide{opacity:1!important;transform:none!important;filter:none!important}
+.ts-step{opacity:1!important;min-height:0!important;padding-bottom:34px}
+.ts-step::before{border-color:var(--beige-l)!important}
+*,*::before,*::after{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+html,body{overflow:visible!important}
+#nav{position:absolute!important}
+.fab,.waw,.scroll-progress,.mobile-menu,.mobile-overlay,.cs-arrows,.cs-dots,.cs-nav,#csDots{display:none!important}
+.cs-viewport{overflow:visible!important}
+.cs-track{flex-direction:column!important;transform:none!important;gap:22px!important}
+.cs-slide{width:100%!important}
+.cs-slide[aria-hidden="true"]{display:none!important}
+.eb-wa-film{display:none!important}
+.uz-film video{display:none!important}
+.uz-film-druck{display:block!important}
+.uz-karte,.ts-sticky,.ts-rechts,.method-visual{position:static!important}
+.uz-karte-innen{transform:none!important;filter:none!important}
+.uz-stapel{padding-bottom:0!important}
+.feat-card,.cs-card,.stimme,.uz-karte,.eb-card,.faq details,.macc-item,.lst-card{break-inside:avoid}
+section{break-inside:auto}
+}
+@media (prefers-reduced-motion:reduce){
+.reveal,.hero-in{opacity:1!important;transform:none!important}
+.fvb{transform:scaleY(1)!important;opacity:1!important;animation:none!important}
+.fvdots,.fvarea,.fg-garea,.fg-rarea,.fg-pill{opacity:1!important;animation:none!important}
+.fvline,.fvpath,.fg-gold,.fg-red,.fv-struct .sl{stroke-dashoffset:0!important;animation:none!important}
+.fv-struct .sn{opacity:1!important;transform:none!important;animation:none!important}
+.geo-pin{opacity:1!important;animation:none!important}
+.uz-chart svg{clip-path:none!important}
+.hw-slot{padding-bottom:0}
+.hw-fenster{height:auto!important}
+.hw-lauf{flex-direction:row!important;flex-wrap:wrap;gap:0 .34em;transform:none!important}
+.hw-klon,.hw-strich{display:none!important}
+}

@@ -28,6 +28,16 @@ const reihe = monate.map((m, i) => {
   const marge = ent.kpi_marge_von + (ent.kpi_marge_auf - ent.kpi_marge_von) * Math.pow(i / 11, 0.85);
   return { m, u: umsatz, g: Math.round((umsatz * marge) / 100) };
 });
+// Umsatz/Gewinn-Chart schon beim Bauen als SVG, damit er ohne JavaScript und im Druck sichtbar ist (Rechnung wie in startseite.ts)
+const CW = 1000, CH = 300, cPadT = 24, cPlotH = CH - cPadT - 58;
+const cuMin = Math.min(...reihe.map((d) => d.u)) - 150, cuMax = Math.max(...reihe.map((d) => d.u)) + 50, cgMax = Math.max(...reihe.map((d) => d.g)) * 2.4;
+const cX = (i: number) => (i / (reihe.length - 1)) * CW;
+const cYU = (v: number) => cPadT + (1 - (v - cuMin) / (cuMax - cuMin)) * cPlotH;
+const cYG = (v: number) => cPadT + (1 - v / cgMax) * cPlotH;
+const cPfad = (f: (i: number) => number) => reihe.map((_, i) => (i ? 'L' : 'M') + cX(i).toFixed(1) + ',' + f(i).toFixed(1)).join(' ');
+const chartLinieU = cPfad((i) => cYU(reihe[i].u)), chartLinieG = cPfad((i) => cYG(reihe[i].g));
+const chartFlaecheU = 'M0,' + CH + ' ' + chartLinieU.replace(/^M/, 'L') + ' L' + CW + ',' + CH + ' Z';
+const chartFlaecheG = 'M0,' + CH + ' ' + chartLinieG.replace(/^M/, 'L') + ' L' + CW + ',' + CH + ' Z';
 const mio = (t: number) => (t / 1000).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Mio €';
 
 const initialen = (n: string) => n.split(' ').map((w) => w[0]).slice(0, 2).join('');
@@ -437,12 +447,12 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
             <p>{ent.karte1_text}</p>
             <div class="uz-chiprow">{ent.karte1_chips.map((c, i) => <span class="uz-pill"><em>{i === 0 ? '+' : '✓'}</em> {c}</span>)}</div>
           </div>
-          <figure class="uz-film"><video src={u('/uploads/entwicklung/nachkalkulation.mp4')} poster={u('/uploads/entwicklung/nachkalkulation-ende.webp')} data-startbild={u('/uploads/entwicklung/nachkalkulation-start.webp')} muted loop playsinline preload="none" aria-label="Animierte Beispielrechnung: Deckungsbeitrag einer Baustelle und was 2 Prozentpunkte mehr Marge im Jahr bringen" data-film></video></figure>
+          <figure class="uz-film"><video src={u('/uploads/entwicklung/nachkalkulation.mp4')} poster={u('/uploads/entwicklung/nachkalkulation-ende.webp')} data-startbild={u('/uploads/entwicklung/nachkalkulation-start.webp')} muted loop playsinline preload="none" aria-label="Animierte Beispielrechnung: Deckungsbeitrag einer Baustelle und was 2 Prozentpunkte mehr Marge im Jahr bringen" data-film></video><img class="uz-film-druck" src={u('/uploads/entwicklung/nachkalkulation-ende.webp')} alt="" aria-hidden="true" loading="lazy"></figure>
         </div>
       </article>
       <article class="uz-karte uz-karte--gedreht" style="--i:1">
         <div class="uz-karte-innen">
-          <figure class="uz-film"><video src={u('/uploads/entwicklung/liquiditaet.mp4')} poster={u('/uploads/entwicklung/liquiditaet-ende.webp')} data-startbild={u('/uploads/entwicklung/liquiditaet-start.webp')} muted loop playsinline preload="none" aria-label="Animierter Beispielverlauf: Kontostand über 13 Wochen ohne und mit Abschlagsplan" data-film></video></figure>
+          <figure class="uz-film"><video src={u('/uploads/entwicklung/liquiditaet.mp4')} poster={u('/uploads/entwicklung/liquiditaet-ende.webp')} data-startbild={u('/uploads/entwicklung/liquiditaet-start.webp')} muted loop playsinline preload="none" aria-label="Animierter Beispielverlauf: Kontostand über 13 Wochen ohne und mit Abschlagsplan" data-film></video><img class="uz-film-druck" src={u('/uploads/entwicklung/liquiditaet-ende.webp')} alt="" aria-hidden="true" loading="lazy"></figure>
           <div class="uz-text">
             <span class="uz-eyebrow"><Icon name="wallet" /> {ent.karte2_eyebrow}</span>
             <h3>{ent.karte2_titel}</h3>
@@ -465,6 +475,13 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
           <div class="uz-legend"><span><i style="background:#998a6d"></i>Umsatz</span><span><i style="background:#273365"></i>Gewinn</span></div>
         </div>
         <div class="uz-chart" id="uzChart" data-reihe={JSON.stringify(reihe)}>
+          <svg viewBox={`0 0 ${CW} ${CH}`} preserveAspectRatio="none" aria-hidden="true"><defs>
+            <linearGradient id="uzg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(153,138,109,.30)"/><stop offset="1" stop-color="rgba(153,138,109,0)"/></linearGradient>
+            <linearGradient id="uzn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(39,51,101,.16)"/><stop offset="1" stop-color="rgba(39,51,101,0)"/></linearGradient></defs>
+            <path d={chartFlaecheU} fill="url(#uzg)"/><path d={chartFlaecheG} fill="url(#uzn)"/>
+            <path class="uz-line" d={chartLinieU} fill="none" stroke="#998a6d" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/>
+            <path class="uz-line" d={chartLinieG} fill="none" stroke="#273365" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="uz-months">{reihe.map((d) => <span>{d.m}</span>)}</div>
           <div class="uz-chip start"><span class="l">Start</span><span class="v">{mio(reihe[0].u)}<small>Gewinn {reihe[0].g} T€</small></span></div>
           <div class="uz-chip end"><span class="l">Heute</span><span class="v">{mio(reihe[11].u)}<small>Gewinn {reihe[11].g} T€</small></span></div>
         </div>
