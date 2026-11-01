@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
+import Kununu from '../../components/Kununu.astro';
 import Brand from '../../components/Brand.astro';
 import K from '../../data/karriere.json';
 import { u, E, md, telLink, waLink } from '../../lib/site';
@@ -29,6 +30,7 @@ const faqLd = {
       <a href="#jobs" class="btn btn--gold" data-track="karriere_stellen">{K.hero.button_primaer} <span class="arr"></span></a>
       <a href="#bewerben" class="btn btn--ghost" data-track="karriere_initiativ">{K.hero.button_sekundaer} <span class="arr"></span></a>
     </div>
+    <div class="reveal d3"><Kununu k={K.kununu} dunkel={K.hero.stil === 'navy'} /></div>
   </div>
   <div class="khero-team">
     <img src={u(K.hero.team_bild)} alt={K.hero.team_bild_alt} width="1600" height="495" fetchpriority="high">
@@ -312,9 +314,13 @@ const faqLd = {
       {K.stimmen.liste.map((s, i) => (
         <figure class={`stimme reveal d${i % 4}`} style="margin:0">
           <blockquote style="margin:0"><p>„{s.zitat}“</p></blockquote>
-          <figcaption class="who"><img class="av-img" src={u(s.bild)} alt={`Porträt ${s.name}`} loading="lazy" width="54" height="54"><div><b>{s.name}</b><span>{s.rolle}</span></div></figcaption>
+          <figcaption class="who"><img class="av-img" src={u(s.bild)} alt={`Porträt ${s.name}`} loading="lazy" width="54" height="54"><div><b>{s.name}</b><span>{s.rolle}</span>{s.seit && <small class="seit">In der Kanzlei seit {s.seit}</small>}</div></figcaption>
         </figure>
       ))}
+    </div>
+    <div class="kununu-zeile reveal">
+      <p>{K.kununu.stimmen_zeile}</p>
+      <Kununu k={K.kununu} dunkel />
     </div>
   </div>
 </section>

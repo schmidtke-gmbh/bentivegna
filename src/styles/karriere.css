@@ -367,3 +367,10 @@ body:has(.khero--navy) .nav-inner{background:#fff}
 @media(prefers-reduced-motion:reduce){.ts-step,.ts-label.neu{transition:none;animation:none}}
 .awards .logo-row img[src*="allianz"]{max-height:40px}
 .awards .logo-row img[src*="taxflix"]{max-height:66px;max-width:150px}
+
+/* Runde 2 (1.11.2026): Eintrittsdatum bei den Stimmen, kununu-Zeile unter den Stimmen */
+.stimme .who small.seit{display:block;margin-top:2px;font-size:.76rem;color:rgba(255,255,255,.55)}
+.kununu-zeile{display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:44px}
+.kununu-zeile p{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:rgba(255,255,255,.85)}
+.kununu-zeile .kununu{margin-top:14px}
+.khero-mitte .kununu{margin-top:22px}

@@ -513,3 +513,14 @@ p,li,.ans{text-wrap:pretty}
   .uz-karte-innen,.uz-karte--gedreht .uz-karte-innen{grid-template-columns:1fr;gap:24px;padding:28px 22px}
   .uz-karte--gedreht .uz-film{order:2}
 }
+
+/* Runde 2 (1.11.2026): Hero-Headline mit festen Zeilen, Referenzen-Einleitung, Druckfarben */
+.hero h1 .hz{display:block;white-space:nowrap}
+.hero h1 .hz .ln2{display:inline}
+.ref-intro{max-width:640px;margin-top:14px;color:var(--muted);font-size:1.05rem;line-height:1.6}
+.cases2 .ref-intro{color:rgba(255,255,255,.72)}
+/* Farbige Flächen auch im Browser-Druck behalten (Goldbutton, Icon-Kästen) */
+.btn,.feat-ic,.ico-box,.ck,.ci2,.uz-pill,.cmp2-pill{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.cases2 .ref-intro{margin-left:auto;margin-right:auto}
+/* längste Zeile („DEIN BETRIEB: RENTABEL.“) ist ca. 11,4 em breit: Schrift so begrenzen, dass sie in den Bildschirm passt */
+.hero h1{font-size:min(clamp(2.3rem,4.8vw,4.1rem),calc((100vw - 60px) / 11.6))}

@@ -625,7 +625,7 @@ collections:
           required: false
         - label: Zusatz
           name: zusatz
-          widget: text
+          widget: string
           required: false
       - label: Vermögen
         name: vermoegen
@@ -853,6 +853,10 @@ collections:
       - label: Überschrift
         name: titel
         widget: string
+        required: false
+      - label: Einleitung
+        name: intro
+        widget: text
         required: false
       - label: Einträge
         name: eintraege
@@ -1966,6 +1970,10 @@ collections:
           name: rolle
           widget: string
           required: false
+        - label: In der Kanzlei seit (z. B. Juli 2015)
+          name: seit
+          widget: string
+          required: false
         - label: Bild
           name: bild
           widget: image
@@ -2051,6 +2059,39 @@ collections:
       - label: Einwilligungstext
         name: einwilligung
         widget: text
+        required: false
+    - label: kununu-Hinweis
+      name: kununu
+      widget: object
+      collapsed: true
+      fields:
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Text
+        name: text
+        widget: text
+        required: false
+      - label: kununu-Note (z. B. 4,8, leer lassen wenn unbekannt)
+        name: note
+        widget: string
+        required: false
+      - label: Anzahl Bewertungen
+        name: anzahl
+        widget: string
+        required: false
+      - label: Link zum kununu-Profil
+        name: profil_url
+        widget: string
+        required: false
+      - label: Link-Text
+        name: link_text
+        widget: string
+        required: false
+      - label: Zeile unter den Stimmen
+        name: stimmen_zeile
+        widget: string
         required: false
 - name: stellen
   label: Offene Stellen

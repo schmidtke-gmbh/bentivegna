@@ -26,7 +26,7 @@
     "video_youtube_id": "DLg6dO8Lx0c",
     "video_hochkant": false,
     "youtube_label": "YouTube",
-    "youtube_zeile": "Bentivegna Steuerrecht"
+    "youtube_zeile": "Bentivegna"
   },
   "kennzahlen": [
     {
@@ -155,7 +155,7 @@
     "unternehmensberatung": {
       "titel": "Unternehmensberatung",
       "text": "Aus dem Macher wird ein Unternehmer. Wir arbeiten mit dir an der ganzen Wertschöpfungskette: Digitalisierung, Vertriebsstruktur, Preisfindung, Rollenmodell im Team, Finanzierung, Marketing. Ziel: ein Betrieb, der rentabel ist, ohne dich läuft und verkaufsfähig wird. Beratung statt Verwaltung.",
-      "zusatz": "Du wählst: Coaching-Programm mit Trainingsplattform für dich und dein Team, oder 1:1-Beratung mit Umsetzung an deiner Seite."
+      "zusatz": ""
     },
     "vermoegen": {
       "titel": "Vermögen & Nachfolge",
@@ -191,7 +191,7 @@
     "titel_nach": "für dich da.",
     "text": "Ob Bodensee, Ruhrgebiet oder Berlin: Weil wir vollständig digital arbeiten, betreuen wir SHK-Betriebe in ganz Deutschland, persönlich und ohne dass du dafür nach Überlingen kommen musst.",
     "punkte": [
-      "Spezialisiert ausschließlich auf SHK-Betriebe",
+      "Spezialisiert auf SHK-Betriebe",
       "Digital und persönlich, deutschlandweit",
       "Verwurzelt in Überlingen am Bodensee",
       "Beratungstermine bequem per Teams"
@@ -204,7 +204,7 @@
     "eyebrow": "Kanzlei am Bodensee",
     "titel": "Setz dich mit uns an einen Tisch.",
     "titel_akzent": "Per Teams oder am Bodensee.",
-    "text": "So arbeiten wir: digital, strukturiert und persönlich. Im kostenlosen Analysegespräch (ca. 30 Minuten, Teams oder Telefon) schauen wir gemeinsam auf deinen Betrieb und deine Zahlen und klären, ob wir dir helfen können und ob wir zueinander passen. Wenn ja, folgt ein Erstgespräch (Teams, ca. 1 Stunde), in dem du uns genauso auf den Prüfstand stellst.",
+    "text": "So arbeiten wir: digital, strukturiert und persönlich. Im kostenlosen Analysegespräch (ca. 30 Minuten, am Telefon) schauen wir gemeinsam auf deinen Betrieb und deine Zahlen und klären, ob wir dir helfen können und ob wir zueinander passen. Wenn ja, folgt ein Erstgespräch per Teams (ca. 1 Stunde), in dem du uns genauso auf den Prüfstand stellst.",
     "button": "Kostenloses Analysegespräch",
     "bild": "/uploads/beratung-1.jpg",
     "bild_alt": "Beratungsgespräch in der Kanzlei Bentivegna",
@@ -288,6 +288,7 @@
   "referenzen": {
     "eyebrow": "Erfolge, die für sich sprechen",
     "titel": "Unsere Kunden. Echte Ergebnisse.",
+    "intro": "Unsere SHK-Spezialisierung ist neu, unsere Beratung nicht: Diese Unternehmer begleiten wir seit vielen Jahren. Ihre Ergebnisse zeigen, wie wir arbeiten.",
     "eintraege": [
       {
         "kategorie": "Steuergestaltung & Vermögen",
@@ -318,7 +319,7 @@
   "entwicklung": {
     "eyebrow": "Deine Entwicklung mit uns",
     "titel": "Wir machen sichtbar, was dein Betrieb verdient.",
-    "intro": "Aus vollen Auftragsbüchern werden planbare Zahlen. Fahr mit der Maus über die Kurven und sieh Umsatz und Gewinn Monat für Monat.",
+    "intro": "Aus vollen Auftragsbüchern werden planbare Zahlen. Tippe oder fahre über die Kurven und sieh Umsatz und Gewinn Monat für Monat.",
     "karte1_eyebrow": "Nachkalkulation",
     "karte1_titel": "Jede Baustelle zählt. Du weißt, was sie verdient.",
     "karte1_text": "Mit einer Nachkalkulation, die du selbst beherrschst, siehst du pro Projekt, was wirklich verdient ist. Wenige Prozentpunkte Marge sind bei 1 bis 5 Mio. € Umsatz schnell fünf- bis sechsstellig im Jahr.",
@@ -396,7 +397,7 @@
         "text": "Betriebe, die digital arbeiten, Termine per Teams selbstverständlich finden, Buchhaltung in unsere Hände geben und einen Partner auf Augenhöhe suchen. Über Jahre, nicht für ein Projekt."
       }
     ],
-    "hinweis": "**Und für wen (noch) nicht:** Existenzgründer, reine Schnäppchenjäger oder wer nur die günstigste Steuererklärung sucht: dafür sind wir der falsche Partner. Das ist völlig in Ordnung."
+    "hinweis": "**Und für wen nicht:** Existenzgründer, reine Schnäppchenjäger oder wer nur die günstigste Steuererklärung sucht: dafür sind wir der falsche Partner. Das ist völlig in Ordnung."
   },
   "vergleich": {
     "titel_serif": "Echte Unternehmerberatung",
@@ -414,7 +415,7 @@
     ],
     "mitte_badge": "Nur für SHK-Betriebe ab 1 Mio. €",
     "mitte": [
-      "Spezialisiert ausschließlich auf SHK-Betriebe",
+      "Spezialisiert auf SHK-Betriebe, mit Tiefe in § 13b und Baustellenkalkulation",
       "Versteht § 13b und Baustellen-Kalkulation",
       "Laufende Beratung statt nur Jahresabschluss",
       "Macht dich zum Herrn deiner Zahlen: Du weißt, was jede Baustelle verdient",
@@ -464,7 +465,7 @@
   "team": {
     "eyebrow": "Das Team hinter Bentivegna",
     "titel": "Gemeinsam für deinen Erfolg",
-    "text": "Ein starkes Team aus Beratern, Unternehmern und Steuerexperten, mit Erfahrung, Weitblick und Leidenschaft für deinen SHK-Betrieb.",
+    "text": "Ein starkes Team aus Beratern, Unternehmern und Steuerexperten, mit Erfahrung, Weitblick und Leidenschaft für deinen SHK-Betrieb. Top Company 2026 bei kununu, bewertet vom eigenen Team.",
     "button": "Mehr über uns",
     "bild": "/uploads/team-komplett.webp",
     "bild_alt": "Das vollständige Team von Bentivegna mit Domenico Bentivegna"
@@ -530,11 +531,11 @@
     "fragen": [
       {
         "frage": "Wie läuft der Einstieg?",
-        "antwort": "In zwei Schritten, beide kostenlos: Im Analysegespräch (ca. 30 Min., Teams oder Telefon) klären wir, ob wir dir helfen können und ob wir zueinander passen. Danach lernst du uns im Erstgespräch (Teams, ca. 1 Std.) genauer kennen, und wir deine Zahlen."
+        "antwort": "In zwei Schritten, beide kostenlos: Im Analysegespräch (ca. 30 Min., am Telefon) klären wir, ob wir dir helfen können und ob wir zueinander passen. Danach lernst du uns im Erstgespräch (per Teams, ca. 1 Std.) genauer kennen, und wir deine Zahlen."
       },
       {
         "frage": "Betreut ihr wirklich nur SHK-Betriebe?",
-        "antwort": "Ja. Sanitär, Heizung, Klima sowie energiegetriebene Elektro- und PV-Betriebe. Genau diese Spezialisierung ist dein Vorteil: wir kennen § 13b, das Projektgeschäft und die Kalkulationsfallen deiner Branche."
+        "antwort": "Neue Mandate: ja. Wir nehmen nur noch SHK-, Elektro- und PV-Betriebe auf. Diese Spezialisierung ist dein Vorteil: Wir kennen § 13b, das Projektgeschäft und die Kalkulationsfallen deiner Branche. Unsere bestehenden Mandanten aus anderen Branchen betreuen wir selbstverständlich weiter, viele seit über zehn Jahren. Wer uns kennt, bleibt."
       },
       {
         "frage": "Ich bin noch Einzelunternehmer. Passt das?",

@@ -375,42 +375,49 @@
       {
         "name": "Katrin",
         "rolle": "Steuerberaterin",
+        "seit": "März 2022",
         "bild": "/uploads/team-katrin.jpg",
         "zitat": "Hier durfte ich fachlich enorm wachsen: Ich habe hier meinen Steuerberater gemacht und dabei immer Unterstützung erhalten. Von Anfang an konnte ich Verantwortung übernehmen und mich an fachlich anspruchsvollen Themen weiterentwickeln."
       },
       {
-        "name": "Steffi",
-        "rolle": "Steuerfachangestellte",
-        "bild": "/uploads/team-steffi.jpg",
+        "name": "Laura",
+        "rolle": "Steuerassistentin",
+        "seit": "Juni 2025",
+        "bild": "/uploads/team-laura.jpg",
         "zitat": "Hier habe ich das Gefühl, wirklich strukturiert arbeiten zu können – mit klaren Abläufen und einem Team, das sich jederzeit gegenseitig unterstützt."
       },
       {
         "name": "Carmen",
         "rolle": "Steuerfachangestellte",
+        "seit": "Juli 2015",
         "bild": "/uploads/team-carmen.jpg",
         "zitat": "Besonders schätze ich die flexiblen Arbeitszeiten – sie erleichtern den Alltag mit Kind deutlich. Die Möglichkeit, im Homeoffice zu arbeiten, erspart mir lange Fahrten ins Büro."
       },
       {
         "name": "Anja",
         "rolle": "Fachassistentin Lohn und Gehalt",
+        "seit": "September 2022",
         "bild": "/uploads/team-anja.jpg",
         "zitat": "Ich schätze sehr, dass hier jeder seine individuellen Stärken einbringen kann und sich das Team gleichzeitig optimal ergänzt. Trotz räumlicher Distanz durch Homeoffice funktioniert die Zusammenarbeit mit den verschiedenen Schnittstellen als starke Einheit."
       },
       {
         "name": "Dominique",
         "rolle": "Bilanzbuchhalterin",
+        "seit": "Februar 2023",
         "bild": "/uploads/team-dominique.jpg",
         "zitat": "Am meisten schätze ich unser harmonisches Team – hier arbeitet man miteinander statt gegeneinander. Die Mischung aus Flexibilität, Verantwortung und Teamgefühl macht für mich den Unterschied."
       },
       {
         "name": "Isabell",
         "rolle": "Steuerfachwirtin",
+        "seit": "Januar 2023",
         "bild": "/uploads/team-isabell.jpg",
         "zitat": "Ich unterstütze meine Kolleginnen jederzeit sehr gerne und schätze die enge Zusammenarbeit im Team. Besonders motivierend ist für mich die Vielfalt an neuen Themen, die sich aus der Arbeit mit den Mandanten ergeben und die wir lösungsorientiert bearbeiten."
       },
       {
         "name": "Sabine",
         "rolle": "Steuerfachangestellte",
+        "seit": "Juli 2015",
         "bild": "/uploads/team-sabine.jpg",
         "zitat": "Ich schätze die flexiblen Arbeitszeiten und die Möglichkeit, problemlos im Homeoffice zu arbeiten. Besonders hervorheben möchte ich den vertrauensvollen Umgang und die Wertschätzung zwischen jüngeren und älteren Kollegen. Obwohl ich bereits Rentnerin bin, macht mir die Arbeit so viel Freude, dass Aufhören für mich kaum vorstellbar ist."
       }
@@ -466,5 +473,14 @@
     "danke_titel": "Danke für deine Bewerbung!",
     "danke_text": "Wir melden uns innerhalb von fünf Werktagen bei dir.",
     "einwilligung": "Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Bewerbung verarbeitet werden. Mehr dazu in der [Datenschutzerklärung](/datenschutz/)."
+  },
+  "kununu": {
+    "titel": "Top Company 2026 bei kununu",
+    "text": "Bewertet vom eigenen Team.",
+    "note": "",
+    "anzahl": "",
+    "profil_url": "",
+    "link_text": "Alle Bewertungen ansehen",
+    "stimmen_zeile": "Was das Team sagt, sagen auch die Bewertungen."
   }
 }

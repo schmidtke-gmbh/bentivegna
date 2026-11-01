@@ -21,6 +21,8 @@ const artikel = (await getCollection('artikel'))
 const monate = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
 const verlauf = [0, 0.066, 0.145, 0.263, 0.368, 0.474, 0.579, 0.671, 0.789, 0.882, 0.947, 1];
 const ent = S.entwicklung;
+// Hero: zweite Zeile an den Punkten in feste Zeilen teilen ("RENTABEL." kommt mit in die erste Zeile)
+const heroTeile = S.hero.zeile2.split(/(?<=\.)\s+/).filter(Boolean);
 const reihe = monate.map((m, i) => {
   const umsatz = Math.round(ent.umsatz_start + (ent.umsatz_ende - ent.umsatz_start) * verlauf[i]);
   const marge = ent.kpi_marge_von + (ent.kpi_marge_auf - ent.kpi_marge_von) * Math.pow(i / 11, 0.85);
@@ -47,8 +49,8 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
       <div class="hero-in h1"><span class={`hero-marker${S.hero.marker_tag ? '' : ' ohne-tag'}`}>{S.hero.marker_tag && <span class="tag">{S.hero.marker_tag}</span>}<span>{S.hero.marker_text}</span></span></div>
       <h1>
         <em class="hero-in h2">{S.hero.kicker}</em>
-        <span class="hero-in h2">{S.hero.zeile1}</span>
-        <span class="ln2 hero-in h3">{S.hero.zeile2}</span>
+        <span class="hz hero-in h2">{S.hero.zeile1} <span class="ln2">{heroTeile[0]}</span></span>
+        {heroTeile.slice(1).map((t) => <span class="hz ln2 hero-in h3">{t}</span>)}
       </h1>
       <p class="hero-sub hero-in h4">{S.hero.subline}</p>
       <div class="hero-cta hero-in h5">
@@ -75,7 +77,7 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
           </a>
         )}
         <a class="yt-pill" href={E.youtube} target="_blank" rel="noopener" data-track="youtube_klick">
-          <span class="yt-ic"><Brand name="youtube" class="" /></span><span class="yt-txt"><span class="yt-label">{S.hero.youtube_label}</span><span class="yt-zeile"><b>{S.hero.youtube_zeile}</b><span class="yt-sub">{E.youtube_titel}</span></span></span>
+          <span class="yt-ic"><Brand name="youtube" class="" /></span><span class="yt-txt"><span class="yt-label">{S.hero.youtube_label}</span><span class="yt-zeile"><b>{S.hero.youtube_zeile}</b></span></span>
         </a>
       </div>
     </div>
@@ -186,7 +188,7 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
           <div class="feat-ic"><Icon name="trending-up" /></div>
           <h3>{L.unternehmensberatung.titel}</h3>
           <p>{L.unternehmensberatung.text}</p>
-          <p class="feat-extra">{L.unternehmensberatung.zusatz}</p>
+          {L.unternehmensberatung.zusatz && <p class="feat-extra">{L.unternehmensberatung.zusatz}</p>}
         </div>
         <div class="feat-visual fv-graph" aria-hidden="true">
           <svg class="fg-svg" viewBox="0 0 300 180" fill="none">
@@ -269,7 +271,7 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
       <!-- 6: Steuerstrategie & Struktur (breit, gleichwertige Hauptkarte) -->
       <div class="feat-card feat-wide feat-main">
         <div class="feat-top">
-          <div class="feat-ic"><Icon name="landmark" /></div>
+          <div class="feat-ic"><Icon name="network" /></div>
           <h3>{L.steuerstrategie.titel}</h3>
           <p set:html={md(L.steuerstrategie.text)} />
         </div>
@@ -382,6 +384,7 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
     <div class="section-head reveal">
       <span class="eyebrow">{S.referenzen.eyebrow}</span>
       <h2 style="margin-top:18px">{S.referenzen.titel}</h2>
+      {S.referenzen.intro && <p class="ref-intro">{S.referenzen.intro}</p>}
     </div>
   </div>
   <div class="cs-viewport" id="csViewport">
