@@ -34,15 +34,27 @@ const teilen = {
   whatsapp: `https://wa.me/?text=${encodeURIComponent(d.titel + ' ' + url)}`,
   facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`
 };
+// Strukturierte Daten für Google: Artikel als Teil der Reihe, Autor und Kanzlei mit festen Kennungen
+const reiheUrl = absUrl('/der-chef-auf-der-baustelle/');
+const autorLd = {
+  '@type': 'Person', '@id': absUrl('/#domenico-bentivegna'), name: R.autor.name,
+  jobTitle: 'Steuerberater, Fachberater für Unternehmensnachfolge (DStV e. V.)',
+  image: absUrl(R.autor.bild), url: absUrl('/#ueber-uns'), worksFor: { '@id': absUrl('/#kanzlei') }
+};
+const woerter = body.replace(/[#>*_`\[\]()|-]/g, ' ').split(/\s+/).filter(Boolean).length;
 const ld = [
   {
-    '@context': 'https://schema.org', '@type': 'Article',
+    '@context': 'https://schema.org', '@type': 'Article', '@id': `${url}#artikel`,
     headline: d.titel, description: d.meta_beschreibung || d.lead,
     image: d.bild ? absUrl(d.bild) : absUrl(E.seo.standard_bild),
     datePublished: new Date(d.datum).toISOString(), dateModified: new Date(d.datum).toISOString(),
-    author: { '@type': 'Person', name: R.autor.name, jobTitle: 'Steuerberater, Fachberater für Unternehmensnachfolge (DStV e. V.)', url: absUrl('/#ueber-uns') },
-    publisher: { '@type': 'Organization', name: E.firma, logo: { '@type': 'ImageObject', url: absUrl('/uploads/logos/logo-hoch.svg') } },
-    mainEntityOfPage: url, isPartOf: { '@type': 'CreativeWorkSeries', name: R.titel }, position: d.teil,
+    inLanguage: 'de-DE', wordCount: woerter, timeRequired: `PT${minuten}M`,
+    articleSection: kapName || undefined,
+    author: autorLd,
+    publisher: { '@type': 'Organization', '@id': absUrl('/#kanzlei'), name: E.firma, url: absUrl('/'), logo: { '@type': 'ImageObject', url: absUrl('/uploads/logos/logo-hoch.svg') } },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    isPartOf: { '@type': 'CreativeWorkSeries', '@id': `${reiheUrl}#reihe`, name: R.titel, url: reiheUrl, author: { '@id': absUrl('/#domenico-bentivegna') } },
+    position: d.teil,
     keywords: d.suchbegriff || undefined
   },
   {

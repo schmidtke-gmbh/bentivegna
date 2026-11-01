@@ -35,7 +35,8 @@ const { titel, beschreibung, bild = E.seo.standard_bild, pfad = Astro.url.pathna
 const canonical = absUrl(pfad.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '') || '/');
 const ogBild = bild.startsWith('http') ? bild : absUrl(bild);
 const org = {
-  '@context': 'https://schema.org', '@type': 'AccountingService', name: E.firma, url: absUrl('/'),
+  '@context': 'https://schema.org', '@type': 'AccountingService', '@id': absUrl('/#kanzlei'), name: E.firma, url: absUrl('/'),
+  logo: absUrl('/uploads/logos/logo-hoch.svg'),
   telephone: E.telefon, email: E.email,
   address: { '@type': 'PostalAddress', streetAddress: E.strasse, postalCode: E.plz_ort.split(' ')[0], addressLocality: E.plz_ort.split(' ').slice(1).join(' '), addressCountry: 'DE' },
   sameAs: [E.youtube]

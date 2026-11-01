@@ -596,3 +596,15 @@ section{break-inside:auto}
 .hw-lauf{flex-direction:row!important;flex-wrap:wrap;gap:0 .34em;transform:none!important}
 .hw-klon,.hw-strich{display:none!important}
 }
+
+/* T1 Runde 2 (1.11.2026): Sektionsabstände um rund ein Drittel kleiner, ein Rastermaß für alle Seiten.
+   --sec: 80 px Desktop, 56 px Handy (vorher 120 / 84 px). */
+:root{--sec:clamp(56px,6vw,80px)}
+.section{padding:var(--sec) 0}
+.section-head{margin-bottom:44px}
+.pullquote{padding:calc(var(--sec) * .85) 0}
+.geo{padding:var(--sec) 0}
+.cases2{padding:var(--sec) 0 calc(var(--sec) * .85)}
+.brands{padding:44px 0 48px}
+.page-head{padding-bottom:56px}
+@media(max-width:760px){.page-head{padding-bottom:40px}}

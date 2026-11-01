@@ -11,10 +11,15 @@ const artikel = (await getCollection('artikel')).filter((a) => istVeroeffentlich
 const neuester = artikel[artikel.length - 1];
 const proKapitel = kapitel.map((k) => ({ k, liste: artikel.filter((a) => a.data.kapitel === k.id) }));
 const ohneKapitel = artikel.filter((a) => !kapitel.some((k) => k.id === a.data.kapitel));
+const reiheUrl = absUrl('/der-chef-auf-der-baustelle/');
 const ld = {
-  '@context': 'https://schema.org', '@type': 'CollectionPage', name: R.titel, description: R.seo.beschreibung, url: absUrl('/der-chef-auf-der-baustelle/'),
-  author: { '@type': 'Person', name: R.autor.name },
-  hasPart: artikel.map((a) => ({ '@type': 'Article', headline: a.data.titel, url: absUrl(`/der-chef-auf-der-baustelle/${a.id}/`) }))
+  '@context': 'https://schema.org', '@type': 'CollectionPage', '@id': reiheUrl, name: R.titel, description: R.seo.beschreibung, url: reiheUrl, inLanguage: 'de-DE',
+  mainEntity: {
+    '@type': 'CreativeWorkSeries', '@id': reiheUrl + '#reihe', name: R.titel, description: R.untertitel, url: reiheUrl, inLanguage: 'de-DE',
+    author: { '@type': 'Person', '@id': absUrl('/#domenico-bentivegna'), name: R.autor.name, image: absUrl(R.autor.bild), url: absUrl('/#ueber-uns') },
+    publisher: { '@id': absUrl('/#kanzlei') },
+    hasPart: artikel.map((a) => { const au = absUrl('/der-chef-auf-der-baustelle/' + a.id + '/'); return { '@type': 'Article', '@id': au + '#artikel', headline: a.data.titel, url: au, position: a.data.teil, datePublished: new Date(a.data.datum).toISOString() }; })
+  }
 };
 ---
 <Base titel={R.seo.titel} beschreibung={R.seo.beschreibung} pfad="/der-chef-auf-der-baustelle/" jsonld={[ld]}>
@@ -40,7 +45,7 @@ const ld = {
     </div>
   </section>
 
-  <section class="section" style="padding-top:64px">
+  <section class="section" style="padding-top:48px">
     <div class="wrap">
       <div class="section-head" style="margin-bottom:34px">
         <span class="eyebrow">Inhalt</span>

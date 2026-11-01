@@ -374,3 +374,11 @@ body:has(.khero--navy) .nav-inner{background:#fff}
 .kununu-zeile p{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:rgba(255,255,255,.85)}
 .kununu-zeile .kununu{margin-top:14px}
 .khero-mitte .kununu{margin-top:22px}
+
+/* T1 Runde 2 (1.11.2026): kompaktere Abstände auf der Karriereseite */
+.awards{padding:48px 0}
+/* Tagesablauf: kürzere Scrollstrecke pro Station (vorher 44 vh, mobil 52 vh), Uhr läuft weiter mit */
+.ts-step{min-height:27vh}
+.ts-step:last-child{min-height:20vh}
+.ts-schiene{bottom:20vh}
+@media(max-width:900px){.ts-step{min-height:30vh}.ts-step:last-child{min-height:20vh}}
