@@ -985,3 +985,16 @@ blockquote,dd,small,.ref-zitat,.cs-quote{text-wrap:pretty}
 @media print{.ct-bau{break-inside:avoid;box-shadow:none}}
 .team-kununu .kununu{margin-top:22px}
 @media(max-width:600px){.team-kununu{display:flex;justify-content:center}}
+
+/* Referenz-Karten hell auf dunklem Grund (Feedback 2.11.) */
+.cases2 .ref-card{background:#fff;border-color:#fff;box-shadow:0 24px 60px rgba(6,10,26,.38)}
+.cases2 .ref-card:hover{background:#fff;border-color:#fff;box-shadow:0 30px 70px rgba(6,10,26,.5)}
+.cases2 .ref-zitat{color:var(--navy)}
+.cases2 .ref-wer{border-color:var(--line)}
+.cases2 .ref-name{color:var(--navy)}
+.cases2 .ref-rolle{color:var(--muted)}
+.cases2 .ref-ergebnis{color:#806f4c}
+.cases2 .ref-punkte li{background:var(--cream);border-color:var(--line)}
+.cases2 .ref-punkte .ico{color:var(--brown)}
+.cases2 .ref-punkte b{color:var(--navy)}
+.cases2 .ref-punkte small{color:var(--muted)}
