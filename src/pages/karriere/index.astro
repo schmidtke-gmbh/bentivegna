@@ -264,7 +264,7 @@ const faqLd = {
         <article class={`job reveal d${i}`}>
           <button class="job-head" type="button" aria-expanded="false">
             <div class="grow">
-              <h3>{s.data.titel}</h3>
+              <h3>{s.data.titel.replace(/\s*\(m\/w\/d\)\s*$/, '')}{/\(m\/w\/d\)\s*$/.test(s.data.titel) && <>{' '}<span class="mwd">(m/w/d)</span></>}</h3>
               <div class="job-meta"><span class="chip">{s.data.umfang}</span> <span><Icon name="map-pin" />{s.data.ort}</span> <span>· {s.data.arbeitsmodell}</span> <span>· {s.data.start}</span></div>
             </div>
             <svg class="job-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>

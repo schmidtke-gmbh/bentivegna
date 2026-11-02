@@ -898,8 +898,39 @@ collections:
           name: rolle
           widget: string
           required: false
+        - label: Ergebnis (goldene Zeile unter dem Namen)
+          name: ergebnis
+          widget: string
+          required: false
+        - label: Punkte
+          name: punkte
+          widget: list
+          fields:
+          - label: Icon
+            name: icon
+            widget: select
+            options: *id001
+            required: false
+          - label: Überschrift
+            name: titel
+            widget: string
+            required: false
+          - label: Text
+            name: text
+            widget: text
+            required: false
+          summary: '{{fields.titel}}'
+          required: false
+        - label: Bild
+          name: bild
+          widget: image
+          required: false
         - label: YouTube-Video-ID
           name: youtube_id
+          widget: string
+          required: false
+        - label: Videolänge (z. B. 2:28)
+          name: dauer
           widget: string
           required: false
         summary: '{{fields.titel}}'

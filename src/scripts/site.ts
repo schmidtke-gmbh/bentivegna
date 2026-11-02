@@ -74,13 +74,59 @@ document.querySelectorAll('.stats').forEach((s) => statsIO.observe(s));
 /* ---------- Mobiles Menü ---------- */
 const burger = document.getElementById('burger'), menu = document.getElementById('mMenu'), ov = document.getElementById('mOverlay');
 function toggleMenu(open: boolean) {
+  const war = !!menu?.classList.contains('open');
   menu?.classList.toggle('open', open); ov?.classList.toggle('open', open);
   document.body.style.overflow = open ? 'hidden' : '';
   burger?.setAttribute('aria-expanded', String(open));
+  if (open && !war) window.setTimeout(() => (document.getElementById('mClose') as HTMLElement | null)?.focus({ preventScroll: true }), 60);
+  if (!open && war && menu?.contains(document.activeElement)) burger?.focus({ preventScroll: true });
 }
 burger?.addEventListener('click', () => toggleMenu(!menu?.classList.contains('open')));
 ov?.addEventListener('click', () => toggleMenu(false));
+document.getElementById('mClose')?.addEventListener('click', () => toggleMenu(false));
 menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => toggleMenu(false)));
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu?.classList.contains('open')) toggleMenu(false); });
+window.matchMedia('(min-width: 1181px)').addEventListener('change', (m) => { if (m.matches) toggleMenu(false); });
+
+/* ---------- Kein Wort allein in der letzten Zeile ----------
+   Die letzten zwei Wörter werden mit einem geschützten Leerzeichen verbunden (nur wenn beide zusammen kurz genug sind),
+   Zahlen bleiben mit ihrer Einheit zusammen (1 Mio. €, 100 %, § 13b). */
+function textUmbruch() {
+  const NB = '\u00A0';
+  const einheiten = /(\d) (Mio\.|Mrd\.|Tsd\.|%|€|Min\.|Uhr|Std\.)/g;
+  const w0 = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, { acceptNode: (n) => (n.parentElement && !n.parentElement.closest('script, style, textarea, svg')) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT });
+  let t: Node | null;
+  while ((t = w0.nextNode())) {
+    const v = t.nodeValue || '';
+    if (/\d /.test(v) || v.includes('§ ')) {
+      const neu = v.replace(einheiten, '$1' + NB + '$2').replace(/Mio\. €/g, 'Mio.' + NB + '€').replace(/§ (\d)/g, '§' + NB + '$1');
+      if (neu !== v) t.nodeValue = neu;
+    }
+  }
+  // Alle Textblöcke mit eigenem Text; erst messen, dann schreiben (kein Layout-Flackern)
+  const ctx = document.createElement('canvas').getContext('2d');
+  const auswahl: [Node, string, string, number, number][] = [];
+  document.querySelectorAll<HTMLElement>('main *, footer *').forEach((el) => {
+    if (el.closest('.hz, [data-wechsel], .marquee, .brand-band, .hw-lauf, .btn, nav, .mobile-menu, svg, script, style, [aria-hidden="true"]')) return;
+    if (![...el.childNodes].some((c) => c.nodeType === 3 && /\S/.test(c.nodeValue || ''))) return;
+    const cs = getComputedStyle(el);
+    if (!/^(block|flex|grid|list-item|inline-block|table-cell|-webkit-box)$/.test(cs.display) || cs.whiteSpace === 'nowrap') return;
+    const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    let letzter: Node | null = null, n: Node | null;
+    while ((n = w.nextNode())) if (/\S/.test(n.nodeValue || '')) letzter = n;
+    if (!letzter) return;
+    const v = letzter.nodeValue || '';
+    const m = v.match(/(\S+) +(\S+)(\s*)$/);
+    if (!m) return;
+    const breite = el.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    let noetig = (m[1].length + m[2].length + 1) * parseFloat(cs.fontSize) * 0.62;
+    if (ctx) { ctx.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily; noetig = ctx.measureText(m[1] + ' ' + m[2]).width * (cs.textTransform === 'uppercase' ? 1.18 : 1) + (parseFloat(cs.letterSpacing) || 0) * (m[1].length + m[2].length); }
+    const passt = breite > 0 ? noetig < breite * 0.9 : (m[1].length + m[2].length) < 18;
+    if (passt) auswahl.push([letzter, v, m[1] + NB + m[2], (m.index || 0), (m.index || 0) + m[0].length - m[3].length]);
+  });
+  auswahl.forEach(([t, v, neu, von, bis]) => { t.nodeValue = v.slice(0, von) + neu + v.slice(bis); });
+}
+if (document.fonts && document.fonts.status !== 'loaded') document.fonts.ready.then(textUmbruch); else textUmbruch();
 
 /* ---------- Video-Modal: YouTube wird erst nach Zustimmung geladen ---------- */
 const KEY = 'bv-youtube-ok';

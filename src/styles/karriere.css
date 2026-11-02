@@ -382,3 +382,13 @@ body:has(.khero--navy) .nav-inner{background:#fff}
 .ts-step:last-child{min-height:20vh}
 .ts-schiene{bottom:20vh}
 @media(max-width:900px){.ts-step{min-height:30vh}.ts-step:last-child{min-height:20vh}}
+@media(max-width:600px){
+  .bw-form{padding:22px 18px}
+  .final-alt .btn,.bw-form .btn{justify-self:center}
+}
+/* (m/w/d) als kleiner Zusatz, damit es nicht wie ein einzelnes Wort wirkt */
+.mwd{font-size:.52em;font-weight:600;letter-spacing:.02em;color:var(--muted);white-space:nowrap;vertical-align:.15em}
+@media(max-width:600px){
+  /* Karriere-Hero: beide Zeilen passen jeweils in eine Zeile */
+  .khero h1,.khero--team h1{font-size:min(2.5rem,calc((100vw - 56px) / 9.2))}
+}

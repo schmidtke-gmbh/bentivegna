@@ -300,7 +300,27 @@
         "zitat": "Dank der innovativen Steuergestaltung konnten wir nicht nur unsere Steuerlast signifikant senken, sondern auch unsere Vermögensbildung strategisch optimieren. Die enge Zusammenarbeit ermöglicht es uns, wichtige Entscheidungen schnell und fundiert zu treffen.",
         "name": "Jürgen Rossegger",
         "rolle": "Geschäftsführer der Jürgen Rossegger GmbH, Immobilienexperte",
-        "youtube_id": "OWjkEAOKuPE"
+        "ergebnis": "Deutlich weniger Steuern, gezielter Vermögensaufbau",
+        "punkte": [
+          {
+            "icon": "coins",
+            "titel": "Steuerlast deutlich gesenkt",
+            "text": "durch innovative Steuergestaltung"
+          },
+          {
+            "icon": "trending-up",
+            "titel": "Vermögensbildung optimiert",
+            "text": "strategisch geplant statt zufällig"
+          },
+          {
+            "icon": "clock",
+            "titel": "Schneller entscheiden",
+            "text": "fundiert, dank enger Zusammenarbeit"
+          }
+        ],
+        "bild": "/uploads/referenzen/rossegger.webp",
+        "youtube_id": "OWjkEAOKuPE",
+        "dauer": "2:28"
       },
       {
         "kategorie": "Wachstum & Begleitung",
@@ -308,7 +328,27 @@
         "zitat": "Durch die kontinuierliche Begleitung und strategische Beratung konnten wir unser Unternehmen erfolgreich durch verschiedene Wachstumsphasen steuern und unseren Umsatz innerhalb weniger Jahre verfünffachen.",
         "name": "Thomas Bellgardt",
         "rolle": "Geschäftsführer der Bellgardt Medientechnik Vertriebs-GmbH",
-        "youtube_id": "Fzaw0d61eco"
+        "ergebnis": "Umsatz in wenigen Jahren verfünffacht",
+        "punkte": [
+          {
+            "icon": "trending-up",
+            "titel": "Umsatz verfünffacht",
+            "text": "innerhalb weniger Jahre"
+          },
+          {
+            "icon": "layers",
+            "titel": "Sicher gewachsen",
+            "text": "durch alle Wachstumsphasen begleitet"
+          },
+          {
+            "icon": "handshake",
+            "titel": "Partnerschaftliche Beratung",
+            "text": "von klein zu groß an seiner Seite"
+          }
+        ],
+        "bild": "/uploads/referenzen/bellgardt.webp",
+        "youtube_id": "Fzaw0d61eco",
+        "dauer": "2:11"
       },
       {
         "kategorie": "Struktur & Vermögensaufbau",
@@ -316,7 +356,27 @@
         "zitat": "Durch die innovative Beratung konnten wir unsere Unternehmensstruktur optimieren, effektive Steuersparmodelle umsetzen und einen nachhaltigen Vermögensaufbau realisieren, während wir gleichzeitig unser Geschäft weiter ausbauten.",
         "name": "Jürgen Schäfer",
         "rolle": "Geschäftsführer der Schäfer Fenster und Türen Markdorf GmbH",
-        "youtube_id": "Siqf8uXzXI0"
+        "ergebnis": "Struktur optimiert, Vermögen aufgebaut, weiter gewachsen",
+        "punkte": [
+          {
+            "icon": "building-2",
+            "titel": "Struktur optimiert",
+            "text": "Unternehmensstruktur durch innovative Beratung"
+          },
+          {
+            "icon": "coins",
+            "titel": "Effektive Steuersparmodelle",
+            "text": "konsequent umgesetzt"
+          },
+          {
+            "icon": "trending-up",
+            "titel": "Vermögen aufgebaut",
+            "text": "nachhaltig, während das Geschäft weiter wächst"
+          }
+        ],
+        "bild": "/uploads/referenzen/schaefer.webp",
+        "youtube_id": "Siqf8uXzXI0",
+        "dauer": "2:13"
       }
     ]
   },

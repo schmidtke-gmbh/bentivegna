@@ -39,12 +39,13 @@ const wissen = [
     </nav>
     <div class="nav-cta">
       <a href={cta.href} class="btn btn--gold">{cta.text} <span class="arr"></span></a>
-      <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false"><span></span><span></span><span></span></button>
+      <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mMenu"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
 <div class="mobile-overlay" id="mOverlay"></div>
 <aside class="mobile-menu" id="mMenu" aria-label="Mobiles Menü">
+  <button type="button" class="mm-zu" id="mClose" aria-label="Menü schließen"><Icon name="x" /></button>
   {links.map((l) => <a href={l.h}>{l.t}</a>)}
   <span class="mm-label">Wissen</span>
   <div class="mm-sub">{wissen.map((w) => <a href={w.h}>{w.t}</a>)}</div>
