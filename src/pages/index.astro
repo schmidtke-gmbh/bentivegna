@@ -100,8 +100,10 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
       </div>
     </div>
     <div class="hero-media hero-media--gruppe hero-in hm">
-      <div class="hero-glow" aria-hidden="true"></div>
-      <img class="hero-gruppe" id="heroImg" src={u(S.hero.bild)} srcset={S.hero.bild_klein ? `${u(S.hero.bild_klein)} 820w, ${u(S.hero.bild)} 1400w` : undefined} sizes="(max-width: 1024px) 92vw, 640px" alt={S.hero.bild_alt} width="1400" height="1039" fetchpriority="high">
+      <div class="hg-buehne">
+        <img class="hero-schild" src={u('/uploads/logos/schild-mono.svg')} alt="" aria-hidden="true">
+        <img class="hero-gruppe" id="heroImg" src={u(S.hero.bild)} srcset={S.hero.bild_klein ? `${u(S.hero.bild_klein)} 820w, ${u(S.hero.bild)} 1400w` : undefined} sizes="(max-width: 1024px) 92vw, 640px" alt={S.hero.bild_alt} width="1400" height="1039" fetchpriority="high">
+      </div>
       <span class="hero-focus">{S.hero.fokus_label}</span>
       {S.hero.video_youtube_id && (
         <button class="hero-video" type="button" data-video={S.hero.video_youtube_id} data-hochkant={S.hero.video_hochkant ? '1' : undefined} data-track="hero_video">
@@ -540,10 +542,10 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
         <img src={u('/uploads/germany.svg')} alt="Deutschlandkarte: Bentivegna betreut SHK-Betriebe in ganz Deutschland von Überlingen aus" loading="lazy">
         <div class="gr-ringe" aria-hidden="true"><i></i><i></i><i></i></div>
         {geoPins.map(([l, t]) => <span class="gr-punkt" aria-hidden="true" style={`left:${l}%;top:${t}%;--d:${(0.35 + (Math.hypot((l - UEB[0]) * 0.739, t - UEB[1]) / 90) * 2.4).toFixed(2)}s`}></span>)}
-        <span class="gr-zentrum" aria-hidden="true"></span>
+        <span class="gr-zentrum" aria-hidden="true"><i></i></span>
         <span class="gr-label">Überlingen am Bodensee</span>
       </div>
-      <div class="gr-legende"><span><i class="z"></i>Unser Standort</span><span><i class="m"></i>Mandanten in ganz Deutschland</span></div>
+      <div class="gr-legende"><span><i class="z pin"></i>Unser Standort</span><span><i class="m"></i>Mandanten in ganz Deutschland</span></div>
     </div>
     <div class="geo-copy reveal d2">
       <span class="eyebrow">{S.deutschland.eyebrow}</span>

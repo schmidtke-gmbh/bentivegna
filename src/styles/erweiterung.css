@@ -719,3 +719,47 @@ html:not(.js) .gr-ringe{display:none}
 .marquee--ruhig .marquee-track span:nth-child(n+5){display:none}
 .marquee--ruhig .marquee-track span:nth-child(4)::after{display:none}
 @media(max-width:700px){.marquee--ruhig .marquee-track{flex-direction:column;row-gap:2px}.marquee--ruhig .marquee-track span:nth-child(n+4){display:none}.marquee--ruhig .marquee-track span::after{display:none}}
+
+/* Runde 3, Korrektur 2.11. nachmittags: Gruppenbild auf dem Desktop neben der Headline statt am Hero-Boden,
+   damit Bild und Video-Knopf auch auf niedrigen Laptop-Bildschirmen im ersten Bildschirm liegen */
+.hero-video{background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none;border:1px solid var(--line);box-shadow:0 14px 34px rgba(20,29,58,.22)}
+.hero-video .hero-play{width:58px;height:58px}
+.hero-video .hero-play::after{inset:-7px;border:2px solid rgba(153,138,109,.7)}
+@media(min-width:1025px){
+  .hero{padding-bottom:84px}
+  .hero-copy{padding-bottom:0}
+  .hero-grid{grid-template-columns:1.22fr 1fr;align-items:start}
+  .hero-media--gruppe{position:relative;right:auto;bottom:auto;align-self:start;margin-top:clamp(8px,3vh,40px);
+    width:min(calc(100% + 48px),calc((100vh - 250px) * 1.35));margin-right:-48px;justify-self:end;z-index:1}
+  .hero-gruppe{-webkit-mask-image:linear-gradient(180deg,#000 76%,rgba(0,0,0,0) 100%);mask-image:linear-gradient(180deg,#000 76%,rgba(0,0,0,0) 100%)}
+  .hero-glow{top:8%;bottom:6%}
+  .hero-media--gruppe .hero-focus{left:2%;right:auto;top:9%}
+  .hero-video{left:-2%;right:auto;bottom:12%}
+}
+
+/* Logo-Schild als Gestaltungselement hinter der Gruppe (wie im Booklet), Glow entfällt */
+.hero-glow{display:none}
+.hg-buehne{position:relative;padding-top:15%}
+.hero-schild{position:absolute;z-index:0;top:0;left:51%;width:76%;height:auto;transform:translateX(-50%);opacity:.72;pointer-events:none}
+.hg-buehne .hero-gruppe{position:relative;z-index:1}
+@media(min-width:1025px){
+  .hero-gruppe{-webkit-mask-image:none;mask-image:none}
+  .hg-buehne{-webkit-mask-image:linear-gradient(180deg,#000 80%,rgba(0,0,0,0) 100%);mask-image:linear-gradient(180deg,#000 80%,rgba(0,0,0,0) 100%)}
+  .hero-media--gruppe{margin-top:calc(clamp(8px,3vh,40px) - 72px);width:min(calc(100% + 48px),calc((100vh - 200px) * 1.17))}
+  .hero-media--gruppe .hero-focus{top:20%}
+}
+@media(max-width:1024px){.hg-buehne{padding-top:12%}}
+
+/* Deutschland-Karte: Überlingen als Standort-Pin */
+.gr-zentrum{width:30px;height:30px;background:none;border:0;box-shadow:none;transform:translate(-50%,-100%)}
+.gr-zentrum i{position:absolute;inset:0;background:var(--brown);border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 6px 14px rgba(20,29,58,.3)}
+.gr-zentrum i::after{content:"";position:absolute;top:8px;left:8px;width:14px;height:14px;border-radius:50%;background:#fff}
+.gr-zentrum::after{inset:auto;left:50%;top:100%;width:26px;height:26px;margin:-13px 0 0 -13px}
+.gr-label{transform:translate(22px,-130%)}
+.gr-legende i.z.pin{border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:none;width:12px;height:12px}
+@media(max-width:560px){
+  .hero-video{left:2%;bottom:5%;padding:5px 14px 5px 5px}
+  .hero-video .hero-play{width:42px;height:42px}
+  .hero-video .hero-play svg{width:14px;height:17px}
+  .hero-video .hero-play::after{inset:-5px}
+}
