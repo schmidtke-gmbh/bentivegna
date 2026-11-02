@@ -36,7 +36,7 @@ onScroll();
 const io = new IntersectionObserver((entries) => {
   entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
 }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-document.querySelectorAll('.reveal, .feat-card').forEach((el) => io.observe(el));
+document.querySelectorAll('.reveal, .feat-card, .geo-map').forEach((el) => io.observe(el));
 
 /* ---------- Druck: alles im Endzustand, FAQ offen ---------- */
 const offeneDetails: HTMLDetailsElement[] = [];

@@ -330,7 +330,7 @@ collections:
         required: false
       - label: Bildbeschreibung (Alt-Text)
         name: bild_alt
-        widget: string
+        widget: text
         required: false
       - label: Etikett auf dem Bild
         name: fokus_label
@@ -358,6 +358,18 @@ collections:
         required: false
       - label: 'YouTube: Kanalname'
         name: youtube_zeile
+        widget: string
+        required: false
+      - label: Bild klein (Handy)
+        name: bild_klein
+        widget: string
+        required: false
+      - label: 'Video-Knopf: Text'
+        name: video_label
+        widget: string
+        required: false
+      - label: 'Video-Knopf: Unterzeile'
+        name: video_unterzeile
         widget: string
         required: false
     - label: Kennzahlen
@@ -421,6 +433,10 @@ collections:
       - label: Textsiegel unter
         name: textsiegel_unter
         widget: string
+        required: false
+      - label: Fachberater-Logo (ersetzt den Textkasten, sobald hochgeladen)
+        name: textsiegel_bild
+        widget: image
         required: false
     - label: Problem
       name: problem
@@ -1191,10 +1207,25 @@ collections:
       - label: Liste
         name: liste
         widget: list
-        field:
-          label: Eintrag
-          name: eintrag
+        fields:
+        - label: Name
+          name: name
           widget: string
+          required: false
+        - label: Bild
+          name: bild
+          widget: image
+          required: false
+        - label: Logo-Höhe in Pixel (für gleiche Optik)
+          name: hoehe
+          widget: number
+          value_type: int
+          required: false
+        - label: Auf der Seite anzeigen
+          name: anzeigen
+          widget: boolean
+          required: false
+        summary: '{{fields.name}}'
         required: false
     - label: Team
       name: team

@@ -608,3 +608,114 @@ section{break-inside:auto}
 .brands{padding:44px 0 48px}
 .page-head{padding-bottom:56px}
 @media(max-width:760px){.page-head{padding-bottom:40px}}
+
+/* Runde 3 (2.11.2026): Hero mit Gruppenbild (Domenico vorn, SHK-Unternehmer dahinter), Video-Knopf,
+   Auszeichnungen im ersten Bildschirm statt YouTube */
+.hero{padding-bottom:0}
+.hero-copy{padding-bottom:84px}
+.hero-media--gruppe{position:relative;align-self:end}
+.hero-gruppe{display:block;width:100%;height:auto;position:relative;z-index:1}
+.hero-glow{position:absolute;left:6%;right:2%;top:14%;bottom:0;z-index:0;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(204,196,175,.62),rgba(204,196,175,.18) 62%,rgba(204,196,175,0))}
+.hero-media--gruppe .hero-focus{left:1%;top:8%}
+.hero-video{position:absolute;z-index:3;left:-3%;bottom:15%;display:flex;align-items:center;gap:12px;padding:7px 20px 7px 7px;border-radius:60px;
+  background:rgba(255,255,255,.74);-webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);border:1px solid rgba(255,255,255,.85);
+  box-shadow:0 16px 40px rgba(20,29,58,.2);cursor:pointer;font:inherit;color:var(--navy);text-align:left;transition:transform .3s var(--ease),box-shadow .3s}
+.hero-video:hover{transform:translateY(-2px);box-shadow:0 20px 46px rgba(20,29,58,.26)}
+.hero-video:focus-visible{outline:3px solid var(--gold,#998a6d);outline-offset:3px}
+.hero-video .hero-play{position:relative;left:auto;top:auto;transform:none;width:56px;height:56px;background:var(--navy);border:0;box-shadow:none;flex:0 0 auto}
+.hero-video .hero-play path{fill:#fff}
+.hero-video .hero-play svg{width:18px;height:21px;margin-left:3px}
+.hero-video .hero-play::after{inset:-6px;border-color:rgba(39,51,101,.32)}
+.hero-video:hover .hero-play{transform:scale(1.06);background:var(--navy)}
+.hv-txt b{display:block;font-size:.98rem;line-height:1.2}
+.hv-txt small{display:block;font-size:.8rem;color:var(--muted);line-height:1.3}
+.hero-awards{display:flex;flex-direction:column;gap:10px}
+.ha-label{font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.ha-logos{display:flex;align-items:center;flex-wrap:wrap;gap:14px 22px}
+.ha-logos img{height:72px;width:auto;display:block}
+.ha-logos .ha-seal{padding:8px 14px 8px 8px}
+@media(min-width:1025px){
+  .hero-grid{grid-template-columns:1.25fr 1fr;gap:36px;align-items:end}
+  .hero h1{font-size:min(clamp(2.3rem,4vw,3.5rem),calc((100vw - 60px) / 11.6))}
+  .hero-media--gruppe{position:absolute;right:calc((100% - 100vw) / 2);bottom:0;width:min(52vw,820px);max-width:none;z-index:1}
+  .hero-media--gruppe .hero-focus{left:auto;right:9%;top:9%}
+  .hero-video{left:auto;right:5%;bottom:31%}
+  .hero-copy{position:relative;z-index:2}
+  .hero-sub{max-width:590px}
+  .ha-logos img{height:84px}
+}
+@media(max-width:1024px){
+  .hero-copy{padding-bottom:28px}
+  .hero-grid{gap:18px}
+  .hero-media--gruppe{max-width:600px;width:100%;margin:0 auto}
+  .hero-video{left:0;bottom:12%}
+}
+@media(max-width:560px){
+  .ha-logos{gap:12px 16px}
+  .ha-logos img{height:58px}
+  .hero-video{padding:5px 14px 5px 5px;gap:9px;bottom:8%}
+  .hero-video .hero-play{width:44px;height:44px}
+  .hv-txt b{font-size:.88rem}
+  .hv-txt small{display:none}
+  .hero-media--gruppe .hero-focus{top:2%}
+}
+/* YouTube jetzt im Wissen-Bereich */
+.wissen-head{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;max-width:none}
+
+/* Runde 3: Laufband als ruhige, stehende Zeile (wirkte als Ticker zu unruhig) */
+.marquee--ruhig{white-space:normal;padding:18px 0}
+.marquee--ruhig .marquee-track{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;row-gap:6px;animation:none;max-width:1240px;margin:0 auto;padding:0 24px}
+.marquee--ruhig .marquee-track span{padding:0 22px;gap:22px;font-size:1.12rem}
+.marquee--ruhig .marquee-track span:last-child::after{display:none}
+@media(max-width:700px){.marquee--ruhig .marquee-track span{padding:0 12px;gap:12px;font-size:1rem}}
+
+/* Runde 3: Abstände an den von Domenico genannten Stellen enger, FAQ bekommt Luft zum Schluss-CTA */
+.pullquote{padding-bottom:calc(var(--sec) * .5)}
+.pullquote + .section{padding-top:calc(var(--sec) * .7)}
+.section.praxis{padding-bottom:calc(var(--sec) * .5)}
+.section.praxis + .section{padding-top:calc(var(--sec) * .8)}
+.uz-stapel{padding-bottom:5vh;margin-bottom:8px}
+#kontakt{padding-top:clamp(36px,4.5vw,60px)}
+
+/* Runde 3: Artikelseite, erst Weißraum, dann der blaue Titelblock */
+.art-figur{margin-top:clamp(36px,5vw,60px)}
+
+/* Runde 3: Deutschland-Karte als Radar ab Überlingen. Keine Standort-Pins mehr, Mandanten erscheinen als Punkte,
+   sobald die Welle sie erreicht. Ringe nur innerhalb der Landesform (Maske). */
+.geo-karte{display:flex;flex-direction:column;align-items:center;gap:18px}
+.geo-radar{max-width:440px}
+.geo-radar img{opacity:.92}
+.gr-ringe{position:absolute;inset:0;pointer-events:none;-webkit-mask:var(--maske) center/100% 100% no-repeat;mask:var(--maske) center/100% 100% no-repeat}
+.gr-ringe i{position:absolute;left:var(--x);top:var(--y);width:250%;aspect-ratio:1;border-radius:50%;border:2px solid rgba(39,51,101,.28);
+  background:radial-gradient(closest-side,rgba(52,92,154,0) 80%,rgba(52,92,154,.10) 97%,rgba(52,92,154,0) 100%);transform:translate(-50%,-50%) scale(.02);opacity:0}
+.geo-map.in .gr-ringe i{animation:grWelle 5.4s cubic-bezier(.25,.6,.4,1) infinite}
+.geo-map.in .gr-ringe i:nth-child(2){animation-delay:1.8s}
+.geo-map.in .gr-ringe i:nth-child(3){animation-delay:3.6s}
+@keyframes grWelle{0%{transform:translate(-50%,-50%) scale(.02);opacity:0}10%{opacity:1}100%{transform:translate(-50%,-50%) scale(1);opacity:0}}
+.gr-punkt{position:absolute;z-index:2;width:12px;height:12px;border-radius:50%;background:var(--navy);box-shadow:0 0 0 4px rgba(39,51,101,.14);transform:translate(-50%,-50%) scale(0);opacity:0}
+.geo-map.in .gr-punkt{animation:grBlip .8s var(--ease) var(--d) forwards}
+@keyframes grBlip{0%{opacity:0;transform:translate(-50%,-50%) scale(0);box-shadow:0 0 0 0 rgba(52,92,154,.5)}55%{opacity:1;transform:translate(-50%,-50%) scale(1.45);box-shadow:0 0 0 14px rgba(52,92,154,0)}100%{opacity:1;transform:translate(-50%,-50%) scale(1);box-shadow:0 0 0 4px rgba(39,51,101,.14)}}
+.gr-zentrum{position:absolute;z-index:3;left:var(--x);top:var(--y);width:20px;height:20px;border-radius:50%;background:var(--brown);border:3px solid #fff;box-shadow:0 4px 14px rgba(20,29,58,.3);transform:translate(-50%,-50%)}
+.gr-zentrum::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:2px solid rgba(153,138,109,.55);animation:playpulse 2.4s ease-out infinite}
+.gr-label{position:absolute;z-index:3;left:var(--x);top:var(--y);transform:translate(18px,-50%);white-space:nowrap;background:#fff;color:var(--navy);font-weight:700;font-size:.8rem;padding:6px 11px;border-radius:8px;box-shadow:var(--shadow-m)}
+.gr-legende{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;font-size:.86rem;color:var(--muted)}
+.gr-legende span{display:inline-flex;align-items:center;gap:8px}
+.gr-legende i{display:inline-block;width:12px;height:12px;border-radius:50%}
+.gr-legende i.z{background:var(--brown);box-shadow:0 0 0 3px rgba(153,138,109,.25)}
+.gr-legende i.m{background:var(--navy);box-shadow:0 0 0 3px rgba(39,51,101,.14)}
+@media(prefers-reduced-motion:reduce){.gr-punkt{opacity:1!important;transform:translate(-50%,-50%)!important;animation:none!important}.gr-ringe{display:none}.gr-zentrum::after{animation:none}}
+html:not(.js) .gr-punkt{opacity:1;transform:translate(-50%,-50%);animation:none}
+html:not(.js) .gr-ringe{display:none}
+@media print{.gr-punkt{opacity:1!important;transform:translate(-50%,-50%)!important;animation:none!important}.gr-ringe{display:none}.gr-zentrum::after{display:none}}
+
+/* Runde 3: Software-Band mit echten Logos (einfarbig in Navy, gleiche optische Größe) */
+.sw-logos .brand-track{align-items:center;gap:76px}
+.sw-logos .brand-track span.sw-logo{display:inline-flex;align-items:center;padding:0;opacity:.8;transition:opacity .3s}
+.sw-logos .brand-track span.sw-logo:hover{opacity:1}
+.sw-logos .sw-logo img{display:block;width:auto;max-width:190px}
+@media(max-width:700px){.sw-logos .brand-track{gap:48px}.sw-logos .sw-logo img{transform:scale(.85)}}
+/* Laufband: eine ruhige Zeile, es stehen die ersten vier Einträge aus dem Redaktionssystem */
+.marquee--ruhig .marquee-track span:nth-child(n+5){display:none}
+.marquee--ruhig .marquee-track span:nth-child(4)::after{display:none}
+@media(max-width:700px){.marquee--ruhig .marquee-track{flex-direction:column;row-gap:2px}.marquee--ruhig .marquee-track span:nth-child(n+4){display:none}.marquee--ruhig .marquee-track span::after{display:none}}

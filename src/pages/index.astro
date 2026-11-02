@@ -47,6 +47,8 @@ const faqLd = {
   mainEntity: S.faq.fragen.map((f) => ({ '@type': 'Question', name: f.frage, acceptedAnswer: { '@type': 'Answer', text: f.antwort } }))
 };
 
+const UEB = [35.92, 93.58];
+const swListe = S.software.liste.filter((m) => m.anzeigen !== false);
 const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43],[82.15,32.58],[17.44,45.5],[9.9,49.17],[11.93,52.9],[70.91,47.74],[85.77,51.45],[56.27,52.29],[30.69,63.51],[56.78,71.97],[36.15,80.66],[62.29,88.88],[21.54,90.63]];
 ---
 <Base titel={S.seo.titel} beschreibung={S.seo.beschreibung} pfad="/" jsonld={[faqLd]}>
@@ -86,24 +88,27 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
             <span class="tp-meta"><b>{B.google_wert} von 5</b> · {B.google_anzahl} Bewertungen</span>
           </a>
         )}
-        <a class="yt-pill" href={E.youtube} target="_blank" rel="noopener" data-track="youtube_klick">
-          <span class="yt-ic"><Brand name="youtube" class="" /></span><span class="yt-txt"><span class="yt-label">{S.hero.youtube_label}</span><span class="yt-zeile"><b>{S.hero.youtube_zeile}</b></span></span>
-        </a>
+        <div class="hero-awards">
+          <span class="ha-label">{S.auszeichnungen.titel}</span>
+          <div class="ha-logos">
+            {S.auszeichnungen.logos.map((l) => <img src={u(l.bild)} alt={l.alt} height="72">)}
+            {S.auszeichnungen.textsiegel_bild
+              ? <img class="ha-fb" src={u(S.auszeichnungen.textsiegel_bild)} alt={`${S.auszeichnungen.textsiegel_titel} (${S.auszeichnungen.textsiegel_unter})`} height="72">
+              : <span class="seal-text ha-seal"><span class="ico-box"><Icon name="award" /></span><span><b>{S.auszeichnungen.textsiegel_titel}</b><small>{S.auszeichnungen.textsiegel_unter}</small></span></span>}
+          </div>
+        </div>
       </div>
     </div>
-    <div class="hero-media hero-in hm">
-      <img class="hero-wm" src={u('/uploads/logos/schild-mono.svg')} alt="" aria-hidden="true">
-      <div class="hero-photo">
-        <img id="heroImg" src={u(S.hero.bild)} alt={S.hero.bild_alt} width="720" height="1280" fetchpriority="high">
-        <span class="hero-focus">{S.hero.fokus_label}</span>
-        {S.hero.video_youtube_id && (
-          <button class="hero-play" type="button" aria-label="Video ansehen" data-video={S.hero.video_youtube_id} data-hochkant={S.hero.video_hochkant ? '1' : undefined}><svg width="22" height="26" viewBox="0 0 22 26" fill="none" aria-hidden="true"><path d="M21 11.27a2 2 0 0 1 0 3.46L3 24.66A2 2 0 0 1 0 22.93V3.07A2 2 0 0 1 3 1.34L21 11.27Z" fill="#273365"/></svg></button>
-        )}
-      </div>
-      <div class="hero-badge">
-        <span class="dot">€</span>
-        <div><b>{S.hero.badge_titel}</b><span>{S.hero.badge_text}</span></div>
-      </div>
+    <div class="hero-media hero-media--gruppe hero-in hm">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <img class="hero-gruppe" id="heroImg" src={u(S.hero.bild)} srcset={S.hero.bild_klein ? `${u(S.hero.bild_klein)} 820w, ${u(S.hero.bild)} 1400w` : undefined} sizes="(max-width: 1024px) 92vw, 640px" alt={S.hero.bild_alt} width="1400" height="1039" fetchpriority="high">
+      <span class="hero-focus">{S.hero.fokus_label}</span>
+      {S.hero.video_youtube_id && (
+        <button class="hero-video" type="button" data-video={S.hero.video_youtube_id} data-hochkant={S.hero.video_hochkant ? '1' : undefined} data-track="hero_video">
+          <span class="hero-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 22 26" fill="none"><path d="M21 11.27a2 2 0 0 1 0 3.46L3 24.66A2 2 0 0 1 0 22.93V3.07A2 2 0 0 1 3 1.34L21 11.27Z" fill="#273365"/></svg></span>
+          <span class="hv-txt"><b>{S.hero.video_label || 'Video ansehen'}</b>{S.hero.video_unterzeile && <small>{S.hero.video_unterzeile}</small>}</span>
+        </button>
+      )}
     </div>
   </div>
 </section>
@@ -119,13 +124,6 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
     ))}
   </div>
 </section>
-<div class="award-row">
-  <div class="wrap">
-    <span class="lead">{S.auszeichnungen.titel}</span>
-    {S.auszeichnungen.logos.map((l, i) => <img src={u(l.bild)} alt={l.alt} class={i === 1 ? 'wide' : ''} loading="lazy">)}
-    <span class="seal-text"><span class="ico-box"><Icon name="award" /></span><span><b>{S.auszeichnungen.textsiegel_titel}</b><small>{S.auszeichnungen.textsiegel_unter}</small></span></span>
-  </div>
-</div>
 
 <!-- ============ PROBLEM ============ -->
 <section class="section pain" id="problem">
@@ -177,9 +175,9 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
   </div>
 </section>
 
-<div class="marquee" aria-hidden="true">
+<div class="marquee marquee--ruhig">
   <div class="marquee-track">
-    {[...S.laufband, ...S.laufband].map((t) => <span>{t}</span>)}
+    {S.laufband.map((t) => <span>{t}</span>)}
   </div>
 </div>
 
@@ -300,27 +298,7 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
   </div>
 </section>
 
-<!-- ============ DEUTSCHLANDWEIT (direkt unter den Leistungen) ============ -->
-<section class="geo">
-  <div class="wrap geo-grid">
-    <div class="geo-map reveal">
-      <img src={u('/uploads/germany.svg')} alt="Deutschlandkarte: Bentivegna betreut SHK-Betriebe deutschlandweit" loading="lazy">
-      {geoPins.map(([l, t], i) => <span class="geo-pin" style={`left:${l}%;top:${t}%;animation-delay:${(0.05 + i * 0.03).toFixed(2)}s`}><i></i></span>)}
-      <span class="geo-pin hl" style="left:35.92%;top:93.58%;animation-delay:0.56s"><i></i></span>
-    </div>
-    <div class="geo-copy reveal d2">
-      <span class="eyebrow">{S.deutschland.eyebrow}</span>
-      <h2 style="margin-top:18px">{S.deutschland.titel_vor} <span class="ac">{S.deutschland.titel_akzent}</span> {S.deutschland.titel_nach}</h2>
-      <p>{S.deutschland.text}</p>
-      <ul class="geo-list">{S.deutschland.punkte.map((p) => <li><span class="ck"><Icon name="check" /></span> {p}</li>)}</ul>
-      <div class="geo-cta">
-        <a href={anfrage} class="btn btn--gold" data-track="cta_deutschland">{S.deutschland.button} <span class="arr"></span></a>
-        <span class="small">{S.deutschland.klein}</span>
-      </div>
-      <div class="geo-trust"><Icon name="users-round" /> <span set:html={md(S.deutschland.trust)} /></div>
-    </div>
-  </div>
-</section>
+
 
 <!-- ============ KONTAKTBLOCK: So arbeiten wir ============ -->
 <section class="section praxis">
@@ -353,7 +331,11 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
       </div>
       <div class="award-card reveal">
         <h3>{S.kontaktblock.siegel_titel}</h3>
-        <div class="logos">{S.auszeichnungen.logos.map((l) => <img src={u(l.bild)} alt={l.alt} loading="lazy">)}</div>
+        <div class="logos">{S.auszeichnungen.logos.map((l) => <img src={u(l.bild)} alt={l.alt} loading="lazy">)}
+          {S.auszeichnungen.textsiegel_bild
+            ? <img src={u(S.auszeichnungen.textsiegel_bild)} alt={`${S.auszeichnungen.textsiegel_titel} (${S.auszeichnungen.textsiegel_unter})`} loading="lazy">
+            : <span class="seal-text"><span class="ico-box"><Icon name="award" /></span><span><b>{S.auszeichnungen.textsiegel_titel}</b><small>{S.auszeichnungen.textsiegel_unter}</small></span></span>}
+        </div>
       </div>
     </div>
   </div>
@@ -550,6 +532,33 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
   </div>
 </section>
 
+<!-- ============ DEUTSCHLANDWEIT (Radar ab Überlingen, nach „So läuft die Zusammenarbeit“) ============ -->
+<section class="geo">
+  <div class="wrap geo-grid">
+    <div class="geo-karte reveal">
+      <div class="geo-map geo-radar" style={`--x:${UEB[0]}%;--y:${UEB[1]}%;--maske:url(${u('/uploads/germany.svg')})`}>
+        <img src={u('/uploads/germany.svg')} alt="Deutschlandkarte: Bentivegna betreut SHK-Betriebe in ganz Deutschland von Überlingen aus" loading="lazy">
+        <div class="gr-ringe" aria-hidden="true"><i></i><i></i><i></i></div>
+        {geoPins.map(([l, t]) => <span class="gr-punkt" aria-hidden="true" style={`left:${l}%;top:${t}%;--d:${(0.35 + (Math.hypot((l - UEB[0]) * 0.739, t - UEB[1]) / 90) * 2.4).toFixed(2)}s`}></span>)}
+        <span class="gr-zentrum" aria-hidden="true"></span>
+        <span class="gr-label">Überlingen am Bodensee</span>
+      </div>
+      <div class="gr-legende"><span><i class="z"></i>Unser Standort</span><span><i class="m"></i>Mandanten in ganz Deutschland</span></div>
+    </div>
+    <div class="geo-copy reveal d2">
+      <span class="eyebrow">{S.deutschland.eyebrow}</span>
+      <h2 style="margin-top:18px">{S.deutschland.titel_vor} <span class="ac">{S.deutschland.titel_akzent}</span> {S.deutschland.titel_nach}</h2>
+      <p>{S.deutschland.text}</p>
+      <ul class="geo-list">{S.deutschland.punkte.map((p) => <li><span class="ck"><Icon name="check" /></span> {p}</li>)}</ul>
+      <div class="geo-cta">
+        <a href={anfrage} class="btn btn--gold" data-track="cta_deutschland">{S.deutschland.button} <span class="arr"></span></a>
+        <span class="small">{S.deutschland.klein}</span>
+      </div>
+      <div class="geo-trust"><Icon name="users-round" /> <span set:html={md(S.deutschland.trust)} /></div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ PASSEN WIR ZUEINANDER ============ -->
 <section class="section" id="fuer-wen">
   <div class="wrap">
@@ -603,8 +612,8 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
   <p class="lead">{S.marken.titel}</p>
   <div class="brand-band" aria-hidden="true"><div class="brand-track">{[...S.marken.liste, ...S.marken.liste, ...S.marken.liste].map((m) => <span>{m}</span>)}</div></div>
   <p class="lead">{S.software.titel}</p>
-  <div class="brand-band sw rev" aria-hidden="true"><div class="brand-track">{[...S.software.liste, ...S.software.liste].map((m) => <span>{m}</span>)}</div></div>
-  <p class="sr-only">{S.marken.liste.join(', ')}. {S.software.liste.join(', ')}.</p>
+  <div class="brand-band sw rev sw-logos" aria-hidden="true"><div class="brand-track">{[...swListe, ...swListe].map((m) => m.bild ? <span class="sw-logo"><img src={u(m.bild)} alt="" style={`height:${m.hoehe || 30}px`} loading="lazy"></span> : <span>{m.name}</span>)}</div></div>
+  <p class="sr-only">{S.marken.liste.join(', ')}. {swListe.map((m) => m.name).join(', ')}.</p>
 </section>
 
 <!-- ============ TEAM ============ -->
@@ -656,8 +665,11 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
 <!-- ============ WISSEN ============ -->
 <section class="section wissen" id="wissen">
   <div class="wrap">
-    <div class="section-head reveal">
+    <div class="section-head reveal wissen-head">
       <span class="eyebrow">{S.wissen.eyebrow}</span>
+      <a class="yt-pill" href={E.youtube} target="_blank" rel="noopener" data-track="youtube_klick">
+        <span class="yt-ic"><Brand name="youtube" class="" /></span><span class="yt-txt"><span class="yt-label">{S.hero.youtube_label}</span><span class="yt-zeile"><b>{S.hero.youtube_zeile}</b></span></span>
+      </a>
     </div>
     <div class="wissen-grid">
       <div class="wissen-card buch reveal d1">
@@ -666,17 +678,17 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
         <p>{S.wissen.text}</p>
         {artikel.length > 0 && (
           <ul class="wissen-list">
-            {artikel.map((a) => <li><a href={u(`/der-chef-auf-der-baustelle/${a.id}/`)}><span>Teil {a.data.teil}</span>{a.data.titel}</a></li>)}
+            {artikel.map((a) => <li><a href={u(`/der-chef-auf-der-baustelle/${a.id}/`)} target="_blank" rel="noopener"><span>Teil {a.data.teil}</span>{a.data.titel}</a></li>)}
           </ul>
         )}
-        <a href={u('/der-chef-auf-der-baustelle/')} class="btn btn--ghost">{S.wissen.button} <span class="arr"></span></a>
+        <a href={u('/der-chef-auf-der-baustelle/')} target="_blank" rel="noopener" class="btn btn--ghost">{S.wissen.button} <span class="arr"></span></a>
       </div>
       <div class="wissen-card check reveal d2">
         <img class="wm" src={u('/uploads/logos/schild-mono.svg')} alt="" aria-hidden="true">
         <span class="ico-box" style="background:rgba(255,255,255,.1);color:#fff"><Icon name="grid-2x2" /></span>
         <h3>{S.wissen.check_titel}</h3>
         <p>{S.wissen.check_text}</p>
-        <a href={u('/der-chef-auf-der-baustelle/selbstcheck/')} class="btn btn--light" data-track="selbstcheck_teaser">{S.wissen.check_button} <span class="arr"></span></a>
+        <a href={u('/der-chef-auf-der-baustelle/selbstcheck/')} target="_blank" rel="noopener" class="btn btn--light" data-track="selbstcheck_teaser">{S.wissen.check_button} <span class="arr"></span></a>
       </div>
     </div>
   </div>
@@ -701,7 +713,7 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
 </section>
 
 <!-- ============ SCHLUSS-CTA ============ -->
-<section class="section" id="kontakt" style="padding-top:0">
+<section class="section" id="kontakt">
   <div class="wrap">
     <div class="cta-band reveal">
       <img class="cta-stripes" src={u('/uploads/logos/logo-hoch.svg')} alt="" aria-hidden="true">

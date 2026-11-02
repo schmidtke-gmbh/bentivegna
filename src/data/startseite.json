@@ -18,15 +18,18 @@
       "Steuern clever gestaltet"
     ],
     "nutzen_einleitung": "Für dich heißt das:",
-    "bild": "/uploads/hero-domenico-hochkant.jpg",
-    "bild_alt": "Domenico Bentivegna, Steuerberater für SHK-Betriebe",
+    "bild": "/uploads/hero-gruppe.webp",
+    "bild_alt": "Domenico Bentivegna mit Unternehmerinnen und Unternehmern aus Sanitär, Heizung, Klima und Solar",
     "fokus_label": "100 % SHK-Fokus",
     "badge_titel": "Mehr Gewinn, nicht nur mehr Umsatz",
     "badge_text": "Klarheit über Zahlen & Liquidität",
     "video_youtube_id": "DLg6dO8Lx0c",
     "video_hochkant": false,
     "youtube_label": "YouTube",
-    "youtube_zeile": "Bentivegna"
+    "youtube_zeile": "Bentivegna",
+    "bild_klein": "/uploads/hero-gruppe-820.webp",
+    "video_label": "Video ansehen",
+    "video_unterzeile": "Domenico Bentivegna stellt sich vor"
   },
   "kennzahlen": [
     {
@@ -75,7 +78,8 @@
       }
     ],
     "textsiegel_titel": "Fachberater für Unternehmensnachfolge",
-    "textsiegel_unter": "DStV e. V."
+    "textsiegel_unter": "DStV e. V.",
+    "textsiegel_bild": ""
   },
   "problem": {
     "eyebrow": "Das Problem, das niemand sieht",
@@ -448,18 +452,78 @@
   "software": {
     "titel": "Die Software, mit der ihr arbeitet und die wir kennen",
     "liste": [
-      "Hero",
-      "Orgamax",
-      "ToolTime",
-      "pds",
-      "Streit V.1",
-      "Taifun",
-      "KWP bnWin",
-      "Sykasoft",
-      "Plancraft",
-      "Craftnote",
-      "openHandwerk",
-      "Lexware"
+      {
+        "name": "HERO",
+        "bild": "/uploads/logos/software/hero.png",
+        "hoehe": 34,
+        "anzeigen": true
+      },
+      {
+        "name": "orgaMAX",
+        "bild": "/uploads/logos/software/orgamax.png",
+        "hoehe": 30,
+        "anzeigen": true
+      },
+      {
+        "name": "ToolTime",
+        "bild": "/uploads/logos/software/tooltime.png",
+        "hoehe": 30,
+        "anzeigen": true
+      },
+      {
+        "name": "pds",
+        "bild": "/uploads/logos/software/pds.png",
+        "hoehe": 46,
+        "anzeigen": true
+      },
+      {
+        "name": "STREIT",
+        "bild": "/uploads/logos/software/streit.png",
+        "hoehe": 32,
+        "anzeigen": true
+      },
+      {
+        "name": "Plancraft",
+        "bild": "/uploads/logos/software/plancraft.png",
+        "hoehe": 31,
+        "anzeigen": true
+      },
+      {
+        "name": "Craftnote",
+        "bild": "/uploads/logos/software/craftnote.png",
+        "hoehe": 34,
+        "anzeigen": true
+      },
+      {
+        "name": "openHandwerk",
+        "bild": "/uploads/logos/software/openhandwerk.png",
+        "hoehe": 24,
+        "anzeigen": true
+      },
+      {
+        "name": "Lexware",
+        "bild": "/uploads/logos/software/lexware.png",
+        "hoehe": 25,
+        "anzeigen": true
+      },
+      {
+        "name": "Taifun",
+        "bild": "",
+        "hoehe": 30,
+        "anzeigen": false
+      },
+      {
+        "name": "KWP bnWin",
+        "bild": "",
+        "hoehe": 30,
+        "anzeigen": false
+      },
+      {
+        "name": "Sykasoft",
+        "bild": "",
+        "hoehe": 30,
+        "anzeigen": false
+      }
     ]
   },
   "team": {
