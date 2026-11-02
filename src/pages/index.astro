@@ -55,14 +55,14 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
 <Base titel={S.seo.titel} beschreibung={S.seo.beschreibung} pfad="/" jsonld={[faqLd]}>
 
 <!-- ============ HERO ============ -->
-<section class="hero" id="top">
+<section class="hero hero--b" id="top">
   <canvas id="heroCanvas" aria-hidden="true"></canvas>
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <div class="hero-in h1"><span class={`hero-marker${S.hero.marker_tag ? '' : ' ohne-tag'}`}>{S.hero.marker_tag && <span class="tag">{S.hero.marker_tag}</span>}<span>{S.hero.marker_text}</span></span></div>
+      <div class="hero-in h1 hero-marker-zeile"><span class={`hero-marker${S.hero.marker_tag ? '' : ' ohne-tag'}`}>{S.hero.marker_tag && <span class="tag">{S.hero.marker_tag}</span>}<span>{S.hero.marker_text}</span></span></div>
       <h1>
         <em class="hero-in h2">{S.hero.kicker}</em>
-        <span class="hz hero-in h2">{S.hero.zeile1} <span class="ln2">{heroTeile[0]}</span></span>
+        <span class="hz hero-in h2">{S.hero.zeile1 + ' '}<span class="ln2">{heroTeile[0]}</span></span>
         {heroTeile.slice(1).map((t) => <span class="hz ln2 hero-in h3">{t}</span>)}
       </h1>
       <p class="hero-sub hero-in h4">{S.hero.subline}</p>
@@ -76,42 +76,46 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
         <span class="hw-slot" aria-hidden="true"><span class="hw-fenster"><span class="hw-lauf">{(S.hero.bullets.length > 1 ? [...S.hero.bullets, S.hero.bullets[0]] : S.hero.bullets).map((b, i) => <span class={i === S.hero.bullets.length ? 'hw-klon' : undefined}>{b.replace(/\.$/, '')}.</span>)}</span></span><span class="hw-strich"></span></span>
         <span class="sr-only">{S.hero.bullets.join(', ')}.</span>
       </p>
-      <div class="hero-trust-row hero-in h5">
-        {B.trustpilot_aktiv && (
-          <a class="hero-trust rating" href={B.trustpilot_url || undefined} target="_blank" rel="noopener">
-            <div class="tp-top"><div class="tp-stars"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></div><span class="tp-logo"><span class="s">★</span>Trustpilot</span></div>
-            <div class="tp-meta"><b>{B.trustpilot_wert} von 5</b> · {B.trustpilot_anzahl} Bewertungen</div>
-          </a>
+      {(B.trustpilot_aktiv || B.google_aktiv) && (
+        <div class="hero-trust-row hero-in h5">
+          {B.trustpilot_aktiv && (
+            <a class="hero-trust rating" href={B.trustpilot_url || undefined} target="_blank" rel="noopener">
+              <div class="tp-top"><div class="tp-stars"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></div><span class="tp-logo"><span class="s">★</span>Trustpilot</span></div>
+              <div class="tp-meta"><b>{B.trustpilot_wert} von 5</b> · {B.trustpilot_anzahl} Bewertungen</div>
+            </a>
+          )}
+          {B.google_aktiv && (
+            <a class="rating" href={B.google_url || undefined} target="_blank" rel="noopener">
+              <span class="g-logo">Google <span class="g-stars">★★★★★</span></span>
+              <span class="tp-meta"><b>{B.google_wert} von 5</b> · {B.google_anzahl} Bewertungen</span>
+            </a>
+          )}
+        </div>
+      )}
+    </div>
+    <div class="hero-rechts">
+      <div class="hero-media hero-media--gruppe hero-in hm">
+        <div class="hg-buehne">
+          <img class="hero-schild" src={u('/uploads/logos/schild-mono.svg')} alt="" aria-hidden="true">
+          <img class="hero-gruppe" id="heroImg" src={u(S.hero.bild)} srcset={S.hero.bild_klein ? `${u(S.hero.bild_klein)} 820w, ${u(S.hero.bild)} 1400w` : undefined} sizes="(max-width: 1024px) 92vw, 600px" alt={S.hero.bild_alt} width="1400" height="1039" fetchpriority="high">
+        </div>
+        <span class="hero-focus">{S.hero.fokus_label}</span>
+        {S.hero.video_youtube_id && (
+          <button class="hero-play-pille" type="button" data-video={S.hero.video_youtube_id} data-hochkant={S.hero.video_hochkant ? '1' : undefined} data-track="hero_video" aria-label={S.hero.video_unterzeile ? `${S.hero.video_label || 'Video abspielen'}: ${S.hero.video_unterzeile}` : undefined}>
+            <span class="hp-knopf" aria-hidden="true"><span class="hp-wellen"><i></i><i></i><i></i></span><svg viewBox="0 0 22 26"><path d="M21 11.27a2 2 0 0 1 0 3.46L3 24.66A2 2 0 0 1 0 22.93V3.07A2 2 0 0 1 3 1.34L21 11.27Z"/></svg></span>
+            <b>{S.hero.video_label || 'Video abspielen'}</b>
+          </button>
         )}
-        {B.google_aktiv && (
-          <a class="rating" href={B.google_url || undefined} target="_blank" rel="noopener">
-            <span class="g-logo">Google <span class="g-stars">★★★★★</span></span>
-            <span class="tp-meta"><b>{B.google_wert} von 5</b> · {B.google_anzahl} Bewertungen</span>
-          </a>
-        )}
-        <div class="hero-awards">
-          <span class="ha-label">{S.auszeichnungen.titel}</span>
-          <div class="ha-logos">
-            {S.auszeichnungen.logos.map((l) => <img src={u(l.bild)} alt={l.alt} height="72">)}
-            {S.auszeichnungen.textsiegel_bild
-              ? <img class="ha-fb" src={u(S.auszeichnungen.textsiegel_bild)} alt={`${S.auszeichnungen.textsiegel_titel} (${S.auszeichnungen.textsiegel_unter})`} height="72">
-              : <span class="seal-text ha-seal"><span class="ico-box"><Icon name="award" /></span><span><b>{S.auszeichnungen.textsiegel_titel}</b><small>{S.auszeichnungen.textsiegel_unter}</small></span></span>}
-          </div>
+      </div>
+      <div class="hero-awards hero-awards--karte hero-in h5">
+        <span class="ha-label">{S.auszeichnungen.titel}</span>
+        <div class="ha-logos">
+          {S.auszeichnungen.logos.map((l) => <img src={u(l.bild)} alt={l.alt} height="72">)}
+          {S.auszeichnungen.textsiegel_bild
+            ? <img class="ha-fb" src={u(S.auszeichnungen.textsiegel_bild)} alt={`${S.auszeichnungen.textsiegel_titel} (${S.auszeichnungen.textsiegel_unter})`} height="72">
+            : <span class="seal-text ha-seal"><span class="ico-box"><Icon name="award" /></span><span><b>{S.auszeichnungen.textsiegel_titel}</b><small>{S.auszeichnungen.textsiegel_unter}</small></span></span>}
         </div>
       </div>
-    </div>
-    <div class="hero-media hero-media--gruppe hero-in hm">
-      <div class="hg-buehne">
-        <img class="hero-schild" src={u('/uploads/logos/schild-mono.svg')} alt="" aria-hidden="true">
-        <img class="hero-gruppe" id="heroImg" src={u(S.hero.bild)} srcset={S.hero.bild_klein ? `${u(S.hero.bild_klein)} 820w, ${u(S.hero.bild)} 1400w` : undefined} sizes="(max-width: 1024px) 92vw, 640px" alt={S.hero.bild_alt} width="1400" height="1039" fetchpriority="high">
-      </div>
-      <span class="hero-focus">{S.hero.fokus_label}</span>
-      {S.hero.video_youtube_id && (
-        <button class="hero-video" type="button" data-video={S.hero.video_youtube_id} data-hochkant={S.hero.video_hochkant ? '1' : undefined} data-track="hero_video">
-          <span class="hero-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 22 26" fill="none"><path d="M21 11.27a2 2 0 0 1 0 3.46L3 24.66A2 2 0 0 1 0 22.93V3.07A2 2 0 0 1 3 1.34L21 11.27Z" fill="#273365"/></svg></span>
-          <span class="hv-txt"><b>{S.hero.video_label || 'Video ansehen'}</b>{S.hero.video_unterzeile && <small>{S.hero.video_unterzeile}</small>}</span>
-        </button>
-      )}
     </div>
   </div>
 </section>

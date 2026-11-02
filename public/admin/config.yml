@@ -368,7 +368,7 @@ collections:
         name: video_label
         widget: string
         required: false
-      - label: 'Video-Knopf: Unterzeile'
+      - label: 'Video-Knopf: Beschreibung für Screenreader (optional, nicht sichtbar)'
         name: video_unterzeile
         widget: string
         required: false
