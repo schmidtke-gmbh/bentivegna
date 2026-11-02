@@ -21,25 +21,36 @@ const artikel = (await getCollection('artikel'))
 
 // Entwicklung: Monatswerte Umsatz (T€) und Gewinnmarge (%) als Beispielwerte
 const monate = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
-const verlauf = [0, 0.066, 0.145, 0.263, 0.368, 0.474, 0.579, 0.671, 0.789, 0.882, 0.947, 1];
+// Jahresverlauf (Domenico, 2.11.): Frühjahr und Herbst stärker, Sommer und Jahreswechsel flacher. Eckwerte bleiben.
+const kumuliert = (w: number[]) => { const summe = w.reduce((a, b) => a + b, 0); let c = 0; return [0, ...w.map((x) => (c += x) / summe)]; };
+const verlaufU = kumuliert([0.5, 0.9, 1.4, 1.4, 0.9, 0.4, 0.4, 0.9, 1.4, 1.3, 0.5]);
+const verlaufM = kumuliert([0.7, 1.0, 1.25, 1.2, 0.9, 0.55, 0.55, 0.95, 1.25, 1.1, 0.55]);
 const ent = S.entwicklung;
 // Hero: zweite Zeile an den Punkten in feste Zeilen teilen ("RENTABEL." kommt mit in die erste Zeile)
 const heroTeile = S.hero.zeile2.split(/(?<=\.)\s+/).filter(Boolean);
 const reihe = monate.map((m, i) => {
-  const umsatz = Math.round(ent.umsatz_start + (ent.umsatz_ende - ent.umsatz_start) * verlauf[i]);
-  const marge = ent.kpi_marge_von + (ent.kpi_marge_auf - ent.kpi_marge_von) * Math.pow(i / 11, 0.85);
-  return { m, u: umsatz, g: Math.round((umsatz * marge) / 100) };
+  const u = Math.round(ent.umsatz_start + (ent.umsatz_ende - ent.umsatz_start) * verlaufU[i]);
+  const mg = Math.round((ent.kpi_marge_von + (ent.kpi_marge_auf - ent.kpi_marge_von) * verlaufM[i]) * 10) / 10;
+  return { m, u, mg, g: Math.round((u * mg) / 100) };
 });
-// Umsatz/Gewinn-Chart schon beim Bauen als SVG, damit er ohne JavaScript und im Druck sichtbar ist (Rechnung wie in startseite.ts)
-const CW = 1000, CH = 300, cPadT = 24, cPlotH = CH - cPadT - 58;
-const cuMin = Math.min(...reihe.map((d) => d.u)) - 150, cuMax = Math.max(...reihe.map((d) => d.u)) + 50, cgMax = Math.max(...reihe.map((d) => d.g)) * 2.4;
+// Umsatz/Marge-Chart schon beim Bauen als SVG, damit er ohne JavaScript und im Druck sichtbar ist.
+// Zwei beschriftete Achsen auf denselben fünf Gitterlinien: links Umsatz in Mio €, rechts Gewinnmarge in %.
+const CW = 1000, CH = 300, cPadT = 20, cPadB = 50, cPlotH = CH - cPadT - cPadB;
+const uWerte = reihe.map((d) => d.u), mWerte = reihe.map((d) => d.mg);
+let uSchritt = Math.max(100, Math.ceil((Math.max(...uWerte) - Math.min(...uWerte) + 200) / 4 / 100) * 100);
+let uMin = Math.floor((Math.min(...uWerte) - uSchritt / 2) / uSchritt) * uSchritt;
+while (uMin + 4 * uSchritt < Math.max(...uWerte)) uSchritt += 100;
+const mSchritt = Math.max(1, Math.ceil(Math.max(...mWerte) / 4));
+const skala = { uMin, uMax: uMin + 4 * uSchritt, mMin: 0, mMax: 4 * mSchritt, padT: cPadT, padB: cPadB };
 const cX = (i: number) => (i / (reihe.length - 1)) * CW;
-const cYU = (v: number) => cPadT + (1 - (v - cuMin) / (cuMax - cuMin)) * cPlotH;
-const cYG = (v: number) => cPadT + (1 - v / cgMax) * cPlotH;
+const cYU = (v: number) => cPadT + (1 - (v - skala.uMin) / (skala.uMax - skala.uMin)) * cPlotH;
+const cYM = (v: number) => cPadT + (1 - (v - skala.mMin) / (skala.mMax - skala.mMin)) * cPlotH;
 const cPfad = (f: (i: number) => number) => reihe.map((_, i) => (i ? 'L' : 'M') + cX(i).toFixed(1) + ',' + f(i).toFixed(1)).join(' ');
-const chartLinieU = cPfad((i) => cYU(reihe[i].u)), chartLinieG = cPfad((i) => cYG(reihe[i].g));
-const chartFlaecheU = 'M0,' + CH + ' ' + chartLinieU.replace(/^M/, 'L') + ' L' + CW + ',' + CH + ' Z';
-const chartFlaecheG = 'M0,' + CH + ' ' + chartLinieG.replace(/^M/, 'L') + ' L' + CW + ',' + CH + ' Z';
+const chartLinieU = cPfad((i) => cYU(reihe[i].u)), chartLinieG = cPfad((i) => cYM(reihe[i].mg));
+const chartFlaecheU = 'M0,' + (CH - cPadB) + ' ' + chartLinieU.replace(/^M/, 'L') + ' L' + CW + ',' + (CH - cPadB) + ' Z';
+const chartFlaecheG = 'M0,' + (CH - cPadB) + ' ' + chartLinieG.replace(/^M/, 'L') + ' L' + CW + ',' + (CH - cPadB) + ' Z';
+const gitter = [0, 1, 2, 3, 4].map((k) => ({ y: cPadT + (1 - k / 4) * cPlotH, u: (skala.uMin + k * uSchritt) / 1000, m: skala.mMin + k * mSchritt }));
+const pctY = (y: number) => ((y / CH) * 100).toFixed(2) + '%';
 const mio = (t: number) => (t / 1000).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Mio €';
 
 const initialen = (n: string) => n.split(' ').map((w) => w[0]).slice(0, 2).join('');
@@ -437,12 +448,12 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
             <p>{ent.karte1_text}</p>
             <div class="uz-chiprow">{ent.karte1_chips.map((c, i) => <span class="uz-pill"><em>{i === 0 ? '+' : '✓'}</em> {c}</span>)}</div>
           </div>
-          <figure class="uz-film"><video src={u('/uploads/entwicklung/nachkalkulation.mp4')} poster={u('/uploads/entwicklung/nachkalkulation-ende.webp')} data-startbild={u('/uploads/entwicklung/nachkalkulation-start.webp')} muted loop playsinline preload="none" aria-label="Animierte Beispielrechnung: Deckungsbeitrag einer Baustelle und was 2 Prozentpunkte mehr Marge im Jahr bringen" data-film></video><img class="uz-film-druck" src={u('/uploads/entwicklung/nachkalkulation-ende.webp')} alt="" aria-hidden="true" loading="lazy"></figure>
+          <figure class="uz-film"><video src={u('/uploads/entwicklung/nachkalkulation.mp4')} poster={u('/uploads/entwicklung/nachkalkulation-ende.webp')} data-startbild={u('/uploads/entwicklung/nachkalkulation-start.webp')} muted loop playsinline preload="none" aria-label="Animierte Beispielrechnung einer Baustelle (Wärmepumpe): Auftragswert 38.400 €, Material, Lohnkosten, Deckungsbeitrag 12.120 €, Gemeinkosten, Ergebnis 6.020 €. Danach: was 2 Prozentpunkte mehr Marge im Jahr bringen" data-film></video><img class="uz-film-druck" src={u('/uploads/entwicklung/nachkalkulation-ende.webp')} alt="" aria-hidden="true" loading="lazy"></figure>
         </div>
       </article>
       <article class="uz-karte uz-karte--gedreht" style="--i:1">
         <div class="uz-karte-innen">
-          <figure class="uz-film"><video src={u('/uploads/entwicklung/liquiditaet.mp4')} poster={u('/uploads/entwicklung/liquiditaet-ende.webp')} data-startbild={u('/uploads/entwicklung/liquiditaet-start.webp')} muted loop playsinline preload="none" aria-label="Animierter Beispielverlauf: Kontostand über 13 Wochen ohne und mit Abschlagsplan" data-film></video><img class="uz-film-druck" src={u('/uploads/entwicklung/liquiditaet-ende.webp')} alt="" aria-hidden="true" loading="lazy"></figure>
+          <figure class="uz-film"><video src={u('/uploads/entwicklung/liquiditaet.mp4')} poster={u('/uploads/entwicklung/liquiditaet-ende.webp')} data-startbild={u('/uploads/entwicklung/liquiditaet-start.webp')} muted loop playsinline preload="none" aria-label="Animierter Beispielverlauf: Kontostand über 13 Wochen für eine Baustelle, ohne Plan bis −42.000 €, mit Abschlagsplan nie unter +18.000 €" data-film></video><img class="uz-film-druck" src={u('/uploads/entwicklung/liquiditaet-ende.webp')} alt="" aria-hidden="true" loading="lazy"></figure>
           <div class="uz-text">
             <span class="uz-eyebrow"><Icon name="wallet" /> {ent.karte2_eyebrow}</span>
             <h3>{ent.karte2_titel}</h3>
@@ -460,20 +471,26 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
       </div>
       <div class="uz-feed">
         <div class="uz-feed-top">
-          <h3>Umsatz und Gewinn</h3>
+          <h3>Umsatz und Gewinnmarge</h3>
           <p>Monat für Monat, vom Start bis heute.</p>
-          <div class="uz-legend"><span><i style="background:#998a6d"></i>Umsatz</span><span><i style="background:#273365"></i>Gewinn</span></div>
+          <div class="uz-legend"><span><i style="background:#998a6d"></i>Umsatz in Mio € (Achse links)</span><span><i style="background:#273365"></i>Gewinnmarge in % (Achse rechts)</span></div>
         </div>
-        <div class="uz-chart" id="uzChart" data-reihe={JSON.stringify(reihe)}>
-          <svg viewBox={`0 0 ${CW} ${CH}`} preserveAspectRatio="none" aria-hidden="true"><defs>
-            <linearGradient id="uzg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(153,138,109,.30)"/><stop offset="1" stop-color="rgba(153,138,109,0)"/></linearGradient>
-            <linearGradient id="uzn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(39,51,101,.16)"/><stop offset="1" stop-color="rgba(39,51,101,0)"/></linearGradient></defs>
-            <path d={chartFlaecheU} fill="url(#uzg)"/><path d={chartFlaecheG} fill="url(#uzn)"/>
-            <path class="uz-line" d={chartLinieU} fill="none" stroke="#998a6d" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/>
-            <path class="uz-line" d={chartLinieG} fill="none" stroke="#273365" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <div class="uz-months">{reihe.map((d) => <span>{d.m}</span>)}</div>
-          <div class="uz-chip start"><span class="l">Start</span><span class="v">{mio(reihe[0].u)}<small>Gewinn {reihe[0].g} T€</small></span></div>
-          <div class="uz-chip end"><span class="l">Heute</span><span class="v">{mio(reihe[11].u)}<small>Gewinn {reihe[11].g} T€</small></span></div>
+        <div class="uz-achsen-titel" aria-hidden="true"><span class="u">Mio €</span><span class="m">Marge</span></div>
+        <div class="uz-chart" id="uzChart" data-reihe={JSON.stringify(reihe)} data-skala={JSON.stringify(skala)}>
+          <div class="uz-achse uz-achse--l" aria-hidden="true">{gitter.map((t) => <span style={`top:${pctY(t.y)}`}>{t.u.toLocaleString('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</span>)}</div>
+          <div class="uz-achse uz-achse--r" aria-hidden="true">{gitter.map((t) => <span style={`top:${pctY(t.y)}`}>{t.m} %</span>)}</div>
+          <div class="uz-plot">
+            <svg viewBox={`0 0 ${CW} ${CH}`} preserveAspectRatio="none" aria-hidden="true"><defs>
+              <linearGradient id="uzg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(153,138,109,.16)"/><stop offset="1" stop-color="rgba(153,138,109,0)"/></linearGradient>
+              <linearGradient id="uzn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(39,51,101,.07)"/><stop offset="1" stop-color="rgba(39,51,101,0)"/></linearGradient></defs>
+              {gitter.map((t, k) => <line x1="0" x2={CW} y1={t.y} y2={t.y} stroke={k === 0 ? '#d9d4c7' : '#ebe8e0'} stroke-width="1" vector-effect="non-scaling-stroke" stroke-dasharray={k === 0 ? undefined : '4 4'} />)}
+              <path d={chartFlaecheU} fill="url(#uzg)"/><path d={chartFlaecheG} fill="url(#uzn)"/>
+              <path class="uz-line" d={chartLinieU} fill="none" stroke="#998a6d" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/>
+              <path class="uz-line" d={chartLinieG} fill="none" stroke="#273365" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="uz-months">{reihe.map((d) => <span>{d.m}</span>)}</div>
+          </div>
+          <div class="uz-chip start"><span class="l">Start</span><span class="v">{mio(reihe[0].u)}<small>Gewinn {reihe[0].g} T€ · {reihe[0].mg.toLocaleString('de-DE')} %</small></span></div>
+          <div class="uz-chip end"><span class="l">Heute</span><span class="v">{mio(reihe[11].u)}<small>Gewinn {reihe[11].g} T€ · {reihe[11].mg.toLocaleString('de-DE')} %</small></span></div>
         </div>
       </div>
       <div class="uz-note">{ent.hinweis}</div>

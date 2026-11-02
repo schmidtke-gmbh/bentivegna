@@ -13,6 +13,7 @@
   3,1 s   tiefster Stand −42.000 €, Fläche unter null wird sichtbar
   4,9 s   Umschalter springt auf „Mit Abschlagsplan“, alte Linie tritt zurück
   5,2 s   neue Linie mit Anzahlung und Abschlägen, bleibt über null
+  7,1 s   Schlusszahlung auch auf der neuen Linie markiert (beide Kurven tragen dieselben Marken)
   7,4 s   tiefster Stand +18.000 €
   11,1 s  Linien und Markierungen blenden aus
 -->
@@ -27,9 +28,9 @@
   #stage{position:absolute;left:0;top:0;width:520px;height:340px;zoom:2;overflow:hidden;background:#fbfaf7}
 
   #kopf{position:absolute;left:24px;right:24px;top:16px;height:30px;display:flex;align-items:center;gap:10px}
-  #kopf .t{font-size:14px;font-weight:700}
-  #schalter{position:relative;margin-left:auto;display:flex;background:#efece4;border-radius:20px;padding:3px;font-size:12px;font-weight:700}
-  #schalter > span{position:relative;padding:4px 10px;color:#7f7566;white-space:nowrap}
+  #kopf .t{font-size:13.5px;font-weight:700;white-space:nowrap;letter-spacing:-.005em}
+  #schalter{position:relative;margin-left:auto;display:flex;background:#efece4;border-radius:20px;padding:3px;font-size:11.5px;font-weight:700}
+  #schalter > span{position:relative;padding:4px 8px;color:#7f7566;white-space:nowrap}
   #schalter .bg{position:absolute;inset:0;border-radius:20px;background:#fff;box-shadow:0 1px 3px rgba(39,51,101,.18)}
   #schalter em{position:relative;font-style:normal}
   #bg-b{opacity:0}
@@ -59,7 +60,7 @@
 <body>
 <div id="root" data-composition-id="liquiditaet" data-start="0" data-duration="12" data-width="1040" data-height="680" data-fps="30">
   <div id="stage" data-layout-allow-overflow data-layout-allow-overlap data-layout-ignore>
-    <div id="kopf"><span class="t">Kontostand der nächsten 13 Wochen</span>
+    <div id="kopf"><span class="t">Kontostand über 13 Wochen: eine Baustelle</span>
       <div id="schalter"><span id="opt-a"><i class="bg" id="bg-a"></i><em>Ohne Plan</em></span><span id="opt-b"><i class="bg" id="bg-b"></i><em>Mit Abschlagsplan</em></span></div>
     </div>
     <div class="trenn"></div>
@@ -84,6 +85,7 @@
     <span class="chip rein" id="ev-anz">Anzahlung</span>
     <span class="chip rein" id="ev-ab1">Abschlag</span>
     <span class="chip rein" id="ev-ab2">Abschlag</span>
+    <span class="chip rein" id="ev-schluss-b">Schlusszahlung</span>
     <span class="marke" id="marke-a">−42.000 €</span>
     <span class="marke" id="marke-b">+18.000 €</span>
   </div>
@@ -127,7 +129,7 @@
       // Punkte und Beschriftungen positionieren
       var setze = function (id, w, v, dy) { var el = document.getElementById(id); el.style.left = x(w) + "px"; el.style.top = (y(v) + dy) + "px"; };
       setze("ev-mat", 2, 2, 12); setze("ev-lohn1", 4.2, -20, 12); setze("ev-lohn2", 9.6, -29, 14);
-      setze("ev-schluss", 11, 30, -30); setze("ev-anz", 1, 34, -30); setze("ev-ab1", 5, 38, -30); setze("ev-ab2", 8, 40, -30);
+      setze("ev-schluss", 11, 30, -30); setze("ev-anz", 1, 34, -30); setze("ev-ab1", 5, 38, -30); setze("ev-ab2", 8, 40, -30); setze("ev-schluss-b", 11, 44, -30);
       setze("marke-a", 7, -42, -10); setze("marke-b", 3, 18, -10);
       var pa = document.getElementById("punkt-a"), pb = document.getElementById("punkt-b");
       pa.setAttribute("cx", x(7)); pa.setAttribute("cy", y(-42)); pb.setAttribute("cx", x(3)); pb.setAttribute("cy", y(18));
@@ -139,7 +141,7 @@
         var o = { v: von };
         tl.fromTo(o, { v: von }, { v: bis, duration: dauer, ease: "power2.out", immediateRender: false, onUpdate: function () { kpi.textContent = euro(o.v); } }, t);
       }
-      var chipsA = ["#ev-mat", "#ev-lohn1", "#ev-lohn2", "#ev-schluss"], chipsB = ["#ev-anz", "#ev-ab1", "#ev-ab2"];
+      var chipsA = ["#ev-mat", "#ev-lohn1", "#ev-lohn2", "#ev-schluss"], chipsB = ["#ev-anz", "#ev-ab1", "#ev-ab2", "#ev-schluss-b"];
       var allesWeg = chipsA.concat(chipsB, ["#marke-a", "#marke-b", "#punkt-a", "#punkt-b", "#flaeche-a", "#flaeche-b", "#kpi"]);
 
       // Startbild: nur Kopf, Umschalter und Achsen
@@ -172,7 +174,7 @@
       tl.fromTo(["#flaeche-a", "#marke-a", "#punkt-a"].concat(chipsA), { opacity: 1 }, { opacity: 0, duration: 0.4, ease: "power1.out", immediateRender: false }, 5.0);
       tl.fromTo("#linie-b", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 2.2, ease: "power1.inOut", immediateRender: false }, 5.2);
       tl.fromTo("#flaeche-b", { opacity: 0, clipPath: "inset(0 100% 0 0)" }, { opacity: 1, clipPath: "inset(0 0% 0 0)", duration: 2.2, ease: "power1.inOut", immediateRender: false }, 5.2);
-      [["#ev-anz", 5.35], ["#ev-ab1", 6.0], ["#ev-ab2", 6.6]].forEach(function (c) {
+      [["#ev-anz", 5.35], ["#ev-ab1", 6.0], ["#ev-ab2", 6.6], ["#ev-schluss-b", 7.05]].forEach(function (c) {
         tl.fromTo(c[0], { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(2)", immediateRender: false }, c[1]);
       });
       zaehlen(-42000, 18000, 5.6, 1.8);

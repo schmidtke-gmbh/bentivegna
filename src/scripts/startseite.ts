@@ -77,45 +77,33 @@ function methode() {
 function chart() {
   const wrap = document.getElementById('uzChart');
   if (!wrap) return;
-  const data: { m: string; u: number; g: number }[] = JSON.parse(wrap.dataset.reihe || '[]');
+  // Reihe und Skala kommen fertig aus index.astro (SVG ist dort schon gezeichnet): links Umsatz in Mio €, rechts Gewinnmarge in %
+  const data: { m: string; u: number; mg: number; g: number }[] = JSON.parse(wrap.dataset.reihe || '[]');
+  const sk = JSON.parse(wrap.dataset.skala || '{}') as { uMin: number; uMax: number; mMin: number; mMax: number; padT: number; padB: number };
   const n = data.length;
-  if (!n) return;
-  const VBW = 1000, VBH = 300, padT = 24, padB = 58, plotH = VBH - padT - padB;
-  const uv = data.map((d) => d.u), gv = data.map((d) => d.g);
-  const uMin = Math.min(...uv) - 150, uMax = Math.max(...uv) + 50;
-  // Gewinn auf eigener Skala im unteren Bereich, damit beide Kurven lesbar bleiben
-  const gMin = 0, gMax = Math.max(...gv) * 2.4;
-  const X = (i: number) => (i / (n - 1)) * VBW;
-  const YU = (v: number) => padT + (1 - (v - uMin) / (uMax - uMin)) * plotH;
-  const YG = (v: number) => padT + (1 - (v - gMin) / (gMax - gMin)) * plotH;
-  const pfad = (f: (i: number) => number) => data.map((_, i) => (i ? 'L' : 'M') + X(i).toFixed(1) + ',' + f(i).toFixed(1)).join(' ');
-  const lineU = pfad((i) => YU(data[i].u)), lineG = pfad((i) => YG(data[i].g));
-  const areaU = 'M0,' + VBH + ' ' + lineU.replace(/^M/, 'L') + ' L' + VBW + ',' + VBH + ' Z';
-  const areaG = 'M0,' + VBH + ' ' + lineG.replace(/^M/, 'L') + ' L' + VBW + ',' + VBH + ' Z';
-  const svg = `<svg viewBox="0 0 ${VBW} ${VBH}" preserveAspectRatio="none" aria-hidden="true"><defs>
-    <linearGradient id="uzg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(153,138,109,.30)"/><stop offset="1" stop-color="rgba(153,138,109,0)"/></linearGradient>
-    <linearGradient id="uzn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(39,51,101,.16)"/><stop offset="1" stop-color="rgba(39,51,101,0)"/></linearGradient></defs>
-    <path d="${areaU}" fill="url(#uzg)"/><path d="${areaG}" fill="url(#uzn)"/>
-    <path class="uz-line" d="${lineU}" fill="none" stroke="#998a6d" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/>
-    <path class="uz-line" d="${lineG}" fill="none" stroke="#273365" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-  const months = '<div class="uz-months">' + data.map((d) => `<span>${d.m}</span>`).join('') + '</div>';
-  wrap.insertAdjacentHTML('afterbegin', (wrap.querySelector('svg') ? '' : svg + months) + '<div class="uz-guide"></div><div class="uz-dot"></div><div class="uz-dot g"></div><div class="uz-tip"></div>');
-  const guide = wrap.querySelector<HTMLElement>('.uz-guide')!, dots = wrap.querySelectorAll<HTMLElement>('.uz-dot'), tip = wrap.querySelector<HTMLElement>('.uz-tip')!;
+  const plot = wrap.querySelector<HTMLElement>('.uz-plot');
+  if (!n || !plot || sk.uMax === undefined) return;
+  const VBH = 300, plotH = VBH - sk.padT - sk.padB;
+  const YU = (v: number) => sk.padT + (1 - (v - sk.uMin) / (sk.uMax - sk.uMin)) * plotH;
+  const YM = (v: number) => sk.padT + (1 - (v - sk.mMin) / (sk.mMax - sk.mMin)) * plotH;
+  plot.insertAdjacentHTML('beforeend', '<div class="uz-guide"></div><div class="uz-dot"></div><div class="uz-dot g"></div><div class="uz-tip"></div>');
+  const guide = plot.querySelector<HTMLElement>('.uz-guide')!, dots = plot.querySelectorAll<HTMLElement>('.uz-dot'), tip = plot.querySelector<HTMLElement>('.uz-tip')!;
   if (!reduce) {
     const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { wrap.classList.add('gezeichnet'); io.disconnect(); } }), { threshold: 0.3 });
     io.observe(wrap);
   } else wrap.classList.add('gezeichnet');
   const mio = (t: number) => (t / 1000).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Mio €';
   const place = (i: number) => {
-    const H = wrap.clientHeight, ratio = i / (n - 1);
-    const yU = (YU(data[i].u) / VBH) * H, yG = (YG(data[i].g) / VBH) * H;
+    const H = plot.clientHeight, ratio = i / (n - 1);
+    const yU = (YU(data[i].u) / VBH) * H, yM = (YM(data[i].mg) / VBH) * H;
     guide.style.left = ratio * 100 + '%'; guide.style.opacity = '1';
-    [yU, yG].forEach((y, k) => { dots[k].style.left = ratio * 100 + '%'; dots[k].style.top = y + 'px'; dots[k].style.opacity = '1'; });
-    tip.style.left = ratio * 100 + '%'; tip.style.top = yU + 'px'; tip.style.opacity = '1';
-    const marge = ((data[i].g / data[i].u) * 100).toLocaleString('de-DE', { maximumFractionDigits: 1 });
-    tip.innerHTML = `${data[i].m} · Umsatz <b>${mio(data[i].u)}</b> · Gewinn <b>${data[i].g} T€</b> (${marge} %)`;
+    [yU, yM].forEach((y, k) => { dots[k].style.left = ratio * 100 + '%'; dots[k].style.top = y + 'px'; dots[k].style.opacity = '1'; });
+    tip.innerHTML = `${data[i].m} · Umsatz <b>${mio(data[i].u)}</b> · Marge <b>${data[i].mg.toLocaleString('de-DE')} %</b> · Gewinn ${data[i].g} T€`;
+    // Tooltip bleibt im Diagramm, auch ganz links und rechts und auf dem Handy
+    const W = plot.clientWidth, tw = Math.min(tip.offsetWidth, W);
+    tip.style.left = Math.max(tw / 2, Math.min(W - tw / 2, ratio * W)) + 'px'; tip.style.top = Math.min(yU, yM) + 'px'; tip.style.opacity = '1';
   };
-  const move = (e: PointerEvent) => { const r = wrap.getBoundingClientRect(); const ratio = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)); place(Math.round(ratio * (n - 1))); };
+  const move = (e: PointerEvent) => { const r = plot.getBoundingClientRect(); const ratio = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)); place(Math.round(ratio * (n - 1))); };
   wrap.addEventListener('pointermove', move);
   wrap.addEventListener('pointerdown', move);
   wrap.addEventListener('pointerleave', () => { guide.style.opacity = '0'; dots.forEach((d) => (d.style.opacity = '0')); tip.style.opacity = '0'; });
