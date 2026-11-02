@@ -27,7 +27,8 @@ function onScroll() {
   const h = document.documentElement.scrollHeight - window.innerHeight;
   if (prog) prog.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
   nav?.classList.toggle('scrolled', y > 24);
-  if (heroImg && !reduce && y < 900) heroImg.style.transform = 'scale(1.06) translateY(' + y * 0.05 + 'px)';
+  // Freigestellte Gruppe nicht vergrößern: sonst schneidet die Ausblend-Maske die äußeren Personen seitlich ab
+  if (heroImg && !reduce && y < 900) heroImg.style.transform = heroImg.classList.contains('hero-gruppe') ? 'translateY(' + y * 0.04 + 'px)' : 'scale(1.06) translateY(' + y * 0.05 + 'px)';
 }
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
