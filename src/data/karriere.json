@@ -232,6 +232,11 @@
         "gross": true
       },
       {
+        "bild": "/uploads/logos/kununu-top-company-2025.svg",
+        "alt": "kununu Top Company 2025",
+        "gross": true
+      },
+      {
         "bild": "/uploads/logos/kununu-top-company-2026.png",
         "alt": "kununu Top Company 2026",
         "gross": true
@@ -484,7 +489,7 @@
     "siegel": [
       {
         "jahr": "2025",
-        "bild": ""
+        "bild": "/uploads/logos/kununu-top-company-2025.svg"
       },
       {
         "jahr": "2026",

@@ -8,6 +8,16 @@ const claim = variante === 'karriere'
   ? 'Unternehmerberatung & Steuerstrategie, Überlingen am Bodensee'
   : 'Steuer- & Unternehmerberatung, spezialisiert auf SHK-Betriebe in ganz Deutschland. Digital, persönlich, per Teams.';
 const wa = waLink(E.whatsapp);
+// Social-Media-Profile: Reihenfolge und Links aus „Kontakt & Einstellungen“, leere Felder erscheinen nicht
+const S: Record<string, string> = (E as any).social || {};
+const sozial = [
+  { name: 'youtube', label: 'YouTube', href: E.youtube },
+  { name: 'instagram', label: 'Instagram', href: S.instagram },
+  { name: 'facebook', label: 'Facebook', href: S.facebook },
+  { name: 'linkedin', label: 'LinkedIn', href: S.linkedin },
+  { name: 'kununu', label: 'kununu', href: S.kununu_url }
+].filter((x) => x.href) as { name: 'youtube' | 'instagram' | 'facebook' | 'linkedin' | 'kununu'; label: string; href: string }[];
+const cookiebot = !!(E.tracking as any).cookiebot_id;
 ---
 <footer>
   <div class="wrap">
@@ -15,9 +25,11 @@ const wa = waLink(E.whatsapp);
       <div class="foot-brand">
         <img class="foot-logo" src={u('/uploads/logos/logo-quer.svg')} alt="Bentivegna" style="filter:brightness(0) invert(1)" width="210" height="40">
         <p>{claim}</p>
-        <div class="foot-social">
-          <a href={E.youtube} target="_blank" rel="noopener" aria-label="YouTube-Kanal von Bentivegna"><Brand name="youtube" class="" /> YouTube</a>
-        </div>
+        {sozial.length > 0 && (
+          <ul class="foot-social" aria-label="Bentivegna in sozialen Netzwerken">
+            {sozial.map((x) => <li><a href={x.href} target="_blank" rel="noopener" aria-label={`Bentivegna bei ${x.label}`} title={x.label} data-track={`social_${x.name}`}><Brand name={x.name} class="" /></a></li>)}
+          </ul>
+        )}
       </div>
       <div class="foot-col">
         <h4>Kanzlei</h4>
@@ -49,7 +61,7 @@ const wa = waLink(E.whatsapp);
       </div>
     </div>
     <div class="foot-bottom">
-      <span class="legal"><a href={u('/impressum/')}>Impressum</a> &nbsp;·&nbsp; <a href={u('/datenschutz/')}>Datenschutz</a></span>
+      <span class="legal"><a href={u('/impressum/')}>Impressum</a> &nbsp;·&nbsp; <a href={u('/datenschutz/')}>Datenschutz</a>{cookiebot && <> &nbsp;·&nbsp; <button type="button" class="foot-cookie" data-cookie-einstellungen>Cookie-Einstellungen</button></>}</span>
       <span class="copy">© {new Date().getFullYear()} {E.firma}</span>
       <a href="https://www.schmidtke-gmbh.de" target="_blank" rel="noopener" class="foot-credit"><span class="cl">Marketing von</span><img class="sk-logo-img" src={u('/uploads/logos/schmidtke-logo-hell.png')} alt="schmidtke." width="85" height="13" loading="lazy"></a>
     </div>

@@ -9,6 +9,12 @@
   "whatsapp": "+49 7551 8411 0",
   "youtube": "https://www.youtube.com/channel/UC3EWTVvsQsLxDs94vO5GWdg",
   "youtube_titel": "Steueroptimierung für Unternehmer",
+  "social": {
+    "instagram": "https://www.instagram.com/steuerrechtbodensee/",
+    "facebook": "https://www.facebook.com/steuerrecht.ueberlingen",
+    "linkedin": "https://www.linkedin.com/company/bentivegna-steuerrecht-%C3%BCberlingen",
+    "kununu_url": "https://www.kununu.com/de/bentivegna-steuerrecht1"
+  },
   "steuerstrategie_url": "/steuerstrategie/",
   "bewertungen": {
     "trustpilot_aktiv": false,
@@ -27,6 +33,10 @@
     "whatsapp": ""
   },
   "tracking": {
+    "cookiebot_id": "",
+    "ga4_id": "",
+    "google_ads_id": "",
+    "meta_pixel_id": "",
     "matomo_url": "",
     "matomo_site_id": ""
   },

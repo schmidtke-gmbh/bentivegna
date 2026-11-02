@@ -226,10 +226,12 @@ p,li,.ans{text-wrap:pretty}
 .foot-contact .ico{width:17px;height:17px;margin-top:3px;color:var(--beige-l)}
 .foot-contact a{color:rgba(255,255,255,.78)}
 .foot-contact a:hover{color:#fff}
-.foot-social{display:flex;gap:10px;margin-top:22px}
-.foot-social a{display:inline-flex;align-items:center;gap:9px;padding:9px 14px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:.88rem;font-weight:600}
-.foot-social a:hover{background:rgba(255,255,255,.12)}
-.foot-social svg{width:18px;height:18px}
+.foot-social{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 0;padding:0;list-style:none}
+.foot-social a{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff;transition:background .2s,border-color .2s,color .2s}
+.foot-social a:hover,.foot-social a:focus-visible{background:var(--beige-l,#ccc4af);border-color:transparent;color:var(--navy-900,#141d3a)}
+.foot-social svg{width:19px;height:19px}
+.foot-cookie{background:none;border:0;padding:0;font:inherit;color:rgba(255,255,255,.6);cursor:pointer}
+.foot-cookie:hover{color:#fff}
 .foot-bottom .legal a+a{margin-left:4px}
 
 /* ---------- Deaktivierte Buttons (fehlende Daten) ---------- */

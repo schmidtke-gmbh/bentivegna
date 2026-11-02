@@ -54,6 +54,11 @@ for _k,_v in {'buchung_url':'Buchungslink (Microsoft Bookings, alle Buchen-Butto
  'leistung':'Was du bekommst','themen':'Worum es geht','schwerpunkt':'Schwerpunkt','liste_titel':'Überschrift der Liste','ablauf':'Ablauf','honorar':'Honorar','pakete':'Pakete','preis':'Preis (z. B. 1.070 €)',
  'steuer':'Steuerhinweis (z. B. inkl. 19 % MwSt.)','empfohlen':'Als „Empfohlen“ hervorheben','anrechnung':'Anrechnung auf einen Folgeauftrag','weiter':'Wie es weitergeht (Folgeaufträge)','person':'Der Mensch dahinter','faq':'Häufige Fragen',
  'siegel_alt':'Bildbeschreibung Siegel (Alt-Text)','button_primaer':'Button 1 (öffnet die Buchung)','button_sekundaer':'Button 2 (springt zum Ablauf)','label':'Kleine Überzeile','steuerstrategie_url':'Link zum Steuerstrategie-Gespräch (Brücke im Anfrage-Formular)'}.items(): L.setdefault(_k,_v)
+# Social Media und Einwilligung (Footer, Cookie-Banner, Tracking)
+for _k,_v in {'social':'Social Media (Links im Footer; leeres Feld = Symbol ausgeblendet)','instagram':'Instagram (Link)','facebook':'Facebook (Link)','linkedin':'LinkedIn (Link)','kununu_url':'kununu (Link)',
+ 'tracking':'Cookie-Banner & Tracking','cookiebot_id':'Cookiebot-ID (Domain Group ID). Ohne ID bleiben Cookie-Banner, Google Analytics, Google Ads und Meta-Pixel aus.',
+ 'ga4_id':'Google Analytics 4: Mess-ID (G-…), lädt nur mit Zustimmung „Statistik“','google_ads_id':'Google Ads: Konto-ID (AW-…), lädt nur mit Zustimmung „Marketing“',
+ 'meta_pixel_id':'Meta-Pixel-ID (nur Ziffern), lädt nur mit Zustimmung „Marketing“','matomo_url':'Matomo: Adresse (optional, ohne Cookies)','matomo_site_id':'Matomo: Website-ID'}.items(): L[_k]=_v
 ICONS=sorted(x[:-4] for x in os.listdir(ROOT+'src/icons'))
 def filecoll(name,label,path,desc):
     d=json.load(open(ROOT+path))

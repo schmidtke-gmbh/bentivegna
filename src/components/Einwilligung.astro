@@ -1,0 +1,43 @@
+---
+// Cookie-Banner (Cookiebot) und einwilligungspflichtige Dienste.
+// Solange unter „Kontakt & Einstellungen → Cookie-Banner & Tracking“ keine Cookiebot-ID steht, wird hier NICHTS ausgegeben:
+// kein Banner, kein Google Analytics, kein Google Ads, kein Meta-Pixel.
+// Mit ID: Google Consent Mode startet auf „verweigert“. Google Analytics 4 lädt erst nach Zustimmung „Statistik“,
+// Google Ads und Meta-Pixel erst nach Zustimmung „Marketing“ (Cookiebot im manuellen Modus, Laden über die Cookiebot-Ereignisse).
+import { E } from '../lib/site';
+const T = E.tracking as Record<string, string>;
+const cb = (T.cookiebot_id || '').trim();
+const ids = { ga: (T.ga4_id || '').trim(), ads: (T.google_ads_id || '').trim(), px: (T.meta_pixel_id || '').trim() };
+---
+{cb && (
+  <>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', functionality_storage: 'granted', security_storage: 'granted', wait_for_update: 500 });
+      gtag('set', 'ads_data_redaction', true);
+    </script>
+    <script is:inline id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid={cb} data-blockingmode="manual" data-culture="DE" type="text/javascript"></script>
+    <script is:inline define:vars={{ ids }}>
+      var geladen = {};
+      function skript(src) { var s = document.createElement('script'); s.async = true; s.src = src; document.head.appendChild(s); }
+      function anwenden() {
+        var c = window.Cookiebot && window.Cookiebot.consent; if (!c) return;
+        var stat = !!c.statistics, mkt = !!c.marketing;
+        gtag('consent', 'update', { analytics_storage: stat ? 'granted' : 'denied', ad_storage: mkt ? 'granted' : 'denied', ad_user_data: mkt ? 'granted' : 'denied', ad_personalization: mkt ? 'granted' : 'denied' });
+        var ga = stat && ids.ga, ads = mkt && ids.ads;
+        if ((ga || ads) && !geladen.gtag) { geladen.gtag = 1; gtag('js', new Date()); skript('https://www.googletagmanager.com/gtag/js?id=' + (ga ? ids.ga : ids.ads)); }
+        if (ga && !geladen.ga) { geladen.ga = 1; gtag('config', ids.ga); }
+        if (ads && !geladen.ads) { geladen.ads = 1; gtag('config', ids.ads); }
+        if (mkt && ids.px && !geladen.px) {
+          geladen.px = 1;
+          !function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); }; if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s); }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+          window.fbq('init', ids.px); window.fbq('track', 'PageView');
+        }
+        if (!mkt && window.fbq) window.fbq('consent', 'revoke');
+        window.bvEinwilligung = { statistik: stat, marketing: mkt, ga: !!(stat && geladen.ga), ads: !!(mkt && geladen.ads), px: !!(mkt && geladen.px) };
+      }
+      ['CookiebotOnConsentReady', 'CookiebotOnAccept', 'CookiebotOnDecline'].forEach(function (ev) { window.addEventListener(ev, anwenden); });
+    </script>
+  </>
+)}

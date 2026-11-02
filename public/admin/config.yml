@@ -3456,6 +3456,27 @@ collections:
       name: youtube_titel
       widget: string
       required: false
+    - label: Social Media (Links im Footer; leeres Feld = Symbol ausgeblendet)
+      name: social
+      widget: object
+      collapsed: true
+      fields:
+      - label: Instagram (Link)
+        name: instagram
+        widget: string
+        required: false
+      - label: Facebook (Link)
+        name: facebook
+        widget: string
+        required: false
+      - label: LinkedIn (Link)
+        name: linkedin
+        widget: string
+        required: false
+      - label: kununu (Link)
+        name: kununu_url
+        widget: string
+        required: false
     - label: Link zum Steuerstrategie-Gespräch (Brücke im Anfrage-Formular)
       name: steuerstrategie_url
       widget: string
@@ -3518,16 +3539,32 @@ collections:
         name: whatsapp
         widget: string
         required: false
-    - label: Tracking
+    - label: Cookie-Banner & Tracking
       name: tracking
       widget: object
       collapsed: true
       fields:
-      - label: Matomo url
+      - label: Cookiebot-ID (Domain Group ID). Ohne ID bleiben Cookie-Banner, Google Analytics, Google Ads und Meta-Pixel aus.
+        name: cookiebot_id
+        widget: string
+        required: false
+      - label: 'Google Analytics 4: Mess-ID (G-…), lädt nur mit Zustimmung „Statistik“'
+        name: ga4_id
+        widget: string
+        required: false
+      - label: 'Google Ads: Konto-ID (AW-…), lädt nur mit Zustimmung „Marketing“'
+        name: google_ads_id
+        widget: string
+        required: false
+      - label: Meta-Pixel-ID (nur Ziffern), lädt nur mit Zustimmung „Marketing“
+        name: meta_pixel_id
+        widget: string
+        required: false
+      - label: 'Matomo: Adresse (optional, ohne Cookies)'
         name: matomo_url
         widget: string
         required: false
-      - label: Matomo site id
+      - label: 'Matomo: Website-ID'
         name: matomo_site_id
         widget: string
         required: false

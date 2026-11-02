@@ -8,8 +8,17 @@ window.bvTrack = function (ev, data = {}) {
   try {
     if (window._paq) window._paq.push(['trackEvent', 'Website', ev, JSON.stringify(data)]);
     (window.dataLayer = window.dataLayer || []).push({ event: ev, ...data });
+    // Nur nach Zustimmung im Cookie-Banner (siehe Einwilligung.astro)
+    const w = window as any, ein = w.bvEinwilligung;
+    if (ein?.ga && w.gtag) w.gtag('event', ev, data);
+    if (ein?.px && w.fbq) {
+      if (ev === 'funnel_formular_abgeschickt') w.fbq('track', 'Lead');
+      else if (ev === 'bewerbung_abgeschickt') w.fbq('track', 'SubmitApplication');
+    }
   } catch (e) { /* bewusst leer */ }
 };
+/* ---------- Cookie-Einstellungen erneut öffnen (Link im Footer, nur mit Cookiebot) ---------- */
+document.querySelectorAll('[data-cookie-einstellungen]').forEach((b) => b.addEventListener('click', () => (window as any).Cookiebot?.renew?.()));
 document.addEventListener('click', (e) => {
   const t = (e.target as HTMLElement).closest('[data-track]') as HTMLElement | null;
   if (t) window.bvTrack(t.dataset.track || 'klick', { ziel: (t as HTMLAnchorElement).href || '' });
