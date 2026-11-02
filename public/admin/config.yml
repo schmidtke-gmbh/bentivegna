@@ -2146,9 +2146,18 @@ collections:
         name: titel
         widget: string
         required: false
-      - label: Bild
-        name: bild
-        widget: image
+      - label: kununu-Siegel (je Jahr, ohne Bild wird es nicht angezeigt)
+        name: siegel
+        widget: list
+        fields:
+        - label: Jahr
+          name: jahr
+          widget: string
+          required: false
+        - label: Bild
+          name: bild
+          widget: image
+          required: false
         required: false
       - label: Text
         name: text
