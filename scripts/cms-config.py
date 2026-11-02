@@ -47,8 +47,13 @@ def field(k,v,ctx=''):
     elif isinstance(v,dict):
         f.update(widget='object',collapsed=True,fields=[field(kk,vv) for kk,vv in v.items()])
     if f.get('widget') not in ('hidden','object','boolean'): f['required']=False
-    if k=='ziel': f['hint']='Link (https://…) oder „bruecke:steuerstrategie“ für den Brücken-Screen'
+    if k=='ziel': f['hint']='Link (https://…), Seite der Website (z. B. /vermoegensstrategie/) oder „bruecke:steuerstrategie“ für den Brücken-Screen'
     return f
+# Beratungsangebote (Vermögens- und Steuerstrategie)
+for _k,_v in {'buchung_url':'Buchungslink (Microsoft Bookings, alle Buchen-Buttons)','fuer_wen':'Für wen','ja_titel':'Überschrift „Das passt“','ja':'Das passt, wenn …','nein_titel':'Überschrift „Das passt nicht“','nein':'Das passt nicht, wenn …',
+ 'leistung':'Was du bekommst','themen':'Worum es geht','schwerpunkt':'Schwerpunkt','liste_titel':'Überschrift der Liste','ablauf':'Ablauf','honorar':'Honorar','pakete':'Pakete','preis':'Preis (z. B. 1.070 €)',
+ 'steuer':'Steuerhinweis (z. B. inkl. 19 % MwSt.)','empfohlen':'Als „Empfohlen“ hervorheben','anrechnung':'Anrechnung auf einen Folgeauftrag','weiter':'Wie es weitergeht (Folgeaufträge)','person':'Der Mensch dahinter','faq':'Häufige Fragen',
+ 'button_primaer':'Button 1 (öffnet die Buchung)','button_sekundaer':'Button 2 (springt zum Ablauf)','label':'Kleine Überzeile','steuerstrategie_url':'Link zum Steuerstrategie-Gespräch (Brücke im Anfrage-Formular)'}.items(): L.setdefault(_k,_v)
 ICONS=sorted(x[:-4] for x in os.listdir(ROOT+'src/icons'))
 def filecoll(name,label,path,desc):
     d=json.load(open(ROOT+path))
@@ -97,6 +102,8 @@ cfg['collections']=[art,kap,
  filecoll('startseite','Startseite','src/data/startseite.json','Alle Texte, Bilder und Zahlen der Startseite, sortiert von oben nach unten wie auf der Seite.'),
  filecoll('karriere','Karriereseite','src/data/karriere.json','Alle Texte und Bilder der Karriereseite. Die einzelnen Stellen pflegst du unter „Offene Stellen“.'),
  st,
+ filecoll('vermoegensstrategie','Vermögensstrategie','src/data/vermoegensstrategie.json','Die Seite /vermoegensstrategie/: Texte, Preise, Fragen und der Buchungslink. „Worum es geht“ und „Wie es weitergeht“ verschwinden, wenn keine Karten mehr drinstehen, „Schwerpunkt“ ohne Überschrift.'),
+ filecoll('steuerstrategie','Steuerstrategie-Gespräch','src/data/steuerstrategie.json','Die Seite /steuerstrategie/: Texte, Preise, Fragen und der Buchungslink.'),
  filecoll('funnel','Anfrage-Formular','src/data/funnel.json','Fragen, Antworten, Ausstiegstexte und Danke-Seite. Welche Antwort wohin führt, ist fest eingebaut. Hier änderst du nur die Texte.'),
  filecoll('einstellungen','Kontakt & Einstellungen','src/data/einstellungen.json','Adresse, Telefon, WhatsApp, Bewertungen und Tracking. Änderungen hier wirken auf der ganzen Website.'),
  filecoll('rechtliches','Impressum & Datenschutz','src/data/rechtliches.json','Die Rechtstexte der Website.')]

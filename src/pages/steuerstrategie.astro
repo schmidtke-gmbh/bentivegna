@@ -1,0 +1,26 @@
+---
+// Steuerstrategie-Gespräch (früher OnePage: steuergestaltung-bodensee.de/steuerstrategie). Texte: src/data/steuerstrategie.json
+import Base from '../layouts/Base.astro';
+import StrategieSeite from '../components/StrategieSeite.astro';
+import D from '../data/steuerstrategie.json';
+import { absUrl, E } from '../lib/site';
+
+const jsonld = [
+  {
+    '@context': 'https://schema.org', '@type': 'Service', name: 'Steuerstrategie-Gespräch', serviceType: 'Steuerstrategie-Gespräch',
+    description: D.seo.beschreibung, url: absUrl('/steuerstrategie/'),
+    provider: { '@id': absUrl('/#kanzlei') }, areaServed: 'DE',
+    offers: D.honorar.pakete.map((p) => ({
+      '@type': 'Offer', name: 'Steuerstrategie-Gespräch ' + p.name,
+      price: p.preis.replace(/[^0-9]/g, ''), priceCurrency: 'EUR', url: D.buchung_url
+    }))
+  },
+  {
+    '@context': 'https://schema.org', '@type': 'FAQPage',
+    mainEntity: D.faq.fragen.map((f) => ({ '@type': 'Question', name: f.frage, acceptedAnswer: { '@type': 'Answer', text: f.antwort.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') } }))
+  }
+];
+---
+<Base titel={D.seo.titel} beschreibung={D.seo.beschreibung} pfad="/steuerstrategie/" bodyClass="page-strategie" cta={{ text: 'Gespräch buchen', href: '#honorar' }} jsonld={jsonld}>
+  <StrategieSeite d={D} seite="steuer" />
+</Base>

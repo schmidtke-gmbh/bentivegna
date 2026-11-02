@@ -9,6 +9,7 @@ import { u, E, md, waLink } from '../../lib/site';
 const wa = waLink(E.whatsapp, 'Hallo Bentivegna, ich habe gerade einen Rückruf angefordert.');
 const schrittNr: Record<string, number> = { s1: 1, s2: 2, s2p: 2, s3: 3, s4: 4, s5: 5 };
 const extern = (z: string) => /^https?:/.test(z);
+const intern = (z: string) => z.startsWith('/');
 ---
 <Base titel={F.seo.titel} beschreibung={F.seo.beschreibung} pfad="/anfrage/" bodyClass="page-funnel" cta={{ text: 'Zur Startseite', href: u('/') }}>
   <section class="fn">
@@ -20,7 +21,7 @@ const extern = (z: string) => /^https?:/.test(z);
         <p>{F.kopf.text}</p>
       </div>
 
-      <div class="fn-card" id="funnel" data-steuerstrategie={E.steuerstrategie_url}>
+      <div class="fn-card" id="funnel" data-steuerstrategie={u(E.steuerstrategie_url)}>
         <div class="fn-top">
           <button type="button" class="fn-back" id="fnBack" hidden><Icon name="chevron-left" /> Zurück</button>
           <div class="fn-prog" aria-hidden="true"><span id="fnBar"></span></div>
@@ -44,7 +45,9 @@ const extern = (z: string) => /^https?:/.test(z);
             <h2 class="fn-frage" tabindex="-1">{x.titel}</h2>
             <p>{x.text}</p>
             <div class="fn-btns">
-              {x.buttons.map((b, i) => extern(b.ziel)
+              {x.buttons.map((b, i) => intern(b.ziel)
+                ? <a class={`btn ${i === 0 ? 'btn--gold' : 'btn--ghost'}`} href={u(b.ziel)} data-track={`funnel_exit_${id}_link`}>{b.text} <span class="arr"></span></a>
+                : extern(b.ziel)
                 ? <a class={`btn ${i === 0 ? 'btn--gold' : 'btn--ghost'}`} href={b.ziel} target="_blank" rel="noopener" data-track={`funnel_exit_${id}_link`}>{b.text} <span class="arr"></span></a>
                 : <button type="button" class={`btn ${i === 0 ? 'btn--gold' : 'btn--ghost'}`} data-geh={b.ziel.replace('bruecke:', 'bruecke-')}>{b.text} <span class="arr"></span></button>)}
             </div>
@@ -55,7 +58,7 @@ const extern = (z: string) => /^https?:/.test(z);
           <span class="ico-box"><Icon name="landmark" /></span>
           <h2 class="fn-frage" tabindex="-1">{F.bruecken.steuerstrategie.titel}</h2>
           <p>{F.bruecken.steuerstrategie.text}</p>
-          <div class="fn-btns"><a class="btn btn--gold" href={E.steuerstrategie_url} id="fnStrategie" data-track="funnel_weiter_steuerstrategie">{F.bruecken.steuerstrategie.button} <span class="arr"></span></a></div>
+          <div class="fn-btns"><a class="btn btn--gold" href={u(E.steuerstrategie_url)} id="fnStrategie" data-track="funnel_weiter_steuerstrategie">{F.bruecken.steuerstrategie.button} <span class="arr"></span></a></div>
         </div>
         <div class="fn-screen fn-exit" data-s="bruecke-nachfolge" hidden>
           <span class="ico-box"><Icon name="award" /></span>

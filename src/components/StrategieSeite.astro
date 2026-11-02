@@ -1,0 +1,231 @@
+---
+// Gemeinsame Vorlage für die beiden Beratungsangebote, die aus dem Funnel heraus verlinkt sind:
+// /vermoegensstrategie/ und /steuerstrategie/ (früher OnePage unter steuergestaltung-bodensee.de).
+// Alle Texte kommen aus src/data/<seite>.json und sind im Redaktionssystem pflegbar.
+// Optionale Abschnitte (themen, schwerpunkt, weiter) erscheinen nur, wenn sie in den Daten stehen.
+import Icon from './Icon.astro';
+import { u, md, E, telLink } from '../lib/site';
+import '../styles/strategie.css';
+
+interface Karte { label?: string; titel: string; text: string }
+interface Props { d: any; seite: string }
+const { d, seite } = Astro.props;
+
+// Markdown-Links mit internem Pfad bekommen die Basis-URL (wichtig für die Vorschau unter /bentivegna/)
+const lnk = (s = '') => md(s).replace(/href="\//g, `href="${u('/')}`);
+const buchen = { href: d.buchung_url, target: '_blank', rel: 'noopener' };
+const themenIcons = ['trending-up', 'shield-check', 'users-round'];
+const leistungIcons = ['file-text', 'monitor', 'list-checks'];
+const weiterIcons = ['layers', 'git-branch', 'users-round', 'landmark', 'scale', 'handshake'];
+const ab = d.honorar?.pakete?.[0];
+---
+<section class="ls-hero">
+  <div class="wrap ls-hero-grid">
+    <div class="ls-hero-copy">
+      <span class="eyebrow">{d.hero.eyebrow}</span>
+      <h1>{d.hero.zeile1 + ' '}<span class="ln2">{d.hero.zeile2}</span></h1>
+      <p class="ls-hero-text">{d.hero.text}</p>
+      <div class="ls-cta">
+        <a class="btn btn--gold" {...buchen} data-track={`${seite}_buchen_hero`}>{d.hero.button_primaer} <span class="arr"></span></a>
+        <a class="btn btn--ghost" href="#ablauf">{d.hero.button_sekundaer} <span class="arr"></span></a>
+      </div>
+      <p class="ls-hinweis"><Icon name="phone" /><span>{d.hero.hinweis} <a href={telLink(E.telefon)} data-track={`${seite}_klaerungscall`}>Ruf uns an: {E.telefon}</a></span></p>
+      <ul class="ls-hero-punkte">
+        {d.hero.punkte.map((p: string) => <li><Icon name="check" />{p}</li>)}
+      </ul>
+    </div>
+    <div class="ls-hero-media">
+      <span class="ls-hero-kreis" aria-hidden="true"></span>
+      <img src={u(d.hero.bild)} alt={d.hero.bild_alt} width="705" height="1100" fetchpriority="high">
+      {ab && (
+        <div class="ls-hero-karte">
+          <span class="ico-box"><Icon name="coins" /></span>
+          <span><b>Festpreis ab {ab.preis}</b><small>{ab.steuer}, vorab vereinbart</small></span>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<section class="section ls-fit">
+  <div class="wrap">
+    <div class="section-head ls-head-mitte reveal">
+      <span class="eyebrow">{d.fuer_wen.eyebrow}</span>
+      <h2>{d.fuer_wen.titel}</h2>
+    </div>
+    <div class="ls-fit-grid">
+      <div class="ls-fit-karte ls-fit-ja reveal">
+        <h3><span class="ls-fit-ic"><Icon name="check" /></span>{d.fuer_wen.ja_titel}</h3>
+        <ul>{d.fuer_wen.ja.map((t: string) => <li><Icon name="check" /><span set:html={lnk(t)} /></li>)}</ul>
+      </div>
+      <div class="ls-fit-karte ls-fit-nein reveal d1">
+        <h3><span class="ls-fit-ic"><Icon name="x" /></span>{d.fuer_wen.nein_titel}</h3>
+        <ul>{d.fuer_wen.nein.map((t: string) => <li><Icon name="x" /><span set:html={lnk(t)} /></li>)}</ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section ls-leistung">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">{d.leistung.eyebrow}</span>
+      <h2>{d.leistung.titel}</h2>
+    </div>
+    <ol class="ls-schiene">
+      {d.leistung.karten.map((k: Karte, i: number) => (
+        <li class={`ls-schiene-karte reveal d${i + 1}`}>
+          <span class="ls-schiene-kopf"><span class="ico-box"><Icon name={leistungIcons[i] || 'check'} /></span><span class="ls-label">{k.label}</span></span>
+          <h3>{k.titel}</h3>
+          <p>{k.text}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+{d.themen?.karten?.length > 0 && (
+  <section class="section ls-themen">
+    <div class="wrap">
+      <div class="section-head ls-head-mitte reveal">
+        <span class="eyebrow">{d.themen.eyebrow}</span>
+        <h2>{d.themen.titel}</h2>
+      </div>
+      <div class="ls-themen-grid">
+        {d.themen.karten.map((k: Karte, i: number) => (
+          <article class={`ls-thema reveal d${i + 1}`}>
+            <span class="ico-box"><Icon name={themenIcons[i] || 'check'} /></span>
+            <span class="ls-label">{k.label}</span>
+            <h3>{k.titel}</h3>
+            <p>{k.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+{d.schwerpunkt?.titel && (
+  <section class="section ls-fokus">
+    <div class="wrap ls-fokus-grid">
+      <div class="ls-fokus-text reveal">
+        <span class="eyebrow">{d.schwerpunkt.eyebrow}</span>
+        <h2>{d.schwerpunkt.titel}</h2>
+        {d.schwerpunkt.absaetze.map((p: string) => <p set:html={lnk(p)} />)}
+        {d.schwerpunkt.hinweis && <p class="ls-fokus-hinweis"><Icon name="sparkles" /><span>{d.schwerpunkt.hinweis}</span></p>}
+      </div>
+      <div class="ls-fokus-liste reveal d1">
+        <h3>{d.schwerpunkt.liste_titel}</h3>
+        <ul>{d.schwerpunkt.liste.map((t: string) => <li><Icon name="check" /><span set:html={lnk(t)} /></li>)}</ul>
+      </div>
+    </div>
+  </section>
+)}
+
+<section class="section ls-ablauf" id="ablauf">
+  <div class="wrap">
+    <div class="section-head ls-head-mitte reveal">
+      <span class="eyebrow">{d.ablauf.eyebrow}</span>
+      <h2>{d.ablauf.titel}</h2>
+    </div>
+    <ol class="ls-schritte">
+      {d.ablauf.schritte.map((s: Karte, i: number) => (
+        <li class={`ls-schritt reveal d${i + 1}`}>
+          <span class="ls-nr">{String(i + 1).padStart(2, '0')}</span>
+          <h3>{s.titel}</h3>
+          <p>{s.text}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<section class="section ls-honorar" id="honorar">
+  <div class="wrap">
+    <div class="section-head ls-head-mitte reveal">
+      <span class="eyebrow">{d.honorar.eyebrow}</span>
+      <h2>{d.honorar.titel}</h2>
+      <p>{d.honorar.text}</p>
+    </div>
+    <div class="ls-pakete">
+      {d.honorar.pakete.map((p: any, i: number) => (
+        <article class={`ls-paket${p.empfohlen ? ' ls-paket--top' : ''} reveal d${i + 1}`}>
+          {p.empfohlen && <span class="ls-paket-badge">Empfohlen</span>}
+          <h3>{p.name}</h3>
+          <p class="ls-preis"><b>{p.preis}</b><small>{p.steuer}</small></p>
+          <p class="ls-paket-text">{p.text}</p>
+          <ul>{p.punkte.map((t: string) => <li><Icon name="check" />{t}</li>)}</ul>
+          <a class={`btn ${p.empfohlen ? 'btn--gold' : 'btn--ghost'}`} {...buchen} data-track={`${seite}_buchen_${p.name.toLowerCase()}`}>{p.name} buchen <span class="arr"></span></a>
+        </article>
+      ))}
+    </div>
+    {d.honorar.anrechnung && <p class="ls-anrechnung reveal"><Icon name="refresh-cw" /><span>{d.honorar.anrechnung}</span></p>}
+  </div>
+</section>
+
+{d.weiter?.karten?.length > 0 && (
+  <section class="section ls-weiter">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">{d.weiter.eyebrow}</span>
+        <h2>{d.weiter.titel}</h2>
+        <p>{d.weiter.text}</p>
+      </div>
+      <div class="ls-weiter-grid">
+        {d.weiter.karten.map((k: Karte, i: number) => (
+          <article class={`ls-weiter-karte reveal d${(i % 3) + 1}`}>
+            <span class="ico-box"><Icon name={weiterIcons[i] || 'check'} /></span>
+            <span class="ls-label">{k.label}</span>
+            <h3>{k.titel}</h3>
+            <p>{k.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<section class="section ls-person">
+  <div class="wrap ls-person-grid">
+    <div class="ls-person-bild reveal">
+      <img src={u(d.person.bild)} alt={d.person.bild_alt} width="900" height="1125" loading="lazy">
+    </div>
+    <div class="ls-person-text reveal d1">
+      <span class="eyebrow">{d.person.eyebrow}</span>
+      <h2>{d.person.titel}</h2>
+      <p>{d.person.text}</p>
+      {d.person.hinweis && <p class="ls-person-hinweis">{d.person.hinweis}</p>}
+      <div class="ls-person-sign"><b>Domenico Bentivegna</b><span>Steuerberater, Überlingen am Bodensee</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section faq ls-faq">
+  <div class="wrap">
+    <div class="section-head ls-head-mitte reveal">
+      <span class="eyebrow">{d.faq.eyebrow}</span>
+      <h2>{d.faq.titel}</h2>
+    </div>
+    <div class="faq-list">
+      {d.faq.fragen.map((f: { frage: string; antwort: string }) => (
+        <details class="faq-item reveal">
+          <summary>{f.frage} <span class="pl">+</span></summary>
+          <div class="ans" set:html={lnk(f.antwort)} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="ls-abschluss">
+  <div class="wrap">
+    <div class="ls-abschluss-box reveal">
+      <h2>{d.abschluss.titel}</h2>
+      <p>{d.abschluss.text}</p>
+      <div class="ls-cta ls-cta--mitte">
+        <a class="btn btn--gold" {...buchen} data-track={`${seite}_buchen_abschluss`}>{d.abschluss.button} <span class="arr"></span></a>
+        <a class="btn btn--light" href={telLink(E.telefon)} data-track={`${seite}_anruf`}>15-Minuten-Klärungscall <span class="arr"></span></a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1400,7 +1400,7 @@ collections:
         name: check_button
         widget: string
         required: false
-    - label: Faq
+    - label: Häufige Fragen
       name: faq
       widget: object
       collapsed: true
@@ -1946,11 +1946,11 @@ collections:
         name: intro_nach
         widget: string
         required: false
-      - label: Ja titel
+      - label: Überschrift „Das passt“
         name: ja_titel
         widget: string
         required: false
-      - label: Ja
+      - label: Das passt, wenn …
         name: ja
         widget: list
         field:
@@ -1958,11 +1958,11 @@ collections:
           name: eintrag
           widget: string
         required: false
-      - label: Nein titel
+      - label: Überschrift „Das passt nicht“
         name: nein_titel
         widget: string
         required: false
-      - label: Nein
+      - label: Das passt nicht, wenn …
         name: nein
         widget: text
         required: false
@@ -2061,7 +2061,7 @@ collections:
           required: false
         summary: '{{fields.name}}'
         required: false
-    - label: Faq
+    - label: Häufige Fragen
       name: faq
       widget: object
       collapsed: true
@@ -2262,6 +2262,709 @@ collections:
     - bulleted-list
     - numbered-list
     editor_components: []
+- name: vermoegensstrategie
+  label: Vermögensstrategie
+  description: 'Die Seite /vermoegensstrategie/: Texte, Preise, Fragen und der Buchungslink. „Worum es geht“ und „Wie es weitergeht“ verschwinden, wenn keine Karten mehr drinstehen, „Schwerpunkt“ ohne Überschrift.'
+  editor:
+    preview: false
+  files:
+  - name: vermoegensstrategie
+    label: Vermögensstrategie
+    file: src/data/vermoegensstrategie.json
+    format: json
+    fields:
+    - label: Google & Social Media
+      name: seo
+      widget: object
+      collapsed: true
+      fields:
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Beschreibung
+        name: beschreibung
+        widget: text
+        required: false
+    - label: Buchungslink (Microsoft Bookings, alle Buchen-Buttons)
+      name: buchung_url
+      widget: string
+      required: false
+    - label: Hero
+      name: hero
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Headline Zeile 1
+        name: zeile1
+        widget: string
+        required: false
+      - label: Headline Zeile 2
+        name: zeile2
+        widget: string
+        required: false
+      - label: Text
+        name: text
+        widget: text
+        required: false
+      - label: Button 1
+        name: button_primaer
+        widget: string
+        required: false
+      - label: Button 2
+        name: button_sekundaer
+        widget: string
+        required: false
+      - label: Hinweis
+        name: hinweis
+        widget: text
+        required: false
+      - label: Punkte
+        name: punkte
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: string
+        required: false
+      - label: Bild
+        name: bild
+        widget: image
+        required: false
+      - label: Bildbeschreibung (Alt-Text)
+        name: bild_alt
+        widget: string
+        required: false
+    - label: Für wen
+      name: fuer_wen
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Überschrift „Das passt“
+        name: ja_titel
+        widget: string
+        required: false
+      - label: Das passt, wenn …
+        name: ja
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: text
+        required: false
+      - label: Überschrift „Das passt nicht“
+        name: nein_titel
+        widget: string
+        required: false
+      - label: Das passt nicht, wenn …
+        name: nein
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: text
+        required: false
+    - label: Was du bekommst
+      name: leistung
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Karten
+        name: karten
+        widget: list
+        fields:
+        - label: Beschriftung
+          name: label
+          widget: string
+          required: false
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        summary: '{{fields.titel}}'
+        required: false
+    - label: Worum es geht
+      name: themen
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Karten
+        name: karten
+        widget: list
+        fields:
+        - label: Beschriftung
+          name: label
+          widget: string
+          required: false
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        summary: '{{fields.titel}}'
+        required: false
+    - label: Schwerpunkt
+      name: schwerpunkt
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Absätze
+        name: absaetze
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: text
+        required: false
+      - label: Überschrift der Liste
+        name: liste_titel
+        widget: string
+        required: false
+      - label: Liste
+        name: liste
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: text
+        required: false
+      - label: Hinweis
+        name: hinweis
+        widget: text
+        required: false
+    - label: Ablauf
+      name: ablauf
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Schritte
+        name: schritte
+        widget: list
+        fields:
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        summary: '{{fields.titel}}'
+        required: false
+    - label: Honorar
+      name: honorar
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Text
+        name: text
+        widget: text
+        required: false
+      - label: Pakete
+        name: pakete
+        widget: list
+        fields:
+        - label: Name
+          name: name
+          widget: string
+          required: false
+        - label: Preis (z. B. 1.070 €)
+          name: preis
+          widget: string
+          required: false
+        - label: Steuerhinweis (z. B. inkl. 19 % MwSt.)
+          name: steuer
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        - label: Punkte
+          name: punkte
+          widget: list
+          field:
+            label: Eintrag
+            name: eintrag
+            widget: string
+          required: false
+        - label: Als „Empfohlen“ hervorheben
+          name: empfohlen
+          widget: boolean
+          required: false
+        summary: '{{fields.name}}'
+        required: false
+      - label: Anrechnung auf einen Folgeauftrag
+        name: anrechnung
+        widget: text
+        required: false
+    - label: Wie es weitergeht (Folgeaufträge)
+      name: weiter
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Text
+        name: text
+        widget: text
+        required: false
+      - label: Karten
+        name: karten
+        widget: list
+        fields:
+        - label: Beschriftung
+          name: label
+          widget: string
+          required: false
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        summary: '{{fields.titel}}'
+        required: false
+    - label: Der Mensch dahinter
+      name: person
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Text
+        name: text
+        widget: text
+        required: false
+      - label: Hinweis
+        name: hinweis
+        widget: text
+        required: false
+      - label: Bild
+        name: bild
+        widget: image
+        required: false
+      - label: Bildbeschreibung (Alt-Text)
+        name: bild_alt
+        widget: string
+        required: false
+    - label: Häufige Fragen
+      name: faq
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Fragen
+        name: fragen
+        widget: list
+        fields:
+        - label: Frage
+          name: frage
+          widget: string
+          required: false
+        - label: Antwort
+          name: antwort
+          widget: text
+          required: false
+        summary: '{{fields.frage}}'
+        required: false
+    - label: Abschlussblock
+      name: abschluss
+      widget: object
+      collapsed: true
+      fields:
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Text
+        name: text
+        widget: text
+        required: false
+      - label: Button-Text
+        name: button
+        widget: string
+        required: false
+- name: steuerstrategie
+  label: Steuerstrategie-Gespräch
+  description: 'Die Seite /steuerstrategie/: Texte, Preise, Fragen und der Buchungslink.'
+  editor:
+    preview: false
+  files:
+  - name: steuerstrategie
+    label: Steuerstrategie-Gespräch
+    file: src/data/steuerstrategie.json
+    format: json
+    fields:
+    - label: Google & Social Media
+      name: seo
+      widget: object
+      collapsed: true
+      fields:
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Beschreibung
+        name: beschreibung
+        widget: text
+        required: false
+    - label: Buchungslink (Microsoft Bookings, alle Buchen-Buttons)
+      name: buchung_url
+      widget: string
+      required: false
+    - label: Hero
+      name: hero
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Headline Zeile 1
+        name: zeile1
+        widget: string
+        required: false
+      - label: Headline Zeile 2
+        name: zeile2
+        widget: string
+        required: false
+      - label: Text
+        name: text
+        widget: text
+        required: false
+      - label: Button 1
+        name: button_primaer
+        widget: string
+        required: false
+      - label: Button 2
+        name: button_sekundaer
+        widget: string
+        required: false
+      - label: Hinweis
+        name: hinweis
+        widget: text
+        required: false
+      - label: Punkte
+        name: punkte
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: string
+        required: false
+      - label: Bild
+        name: bild
+        widget: image
+        required: false
+      - label: Bildbeschreibung (Alt-Text)
+        name: bild_alt
+        widget: string
+        required: false
+    - label: Für wen
+      name: fuer_wen
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Überschrift „Das passt“
+        name: ja_titel
+        widget: string
+        required: false
+      - label: Das passt, wenn …
+        name: ja
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: text
+        required: false
+      - label: Überschrift „Das passt nicht“
+        name: nein_titel
+        widget: string
+        required: false
+      - label: Das passt nicht, wenn …
+        name: nein
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: string
+        required: false
+    - label: Was du bekommst
+      name: leistung
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Karten
+        name: karten
+        widget: list
+        fields:
+        - label: Beschriftung
+          name: label
+          widget: string
+          required: false
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        summary: '{{fields.titel}}'
+        required: false
+    - label: Ablauf
+      name: ablauf
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Schritte
+        name: schritte
+        widget: list
+        fields:
+        - label: Überschrift
+          name: titel
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        summary: '{{fields.titel}}'
+        required: false
+    - label: Honorar
+      name: honorar
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Text
+        name: text
+        widget: text
+        required: false
+      - label: Pakete
+        name: pakete
+        widget: list
+        fields:
+        - label: Name
+          name: name
+          widget: string
+          required: false
+        - label: Preis (z. B. 1.070 €)
+          name: preis
+          widget: string
+          required: false
+        - label: Steuerhinweis (z. B. inkl. 19 % MwSt.)
+          name: steuer
+          widget: string
+          required: false
+        - label: Text
+          name: text
+          widget: text
+          required: false
+        - label: Punkte
+          name: punkte
+          widget: list
+          field:
+            label: Eintrag
+            name: eintrag
+            widget: string
+          required: false
+        - label: Als „Empfohlen“ hervorheben
+          name: empfohlen
+          widget: boolean
+          required: false
+        summary: '{{fields.name}}'
+        required: false
+      - label: Anrechnung auf einen Folgeauftrag
+        name: anrechnung
+        widget: text
+        required: false
+    - label: Der Mensch dahinter
+      name: person
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Text
+        name: text
+        widget: text
+        required: false
+      - label: Hinweis
+        name: hinweis
+        widget: text
+        required: false
+      - label: Bild
+        name: bild
+        widget: image
+        required: false
+      - label: Bildbeschreibung (Alt-Text)
+        name: bild_alt
+        widget: string
+        required: false
+    - label: Häufige Fragen
+      name: faq
+      widget: object
+      collapsed: true
+      fields:
+      - label: Kleine Überzeile
+        name: eyebrow
+        widget: string
+        required: false
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Fragen
+        name: fragen
+        widget: list
+        fields:
+        - label: Frage
+          name: frage
+          widget: string
+          required: false
+        - label: Antwort
+          name: antwort
+          widget: text
+          required: false
+        summary: '{{fields.frage}}'
+        required: false
+    - label: Abschlussblock
+      name: abschluss
+      widget: object
+      collapsed: true
+      fields:
+      - label: Überschrift
+        name: titel
+        widget: string
+        required: false
+      - label: Text
+        name: text
+        widget: text
+        required: false
+      - label: Button-Text
+        name: button
+        widget: string
+        required: false
 - name: funnel
   label: Anfrage-Formular
   description: Fragen, Antworten, Ausstiegstexte und Danke-Seite. Welche Antwort wohin führt, ist fest eingebaut. Hier änderst du nur die Texte.
@@ -2470,7 +3173,7 @@ collections:
             name: ziel
             widget: string
             required: false
-            hint: Link (https://…) oder „bruecke:steuerstrategie“ für den Brücken-Screen
+            hint: Link (https://…), Seite der Website (z. B. /vermoegensstrategie/) oder „bruecke:steuerstrategie“ für den Brücken-Screen
           summary: '{{fields.text}}'
           required: false
       - label: B
@@ -2498,7 +3201,7 @@ collections:
             name: ziel
             widget: string
             required: false
-            hint: Link (https://…) oder „bruecke:steuerstrategie“ für den Brücken-Screen
+            hint: Link (https://…), Seite der Website (z. B. /vermoegensstrategie/) oder „bruecke:steuerstrategie“ für den Brücken-Screen
           summary: '{{fields.text}}'
           required: false
       - label: C
@@ -2526,7 +3229,7 @@ collections:
             name: ziel
             widget: string
             required: false
-            hint: Link (https://…) oder „bruecke:steuerstrategie“ für den Brücken-Screen
+            hint: Link (https://…), Seite der Website (z. B. /vermoegensstrategie/) oder „bruecke:steuerstrategie“ für den Brücken-Screen
           summary: '{{fields.text}}'
           required: false
       - label: D
@@ -2554,7 +3257,7 @@ collections:
             name: ziel
             widget: string
             required: false
-            hint: Link (https://…) oder „bruecke:steuerstrategie“ für den Brücken-Screen
+            hint: Link (https://…), Seite der Website (z. B. /vermoegensstrategie/) oder „bruecke:steuerstrategie“ für den Brücken-Screen
           summary: '{{fields.text}}'
           required: false
       - label: E
@@ -2582,7 +3285,7 @@ collections:
             name: ziel
             widget: string
             required: false
-            hint: Link (https://…) oder „bruecke:steuerstrategie“ für den Brücken-Screen
+            hint: Link (https://…), Seite der Website (z. B. /vermoegensstrategie/) oder „bruecke:steuerstrategie“ für den Brücken-Screen
           summary: '{{fields.text}}'
           required: false
       - label: F
@@ -2610,7 +3313,7 @@ collections:
             name: ziel
             widget: string
             required: false
-            hint: Link (https://…) oder „bruecke:steuerstrategie“ für den Brücken-Screen
+            hint: Link (https://…), Seite der Website (z. B. /vermoegensstrategie/) oder „bruecke:steuerstrategie“ für den Brücken-Screen
           summary: '{{fields.text}}'
           required: false
     - label: Brücken
@@ -2741,7 +3444,7 @@ collections:
       name: youtube_titel
       widget: string
       required: false
-    - label: Steürstrategie url
+    - label: Link zum Steuerstrategie-Gespräch (Brücke im Anfrage-Formular)
       name: steuerstrategie_url
       widget: string
       required: false

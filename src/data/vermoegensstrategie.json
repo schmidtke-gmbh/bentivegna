@@ -1,0 +1,137 @@
+{
+  "seo": {
+    "titel": "Vermögensstrategie & Nachfolge für Privatvermögen | Bentivegna",
+    "beschreibung": "Vermögen aufbauen, sichern, weitergeben: Vermögensstrategie-Gespräch mit Steuerberater Domenico Bentivegna am Bodensee. Immobilien, Versorgung, Familiengesellschaft, Testament, Nachfolge. Festpreis, schriftliches Strategiepapier."
+  },
+  "buchung_url": "https://bookings.cloud.microsoft/book/VermgensstrategiemitDomenico@cfsto.net/",
+  "hero": {
+    "eyebrow": "Vermögen & Nachfolge\u00a0· Privatvermögen",
+    "zeile1": "VERMÖGEN AUFBAUEN.",
+    "zeile2": "SICHERN. WEITERGEBEN.",
+    "text": "Ob du mit hohem Einkommen gerade Vermögen aufbaust oder längst entscheidest, wie es in die nächste Generation geht: Im Vermögensstrategie-Gespräch gehen wir dein Gesamtbild durch, mit allen Möglichkeiten, Risiken und Hebeln bei Hülle, laufender Steuer, Erbschaftsteuer und Weitergabe. Danach bekommst du ein schriftliches Strategiepapier mit den nächsten Schritten.",
+    "button_primaer": "Gespräch buchen",
+    "button_sekundaer": "So läuft es ab",
+    "hinweis": "Vorab unsicher, ob es passt? Ein kurzer 15-Minuten-Klärungscall genügt.",
+    "punkte": [
+      "Vorab-Sichtung deiner Eckdaten",
+      "60 bis 90 Minuten Gespräch per Teams",
+      "Schriftliches Strategiepapier"
+    ],
+    "bild": "/uploads/domenico-freigestellt.webp",
+    "bild_alt": "Domenico Bentivegna, Steuerberater in Überlingen"
+  },
+  "fuer_wen": {
+    "eyebrow": "Für wen",
+    "titel": "Passt das zu dir?",
+    "ja_titel": "Das passt, wenn …",
+    "ja": [
+      "du als Arzt, Zahnarzt, Apotheker, Notar, Führungskraft, Geschäftsführer oder Selbstständiger gut verdienst und daraus Vermögen werden soll, nicht nur Steuer.",
+      "du vor dem Ruhestand oder einer Übergabe stehst und wissen willst, ob alles trägt: Steuer, Vollmachten, Testament, Weitergabe an die Kinder.",
+      "dein Haushaltseinkommen über rund 200.000 € liegt oder du Vermögen ab etwa 1 Mio. € hast, das sich strukturieren lässt."
+    ],
+    "nein_titel": "Das passt nicht, wenn …",
+    "nein": [
+      "du ein konkretes Produkt suchst, etwa eine Immobilie, einen Fonds oder eine Police. Darum geht es hier nicht.",
+      "du eine schnelle Gratis-Meinung erwartest.",
+      "du bereits ein Family Office oder eine unabhängige Gesamtbetreuung hast.",
+      "es um die Struktur deines Unternehmens geht: Holding, Umwandlung, Steuerstrategie. Dafür gibt es das [Steuerstrategie-Gespräch](/steuerstrategie/)."
+    ]
+  },
+  "leistung": {
+    "eyebrow": "Was du bekommst",
+    "titel": "Analyse, Gespräch, Strategiepapier",
+    "karten": [
+      { "label": "Vorab", "titel": "Sichtung deiner Eckdaten", "text": "Kurzer Fragebogen und die wichtigsten Eckdaten: Einkünfte, Immobilien, Depot, Familie. Wir sichten das vor dem Termin, damit wir nicht bei null starten." },
+      { "label": "Im Termin", "titel": "Strategiegespräch per Teams", "text": "60 bis 90 Minuten, in denen wir dein Gesamtbild auf den Tisch legen: wo du stehst, welche Möglichkeiten und Risiken es gibt, welche Hebel sich lohnen und in welcher Reihenfolge." },
+      { "label": "Danach", "titel": "Strategiepapier", "text": "Schwarz auf weiß: deine Ausgangslage, die Möglichkeiten und Risiken im Überblick, die priorisierten nächsten Schritte." }
+    ]
+  },
+  "themen": {
+    "eyebrow": "Worum es geht",
+    "titel": "Drei Felder, ein Gesamtbild",
+    "karten": [
+      { "label": "Vermögensaufbau", "titel": "Steueroptimiert statt zufällig", "text": "Immobilien privat oder in der passenden Hülle (vermögensverwaltende GmbH oder Familienholding), Spekulationsfrist, Abschreibung. Wertpapiere und ETFs: Abgeltungsteuer, Verlustverrechnung, Teilfreistellung, passende Hülle. Kapitalerträge gestalten statt verwalten." },
+      { "label": "Absicherung", "titel": "Substanz schützen, Steuerlast senken", "text": "Vermögen in der richtigen Hülle halten (vermögensverwaltende GmbH, Familienholding, Familienstiftung), damit die laufende Steuerlast sinkt und die Substanz geschützt ist. Dazu der Check, ob Testament, Vorsorgevollmacht und Patientenverfügung zu dieser Struktur passen, damit deine Familie handlungsfähig bleibt." },
+      { "label": "Weitergabe", "titel": "In der Familie halten, mit Erbschaftsteuer im Blick", "text": "Das Übergabekonzept als Ganzes: Familiengesellschaft, auch mit minderjährigen Kindern, Schenkung in Etappen, Freibeträge alle zehn Jahre. Erbschaft- und Schenkungsteuer vor und nach der Übertragung gerechnet, nicht geschätzt. Auf Wunsch auch die Testamentsvollstreckung." }
+    ]
+  },
+  "schwerpunkt": {
+    "eyebrow": "Schwerpunkt",
+    "titel": "Vermögen früh übertragen. Kontrolle behalten.",
+    "absaetze": [
+      "Eine Familiengesellschaft mit deinen Kindern, ausdrücklich auch mit minderjährigen, überträgt Vermögen früh und innerhalb der Freibeträge steuerfrei, ohne dass du das Steuer aus der Hand gibst. Das ist der Hebel, den die meisten zu spät ziehen.",
+      "Hier liegt der Schwerpunkt von Domenico Bentivegna: Immobilien, Depot oder Beteiligung in eine GbR, KG oder GmbH einbringen und die Anteile Schritt für Schritt auf die Kinder übertragen. Die Entscheidungen bleiben bei den Eltern, Erbschaft- und Schenkungsteuer sind vorher und nachher gerechnet."
+    ],
+    "liste_titel": "Was dabei auf den Tisch kommt",
+    "liste": [
+      "Freibeträge alle zehn Jahre nutzen: 400.000 € je Kind und Elternteil.",
+      "Nießbrauch: Die Erträge bleiben bei dir, die Substanz geht auf die Kinder über.",
+      "Stimmrechte beim Elternteil: Du entscheidest weiter, auch wenn die Kinder beteiligt sind.",
+      "Minderjährige Kinder: Beteiligung über Ergänzungspfleger und Familiengericht sauber aufgesetzt.",
+      "Rechtsform nach Zweck: GbR, KG oder GmbH, je nachdem, ob Immobilien, Depot oder Beteiligungen eingebracht werden.",
+      "Testament und Gesellschaftsvertrag müssen zusammenpassen: Nachfolgeklauseln und Letztwille aus einem Guss."
+    ],
+    "hinweis": "Eine Familiengesellschaft mit Kindern ist im Gespräch immer die Stufe Komplex: mehrere Beteiligte, mehrere Bausteine."
+  },
+  "ablauf": {
+    "eyebrow": "Ablauf",
+    "titel": "In vier Schritten",
+    "schritte": [
+      { "titel": "Fragebogen", "text": "Kurzer Online-Fragebogen zu deiner Vermögenssituation: die wichtigsten Eckdaten, sicher und DSGVO-konform übermittelt." },
+      { "titel": "Termin", "text": "Termin online wählen. Das Gespräch findet per Teams statt, das Honorar ist vorab fällig." },
+      { "titel": "Gespräch", "text": "60 bis 90 Minuten mit Domenico Bentivegna: dein Gesamtbild, die Möglichkeiten und Risiken, die Reihenfolge." },
+      { "titel": "Strategiepapier", "text": "Danach dein schriftliches Strategiepapier mit Ausgangslage, Möglichkeiten, Risiken und den nächsten Schritten." }
+    ]
+  },
+  "honorar": {
+    "eyebrow": "Honorar",
+    "titel": "Transparent und planbar",
+    "text": "Festes Honorar, vorab vereinbart. Es ist das Einzige, woran wir verdienen. Die Stufe richtet sich nach der Komplexität deiner Fragestellung, nicht nach der Höhe deines Vermögens. Alle Beträge inkl. 19 % MwSt.",
+    "pakete": [
+      { "name": "Kompakt", "preis": "1.070 €", "steuer": "inkl. 19 % MwSt.", "text": "Ein Thema, zum Beispiel: Immobilie privat oder in der Hülle, Schenkung an die Kinder, Testament und Vollmachten.", "punkte": ["Vorab-Sichtung deiner Eckdaten", "60 Minuten Strategiegespräch per Teams", "Strategiepapier (1 bis 2 Seiten)"], "empfohlen": false },
+      { "name": "Komplex", "preis": "2.140 €", "steuer": "inkl. 19 % MwSt.", "text": "Das Gesamtbild mit mehreren Bausteinen oder mehreren Beteiligten. Eine Familiengesellschaft mit Kindern ist immer Komplex.", "punkte": ["Vertiefte Vorab-Sichtung", "90 Minuten Strategiegespräch per Teams", "Strategiepapier (2 bis 3 Seiten) inkl. indikativer Projektpreise"], "empfohlen": true }
+    ],
+    "anrechnung": "Setzt du anschließend ein Projekt um (z. B. eine Familiengesellschaft), rechnen wir 350 € auf einen Folgeauftrag ab 3.570 € inkl. MwSt. an, beauftragt innerhalb von drei Monaten."
+  },
+  "weiter": {
+    "eyebrow": "Wie es weitergeht",
+    "titel": "Aus dem Papier wird ein Projekt, wenn du willst",
+    "text": "Das Strategiepapier zeigt dir das Gesamtbild. Was du damit machst, entscheidest du. Willst du ein Thema vertiefen oder umsetzen, wird daraus ein klar umrissener Folgeauftrag zu festen Konditionen. Er wird separat beauftragt, das Gesprächshonorar wird angerechnet.",
+    "karten": [
+      { "label": "Folgeauftrag", "titel": "Workshop", "text": "Vertiefung mit Szenarien: Immobilie kaufen oder verkaufen, umschichten, Hülle wechseln. Durchgerechnet, bevor du entscheidest." },
+      { "label": "Folgeauftrag", "titel": "Übergabekonzept", "text": "Das Ganze in einem Konzept: wer bekommt was, wann und in welcher Hülle. Mit Erbschaft- und Schenkungsteuer vor und nach der Übertragung gerechnet." },
+      { "label": "Folgeauftrag", "titel": "Familiengesellschaft", "text": "GbR, KG oder GmbH mit deinen Kindern: Struktur und steuerliche Gestaltung, Schenkung und Nießbrauch, Abstimmung mit Notar und Finanzamt." },
+      { "label": "Folgeauftrag", "titel": "Familienstiftung", "text": "Wenn Vermögen dauerhaft gebunden und vor Zersplitterung geschützt werden soll: Prüfung, Konzept, Errichtung." },
+      { "label": "Folgeauftrag", "titel": "Testament & Vollmachten", "text": "Konzept und steuerliche Folgen durchgerechnet und mit deinem Notar abgestimmt, der die Urkunden errichtet. Auf Wunsch übernehmen wir auch die Testamentsvollstreckung." },
+      { "label": "Folgeauftrag", "titel": "Begleitung einer Transaktion", "text": "Immobilienkauf oder -verkauf, Beteiligung, Übertragung: steuerliche Prüfung und Strukturierung bis zur Unterschrift." }
+    ]
+  },
+  "person": {
+    "eyebrow": "Der Mensch dahinter",
+    "titel": "Beratung statt Verwaltung",
+    "text": "Domenico Bentivegna, Steuerberater und Fachberater für Unternehmensnachfolge (DStV e. V.), seit über 20 Jahren an der Seite von Unternehmern und Vermögenden. Schwerpunkt: Familiengesellschaften und Nachfolge. Mich interessiert, ob dein Vermögen über dich hinaus trägt: Hülle, laufende Steuer, Erbschaftsteuer, Weitergabe.",
+    "hinweis": "Das Vermögensstrategie-Gespräch ist bewusst eigenständig. Dein Steuerberater bleibt dein Steuerberater.",
+    "bild": "/uploads/domenico-profil.jpg",
+    "bild_alt": "Domenico Bentivegna"
+  },
+  "faq": {
+    "eyebrow": "Fragen",
+    "titel": "Häufige Fragen",
+    "fragen": [
+      { "frage": "Bin ich hier richtig?", "antwort": "Wenn du gut verdienst (über rund 200.000 € im Haushalt) oder Vermögen ab etwa 1 Mio. € hast und wissen willst, ob es richtig steht: ja. Ebenso, wenn du vor Ruhestand oder Übergabe stehst und wissen willst, ob alles geregelt ist. Typisch sind Ärzte, Zahnärzte, Apotheker, Notare, Führungskräfte, Geschäftsführer und Selbstständige. Geht es um die Struktur deines Unternehmens, ist das [Steuerstrategie-Gespräch](/steuerstrategie/) der richtige Einstieg." },
+      { "frage": "Was ist das Ergebnis?", "antwort": "Ein schriftliches Strategiepapier: deine Ausgangslage, die Möglichkeiten und Risiken im Überblick, die priorisierten nächsten Schritte. Damit kannst du entscheiden, mit uns oder ohne uns." },
+      { "frage": "Habt ihr die Erbschaftsteuer im Blick?", "antwort": "Das ist unser Kern. Jedes Übergabekonzept rechnen wir mit Erbschaft- und Schenkungsteuer vor und nach der Übertragung durch: Freibeträge, Bewertung, Reihenfolge, Hülle. Das Strategiepapier zeigt, wo der Hebel liegt; die Berechnung im Detail ist Teil des Folgeauftrags." },
+      { "frage": "Macht ihr auch Testament und Vorsorgevollmacht?", "antwort": "Wir entwickeln das Konzept, rechnen die steuerlichen Folgen durch und stimmen es mit deinem Notar ab, der die Urkunden errichtet. Auf Wunsch übernehmen wir auch die Testamentsvollstreckung." },
+      { "frage": "Brauche ich dafür einen neuen Steuerberater?", "antwort": "Nein. Das Gespräch ergänzt deine bestehende Betreuung. Deine Steuererklärung bleibt, wo sie ist, wir liefern die Strategie dazu." },
+      { "frage": "Wie läuft das Gespräch ab?", "antwort": "Vorab füllst du einen kurzen Fragebogen aus und übermittelst die wichtigsten Eckdaten sicher. Wir bereiten dein Gesamtbild vor. Das Gespräch dauert 60 bis 90 Minuten und findet per Teams statt. Danach bekommst du das Strategiepapier." },
+      { "frage": "Was kostet es, und was ist Kompakt, was Komplex?", "antwort": "Kompakt 1.070 €, Komplex 2.140 €, jeweils inkl. 19 % MwSt. und vorab fällig. Kompakt ist ein Thema, etwa die Immobilie privat oder in der Hülle, die Schenkung an die Kinder oder Testament und Vollmachten. Komplex ist das Gesamtbild mit mehreren Bausteinen oder mehreren Beteiligten. Eine Familiengesellschaft mit Kindern ist immer Komplex." },
+      { "frage": "Wie werdet ihr bezahlt?", "antwort": "Ausschließlich über das Honorar. Keine Provisionen, keine eigenen Produkte: Wir verdienen am Gespräch, nicht an dem, was du danach entscheidest." },
+      { "frage": "Wird das Honorar angerechnet?", "antwort": "Ja. Beauftragst du innerhalb von drei Monaten einen Folgeauftrag (Workshop, Übergabekonzept, Familiengesellschaft, Stiftung, Testament, Transaktion), rechnen wir 350 € aus dem Gespräch an." }
+    ]
+  },
+  "abschluss": {
+    "titel": "Was du aufgebaut hast, soll bleiben.",
+    "text": "Buche dein Vermögensstrategie-Gespräch: Gesamtbild, Hebel und schriftliches Strategiepapier. Für dich und die Generation nach dir.",
+    "button": "Termin buchen"
+  }
+}

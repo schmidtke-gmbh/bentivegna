@@ -1,0 +1,91 @@
+{
+  "seo": {
+    "titel": "Steuerstrategie-Gespräch für Unternehmer | Bentivegna",
+    "beschreibung": "Holding, Umwandlung, Immobilien, Nachfolge: Im Steuerstrategie-Gespräch analysiert Steuerberater Domenico Bentivegna deine Zahlen und zeigt, was in deiner Struktur steckt. Festpreis, schriftliches Maßnahmenpapier, ohne laufendes Mandat."
+  },
+  "buchung_url": "https://bookings.cloud.microsoft/book/SteuerstrategiemitDomenico@cfsto.net/",
+  "hero": {
+    "eyebrow": "Steuerstrategie für Unternehmer",
+    "zeile1": "DEINE STRUKTUR ENTSCHEIDET,",
+    "zeile2": "WAS DU ZAHLST.",
+    "text": "Die meisten Unternehmer verschenken Steuern aufgrund falscher Struktur oder durch die Fehlsteuerung ihres Vermögensaufbaus. Im Steuerstrategie-Gespräch sehen wir uns deine Zahlen an und zeigen dir, was in deiner Situation wirklich drin ist: konkret, schriftlich, ohne laufendes Mandat.",
+    "button_primaer": "Gespräch buchen",
+    "button_sekundaer": "So läuft es ab",
+    "hinweis": "Vorab unsicher, ob es passt? Ein kurzer 15-Minuten-Klärungscall genügt.",
+    "punkte": [
+      "Vorab-Analyse deiner Zahlen",
+      "60 bis 90 Minuten Strategiegespräch",
+      "Schriftliches Maßnahmenpapier"
+    ],
+    "bild": "/uploads/domenico-freigestellt.webp",
+    "bild_alt": "Domenico Bentivegna, Steuerberater in Überlingen"
+  },
+  "fuer_wen": {
+    "eyebrow": "Für wen",
+    "titel": "Passt das zu dir?",
+    "ja_titel": "Das passt, wenn …",
+    "ja": [
+      "du ein Unternehmen führst (GmbH, Personengesellschaft oder Einzelunternehmen) und merkst: strukturell ist mehr drin.",
+      "du über Holding, Umwandlung, Immobilien oder Nachfolge nachdenkst.",
+      "du wissen willst, was sich lohnt, bevor du es umsetzt."
+    ],
+    "nein_titel": "Das passt nicht, wenn …",
+    "nein": [
+      "du nur eine Steuererklärung oder laufende Buchhaltung brauchst.",
+      "du eine schnelle Gratis-Meinung erwartest.",
+      "du (noch) keine belastbaren Zahlen wie BWA oder Jahresabschluss hast."
+    ]
+  },
+  "leistung": {
+    "eyebrow": "Was du bekommst",
+    "titel": "Analyse, Gespräch, Ergebnis",
+    "karten": [
+      { "label": "Vorab", "titel": "Analyse deiner Zahlen", "text": "Wir sichten BWA, Jahresabschluss und Steuererklärungen schon vor dem Termin, damit wir nicht bei null starten." },
+      { "label": "Im Termin", "titel": "Strategiegespräch", "text": "60 bis 90 Minuten, in denen wir die konkreten Ansatzpunkte in deiner Situation auf den Tisch legen und priorisieren." },
+      { "label": "Danach", "titel": "Maßnahmenpapier", "text": "Dein Ergebnis schwarz auf weiß: priorisierte Maßnahmen, geschätzter Effekt und klare nächste Schritte." }
+    ]
+  },
+  "ablauf": {
+    "eyebrow": "Ablauf",
+    "titel": "In vier Schritten",
+    "schritte": [
+      { "titel": "Buchen", "text": "Termin wählen. Das Honorar ist vorab fällig." },
+      { "titel": "Unterlagen", "text": "Kurzer Fragebogen, deine Zahlen sicher und DSGVO-konform übermittelt." },
+      { "titel": "Analyse", "text": "Wir bereiten deine Situation vor." },
+      { "titel": "Gespräch und Papier", "text": "60 bis 90 Minuten, danach dein Maßnahmenpapier." }
+    ]
+  },
+  "honorar": {
+    "eyebrow": "Honorar",
+    "titel": "Transparent und planbar",
+    "text": "Festes Honorar, vorab vereinbart. Die Stufe richtet sich nach Rechtsform und Struktur deines Unternehmens.",
+    "pakete": [
+      { "name": "Kompakt", "preis": "900 €", "steuer": "zzgl. USt", "text": "Einzelunternehmen oder Personengesellschaft, eine Einheit, ein Themenfeld.", "punkte": ["Vorab-Sichtung der Unterlagen", "60 Minuten Strategiegespräch", "Maßnahmenpapier (1 bis 2 Seiten)"], "empfohlen": false },
+      { "name": "Komplex", "preis": "1.800 €", "steuer": "zzgl. USt", "text": "Kapitalgesellschaft oder Gruppe, mehrere Einheiten, Umwandlung oder Nachfolge im Raum.", "punkte": ["Vertiefte Vorab-Analyse", "90 Minuten Strategiegespräch", "Maßnahmenpapier (2 bis 3 Seiten) inkl. indikativer Projektpreise"], "empfohlen": true }
+    ],
+    "anrechnung": "Setzt du anschließend ein Projekt um (z. B. eine Umwandlung), rechnen wir 300 € auf einen Folgeauftrag ab 3.000 € an, beauftragt innerhalb von acht Wochen."
+  },
+  "person": {
+    "eyebrow": "Wer berät dich",
+    "titel": "Beratung statt Verwaltung",
+    "text": "Domenico Bentivegna, Steuerberater in Überlingen. Mich interessiert nicht die Verwaltung deiner Zahlen, sondern was sie für deine Entscheidungen bedeuten: Struktur, Steuerstrategie, klare nächste Schritte.",
+    "hinweis": "Das Steuerstrategie-Gespräch ist bewusst eigenständig. Du musst dafür kein laufendes Mandat eingehen.",
+    "bild": "/uploads/domenico-profil.jpg",
+    "bild_alt": "Domenico Bentivegna"
+  },
+  "faq": {
+    "eyebrow": "Fragen",
+    "titel": "Häufige Fragen",
+    "fragen": [
+      { "frage": "Was muss ich mitbringen?", "antwort": "Deine aktuelle BWA, den letzten Jahresabschluss und die letzten Steuererklärungen. Den genauen Umfang fragen wir nach der Buchung strukturiert ab." },
+      { "frage": "Wie sicher sind meine Daten?", "antwort": "Die Übermittlung läuft über einen sicheren, DSGVO-konformen Weg, nicht über offene Kanäle." },
+      { "frage": "Was passiert, wenn ich danach umsetzen will?", "antwort": "Daraus wird ein klar umrissenes Folgeprojekt zu festen Konditionen. 300 € aus dem Gespräch werden auf einen Folgeauftrag ab 3.000 € angerechnet (innerhalb von acht Wochen)." },
+      { "frage": "Werde ich dadurch laufender Mandant?", "antwort": "Nein. Gespräch und Projekte funktionieren eigenständig. Ein laufendes Mandat ist die Ausnahme, kein Automatismus." }
+    ]
+  },
+  "abschluss": {
+    "titel": "Bring deine Struktur auf den Prüfstand.",
+    "text": "Buche dein Steuerstrategie-Gespräch: Analyse, Gespräch und schriftliches Maßnahmenpapier.",
+    "button": "Termin buchen"
+  }
+}

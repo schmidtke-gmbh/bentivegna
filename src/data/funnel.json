@@ -165,7 +165,7 @@
       "buttons": [
         {
           "text": "Zur Vermögensstrategie",
-          "ziel": "https://www.steuergestaltung-bodensee.de/vermoegensstrategie"
+          "ziel": "/vermoegensstrategie/"
         }
       ]
     },
