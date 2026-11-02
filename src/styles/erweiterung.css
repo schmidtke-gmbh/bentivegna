@@ -950,3 +950,16 @@ blockquote,dd,small,.ref-zitat,.cs-quote{text-wrap:pretty}
   main .btn:not(.btn--frei),main .btn:not(.btn--frei):hover{padding-left:14px;padding-right:52px}
 }
 .page-head .back-link{display:flex;width:fit-content}
+
+/* Marken- und Software-Band auf dem Handy: ruhiges Logo-Raster statt Laufband */
+.brand-raster{display:none}
+@media(max-width:700px){
+  .brands .lead{padding:0 24px;font-size:.72rem;letter-spacing:.13em;line-height:1.6;margin-bottom:18px}
+  .brands .brand-band{display:none}
+  .brand-raster{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px 14px;align-items:center;justify-items:center;padding:0 24px;margin:0 auto 34px;max-width:480px}
+  .brand-raster--sw{margin-bottom:0}
+  .brands{padding:40px 0 44px}
+  .brand-raster span{display:flex;align-items:center;justify-content:center;width:100%;height:40px}
+  .brand-raster img{display:block;width:auto;height:auto;max-width:100%;max-height:calc(var(--h) * .74);opacity:.8}
+  .brand-raster .txt{font-weight:700;font-size:.9rem;color:var(--navy);opacity:.62}
+}

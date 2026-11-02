@@ -615,8 +615,10 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
 <!-- ============ MARKEN & SOFTWARE ============ -->
 <section class="brands" aria-label="Marken und Software">
   <p class="lead">{S.marken.titel}</p>
+  <div class="brand-raster" aria-hidden="true">{markenListe.map((m) => m.bild ? <span><img src={u(m.bild)} alt="" style={`--h:${m.hoehe || 30}px`} loading="lazy"></span> : <span class="txt">{m.name}</span>)}</div>
   <div class="brand-band sw-logos" aria-hidden="true"><div class="brand-track">{[...markenListe, ...markenListe, ...markenListe].map((m) => m.bild ? <span class="sw-logo"><img src={u(m.bild)} alt="" style={`height:${m.hoehe || 30}px`} loading="lazy"></span> : <span>{m.name}</span>)}</div></div>
   <p class="lead">{S.software.titel}</p>
+  <div class="brand-raster brand-raster--sw" aria-hidden="true">{swListe.map((m) => m.bild ? <span><img src={u(m.bild)} alt="" style={`--h:${m.hoehe || 30}px`} loading="lazy"></span> : <span class="txt">{m.name}</span>)}</div>
   <div class="brand-band sw rev sw-logos" aria-hidden="true"><div class="brand-track">{[...swListe, ...swListe].map((m) => m.bild ? <span class="sw-logo"><img src={u(m.bild)} alt="" style={`height:${m.hoehe || 30}px`} loading="lazy"></span> : <span>{m.name}</span>)}</div></div>
   <p class="sr-only">{markenListe.map((m) => m.name).join(', ')}. {swListe.map((m) => m.name).join(', ')}.</p>
 </section>
