@@ -5,18 +5,22 @@ import Base from '../../../layouts/Base.astro';
 import HT from '../../../components/entwurf/HeroTeil.astro';
 import S from '../../../data/startseite.json';
 import { u } from '../../../lib/site';
-import { HEADER_VARIANTEN as V } from '../../../components/entwurf/header-varianten';
+import { HEADER_VARIANTEN as V, HEADER_B_VARIANTEN as VB } from '../../../components/entwurf/header-varianten';
 
 export function getStaticPaths() {
-  return ['a', 'b', 'c', 'd', 'e'].map((v) => ({ params: { v } }));
+  return ['a', 'b', 'c', 'd', 'e', 'b1', 'b2', 'b3', 'b4', 'b5'].map((v) => ({ params: { v } }));
 }
 const { v } = Astro.params as { v: string };
-const info = V.find((x) => x.k === v)!;
+const gruppeB = /^b\d$/.test(v);
+const liste = gruppeB ? VB : V;
+const info = [...V, ...VB].find((x) => x.k === v)!;
+const vid = S.hero.video_youtube_id;
+const playPfad = 'M21 11.27a2 2 0 0 1 0 3.46L3 24.66A2 2 0 0 1 0 22.93V3.07A2 2 0 0 1 3 1.34L21 11.27Z';
 ---
 <Base titel={`Entwurf Header ${v.toUpperCase()}: ${info.name} | Bentivegna`} beschreibung="Interne Entwurfsseite" pfad={`/entwurf/header/${v}/`} bodyClass="page-entwurf page-hx" noindex={true}>
 <script is:inline>if (location.search.indexOf('sauber') > -1 || window.self !== window.top) document.documentElement.classList.add('hx-sauber');</script>
 
-<section class={`hero hx hx-${v}`} id="top">
+<section class={`hero hx ${gruppeB ? 'hx-b ' : ''}hx-${v}`} id="top">
   <canvas id="heroCanvas" aria-hidden="true"></canvas>
 
   {v === 'a' && (
@@ -46,6 +50,43 @@ const info = V.find((x) => x.k === v)!;
       </div>
       <div class="hx-rechts">
         <HT teil="media" />
+        <HT teil="awards" klasse="hx-karte" />
+      </div>
+    </div>
+  )}
+
+  {gruppeB && (
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <HT teil="marker" klasse="hx-marker" />
+        <HT teil="h1" />
+        <HT teil="sub" />
+        <HT teil="cta" ctaVideo={v === 'b4'} />
+        <HT teil="wechsel" />
+      </div>
+      <div class="hx-rechts">
+        <HT teil="media" ohneVideo>
+          {(v === 'b1' || v === 'b2') && (
+            <button type="button" class={`hx-play ${v === 'b1' ? 'hx-play--glas' : 'hx-play--messing'}`} data-video={vid} aria-label="Video ansehen: Domenico Bentivegna stellt sich vor">
+              <span class="hx-kreis"><span class="hx-wellen" aria-hidden="true"><i></i><i></i><i></i></span><svg viewBox="0 0 22 26" aria-hidden="true"><path d={playPfad} /></svg></span>
+              {v === 'b1'
+                ? <span class="hx-cap">Video ansehen</span>
+                : <span class="hx-cap hx-cap--frei"><b>Video ansehen</b><small>Domenico stellt sich vor</small></span>}
+            </button>
+          )}
+          {v === 'b3' && (
+            <button type="button" class="hx-ring" data-video={vid} aria-label="Video ansehen: Domenico Bentivegna stellt sich vor">
+              <svg class="hx-ring-text" viewBox="0 0 124 124" aria-hidden="true"><defs><path id="hxRingPfad" d="M62,62 m-49,0 a49,49 0 1,1 98,0 a49,49 0 1,1 -98,0" /></defs><text><textPath href="#hxRingPfad">VIDEO ANSEHEN · DOMENICO STELLT SICH VOR · </textPath></text></svg>
+              <span class="hx-kreis"><span class="hx-wellen" aria-hidden="true"><i></i><i></i><i></i></span><svg viewBox="0 0 22 26" aria-hidden="true"><path d={playPfad} /></svg></span>
+            </button>
+          )}
+          {v === 'b5' && (
+            <button type="button" class="hx-pille" data-video={vid}>
+              <span class="hx-mini" aria-hidden="true"><span class="hx-wellen"><i></i><i></i><i></i></span><svg viewBox="0 0 22 26"><path d={playPfad} /></svg></span>
+              <span class="hv-txt"><b>{S.hero.video_label || 'Video ansehen'}</b><small>{S.hero.video_unterzeile}</small></span>
+            </button>
+          )}
+        </HT>
         <HT teil="awards" klasse="hx-karte" />
       </div>
     </div>
@@ -116,8 +157,9 @@ const info = V.find((x) => x.k === v)!;
 </section>
 
 <nav class="hx-schalter" aria-label="Header-Varianten">
-  <a href={u('/entwurf/header/')} class="hx-s-alle" title="Alle Varianten im Vergleich">Alle</a>
-  {V.map((x) => <a href={u(`/entwurf/header/${x.k}/`)} class={x.k === v ? 'ist' : undefined} title={x.name}>{x.k.toUpperCase()}</a>)}
+  <a href={u(gruppeB ? '/entwurf/header/b-varianten/' : '/entwurf/header/')} class="hx-s-alle" title="Alle Varianten im Vergleich">Alle</a>
+  {gruppeB && <a href={u('/entwurf/header/b/')} title="B wie bisher">B</a>}
+  {liste.map((x) => <a href={u(`/entwurf/header/${x.k}/`)} class={x.k === v ? 'ist' : undefined} title={x.name}>{x.k.toUpperCase()}</a>)}
   <a href={u('/')} title="Aktuelle Startseite">Live</a>
   <span class="hx-s-name">{v.toUpperCase()} · {info.name}</span>
 </nav>
@@ -256,6 +298,84 @@ const info = V.find((x) => x.k === v)!;
   .hero.hx-e .hero-media--gruppe{margin-bottom:30px}
   .hero.hx-e .hero-video{left:50%;bottom:-24px;transform:translateX(-50%);white-space:nowrap}
 }
+
+/* ---------- B-Feinvarianten: Video-Knopf ohne Doppelung mit der Auszeichnungs-Karte ---------- */
+.hx-play,.hx-ring,.hx-pille{position:absolute;z-index:4;border:0;background:none;padding:0;margin:0;font:inherit;cursor:pointer;color:#fff;-webkit-tap-highlight-color:transparent}
+.hx-kreis,.hx-mini{position:relative;display:grid;place-items:center;border-radius:50%;transition:transform .35s var(--ease)}
+.hx-kreis svg,.hx-mini svg{position:relative;z-index:1;display:block}
+.hx-kreis path,.hx-mini path{fill:#fff}
+.hx-wellen{position:absolute;inset:0;pointer-events:none;border-radius:50%}
+.hx-wellen i{position:absolute;inset:0;border-radius:50%;border:2px solid var(--hx-welle,rgba(255,255,255,.85));opacity:0;animation:hxWelle 3.6s cubic-bezier(.25,.6,.4,1) infinite}
+.hx-wellen i:nth-child(2){animation-delay:1.2s}
+.hx-wellen i:nth-child(3){animation-delay:2.4s}
+@keyframes hxWelle{0%{transform:scale(1);opacity:0}8%{opacity:.95}100%{transform:scale(2.5);opacity:0}}
+@keyframes hxWelleKlein{0%{transform:scale(1);opacity:0}8%{opacity:.9}100%{transform:scale(1.9);opacity:0}}
+@keyframes hxDreh{to{transform:rotate(360deg)}}
+.hx-play:hover .hx-kreis,.hx-ring:hover .hx-kreis,.hx-pille:hover .hx-mini{transform:scale(1.07)}
+.hx-play:focus-visible,.hx-ring:focus-visible,.hx-pille:focus-visible{outline:3px solid var(--brown);outline-offset:6px;border-radius:60px}
+
+/* B1: Glas-Kreis mittig, weiße Radarwellen */
+.hx-play{display:flex;flex-direction:column;align-items:center;gap:12px;transform:translate(-50%,-50%)}
+.hx-play--glas .hx-kreis{width:94px;height:94px;background:rgba(255,255,255,.2);-webkit-backdrop-filter:blur(14px) saturate(1.5);backdrop-filter:blur(14px) saturate(1.5);
+  border:1.5px solid rgba(255,255,255,.72);box-shadow:0 16px 40px rgba(20,29,58,.32),inset 0 1px 0 rgba(255,255,255,.75)}
+.hx-play--glas .hx-kreis svg{width:28px;height:32px;margin-left:6px}
+.hx-cap{display:inline-flex;align-items:center;white-space:nowrap;font-size:.84rem;font-weight:700;letter-spacing:.01em;color:#fff;
+  background:rgba(20,29,58,.45);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.28);border-radius:30px;padding:7px 15px}
+.hero.hx-b1 .hx-play{left:47%;top:71%;flex-direction:row;transform:translate(-47px,-50%)}
+
+/* B2: Messing-Knopf im Logo-Schild, Beschriftung frei */
+.hx-play--messing{--hx-welle:rgba(153,138,109,.95);gap:8px}
+.hx-play--messing .hx-kreis{width:76px;height:76px;background:rgba(153,138,109,.86);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border:1.5px solid rgba(255,255,255,.6);box-shadow:0 14px 34px rgba(20,29,58,.25),inset 0 1px 0 rgba(255,255,255,.5)}
+.hx-play--messing .hx-kreis svg{width:22px;height:26px;margin-left:5px}
+.hx-cap--frei{flex-direction:column;gap:2px;background:none;border:0;padding:0;-webkit-backdrop-filter:none;backdrop-filter:none;color:var(--navy);text-shadow:0 0 10px #fff,0 0 4px #fff,0 0 2px #fff}
+.hx-cap--frei b{font-size:.92rem}
+.hx-cap--frei small{font-size:.76rem;font-weight:600;color:var(--muted)}
+.hero.hx-b2 .hx-play{left:84%;top:23%}
+
+/* B3: Glas-Kreis mit rotierendem Textring am linken Bildrand */
+.hx-ring{width:134px;height:134px;display:grid;place-items:center;border-radius:50%;--hx-welle:rgba(39,51,101,.4);
+  background:rgba(255,255,255,.55);-webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);
+  border:1px solid rgba(255,255,255,.85);box-shadow:0 18px 44px rgba(20,29,58,.2)}
+.hx-ring-text{position:absolute;inset:0;width:100%;height:100%;animation:hxDreh 24s linear infinite}
+.hx-ring-text text{font-family:var(--sans,inherit);font-size:8.7px;font-weight:800;letter-spacing:1.55px;fill:var(--navy)}
+.hx-ring .hx-kreis{width:62px;height:62px;background:var(--navy);box-shadow:0 8px 20px rgba(20,29,58,.3)}
+.hx-ring .hx-kreis svg{width:20px;height:23px;margin-left:4px}
+.hero.hx-b3 .hx-ring{left:-5%;top:34%}
+
+/* B4: Video als zweiter Button, Bild frei */
+.btn.hx-btn-video{font-family:inherit;padding:0 26px 0 62px}
+.hx-btn-video .hx-mini{position:absolute;left:7px;top:50%;width:40px;height:40px;margin-top:-20px;background:var(--navy);--hx-welle:rgba(153,138,109,.9)}
+.hx-btn-video .hx-mini svg{width:13px;height:15px;margin-left:2px}
+.hx-btn-video .hx-wellen i{animation-name:hxWelleKlein}
+.btn.hx-btn-video:hover{padding:0 26px 0 62px}
+
+/* B5: dunkle Glas-Pille mit pulsierendem Messing-Knopf */
+.hx-pille{display:flex;align-items:center;gap:12px;padding:7px 22px 7px 7px;border-radius:60px;text-align:left;
+  background:rgba(28,37,80,.66);-webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);
+  border:1px solid rgba(255,255,255,.22);box-shadow:0 16px 38px rgba(20,29,58,.32)}
+.hx-pille .hx-mini{width:54px;height:54px;flex:0 0 auto;background:var(--brown);--hx-welle:rgba(188,176,152,.95)}
+.hx-pille .hx-mini svg{width:17px;height:20px;margin-left:3px}
+.hx-pille .hv-txt b{color:#fff}
+.hx-pille .hv-txt small{color:rgba(255,255,255,.74)}
+.hero.hx-b5 .hx-pille{left:-6%;top:50%}
+
+@media(max-width:1024px){
+  .hx-play--glas .hx-kreis{width:76px;height:76px}
+  .hx-play--glas .hx-kreis svg{width:22px;height:26px}
+  .hero.hx-b2 .hx-play{left:82%;top:16%}
+  .hx-ring{width:108px;height:108px}
+  .hx-ring .hx-kreis{width:50px;height:50px}
+  .hero.hx-b3 .hx-ring{left:0;top:26%}
+  .hero.hx-b5 .hx-pille{left:2%;top:auto;bottom:6%}
+}
+@media(max-width:560px){
+  .hx-cap--frei small{display:none}
+  .hx-pille{padding:5px 14px 5px 5px;gap:9px}
+  .hx-pille .hx-mini{width:42px;height:42px}
+  .hx-pille .hv-txt small{display:none}
+}
+@media(prefers-reduced-motion:reduce){.hx-wellen{display:none}.hx-ring-text{animation:none}}
 
 /* ---------- Umschalter (nur zur Abstimmung) ---------- */
 .hx-schalter{position:fixed;left:16px;bottom:16px;z-index:200;display:flex;align-items:center;gap:2px;background:rgba(28,34,51,.94);color:#fff;

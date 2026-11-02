@@ -1,0 +1,20 @@
+---
+// Übersicht der Feinvarianten von B: anderer Video-Knopf, Auszeichnungen bleiben als Karte unter dem Bild (nicht verlinkt, noindex).
+import Uebersicht from '../../../components/entwurf/VariantenUebersicht.astro';
+import { u } from '../../../lib/site';
+import { HEADER_VARIANTEN as V, HEADER_B_VARIANTEN as VB } from '../../../components/entwurf/header-varianten';
+
+const b = V.find((x) => x.k === 'b')!;
+const liste = [
+  { k: 'b', marke: 'B', name: 'B wie bisher', kurz: 'Zum Vergleich: der weiße Video-Knopf auf dem Bild und die weiße Auszeichnungs-Karte darunter wirken wie zwei gleiche Kästen.', url: u('/entwurf/header/b/') },
+  ...VB.map((x) => ({ ...x, url: u(`/entwurf/header/${x.k}/`) }))
+];
+---
+<Uebersicht
+  titel="Entwurf: Header B, Video-Knopf | Bentivegna"
+  pfad="/entwurf/header/b-varianten/"
+  eyebrow="Entwurf zur Abstimmung · Variante B"
+  ueberschrift="Fünf Varianten für den Video-Knopf"
+  text={`Aufbau wie Variante B: ${b.kurz} Die Auszeichnungs-Karte bleibt überall gleich, nur der Video-Knopf ändert sich, damit er sich nicht mehr mit der Karte doppelt. Die Wellen laufen wie das Radar auf der Deutschland-Karte. Jede Vorschau ist klickbar und startet das Video.`}
+  liste={liste}
+/>

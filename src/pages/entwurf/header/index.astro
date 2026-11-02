@@ -1,92 +1,18 @@
 ---
-// Übersicht der Header-Varianten mit Live-Vorschau (nicht verlinkt, noindex).
-import Base from '../../../layouts/Base.astro';
+// Übersicht der fünf Header-Varianten A bis E (nicht verlinkt, noindex).
+import Uebersicht from '../../../components/entwurf/VariantenUebersicht.astro';
 import { u } from '../../../lib/site';
 import { HEADER_VARIANTEN as V } from '../../../components/entwurf/header-varianten';
 
 const liste = [
-  { k: 'live', name: 'Aktueller Stand', kurz: 'So sieht der Header auf der Vorschau gerade aus. Auf einem normalen Laptop stehen die Auszeichnungen erst nach dem Scrollen im Bild, unter der Gruppe bleibt eine Lücke.', plus: '', minus: '', url: u('/') },
+  { k: 'live', marke: 'Jetzt', name: 'Aktueller Stand', kurz: 'So sieht der Header auf der Vorschau gerade aus. Auf einem normalen Laptop stehen die Auszeichnungen erst nach dem Scrollen im Bild, unter der Gruppe bleibt eine Lücke.', url: u('/') },
   ...V.map((x) => ({ ...x, url: u(`/entwurf/header/${x.k}/`) }))
 ];
 ---
-<Base titel="Entwurf: Header-Varianten | Bentivegna" beschreibung="Interne Entwurfsseite" pfad="/entwurf/header/" bodyClass="page-entwurf page-hx-liste" noindex={true}>
-  <section class="section hxl-kopf">
-    <div class="wrap">
-      <span class="eyebrow">Entwurf zur Abstimmung</span>
-      <h1>Fünf Varianten für den Header</h1>
-      <p>Ziel: Auf einem normalen Laptop sieht man ohne Scrollen sofort, worum es geht, wen Domenico berät, wie man Kontakt aufnimmt und welche Auszeichnungen die Kanzlei hat. Inhalte und Bilder sind überall gleich, nur die Anordnung ändert sich. Jede Vorschau ist eine echte Seite, also auch klickbar.</p>
-      <div class="hxl-groessen" role="group" aria-label="Bildschirmgröße der Vorschau">
-        <button type="button" data-w="1500" data-h="754" class="ist">Laptop 15 Zoll</button>
-        <button type="button" data-w="1280" data-h="720">Kleiner Laptop</button>
-        <button type="button" data-w="1920" data-h="1080">Großer Monitor</button>
-        <button type="button" data-w="390" data-h="844">Handy</button>
-      </div>
-    </div>
-  </section>
-  <section class="section hxl-liste">
-    <div class="wrap">
-      {liste.map((x) => (
-        <article class={`hxl-karte${x.k === 'live' ? ' live' : ''}`} id={`variante-${x.k}`}>
-          <div class="hxl-text">
-            <span class="hxl-buchstabe">{x.k === 'live' ? 'Jetzt' : x.k.toUpperCase()}</span>
-            <h2>{x.name}</h2>
-            <p>{x.kurz}</p>
-            {x.plus && <p class="hxl-plus"><b>Stärke:</b> {x.plus}</p>}
-            {x.minus && <p class="hxl-minus"><b>Achtung:</b> {x.minus}</p>}
-            <a class="btn btn--ghost" href={x.url} target="_blank" rel="noopener">Ganz ansehen <span class="arr"></span></a>
-          </div>
-          <div class="hxl-vorschau">
-            <iframe src={x.url} title={`Vorschau ${x.name}`} loading="lazy" tabindex="-1"></iframe>
-          </div>
-        </article>
-      ))}
-    </div>
-  </section>
-</Base>
-
-<script is:inline>
-(function () {
-  var W = 1500, H = 754;
-  var knoepfe = document.querySelectorAll('.hxl-groessen button');
-  function passe() {
-    document.querySelectorAll('.hxl-vorschau').forEach(function (b) {
-      b.classList.toggle('handy', W < 600);
-      b.style.aspectRatio = W + ' / ' + H;
-      var f = b.querySelector('iframe');
-      var s = b.clientWidth / W;
-      f.style.width = W + 'px';
-      f.style.height = H + 'px';
-      f.style.transform = 'scale(' + s + ')';
-    });
-  }
-  knoepfe.forEach(function (k) {
-    k.addEventListener('click', function () {
-      knoepfe.forEach(function (x) { x.classList.toggle('ist', x === k); });
-      W = +k.dataset.w; H = +k.dataset.h; passe();
-    });
-  });
-  window.addEventListener('resize', passe);
-  passe();
-})();
-</script>
-
-<style is:global>
-.page-hx-liste .hxl-kopf{padding-top:150px;padding-bottom:20px}
-.page-hx-liste .hxl-kopf h1{font-size:clamp(2rem,4vw,3rem);margin:10px 0 14px}
-.page-hx-liste .hxl-kopf p{max-width:760px;color:var(--muted);font-size:1.08rem}
-.hxl-groessen{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
-.hxl-groessen button{font:inherit;font-weight:700;font-size:.9rem;padding:9px 16px;border-radius:40px;border:1.5px solid rgba(39,51,101,.25);background:#fff;color:var(--navy);cursor:pointer}
-.hxl-groessen button.ist{background:var(--navy);border-color:var(--navy);color:#fff}
-.hxl-liste{padding-top:20px}
-.hxl-karte{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:36px;align-items:start;padding:34px 0;border-top:1px solid var(--line)}
-.hxl-buchstabe{display:inline-grid;place-items:center;min-width:44px;height:44px;padding:0 12px;border-radius:12px;background:var(--brown);color:#fff;font-weight:900;font-size:1.2rem}
-.hxl-karte.live .hxl-buchstabe{background:var(--muted);font-size:.9rem}
-.hxl-text h2{font-size:1.5rem;margin:14px 0 10px}
-.hxl-text p{color:var(--muted);margin:0 0 10px;font-size:.98rem}
-.hxl-text p b{color:var(--navy)}
-.hxl-text .btn{margin-top:10px}
-.hxl-vorschau{position:relative;width:100%;overflow:hidden;border-radius:12px;border:1px solid var(--line);box-shadow:0 18px 40px rgba(20,29,58,.12);background:#fff}
-.hxl-vorschau.handy{max-width:330px}
-.hxl-vorschau iframe{position:absolute;left:0;top:0;border:0;transform-origin:0 0}
-@media(max-width:900px){.hxl-karte{grid-template-columns:1fr;gap:18px}}
-</style>
+<Uebersicht
+  titel="Entwurf: Header-Varianten | Bentivegna"
+  pfad="/entwurf/header/"
+  ueberschrift="Fünf Varianten für den Header"
+  text="Ziel: Auf einem normalen Laptop sieht man ohne Scrollen sofort, worum es geht, wen Domenico berät, wie man Kontakt aufnimmt und welche Auszeichnungen die Kanzlei hat. Inhalte und Bilder sind überall gleich, nur die Anordnung ändert sich. Jede Vorschau ist eine echte Seite, also auch klickbar."
+  liste={liste}
+/>
