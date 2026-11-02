@@ -199,7 +199,8 @@
     "nachfolge": {
       "titel": "Nachfolge ist unser Spezialgebiet.",
       "text": "Domenico Bentivegna ist Fachberater für Unternehmensnachfolge (DStV e. V.) und begleitet Übergaben, Verkäufe, Schenkungen und Erbfolgen: steuerlich, rechtlich und mit Blick auf die Familie.",
-      "button": "Nachfolge-Gespräch anfragen"
+      "button": "Nachfolge-Gespräch anfragen",
+      "siegel": "/uploads/logos/dstv-fachberater-unternehmensnachfolge.webp"
     }
   },
   "formular": {

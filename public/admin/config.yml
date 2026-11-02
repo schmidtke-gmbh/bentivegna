@@ -2613,6 +2613,14 @@ collections:
         name: hinweis
         widget: text
         required: false
+      - label: kununu-Siegel (je Jahr, ohne Bild wird es nicht angezeigt)
+        name: siegel
+        widget: image
+        required: false
+      - label: Bildbeschreibung Siegel (Alt-Text)
+        name: siegel_alt
+        widget: string
+        required: false
       - label: Bild
         name: bild
         widget: image
@@ -3354,6 +3362,10 @@ collections:
         - label: Button-Text
           name: button
           widget: string
+          required: false
+        - label: kununu-Siegel (je Jahr, ohne Bild wird es nicht angezeigt)
+          name: siegel
+          widget: image
           required: false
     - label: Formular
       name: formular

@@ -392,3 +392,35 @@ body:has(.khero--navy) .nav-inner{background:#fff}
   /* Karriere-Hero: beide Zeilen passen jeweils in eine Zeile */
   .khero h1,.khero--team h1{font-size:min(2.5rem,calc((100vw - 56px) / 9.2))}
 }
+
+/* Runde 3 (2.11.2026): Tagesablauf kompakt. Alle fünf Stationen auf einen Blick,
+   Uhrzeit links, Text rechts; die Uhr läuft beim Durchscrollen weiter mit. */
+.tag-sec .section-head{margin-bottom:36px}
+.ts-grid{align-items:center;gap:56px;margin-top:0}
+.ts-step,.ts-step:last-child{min-height:0;padding:0 0 22px;display:grid;grid-template-columns:112px minmax(0,1fr);gap:0 18px;align-items:center}
+.ts-step:last-child{padding-bottom:0}
+.ts-step time{font-size:clamp(1.9rem,2.7vw,2.35rem)}
+.ts-step::before{top:calc(50% - 18px)}
+.ts-step:last-child::before{top:calc(50% - 7px)}
+.ts-inhalt{margin-top:0;align-items:center;gap:14px;max-width:440px}
+.ts-inhalt p{margin-top:0;font-size:1.04rem}
+.ts-schiene{top:24px;bottom:30px}
+.ts-uhr{width:min(330px,100%)}
+.ts-sticky{position:static;gap:16px;padding-bottom:0}
+@media(max-width:900px){
+  .ts-step,.ts-step:last-child{display:block;min-height:0;padding:0 0 24px}
+  .ts-step:last-child{padding-bottom:0}
+  .ts-step time{font-size:1.85rem}
+  .ts-inhalt{margin-top:8px}
+  .ts-inhalt p{font-size:1rem}
+  .ts-step::before,.ts-step:last-child::before{top:8px}
+  .ts-schiene{top:14px;bottom:60px}
+  .ts-uhr{width:96px}
+}
+.ts-label{max-width:380px;text-wrap:balance}
+/* 320 px: Buttons im Bewerbungsbereich passen in die Spalte und bleiben mittig */
+@media(max-width:400px){
+  .final-grid{grid-template-columns:minmax(0,1fr)}
+  .final-band{padding-left:16px;padding-right:16px}
+  .final-alt .btn,.bw-form .btn{max-width:100%;white-space:normal}
+}

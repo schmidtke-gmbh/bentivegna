@@ -1,7 +1,7 @@
 ---
 titel: Customer Success Manager (m/w/d)
 reihenfolge: 3
-aktiv: true
+aktiv: false
 umfang: Vollzeit
 ort: Überlingen
 arbeitsmodell: vor Ort, Homeoffice, Hybrid

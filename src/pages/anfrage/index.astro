@@ -61,7 +61,9 @@ const intern = (z: string) => z.startsWith('/');
           <div class="fn-btns"><a class="btn btn--gold" href={u(E.steuerstrategie_url)} id="fnStrategie" data-track="funnel_weiter_steuerstrategie">{F.bruecken.steuerstrategie.button} <span class="arr"></span></a></div>
         </div>
         <div class="fn-screen fn-exit" data-s="bruecke-nachfolge" hidden>
-          <span class="ico-box"><Icon name="award" /></span>
+          {F.bruecken.nachfolge.siegel
+            ? <img class="fn-siegel" src={u(F.bruecken.nachfolge.siegel)} alt="Fachberater für Unternehmensnachfolge (DStV e. V.)" width="900" height="316">
+            : <span class="ico-box"><Icon name="award" /></span>}
           <h2 class="fn-frage" tabindex="-1">{F.bruecken.nachfolge.titel}</h2>
           <p>{F.bruecken.nachfolge.text}</p>
           <div class="fn-btns"><button type="button" class="btn btn--gold" data-geh="form-nachfolge">{F.bruecken.nachfolge.button} <span class="arr"></span></button></div>

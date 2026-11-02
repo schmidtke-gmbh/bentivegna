@@ -998,3 +998,11 @@ blockquote,dd,small,.ref-zitat,.cs-quote{text-wrap:pretty}
 .cases2 .ref-punkte .ico{color:var(--brown)}
 .cases2 .ref-punkte b{color:var(--navy)}
 .cases2 .ref-punkte small{color:var(--muted)}
+
+/* DStV-Fachberater-Logo (von Antonia, 2.11.): breites Querformat, etwas höher als die quadratischen Siegel,
+   damit die Schrift lesbar bleibt */
+.ha-logos img.ha-fb{height:80px}
+.hero.hero--b .hero-awards--karte .ha-logos img.ha-fb{height:clamp(50px,8vh,66px)}
+.award-card .logos img[src*="dstv-"]{height:92px}
+.fn-siegel{display:block;height:74px;width:auto;margin:0 0 18px}
+@media(max-width:600px){.ha-logos img.ha-fb{height:62px}.fn-siegel{height:62px}}

@@ -196,6 +196,7 @@ const ab = d.honorar?.pakete?.[0];
       <p>{d.person.text}</p>
       {d.person.hinweis && <p class="ls-person-hinweis">{d.person.hinweis}</p>}
       <div class="ls-person-sign"><b>Domenico Bentivegna</b><span>Steuerberater, Überlingen am Bodensee</span></div>
+      {d.person.siegel && <img class="ls-person-siegel" src={u(d.person.siegel)} alt={d.person.siegel_alt || ''} width="900" height="316" loading="lazy">}
     </div>
   </div>
 </section>

@@ -20,7 +20,7 @@ def lab(k):
     for a,b in [('ae','ä'),('oe','ö'),('ue','ü')]:
         s=re.sub(r'(?<![aeiou])'+a,b,s) if a!='ue' else s.replace('ue','ü')
     return s[:1].upper()+s[1:]
-IMG=re.compile(r'(^|_)(bild|unterschrift)$')
+IMG=re.compile(r'(^|_)(bild|unterschrift|siegel)$')
 def field(k,v,ctx=''):
     f={'label':lab(k),'name':k}
     if k=='id': f.update(widget='hidden'); return f
@@ -53,7 +53,7 @@ def field(k,v,ctx=''):
 for _k,_v in {'buchung_url':'Buchungslink (Microsoft Bookings, alle Buchen-Buttons)','fuer_wen':'Für wen','ja_titel':'Überschrift „Das passt“','ja':'Das passt, wenn …','nein_titel':'Überschrift „Das passt nicht“','nein':'Das passt nicht, wenn …',
  'leistung':'Was du bekommst','themen':'Worum es geht','schwerpunkt':'Schwerpunkt','liste_titel':'Überschrift der Liste','ablauf':'Ablauf','honorar':'Honorar','pakete':'Pakete','preis':'Preis (z. B. 1.070 €)',
  'steuer':'Steuerhinweis (z. B. inkl. 19 % MwSt.)','empfohlen':'Als „Empfohlen“ hervorheben','anrechnung':'Anrechnung auf einen Folgeauftrag','weiter':'Wie es weitergeht (Folgeaufträge)','person':'Der Mensch dahinter','faq':'Häufige Fragen',
- 'button_primaer':'Button 1 (öffnet die Buchung)','button_sekundaer':'Button 2 (springt zum Ablauf)','label':'Kleine Überzeile','steuerstrategie_url':'Link zum Steuerstrategie-Gespräch (Brücke im Anfrage-Formular)'}.items(): L.setdefault(_k,_v)
+ 'siegel_alt':'Bildbeschreibung Siegel (Alt-Text)','button_primaer':'Button 1 (öffnet die Buchung)','button_sekundaer':'Button 2 (springt zum Ablauf)','label':'Kleine Überzeile','steuerstrategie_url':'Link zum Steuerstrategie-Gespräch (Brücke im Anfrage-Formular)'}.items(): L.setdefault(_k,_v)
 ICONS=sorted(x[:-4] for x in os.listdir(ROOT+'src/icons'))
 def filecoll(name,label,path,desc):
     d=json.load(open(ROOT+path))

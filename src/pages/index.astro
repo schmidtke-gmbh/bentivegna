@@ -190,6 +190,46 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
   </div>
 </div>
 
+<!-- ============ REFERENZEN ============ -->
+<section class="cases2" id="referenzen">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">{S.referenzen.eyebrow}</span>
+      <h2 style="margin-top:18px">{S.referenzen.titel}</h2>
+      {S.referenzen.intro && <p class="ref-intro">{S.referenzen.intro}</p>}
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="ref-grid">
+      {S.referenzen.eintraege.map((r, i) => (
+        <article class={`ref-card reveal d${i}`}>
+          <button type="button" class="ref-video" data-video={r.youtube_id || undefined} aria-label={`Video mit ${r.name} ansehen${r.dauer ? ', ' + r.dauer + ' Minuten' : ''}`}>
+            {r.bild
+              ? <img src={u(r.bild)} alt="" width="800" height="450" loading="lazy">
+              : <span class="ref-poster"><img class="cs-schild" src={u('/uploads/logos/schild-mono.svg')} alt=""><span class="cs-ini">{initialen(r.name)}</span></span>}
+            <span class="ref-tag">{r.kategorie}</span>
+            {r.youtube_id && <span class="ref-play" aria-hidden="true"><svg viewBox="0 0 22 26"><path d="M21 11.27a2 2 0 0 1 0 3.46L3 24.66A2 2 0 0 1 0 22.93V3.07A2 2 0 0 1 3 1.34L21 11.27Z"/></svg></span>}
+            {r.dauer && <span class="ref-dauer" aria-hidden="true">{r.dauer}</span>}
+          </button>
+          <div class="ref-body">
+            <p class="ref-zitat">„{r.zitat}“</p>
+            <div class="ref-wer">
+              <b class="ref-name">{r.name}</b>
+              <span class="ref-rolle">{r.rolle}</span>
+              {r.ergebnis && <span class="ref-ergebnis">{r.ergebnis}</span>}
+            </div>
+            {r.punkte?.length > 0 && (
+              <ul class="ref-punkte">
+                {r.punkte.map((pk) => <li><Icon name={pk.icon || 'check'} /><span><b>{pk.titel}</b>{pk.text && <small>{pk.text}</small>}</span></li>)}
+              </ul>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
 <!-- ============ LEISTUNGEN ============ -->
 <section class="section leist" id="leistungen">
   <div class="wrap">
@@ -375,46 +415,6 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
           ))}
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ REFERENZEN ============ -->
-<section class="cases2" id="referenzen">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">{S.referenzen.eyebrow}</span>
-      <h2 style="margin-top:18px">{S.referenzen.titel}</h2>
-      {S.referenzen.intro && <p class="ref-intro">{S.referenzen.intro}</p>}
-    </div>
-  </div>
-  <div class="wrap">
-    <div class="ref-grid">
-      {S.referenzen.eintraege.map((r, i) => (
-        <article class={`ref-card reveal d${i}`}>
-          <button type="button" class="ref-video" data-video={r.youtube_id || undefined} aria-label={`Video mit ${r.name} ansehen${r.dauer ? ', ' + r.dauer + ' Minuten' : ''}`}>
-            {r.bild
-              ? <img src={u(r.bild)} alt="" width="800" height="450" loading="lazy">
-              : <span class="ref-poster"><img class="cs-schild" src={u('/uploads/logos/schild-mono.svg')} alt=""><span class="cs-ini">{initialen(r.name)}</span></span>}
-            <span class="ref-tag">{r.kategorie}</span>
-            {r.youtube_id && <span class="ref-play" aria-hidden="true"><svg viewBox="0 0 22 26"><path d="M21 11.27a2 2 0 0 1 0 3.46L3 24.66A2 2 0 0 1 0 22.93V3.07A2 2 0 0 1 3 1.34L21 11.27Z"/></svg></span>}
-            {r.dauer && <span class="ref-dauer" aria-hidden="true">{r.dauer}</span>}
-          </button>
-          <div class="ref-body">
-            <p class="ref-zitat">„{r.zitat}“</p>
-            <div class="ref-wer">
-              <b class="ref-name">{r.name}</b>
-              <span class="ref-rolle">{r.rolle}</span>
-              {r.ergebnis && <span class="ref-ergebnis">{r.ergebnis}</span>}
-            </div>
-            {r.punkte?.length > 0 && (
-              <ul class="ref-punkte">
-                {r.punkte.map((pk) => <li><Icon name={pk.icon || 'check'} /><span><b>{pk.titel}</b>{pk.text && <small>{pk.text}</small>}</span></li>)}
-              </ul>
-            )}
-          </div>
-        </article>
-      ))}
     </div>
   </div>
 </section>
