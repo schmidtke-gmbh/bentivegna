@@ -1,0 +1,71 @@
+---
+// Bausteine des Startseiten-Headers für die Entwurfsseiten /entwurf/header/…
+// Gleiche Inhalte und Klassen wie auf der Startseite, nur einzeln abrufbar, damit die Varianten sie neu anordnen können.
+import Icon from '../Icon.astro';
+import S from '../../data/startseite.json';
+import { u } from '../../lib/site';
+
+interface Props { teil: 'marker' | 'h1' | 'sub' | 'cta' | 'wechsel' | 'awards' | 'media' | 'video' | 'checks'; klasse?: string; ohneVideo?: boolean; ohneKicker?: boolean }
+const { teil, klasse = '', ohneVideo = false, ohneKicker = false } = Astro.props;
+const heroTeile = S.hero.zeile2.split(/(?<=\.)\s+/).filter(Boolean);
+const A = S.auszeichnungen;
+---
+{teil === 'marker' && (
+  <div class={`hero-in h1 ${klasse}`}><span class="hero-marker ohne-tag"><span>{S.hero.marker_text}</span></span></div>
+)}
+{teil === 'h1' && (
+  <h1 class={klasse}>
+    {!ohneKicker && <em class="hero-in h2">{S.hero.kicker}</em>}
+    <span class="hz hero-in h2">{S.hero.zeile1 + ' '}<span class="ln2">{heroTeile[0]}</span></span>
+    {heroTeile.slice(1).map((t) => <span class="hz ln2 hero-in h3">{t}</span>)}
+  </h1>
+)}
+{teil === 'sub' && <p class={`hero-sub hero-in h4 ${klasse}`}>{S.hero.subline}</p>}
+{teil === 'cta' && (
+  <div class={`hero-cta hero-in h5 ${klasse}`}>
+    <a href={u('/anfrage/')} class="btn btn--gold">{S.hero.button_primaer} <span class="arr"></span></a>
+    <a href={u('/#leistungen')} class="btn btn--ghost">{S.hero.button_sekundaer} <span class="arr"></span></a>
+  </div>
+)}
+{teil === 'wechsel' && (
+  <p class={`hero-wechsel hero-in h5 ${klasse}`} data-wechsel>
+    <span class="hw-ein">{S.hero.nutzen_einleitung}</span>
+    <span class="hw-slot" aria-hidden="true"><span class="hw-fenster"><span class="hw-lauf">{[...S.hero.bullets, S.hero.bullets[0]].map((b, i) => <span class={i === S.hero.bullets.length ? 'hw-klon' : undefined}>{b.replace(/\.$/, '')}.</span>)}</span></span><span class="hw-strich"></span></span>
+    <span class="sr-only">{S.hero.bullets.join(', ')}.</span>
+  </p>
+)}
+{teil === 'checks' && (
+  <ul class={`hx-checks hero-in h5 ${klasse}`}>{S.hero.bullets.map((b) => <li>{b.replace(/\.$/, '')}</li>)}</ul>
+)}
+{teil === 'awards' && (
+  <div class={`hero-awards hero-in h5 ${klasse}`}>
+    <span class="ha-label">{A.titel}</span>
+    <div class="ha-logos">
+      {A.logos.map((l) => <img src={u(l.bild)} alt={l.alt} height="72">)}
+      {A.textsiegel_bild
+        ? <img class="ha-fb" src={u(A.textsiegel_bild)} alt={`${A.textsiegel_titel} (${A.textsiegel_unter})`} height="72">
+        : <span class="seal-text ha-seal"><span class="ico-box"><Icon name="award" /></span><span><b>{A.textsiegel_titel}</b><small>{A.textsiegel_unter}</small></span></span>}
+    </div>
+  </div>
+)}
+{teil === 'video' && S.hero.video_youtube_id && (
+  <button class={`hero-video ${klasse}`} type="button" data-video={S.hero.video_youtube_id}>
+    <span class="hero-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 22 26" fill="none"><path d="M21 11.27a2 2 0 0 1 0 3.46L3 24.66A2 2 0 0 1 0 22.93V3.07A2 2 0 0 1 3 1.34L21 11.27Z" fill="#273365"/></svg></span>
+    <span class="hv-txt"><b>{S.hero.video_label || 'Video ansehen'}</b>{S.hero.video_unterzeile && <small>{S.hero.video_unterzeile}</small>}</span>
+  </button>
+)}
+{teil === 'media' && (
+  <div class={`hero-media hero-media--gruppe hero-in hm ${klasse}`}>
+    <div class="hg-buehne">
+      <img class="hero-schild" src={u('/uploads/logos/schild-mono.svg')} alt="" aria-hidden="true">
+      <img class="hero-gruppe" src={u(S.hero.bild)} srcset={S.hero.bild_klein ? `${u(S.hero.bild_klein)} 820w, ${u(S.hero.bild)} 1400w` : undefined} sizes="(max-width: 1024px) 92vw, 700px" alt={S.hero.bild_alt} width="1400" height="1039" fetchpriority="high">
+    </div>
+    <span class="hero-focus">{S.hero.fokus_label}</span>
+    {!ohneVideo && S.hero.video_youtube_id && (
+      <button class="hero-video" type="button" data-video={S.hero.video_youtube_id}>
+        <span class="hero-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 22 26" fill="none"><path d="M21 11.27a2 2 0 0 1 0 3.46L3 24.66A2 2 0 0 1 0 22.93V3.07A2 2 0 0 1 3 1.34L21 11.27Z" fill="#273365"/></svg></span>
+        <span class="hv-txt"><b>{S.hero.video_label || 'Video ansehen'}</b>{S.hero.video_unterzeile && <small>{S.hero.video_unterzeile}</small>}</span>
+      </button>
+    )}
+  </div>
+)}

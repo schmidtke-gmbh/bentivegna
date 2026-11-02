@@ -1,0 +1,269 @@
+---
+// Entwurfsseiten (nicht verlinkt, nicht in der Sitemap, noindex): fünf Anordnungen für den Startseiten-Header.
+// Ziel: auf einem normalen Laptop (ca. 1500 × 750) stehen Botschaft, Buttons, Video und Auszeichnungen ohne Scrollen im Bild.
+import Base from '../../../layouts/Base.astro';
+import HT from '../../../components/entwurf/HeroTeil.astro';
+import S from '../../../data/startseite.json';
+import { u } from '../../../lib/site';
+import { HEADER_VARIANTEN as V } from '../../../components/entwurf/header-varianten';
+
+export function getStaticPaths() {
+  return ['a', 'b', 'c', 'd', 'e'].map((v) => ({ params: { v } }));
+}
+const { v } = Astro.params as { v: string };
+const info = V.find((x) => x.k === v)!;
+---
+<Base titel={`Entwurf Header ${v.toUpperCase()}: ${info.name} | Bentivegna`} beschreibung="Interne Entwurfsseite" pfad={`/entwurf/header/${v}/`} bodyClass="page-entwurf page-hx" noindex={true}>
+<script is:inline>if (location.search.indexOf('sauber') > -1 || window.self !== window.top) document.documentElement.classList.add('hx-sauber');</script>
+
+<section class={`hero hx hx-${v}`} id="top">
+  <canvas id="heroCanvas" aria-hidden="true"></canvas>
+
+  {v === 'a' && (
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <HT teil="marker" klasse="hx-marker" />
+        <HT teil="h1" />
+        <HT teil="sub" />
+        <HT teil="wechsel" />
+        <HT teil="awards" />
+      </div>
+      <div class="hx-rechts">
+        <HT teil="media" />
+        <HT teil="cta" klasse="hx-cta-bild" />
+      </div>
+    </div>
+  )}
+
+  {v === 'b' && (
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <HT teil="marker" klasse="hx-marker" />
+        <HT teil="h1" />
+        <HT teil="sub" />
+        <HT teil="cta" />
+        <HT teil="wechsel" />
+      </div>
+      <div class="hx-rechts">
+        <HT teil="media" />
+        <HT teil="awards" klasse="hx-karte" />
+      </div>
+    </div>
+  )}
+
+  {v === 'c' && (
+    <>
+      <div class="wrap hx-c-kopf">
+        <HT teil="marker" klasse="hx-marker" />
+        <HT teil="h1" ohneKicker />
+        <HT teil="sub" />
+        <HT teil="cta" />
+      </div>
+      <div class="wrap hx-c-buehne">
+        <HT teil="awards" klasse="hx-c-awards hx-karte" />
+        <HT teil="media" ohneVideo />
+        <div class="hx-c-rechts">
+          <HT teil="video" klasse="hero-in h5" />
+          <HT teil="checks" />
+        </div>
+      </div>
+    </>
+  )}
+
+  {v === 'd' && (
+    <>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <HT teil="marker" klasse="hx-marker" />
+          <HT teil="h1" />
+          <HT teil="sub" />
+          <HT teil="cta" />
+        </div>
+        <HT teil="media" />
+      </div>
+      <div class="hx-leiste">
+        <div class="wrap">
+          <HT teil="awards" klasse="hx-l-awards" />
+          <HT teil="checks" klasse="hx-l-checks" />
+        </div>
+      </div>
+    </>
+  )}
+
+  {v === 'e' && (
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <HT teil="marker" klasse="hx-marker" />
+        <HT teil="h1" />
+        <HT teil="sub" />
+        <HT teil="cta" />
+        <HT teil="awards" />
+      </div>
+      <HT teil="media" klasse="hx-e-media" />
+    </div>
+  )}
+</section>
+
+<section class="stats" aria-label="Kennzahlen">
+  <div class="wrap">
+    {S.kennzahlen.map((k, i) => (
+      <div class={`stat reveal d${i}`}>
+        <span class="num" data-count={k.zahl} data-prefix={k.praefix} data-suffix={k.suffix} data-alt-num={k.alt_zahl}>{k.praefix}{k.zahl}{k.suffix}</span>
+        <span class="lbl" data-alt-lbl={k.alt_label}>{k.label}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<nav class="hx-schalter" aria-label="Header-Varianten">
+  <a href={u('/entwurf/header/')} class="hx-s-alle" title="Alle Varianten im Vergleich">Alle</a>
+  {V.map((x) => <a href={u(`/entwurf/header/${x.k}/`)} class={x.k === v ? 'ist' : undefined} title={x.name}>{x.k.toUpperCase()}</a>)}
+  <a href={u('/')} title="Aktuelle Startseite">Live</a>
+  <span class="hx-s-name">{v.toUpperCase()} · {info.name}</span>
+</nav>
+</Base>
+
+<style is:global>
+/* ---------- Bausteine ---------- */
+.hx-checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.hx-checks li{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--navy);font-size:1rem;line-height:1.3}
+.hx-checks li::before{content:"";width:22px;height:22px;flex:0 0 auto;border-radius:50%;
+  background:var(--brown) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/12px no-repeat}
+.hero.hx .hx-karte{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 44px rgba(20,29,58,.13);padding:14px 22px 16px;align-items:center}
+.hero.hx .hx-karte .ha-seal,.hero.hx .hx-l-awards .ha-seal,.hero.hx .hx-c-awards .ha-seal{border:0;background:none;padding:0}
+
+/* ---------- Gemeinsam für alle Varianten (Desktop) ---------- */
+@media(min-width:1025px){
+  .hero.hx{padding:122px 0 56px}
+  .hero.hx .hero-grid{grid-template-columns:1.12fr 1fr;gap:44px;align-items:center}
+  .hero.hx .hero-copy{padding-bottom:0}
+  .hero.hx .hero-marker.ohne-tag{padding:8px 18px 8px 14px}
+  .hero.hx .hero-marker.ohne-tag span{font-size:.9rem}
+  .hero.hx h1{font-size:clamp(2.3rem,min(3.45vw,6.5vh),3.6rem);margin-top:18px}
+  .hero.hx h1 em{font-size:.5em;margin-bottom:10px}
+  .hero.hx .hero-sub{margin-top:16px;font-size:1.05rem;line-height:1.6;max-width:600px}
+  .hero.hx .hero-cta{margin-top:24px}
+  .hero.hx .hero-wechsel{margin-top:18px;font-size:1.14rem}
+  .hero.hx .hero-awards{margin-top:26px;gap:8px}
+  .hero.hx .ha-label{font-size:.68rem}
+  .hero.hx .ha-logos{gap:12px 18px}
+  .hero.hx .ha-logos img{height:clamp(50px,8.2vh,68px)}
+  .hero.hx .ha-seal b{max-width:190px}
+  .hero.hx .hero-media--gruppe{margin:0;width:100%;justify-self:center;align-self:center}
+  .hero.hx .hg-buehne{padding-top:13%}
+  .hero.hx .hero-media--gruppe .hero-focus{top:14%;left:3%}
+  .hero.hx .hx-rechts{display:flex;flex-direction:column;align-items:center;min-width:0}
+
+  /* A: Buttons unter dem Bild, Auszeichnungen links */
+  .hero.hx-a .hero-media--gruppe{width:min(100%,calc((100vh - 240px) / .87))}
+  .hero.hx-a .hx-cta-bild{margin-top:-30px;position:relative;z-index:4;justify-content:center;flex-wrap:nowrap}
+  .hero.hx-a .hero-video{left:-4%;bottom:26%}
+
+  /* B: Auszeichnungen als Karte unter dem Bild */
+  .hero.hx-b .hero-media--gruppe{width:min(100%,calc((100vh - 250px) / .87))}
+  .hero.hx-b .hx-karte{margin-top:-44px;position:relative;z-index:4}
+  .hero.hx-b .hx-karte .ha-logos{flex-wrap:nowrap;justify-content:center}
+  .hero.hx-b .hx-karte .ha-logos img{height:clamp(42px,6.8vh,56px)}
+  .hero.hx-b .hero-video{left:-6%;bottom:auto;top:50%}
+  .hero.hx-b .hero-wechsel{margin-top:22px}
+
+  /* C: zentriert, Gruppe als Bühne */
+  .hero.hx-c{padding-bottom:0}
+  .hero.hx-c .hx-c-kopf{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;z-index:2}
+  .hero.hx-c h1 .hz+.hz{display:inline-block}
+  .hero.hx-c h1 .hz+.hz+.hz{margin-left:.26em}
+  .hero.hx-c .hero-sub{max-width:780px;margin-left:auto;margin-right:auto}
+  .hero.hx-c .hero-cta{justify-content:center}
+  .hero.hx-c .hx-c-buehne{display:grid;grid-template-columns:1fr minmax(0,620px) 1fr;align-items:start;gap:28px;margin-top:18px;position:relative;z-index:1}
+  .hero.hx-c .hero-media--gruppe{grid-column:2;grid-row:1;width:100%}
+  .hero.hx-c .hg-buehne{padding-top:6%}
+  .hero.hx-c .hero-schild{width:62%;opacity:.6}
+  .hero.hx-c .hero-media--gruppe .hero-focus{top:10%;left:6%}
+  .hero.hx-c .hx-c-awards{grid-column:1;grid-row:1;justify-self:end;align-items:flex-start;text-align:left;margin-top:40px;padding:14px 18px 16px}
+  .hero.hx-c .hx-c-awards .ha-logos{justify-content:flex-start;max-width:250px}
+  .hero.hx-c .hx-c-awards .ha-logos img{height:clamp(46px,7vh,58px)}
+  .hero.hx-c .hx-c-rechts{grid-column:3;grid-row:1;display:flex;flex-direction:column;align-items:flex-start;gap:22px;margin-top:36px}
+  .hero.hx-c .hero-video{position:relative;left:auto;bottom:auto;text-align:left}
+  .hero.hx-c .hx-c-rechts .hero-video{white-space:nowrap;margin-left:-84px}
+  .hero.hx-c .hx-c-rechts{margin-top:30px}
+
+  /* D: Vertrauensleiste am unteren Rand */
+  .hero.hx-d{padding-bottom:0;min-height:min(100vh,980px);display:flex;flex-direction:column}
+  .hero.hx-d .hero-grid{flex:1 1 auto;width:100%;align-content:center;padding-bottom:20px}
+  .hero.hx-d .hero-media--gruppe{width:min(100%,calc((100vh - 250px) / .87))}
+  .hero.hx-d .hero-video{left:-4%;bottom:14%}
+  .hero.hx-d .hx-leiste{position:relative;z-index:2;background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+  .hero.hx-d .hx-leiste .wrap{display:flex;align-items:center;justify-content:center;gap:56px;padding-top:14px;padding-bottom:14px}
+  .hero.hx-d .hx-l-awards{flex-direction:row;align-items:center;gap:20px;margin:0}
+  .hero.hx-d .hx-l-awards .ha-label{max-width:110px;line-height:1.4}
+  .hero.hx-d .hx-l-awards .ha-logos{flex-wrap:nowrap}
+  .hero.hx-d .hx-l-awards .ha-logos img{height:clamp(40px,6vh,50px)}
+  .hero.hx-d .hx-l-checks{flex-direction:row;gap:24px}
+  .hero.hx-d .hx-l-checks li{font-size:.96rem}
+
+  .hero.hx-a .hx-cta-bild{flex-wrap:wrap}
+  /* E: Video-Bühne in Navy */
+  .hero.hx-e .hero-media--gruppe{width:min(100%,calc((100vh - 220px) / .86))}
+  .hero.hx-e .hg-buehne{background:radial-gradient(120% 90% at 50% 8%,#3a4985 0%,var(--navy) 58%,#1c2550 100%);border-radius:22px;padding-top:11%;overflow:hidden;
+    -webkit-mask-image:none;mask-image:none;box-shadow:0 30px 60px rgba(20,29,58,.22)}
+  .hero.hx-e .hero-schild{opacity:.4;top:5%;width:68%}
+  .hero.hx-e .hero-media--gruppe .hero-focus{top:18px;left:18px}
+  .hero.hx-e .hero-video{left:50%;bottom:-28px;transform:translateX(-50%);white-space:nowrap}
+  .hero.hx-e .hero-video:hover{transform:translateX(-50%) translateY(-2px)}
+}
+
+/* Schmalere Laptops: nichts darf unter den WhatsApp-Button oder aus dem Bild laufen */
+@media(min-width:1025px) and (max-width:1366px){
+  .hero.hx-c .hx-c-rechts .hero-video{margin-left:0}
+  .hero.hx-c .hx-c-rechts .hv-txt small{display:none}
+  .hero.hx-a .hx-cta-bild .btn{height:50px;padding:0 56px 0 18px;font-size:.95rem}
+  .hero.hx-a .hx-cta-bild .btn>.arr{width:36px;height:36px}
+}
+@media(min-width:1025px) and (max-width:1499px){
+  .hero.hx-d .hx-leiste .wrap{justify-content:flex-start;gap:40px;padding-right:170px}
+  .hero.hx-d .hx-l-awards .ha-label{display:none}
+  .hero.hx-d .hx-l-awards .ha-seal b{max-width:160px;font-size:.84rem}
+  .hero.hx-d .hx-l-checks{gap:18px}
+  .hero.hx-d .hx-l-checks li{font-size:.92rem}
+}
+@media(min-width:1025px) and (max-width:1240px){
+  .hero.hx-d .hx-l-checks{display:none}
+}
+
+/* ---------- Tablet und Handy: eine Spalte, sinnvolle Reihenfolge ---------- */
+@media(max-width:1024px){
+  .hero.hx .hero-grid,.hero.hx .hx-c-kopf,.hero.hx .hx-c-buehne{display:flex;flex-direction:column;align-items:stretch;gap:0}
+  .hero.hx .hero-copy,.hero.hx .hx-rechts,.hero.hx .hx-c-rechts{display:contents}
+  .hero.hx .hx-marker{order:1}
+  .hero.hx h1{order:2}
+  .hero.hx .hero-sub{order:3}
+  .hero.hx .hero-cta{order:4}
+  .hero.hx .hero-media--gruppe{order:5;margin-top:26px}
+  .hero.hx .hero-video{order:6}
+  .hero.hx .hero-wechsel{order:7}
+  .hero.hx .hero-awards{order:8;margin-top:22px}
+  .hero.hx .hx-checks{order:9;margin-top:18px}
+  .hero.hx-a .hx-cta-bild{order:4}
+  .hero.hx-c .hx-c-kopf{text-align:center;align-items:center}
+  .hero.hx-c .hero-cta{justify-content:center}
+  .hero.hx-c .hx-c-buehne .hero-video{position:relative;left:auto;bottom:auto;align-self:center;margin-top:-30px;z-index:4}
+  .hero.hx-c .hx-c-awards{align-items:center;text-align:center}
+  .hero.hx-c .hx-c-awards .ha-logos{justify-content:center}
+  .hero.hx-c .hx-checks{align-self:center}
+  .hero.hx-d .hx-leiste .wrap{display:flex;flex-direction:column;gap:18px;padding-bottom:30px}
+  .hero.hx-e .hg-buehne{background:var(--navy);border-radius:18px;overflow:hidden;padding-top:10%}
+  .hero.hx-e .hero-schild{opacity:.4}
+  .hero.hx-e .hero-media--gruppe{margin-bottom:30px}
+  .hero.hx-e .hero-video{left:50%;bottom:-24px;transform:translateX(-50%);white-space:nowrap}
+}
+
+/* ---------- Umschalter (nur zur Abstimmung) ---------- */
+.hx-schalter{position:fixed;left:16px;bottom:16px;z-index:200;display:flex;align-items:center;gap:2px;background:rgba(28,34,51,.94);color:#fff;
+  border-radius:40px;padding:6px 14px 6px 6px;font-size:.8rem;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.hx-schalter a{color:#fff;text-decoration:none;min-width:32px;height:32px;display:grid;place-items:center;border-radius:20px;font-weight:700;padding:0 9px;opacity:.85}
+.hx-schalter a:hover{opacity:1;background:rgba(255,255,255,.12)}
+.hx-schalter a.ist{background:var(--brown);opacity:1}
+.hx-schalter .hx-s-name{margin-left:8px;opacity:.85;white-space:nowrap}
+html.hx-sauber .hx-schalter{display:none}
+@media(max-width:700px){.hx-schalter .hx-s-name{display:none}.hx-schalter{padding-right:6px}}
+</style>
