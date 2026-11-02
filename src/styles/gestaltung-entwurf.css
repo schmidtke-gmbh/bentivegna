@@ -1,0 +1,81 @@
+/* =====================================================================
+   ENTWURF „Gestaltung“ (2.11.2026): drei Varianten für mehr Bild und Gestaltung
+   auf der Startseite. Die Elemente werden NUR unter /entwurf/gestaltung/a|b|c/
+   ausgegeben (index.astro, Prop gestaltung). Die Live-Startseite bleibt unverändert.
+   A = Bilder, B = Logo-Motive, C = Typografie. Bewegung über data-schweben (site.ts).
+   ===================================================================== */
+.section:has(> .deko),.stats:has(> .deko),.cases2:has(> .deko){overflow:hidden}
+.cases2:has(> .deko){position:relative}
+.section:has(> .deko) > .wrap,.stats:has(> .deko) > .wrap,.cases2:has(> .deko) > .wrap{position:relative;z-index:1}
+.deko{pointer-events:none;user-select:none}
+
+/* ---------- A: Bilder ---------- */
+/* „Keine Sorge …“ als vollflächiges Foto mit Navy-Schleier */
+.pullquote--bild{background:var(--navy-900);padding:150px 0!important}
+.pullquote--bild .pq-bild{position:absolute;left:0;right:0;top:-80px;bottom:-80px;z-index:0;will-change:transform}
+.pullquote--bild .pq-bild img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 42%}
+.pullquote--bild .pq-bild::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,29,58,.82) 0%,rgba(20,29,58,.70) 50%,rgba(20,29,58,.86) 100%)}
+.pullquote--bild .wrap{position:relative;z-index:1}
+.pullquote--bild .pq-text{color:#fff}
+.pullquote--bild .pq-em{color:var(--beige-l)}
+.pullquote--bild .pq-sub{color:rgba(255,255,255,.8)}
+.pullquote--bild .pq-mark{color:var(--beige-l)}
+.pullquote--bild::before,.pullquote--bild::after{z-index:2;background:var(--beige-l)}
+
+/* Bildband „Einblick in die Kanzlei“ vor dem Team */
+.einblick{position:relative;overflow:hidden;background:var(--cream);padding:calc(var(--sec,110px) * .8) 0 calc(var(--sec,110px) * .7)}
+.einblick-kopf{text-align:center;margin-bottom:44px}
+.einblick-kopf .eyebrow{justify-content:center}
+.einblick-kopf h2{margin-top:16px;font-size:clamp(2rem,4vw,3rem)}
+.einblick{display:flex;flex-direction:column}
+.einblick-band{align-self:center;display:flex;gap:18px;align-items:center;will-change:transform}
+.einblick-band figure{margin:0;flex:0 0 auto;border-radius:10px;overflow:hidden;box-shadow:0 18px 40px rgba(20,29,58,.14)}
+.einblick-band img{display:block;width:100%;height:100%;object-fit:cover}
+.ein-0{width:23vw;height:16vw}
+.ein-1{width:30vw;height:21vw}
+.ein-2{width:19vw;height:24vw}
+.ein-3{width:30vw;height:21vw}
+.ein-4{width:23vw;height:16vw}
+
+/* Schlussbereich: Domenico am Besprechungstisch rechts im Navy-Kasten */
+.cta-foto{position:absolute;top:0;right:0;bottom:0;width:44%;z-index:1}
+.cta-foto img{display:block;width:100%;height:100%;object-fit:cover;object-position:30% 30%;-webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.55) 28%,#000 62%);mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.55) 28%,#000 62%)}
+.cta-foto::before{content:none}
+.gestaltung-a .cta-stripes{display:none}
+.gestaltung-a .cta-inner{grid-template-columns:1fr;max-width:62%;gap:28px}
+
+/* ---------- B: Logo-Motive ---------- */
+/* Streifen wie im Schild (schräg, Messing) als Akzent in den dunklen Bereichen */
+.deko-streifen{position:absolute;z-index:0;background:repeating-linear-gradient(14deg,rgba(204,196,175,.20) 0 7px,transparent 7px 19px)}
+.deko-streifen--ref{background:repeating-linear-gradient(14deg,rgba(204,196,175,.16) 0 7px,transparent 7px 19px)}
+.deko-streifen--stats{top:0;bottom:0;right:0;width:46%;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 70%);mask-image:linear-gradient(90deg,transparent 0%,#000 70%)}
+.deko-streifen--ref{top:0;left:0;width:min(640px,52vw);height:460px;-webkit-mask-image:radial-gradient(120% 100% at 0 0,#000 25%,transparent 72%);mask-image:radial-gradient(120% 100% at 0 0,#000 25%,transparent 72%)}
+/* Schild als roter Faden, abwechselnd links und rechts */
+.deko-schild--fw{--deko-winkel:-12deg;top:60px;right:max(-120px,calc((100vw - var(--maxw)) / 2 - 200px));width:clamp(260px,27vw,420px);opacity:.30}
+.deko-schild--faq{--deko-winkel:12deg;top:50px;left:max(-120px,calc((100vw - var(--maxw)) / 2 - 220px));width:clamp(260px,27vw,420px);opacity:.38}
+.deko-schild--kontakt{--deko-winkel:10deg;bottom:-40px;left:max(-110px,calc((100vw - var(--maxw)) / 2 - 190px));width:clamp(240px,24vw,380px);opacity:.34}
+
+/* ---------- C: Typografie ---------- */
+.deko-wort{position:absolute;z-index:0;top:34px;font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(6.5rem,17vw,16.5rem);line-height:1;letter-spacing:-.035em;color:var(--brown);opacity:.10;white-space:nowrap;will-change:transform}
+.deko-wort--r{right:-3vw}
+.deko-wort--l{left:-3vw}
+.deko-wort--fw{top:60px}
+
+/* ---------- Tablet und Handy ---------- */
+@media(max-width:900px){
+  .cta-foto{position:relative;width:auto;height:230px}
+  .cta-foto img{-webkit-mask-image:linear-gradient(0deg,transparent 0%,#000 55%);mask-image:linear-gradient(0deg,transparent 0%,#000 55%)}
+  .gestaltung-a .cta-inner{max-width:none}
+  .ein-0,.ein-1,.ein-2,.ein-3,.ein-4{width:58vw;height:40vw}
+  .ein-2{height:48vw}
+  .deko-streifen--stats{width:70%}
+}
+@media(max-width:640px){
+  .pullquote--bild{padding:96px 0!important}
+  .einblick-kopf{margin-bottom:30px;padding:0 24px}
+  .deko-schild--fw,.deko-schild--faq,.deko-schild--kontakt{width:200px;opacity:.22}
+  .deko-schild--fw{top:20px;right:-80px}
+  .deko-schild--faq{top:10px;left:-80px}
+  .deko-wort{font-size:5.6rem;top:18px;opacity:.09}
+}
+@media print{.deko,.einblick{display:none}}

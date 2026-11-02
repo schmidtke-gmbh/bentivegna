@@ -178,7 +178,8 @@ export {};
 // weich nachgezogen wie bei Webflow-Seiten. Bei reduzierter Bewegung bleibt das Element still.
 const deko = [...document.querySelectorAll<HTMLElement>('[data-schweben]')];
 if (deko.length && !reduce) {
-  const st = deko.map((el) => ({ el, ref: (el.closest('section') || el.parentElement) as HTMLElement, base: parseFloat(el.dataset.schweben || '0'), ist: 0, soll: 0, an: false }));
+  // optional: data-dreh (Drehung in Grad, Standard 9), data-weg (Weg in px, Standard 70), data-achse="x" für seitliches Gleiten
+  const st = deko.map((el) => ({ el, ref: (el.closest('section') || el.parentElement) as HTMLElement, base: parseFloat(el.dataset.schweben || '0'), dreh: parseFloat(el.dataset.dreh ?? '9'), weg: parseFloat(el.dataset.weg ?? '70'), x: el.dataset.achse === 'x', ist: 0, soll: 0, an: false }));
   let laeuft = false;
   const ziel = () => {
     const vh = innerHeight;
@@ -194,7 +195,8 @@ if (deko.length && !reduce) {
       if (!s.an) return;
       s.ist += (s.soll - s.ist) * 0.075;
       if (Math.abs(s.soll - s.ist) > 0.0004) weiter = true;
-      s.el.style.transform = `translate3d(0, ${(s.ist * 70).toFixed(2)}px, 0) rotate(${(s.base + s.ist * 9).toFixed(2)}deg)`;
+      const v = (s.ist * s.weg).toFixed(2);
+      s.el.style.transform = `translate3d(${s.x ? v : 0}px, ${s.x ? 0 : v}px, 0)` + (s.base || s.dreh ? ` rotate(${(s.base + s.ist * s.dreh).toFixed(2)}deg)` : '');
     });
     if (weiter) requestAnimationFrame(schritt); else laeuft = false;
   };

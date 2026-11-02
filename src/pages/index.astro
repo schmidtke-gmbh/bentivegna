@@ -7,6 +7,7 @@ import K from '../data/karriere.json';
 import S from '../data/startseite.json';
 import { u, E, md, waLink, istVeroeffentlicht } from '../lib/site';
 import { getCollection } from 'astro:content';
+import '../styles/gestaltung-entwurf.css';
 
 const anfrage = u('/anfrage/');
 const wa = waLink(E.whatsapp, 'Hallo Bentivegna, ich habe eine kurze Frage:');
@@ -53,6 +54,12 @@ const gitter = [0, 1, 2, 3, 4].map((k) => ({ y: cPadT + (1 - k / 4) * cPlotH, u:
 const pctY = (y: number) => ((y / CH) * 100).toFixed(2) + '%';
 const mio = (t: number) => (t / 1000).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Mio €';
 
+// Entwurf „Gestaltung“: Varianten A (Bilder), B (Logo-Motive), C (Typografie) nur unter /entwurf/gestaltung/
+const { gestaltung = '' } = Astro.props as { gestaltung?: string };
+const gA = gestaltung === 'a', gB = gestaltung === 'b', gC = gestaltung === 'c';
+const foto = (n: string) => ({ src: u(`/uploads/kanzlei/${n}.webp`), srcset: `${u(`/uploads/kanzlei/${n}-960.webp`)} 960w, ${u(`/uploads/kanzlei/${n}.webp`)} 1920w` });
+const schild = u('/uploads/logos/schild-mono.svg');
+
 const initialen = (n: string) => n.split(' ').map((w) => w[0]).slice(0, 2).join('');
 
 const faqLd = {
@@ -65,7 +72,7 @@ const swListe = S.software.liste.filter((m) => m.anzeigen !== false);
 const markenListe = S.marken.liste.filter((m) => m.anzeigen !== false);
 const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43],[82.15,32.58],[17.44,45.5],[9.9,49.17],[11.93,52.9],[70.91,47.74],[85.77,51.45],[56.27,52.29],[30.69,63.51],[56.78,71.97],[36.15,80.66],[62.29,88.88],[21.54,90.63]];
 ---
-<Base titel={S.seo.titel} beschreibung={S.seo.beschreibung} pfad="/" jsonld={[faqLd]}>
+<Base titel={gestaltung ? `Entwurf Gestaltung ${gestaltung.toUpperCase()} | Bentivegna` : S.seo.titel} beschreibung={S.seo.beschreibung} pfad={gestaltung ? `/entwurf/gestaltung/${gestaltung}/` : '/'} jsonld={gestaltung ? [] : [faqLd]} noindex={!!gestaltung} bodyClass={gestaltung ? `gestaltung gestaltung-${gestaltung}` : ''}>
 
 <!-- ============ HERO ============ -->
 <section class="hero hero--b" id="top">
@@ -135,6 +142,7 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
 
 <!-- ============ KENNZAHLEN ============ -->
 <section class="stats" aria-label="Kennzahlen">
+  {gB && <span class="deko deko-streifen deko-streifen--stats" aria-hidden="true"></span>}
   <div class="wrap">
     {S.kennzahlen.map((k, i) => (
       <div class={`stat reveal d${i}`}>
@@ -166,7 +174,8 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
   </div>
 </section>
 
-<section class="pullquote">
+<section class={`pullquote${gA ? ' pullquote--bild' : ''}`}>
+  {gA && <div class="deko pq-bild" data-schweben="0" data-dreh="0" data-weg="60" aria-hidden="true"><img src={foto('kaffeebar').src} srcset={foto('kaffeebar').srcset} sizes="100vw" alt="" loading="lazy" width="1920" height="1280"></div>}
   <div class="wrap">
     <span class="pq-mark reveal" aria-hidden="true">&#8220;</span>
     <blockquote class="pq-text reveal d1">{S.zitat.zeile1}<br><span class="pq-em">{S.zitat.zeile2}</span></blockquote>
@@ -204,6 +213,7 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
 
 <!-- ============ REFERENZEN ============ -->
 <section class="cases2" id="referenzen">
+  {gB && <span class="deko deko-streifen deko-streifen--ref" aria-hidden="true"></span>}
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">{S.referenzen.eyebrow}</span>
@@ -244,6 +254,7 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
 
 <!-- ============ LEISTUNGEN ============ -->
 <section class="section leist" id="leistungen">
+  {gC && <span class="deko deko-wort deko-wort--r" data-schweben="0" data-dreh="0" data-achse="x" data-weg="-110" aria-hidden="true">Rentabel.</span>}
   <div class="wrap">
     <div class="section-head reveal" style="text-align:center;max-width:660px;margin:0 auto 48px">
       <span class="eyebrow" style="justify-content:center">{L.eyebrow}</span>
@@ -404,6 +415,7 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
 
 <!-- ============ UNSER WEG IN 6 STUFEN ============ -->
 <section class="section system" id="system">
+  {gC && <span class="deko deko-wort deko-wort--l" data-schweben="0" data-dreh="0" data-achse="x" data-weg="110" aria-hidden="true">Klarheit.</span>}
   <div class="wrap">
     <div class="section-head reveal" style="max-width:820px">
       <span class="eyebrow">{S.stufen.eyebrow}</span>
@@ -586,6 +598,8 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
 
 <!-- ============ PASSEN WIR ZUEINANDER ============ -->
 <section class="section" id="fuer-wen">
+  {gC && <span class="deko deko-wort deko-wort--r deko-wort--fw" data-schweben="0" data-dreh="0" data-achse="x" data-weg="-110" aria-hidden="true">Ehrlich.</span>}
+  {gB && <img class="deko deko-schild deko-schild--fw" src={schild} alt="" aria-hidden="true" width="103" height="120" loading="lazy" data-schweben="12">}
   <div class="wrap">
     <div class="section-head reveal" style="max-width:760px">
       <span class="eyebrow">{S.passen.eyebrow}</span>
@@ -644,6 +658,16 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
 </section>
 
 <!-- ============ TEAM ============ -->
+{gA && (
+  <section class="einblick" aria-label="Einblick in die Kanzlei">
+    <div class="wrap einblick-kopf reveal"><span class="eyebrow">Einblick in die Kanzlei</span><h2>So arbeiten wir in Überlingen.</h2></div>
+    <div class="einblick-band" data-schweben="0" data-dreh="0" data-achse="x" data-weg="-60">
+      {['telefonat', 'arbeitsplatz-bildschirme', 'rechenmaschine', 'mandantenbetreuung', 'kaffeebar-2'].map((n, i) => (
+        <figure class={`ein-${i}`}><img src={foto(n).src} srcset={foto(n).srcset} sizes="(max-width: 700px) 80vw, 34vw" alt="" loading="lazy" width="1920" height="1280"></figure>
+      ))}
+    </div>
+  </section>
+)}
 <section class="section team" id="team">
   <div class="wrap">
     <div class="team-banner wide reveal">
@@ -724,6 +748,7 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
 
 <!-- ============ FAQ ============ -->
 <section class="section faq">
+  {gB && <img class="deko deko-schild deko-schild--faq" src={schild} alt="" aria-hidden="true" width="103" height="120" loading="lazy" data-schweben="-12">}
   <div class="wrap">
     <div class="section-head reveal" style="max-width:720px;margin-left:auto;margin-right:auto;text-align:center">
       <span class="eyebrow" style="justify-content:center">{S.faq.eyebrow}</span>
@@ -742,9 +767,11 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
 
 <!-- ============ SCHLUSS-CTA ============ -->
 <section class="section" id="kontakt">
+  {gB && <img class="deko deko-schild deko-schild--kontakt" src={schild} alt="" aria-hidden="true" width="103" height="120" loading="lazy" data-schweben="10">}
   <div class="wrap">
     <div class="cta-band reveal">
       <img class="cta-stripes" src={u('/uploads/logos/logo-hoch.svg')} alt="" aria-hidden="true">
+      {gA && <div class="cta-foto" aria-hidden="true"><img src={foto('domenico-besprechung').src} srcset={foto('domenico-besprechung').srcset} sizes="(max-width: 900px) 100vw, 560px" alt="" loading="lazy" width="1920" height="1280"></div>}
       <div class="cta-inner">
         <div>
           <span class="eyebrow" style="color:var(--beige-l)">{S.cta.eyebrow}</span>

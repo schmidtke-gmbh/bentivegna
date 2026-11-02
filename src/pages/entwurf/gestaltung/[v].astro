@@ -1,0 +1,9 @@
+---
+// Entwurf „Gestaltung“: die echte Startseite mit Variante A, B oder C (nicht verlinkt, noindex).
+import Startseite from '../../index.astro';
+export function getStaticPaths() {
+  return ['a', 'b', 'c'].map((v) => ({ params: { v } }));
+}
+const { v } = Astro.params;
+---
+<Startseite gestaltung={v} />
