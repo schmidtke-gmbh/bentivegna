@@ -1006,3 +1006,12 @@ blockquote,dd,small,.ref-zitat,.cs-quote{text-wrap:pretty}
 .award-card .logos img[src*="dstv-"]{height:92px}
 .fn-siegel{display:block;height:74px;width:auto;margin:0 0 18px}
 @media(max-width:600px){.ha-logos img.ha-fb{height:62px}.fn-siegel{height:62px}}
+
+/* Gestaltungselement: Logo-Schild schräg im Hintergrund, schwebt beim Scrollen leicht mit (site.ts, data-schweben) */
+.deko-schild{position:absolute;z-index:0;pointer-events:none;user-select:none;height:auto;max-width:none;transform:rotate(var(--deko-winkel,-14deg));will-change:transform}
+.section:has(> .deko-schild){overflow:hidden}
+.section:has(> .deko-schild) > .wrap{position:relative;z-index:1}
+.deko-schild--pain{--deko-winkel:-14deg;top:64px;right:max(-90px,calc((100vw - var(--maxw)) / 2 - 150px));width:clamp(300px,33vw,500px);opacity:.42}
+@media(max-width:1024px){.deko-schild--pain{width:300px;top:40px;right:-90px;opacity:.32}}
+@media(max-width:600px){.deko-schild--pain{width:200px;top:24px;right:-70px;opacity:.26}}
+@media print{.deko-schild{display:none}}

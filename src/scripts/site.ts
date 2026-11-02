@@ -172,3 +172,38 @@ document.addEventListener('keydown', (e) => {
 });
 
 export {};
+
+// Gestaltungselemente (z. B. Logo-Schild im Problem-Bereich): schweben beim Scrollen weich mit.
+// Grundwinkel aus data-schweben, Bewegung abhängig von der Lage des Abschnitts im Fenster,
+// weich nachgezogen wie bei Webflow-Seiten. Bei reduzierter Bewegung bleibt das Element still.
+const deko = [...document.querySelectorAll<HTMLElement>('[data-schweben]')];
+if (deko.length && !reduce) {
+  const st = deko.map((el) => ({ el, ref: (el.closest('section') || el.parentElement) as HTMLElement, base: parseFloat(el.dataset.schweben || '0'), ist: 0, soll: 0, an: false }));
+  let laeuft = false;
+  const ziel = () => {
+    const vh = innerHeight;
+    st.forEach((s) => {
+      if (!s.an) return;
+      const r = s.ref.getBoundingClientRect();
+      s.soll = Math.max(-1, Math.min(1, (r.top + Math.min(r.height, vh) / 2 - vh / 2) / vh));
+    });
+  };
+  const schritt = () => {
+    let weiter = false;
+    st.forEach((s) => {
+      if (!s.an) return;
+      s.ist += (s.soll - s.ist) * 0.075;
+      if (Math.abs(s.soll - s.ist) > 0.0004) weiter = true;
+      s.el.style.transform = `translate3d(0, ${(s.ist * 70).toFixed(2)}px, 0) rotate(${(s.base + s.ist * 9).toFixed(2)}deg)`;
+    });
+    if (weiter) requestAnimationFrame(schritt); else laeuft = false;
+  };
+  const anstoss = () => { ziel(); if (!laeuft) { laeuft = true; requestAnimationFrame(schritt); } };
+  const io = new IntersectionObserver((es) => {
+    es.forEach((e) => { const s = st.find((x) => x.ref === e.target); if (s) { if (e.isIntersecting && !s.an) { s.an = true; ziel(); s.ist = s.soll; } else if (!e.isIntersecting) s.an = false; } });
+    anstoss();
+  }, { rootMargin: '150px 0px' });
+  st.forEach((s) => io.observe(s.ref));
+  addEventListener('scroll', anstoss, { passive: true });
+  addEventListener('resize', anstoss);
+}
