@@ -10,8 +10,8 @@ bild: ""
 bild_alt: "Zahlentafel: 650.000 Euro gegenüber 200.000 Euro Gewinn bei gleichem Umsatz"
 aufgabe_vor_ausblick: true
 aufgabe: Nenne einen Betrieb in deiner Region, von dem du weißt oder ahnst, dass er besser verdient als du. Schreib drei Dinge auf, die er anders macht. Keine Umstände, keine Vermutungen über seine Leute oder sein Glück. Nur Dinge, die er tut. Wenn dir nichts einfällt, ruf ihn an. Die meisten Inhaber erzählen gern, wie sie es machen.
-meta_titel: Warum dein SHK-Betrieb weniger verdient als der Betrieb nebenan – und was das mit dir zu tun hat
-meta_beschreibung: Zwei SHK-Betriebe, gleiche Bedingungen, völlig anderer Gewinn. Warum Förderung, Fachkräfte und Großhandel nichts erklären – und was den Unterschied wirklich macht.
+meta_titel: Warum dein SHK-Betrieb weniger verdient als der Betrieb nebenan, und was das mit dir zu tun hat
+meta_beschreibung: Zwei SHK-Betriebe, gleiche Bedingungen, völlig anderer Gewinn. Warum Förderung, Fachkräfte und Großhandel nichts erklären, und was den Unterschied wirklich macht.
 suchbegriff: SHK-Betrieb Gewinn
 audio: ""
 ---
