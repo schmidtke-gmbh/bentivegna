@@ -35,8 +35,8 @@ const ab = d.honorar?.pakete?.[0];
       </ul>
     </div>
     <div class="ls-hero-media">
-      <span class="ls-hero-kreis" aria-hidden="true"></span>
-      <img src={u(d.hero.bild)} alt={d.hero.bild_alt} width="705" height="1100" fetchpriority="high">
+      <img class="ls-hero-motiv" src={u('/uploads/logos/schild-mono.svg')} alt="" aria-hidden="true" width="103" height="120">
+      <img class="ls-hero-person" src={u(d.hero.bild)} alt={d.hero.bild_alt} width="705" height="1100" fetchpriority="high">
       {ab && (
         <div class="ls-hero-karte">
           <span class="ico-box"><Icon name="coins" /></span>
