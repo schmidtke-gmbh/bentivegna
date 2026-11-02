@@ -763,3 +763,6 @@ html:not(.js) .gr-ringe{display:none}
   .hero-video .hero-play svg{width:14px;height:17px}
   .hero-video .hero-play::after{inset:-5px}
 }
+
+/* Footer: Schmidtke-Wortmarke im Original (SK Modernist Bold, goldener Punkt) */
+.foot-credit .sk-logo-img{display:inline-block;height:19px;width:auto;vertical-align:middle;position:relative;top:-1px}
