@@ -232,8 +232,8 @@
         "gross": true
       },
       {
-        "bild": "/uploads/logos/kununu-top-company-2026.png",
-        "alt": "kununu Top Company 2026",
+        "bild": "/uploads/logos/kununu-top-company-2027.svg",
+        "alt": "kununu Top Company 2027",
         "gross": true
       },
       {
@@ -475,7 +475,8 @@
     "einwilligung": "Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Bewerbung verarbeitet werden. Mehr dazu in der [Datenschutzerklärung](/datenschutz/)."
   },
   "kununu": {
-    "titel": "Top Company 2026 bei kununu",
+    "titel": "Top Company 2027 bei kununu",
+    "bild": "/uploads/logos/kununu-top-company-2027.svg",
     "text": "Bewertet vom eigenen Team.",
     "note": "4,8",
     "anzahl": "",

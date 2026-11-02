@@ -2,6 +2,8 @@
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import Brand from '../components/Brand.astro';
+import Kununu from '../components/Kununu.astro';
+import K from '../data/karriere.json';
 import S from '../data/startseite.json';
 import { u, E, md, waLink, istVeroeffentlicht } from '../lib/site';
 import { getCollection } from 'astro:content';
@@ -635,6 +637,7 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
         <div>
           <p>{S.team.text}</p>
           <a href="#ueber-uns" class="btn">{S.team.button} <span class="arr"></span></a>
+          <div class="team-kununu"><Kununu k={K.kununu} /></div>
         </div>
       </div>
       <div class="team-img"><img src={u(S.team.bild)} alt={S.team.bild_alt} loading="lazy" width="1600" height="640"></div>

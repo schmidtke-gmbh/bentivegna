@@ -4,12 +4,12 @@
 // solange der Link fehlt, erscheint kein Link. Soll später das offizielle Live-Widget von kununu kommen,
 // braucht es dafür eine Einwilligung (Cookie-Banner).
 import { u } from '../lib/site';
-interface Props { k: { titel: string; text: string; note?: string; anzahl?: string; profil_url?: string; link_text?: string }; dunkel?: boolean }
+interface Props { k: { titel: string; bild?: string; text: string; note?: string; anzahl?: string; profil_url?: string; link_text?: string }; dunkel?: boolean }
 const { k, dunkel = false } = Astro.props;
 const Tag = k.profil_url ? 'a' : 'div';
 ---
 <Tag class={`kununu${dunkel ? ' kununu--dunkel' : ''}`} href={k.profil_url || undefined} target={k.profil_url ? '_blank' : undefined} rel={k.profil_url ? 'noopener' : undefined} data-track={k.profil_url ? 'kununu_klick' : undefined}>
-  <img src={u('/uploads/logos/kununu-top-company-2026.png')} alt="kununu Top Company 2026" width="34" height="45" loading="lazy">
+  <img src={u(k.bild || '/uploads/logos/kununu-top-company-2027.svg')} alt={`kununu ${k.titel.replace(/ bei kununu$/, '')}`} width="34" height="45" loading="lazy">
   <span class="kununu-txt">
     <b>{k.titel}</b>
     <span>
@@ -31,6 +31,6 @@ const Tag = k.profil_url ? 'a' : 'div';
   .kununu-link{margin-left:8px;font-size:.8rem;font-weight:700;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
   .kununu--dunkel{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);box-shadow:none;color:#fff}
   .kununu--dunkel .kununu-txt > span{color:rgba(255,255,255,.72)}
-  .kununu--dunkel img{background:#fff;border-radius:4px;padding:2px}
+  .kununu--dunkel img{background:#fff;border-radius:3px;padding:2px}
   @media(max-width:560px){.kununu-link{display:none}}
 </style>

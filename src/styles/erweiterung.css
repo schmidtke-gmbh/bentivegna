@@ -983,3 +983,5 @@ blockquote,dd,small,.ref-zitat,.cs-quote{text-wrap:pretty}
   .ct-anker dt{margin:0;font-size:1.2rem}
 }
 @media print{.ct-bau{break-inside:avoid;box-shadow:none}}
+.team-kununu .kununu{margin-top:22px}
+@media(max-width:600px){.team-kununu{display:flex;justify-content:center}}
