@@ -366,7 +366,7 @@ body:has(.khero--navy) .nav-inner{background:#fff}
 }
 @media(prefers-reduced-motion:reduce){.ts-step,.ts-label.neu{transition:none;animation:none}}
 .awards .logo-row img[src*="allianz"]{max-height:40px}
-.awards .logo-row img[src*="taxflix"]{max-height:66px;max-width:150px}
+.awards .logo-row img[src*="graf-steuerseminare"]{max-height:40px;max-width:180px}
 
 /* Runde 2 (1.11.2026): Eintrittsdatum bei den Stimmen, kununu-Zeile unter den Stimmen */
 .stimme .who small.seit{display:block;margin-top:2px;font-size:.76rem;color:rgba(255,255,255,.55)}
