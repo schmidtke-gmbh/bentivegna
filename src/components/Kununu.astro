@@ -17,7 +17,7 @@ const titel = zeitraum ? `Top Company ${zeitraum}` : k.titel;
 ---
 <Tag class={`kununu${dunkel ? ' kununu--dunkel' : ''}`} href={k.profil_url || undefined} target={k.profil_url ? '_blank' : undefined} rel={k.profil_url ? 'noopener' : undefined} data-track={k.profil_url ? 'kununu_klick' : undefined}>
   <span class="kununu-siegel">
-    {siegel.map((s) => <img src={u(s.bild!)} alt={`kununu Top Company${s.jahr ? ' ' + s.jahr : ''}`} width="34" height="45" loading="lazy">)}
+    {siegel.map((s) => <img src={u(s.bild!)} alt={`kununu Top Company${s.jahr ? ' ' + s.jahr : ''}`} width="35" height="46" loading="lazy">)}
   </span>
   <span class="kununu-txt">
     <b>{titel}{zeitraum && <span class="kununu-bei"> bei kununu</span>}</b>
@@ -30,8 +30,12 @@ const titel = zeitraum ? `Top Company ${zeitraum}` : k.titel;
 <style is:global>
   .kununu{display:inline-flex;align-items:center;gap:12px;margin-top:26px;padding:8px 16px 8px 10px;border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-s,0 6px 18px rgba(20,29,58,.08));color:var(--navy);text-align:left;transition:transform .3s,box-shadow .3s}
   a.kununu:hover{transform:translateY(-1px);box-shadow:var(--shadow-m)}
-  .kununu-siegel{display:flex;gap:4px;flex:0 0 auto}
-  .kununu-siegel img{width:auto;height:44px;display:block}
+  /* Siegel überlappend als kleiner Stapel (Wunsch Domenico, 2.11.): das neueste liegt vorn links, ältere dahinter,
+     sodass die Jahreszahl oben rechts bei jedem Siegel sichtbar bleibt. Reihenfolge im Code bleibt chronologisch. */
+  .kununu-siegel{display:flex;flex-direction:row-reverse;justify-content:flex-end;flex:0 0 auto;padding:3px 2px 3px 0}
+  .kununu-siegel img{width:auto;height:46px;display:block;position:relative;background:#fff;border-radius:4px;padding:2px;box-shadow:0 1px 2px rgba(20,29,58,.10),0 4px 10px rgba(20,29,58,.16);transition:margin .3s ease}
+  .kununu-siegel img+img{margin-right:-17px}
+  a.kununu:hover .kununu-siegel img+img{margin-right:-10px}
   .kununu-txt{display:flex;flex-direction:column;line-height:1.3}
   .kununu-txt b{font-size:.92rem}
   .kununu-txt > span{font-size:.82rem;color:var(--muted)}
@@ -39,6 +43,6 @@ const titel = zeitraum ? `Top Company ${zeitraum}` : k.titel;
   .kununu-link{margin-left:8px;font-size:.8rem;font-weight:700;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
   .kununu--dunkel{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);box-shadow:none;color:#fff}
   .kununu--dunkel .kununu-txt > span{color:rgba(255,255,255,.72)}
-  .kununu--dunkel .kununu-siegel img{background:#fff;border-radius:3px;padding:2px}
+  .kununu--dunkel .kununu-siegel img{box-shadow:0 4px 12px rgba(0,0,0,.35)}
   @media(max-width:560px){.kununu-link{display:none}}
 </style>

@@ -393,6 +393,7 @@ p,li,.ans{text-wrap:pretty}
 @media(max-width:640px){.feat-card .feat-top,.feat-card:has(.fv-graph) .feat-top,.feat-card:has(.fv-struct) .feat-top,.prx-extra .feat-card .feat-top{max-width:none!important}.feat-tall .feat-top{padding-bottom:0}.award-row img,.award-row img.wide{height:58px}.award-row .lead{width:100%;text-align:center}}
 .art-bild{height:auto}
 .fn-back[hidden]{display:none}
+.fn-exit [data-nf][hidden]{display:none!important}
 /* Logo-Variante A: Originallogo mit integriertem Claim, größer gesetzt */
 .nav-brand{flex-direction:row;gap:0}
 .nav-logo{width:auto;display:block}

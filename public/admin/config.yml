@@ -3359,8 +3359,20 @@ collections:
           name: text
           widget: text
           required: false
-        - label: Button-Text
-          name: button
+        - label: Text für Unternehmer (führt zum Steuerstrategie-Gespräch)
+          name: text_unternehmer
+          widget: text
+          required: false
+        - label: Button für Unternehmer
+          name: button_unternehmer
+          widget: string
+          required: false
+        - label: Text für Privatpersonen (führt zur Vermögensstrategie)
+          name: text_privat
+          widget: text
+          required: false
+        - label: Button für Privatpersonen
+          name: button_privat
           widget: string
           required: false
         - label: kununu-Siegel (je Jahr, ohne Bild wird es nicht angezeigt)
@@ -3395,10 +3407,6 @@ collections:
         required: false
       - label: Text
         name: text
-        widget: text
-        required: false
-      - label: Text nachfolge
-        name: text_nachfolge
         widget: text
         required: false
       - label: WhatsApp-Nummer
@@ -3479,6 +3487,10 @@ collections:
         required: false
     - label: Link zum Steuerstrategie-Gespräch (Brücke im Anfrage-Formular)
       name: steuerstrategie_url
+      widget: string
+      required: false
+    - label: Link zur Vermögensstrategie (Nachfolge-Brücke im Anfrage-Formular bei Privatpersonen)
+      name: vermoegensstrategie_url
       widget: string
       required: false
     - label: Bewertungen

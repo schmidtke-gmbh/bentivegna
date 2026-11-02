@@ -66,7 +66,13 @@ const intern = (z: string) => z.startsWith('/');
             : <span class="ico-box"><Icon name="award" /></span>}
           <h2 class="fn-frage" tabindex="-1">{F.bruecken.nachfolge.titel}</h2>
           <p>{F.bruecken.nachfolge.text}</p>
-          <div class="fn-btns"><button type="button" class="btn btn--gold" data-geh="form-nachfolge">{F.bruecken.nachfolge.button} <span class="arr"></span></button></div>
+          {/* Nachfolge wird nicht angefragt, sondern gebucht: Unternehmer über das Steuerstrategie-Gespräch, Privatpersonen über die Vermögensstrategie (Domenico, 2.11.) */}
+          <p data-nf="unternehmer">{F.bruecken.nachfolge.text_unternehmer}</p>
+          <p data-nf="privat" hidden>{F.bruecken.nachfolge.text_privat}</p>
+          <div class="fn-btns">
+            <a class="btn btn--gold" data-nf="unternehmer" href={u(E.steuerstrategie_url)} data-track="funnel_weiter_steuerstrategie_nachfolge">{F.bruecken.nachfolge.button_unternehmer} <span class="arr"></span></a>
+            <a class="btn btn--gold" data-nf="privat" hidden href={u(E.vermoegensstrategie_url)} data-track="funnel_weiter_vermoegensstrategie_nachfolge">{F.bruecken.nachfolge.button_privat} <span class="arr"></span></a>
+          </div>
         </div>
 
         <div class="fn-screen" data-s="form">
@@ -107,7 +113,7 @@ const intern = (z: string) => z.startsWith('/');
         <div class="fn-screen fn-exit" data-s="danke" hidden>
           <span class="ico-box" style="background:var(--navy);color:#fff"><Icon name="check" /></span>
           <h2 class="fn-frage" tabindex="-1">{F.danke.titel}</h2>
-          <p id="fnDankeText" data-standard={F.danke.text} data-nachfolge={F.danke.text_nachfolge}>{F.danke.text}</p>
+          <p id="fnDankeText">{F.danke.text}</p>
           <p>{F.danke.whatsapp}</p>
           <div class="fn-btns">
             {wa ? <a class="btn btn--gold" href={wa} target="_blank" rel="noopener" data-track="whatsapp_klick"><Brand name="whatsapp" /> WhatsApp <span class="arr"></span></a>
@@ -196,22 +202,28 @@ const intern = (z: string) => z.startsWith('/');
     else if (nr) track('funnel_schritt', { schritt: id });
   }
 
-  function formular(nachfolge: boolean) {
+  function formular() {
     const privat = a.s1?.wert === 'privat';
     const firma = document.getElementById('fnFirma')!, fi = firma.querySelector('input')!;
     firma.hidden = privat; fi.required = !privat; if (privat) fi.value = '';
     (document.getElementById('fnMa') as HTMLElement).hidden = privat;
-    const dt = document.getElementById('fnDankeText')!;
-    dt.textContent = (nachfolge ? dt.dataset.nachfolge : dt.dataset.standard) || '';
-    if (nachfolge) lane = 'Nachfolge';
     const set = (n: string, v = '') => ((form.elements.namedItem(n) as HTMLInputElement).value = v);
     set('lane', lane);
     set('wer', a.s1?.text);
     set('anliegen', (a.s2 || a.s2p)?.text);
-    set('umsatz', nachfolge ? '' : a.s3?.text);
-    set('phase', nachfolge ? '' : a.s4?.text);
-    set('arbeitsweise', nachfolge ? '' : a.s5?.text);
+    set('umsatz', a.s3?.text);
+    set('phase', a.s4?.text);
+    set('arbeitsweise', a.s5?.text);
     zeige('form');
+  }
+
+  // Nachfolge-Brücke: Unternehmer → Steuerstrategie-Gespräch, Privatpersonen → Vermögensstrategie
+  function nachfolge() {
+    const privat = a.s1?.wert === 'privat';
+    root.querySelectorAll<HTMLElement>('[data-s="bruecke-nachfolge"] [data-nf]').forEach((el) => {
+      el.hidden = el.dataset.nf !== (privat ? 'privat' : 'unternehmer');
+    });
+    zeige('bruecke-nachfolge');
   }
 
   function weiter(schritt: string, wert: string) {
@@ -224,28 +236,28 @@ const intern = (z: string) => z.startsWith('/');
         return zeige('s2');
       case 's2':
         if (wert === 'guenstig') return zeige('exit-C');
-        if (shk) { lane = wert === 'betreuung' ? 'Betreuung' : wert === 'gestaltung' ? 'Gestaltung' : 'Nachfolge'; return zeige('s3'); }
+        // Nachfolge wird immer gebucht, nicht angefragt, auch bei SHK-Betrieben
+        if (wert === 'nachfolge') return nachfolge();
+        if (shk) { lane = wert === 'betreuung' ? 'Betreuung' : 'Gestaltung'; return zeige('s3'); }
         if (wert === 'betreuung') return zeige('exit-B');
-        if (wert === 'gestaltung') return zeige('bruecke-steuerstrategie');
-        return zeige('bruecke-nachfolge');
+        return zeige('bruecke-steuerstrategie');
       case 's2p':
-        if (wert === 'nachfolge') return zeige('bruecke-nachfolge');
+        if (wert === 'nachfolge') return nachfolge();
         if (wert === 'vermoegen') return zeige('exit-D');
         return zeige('exit-C');
       case 's3':
         if (wert === 'unter750') {
           if (anliegen === 'betreuung') return zeige('exit-E');
-          if (anliegen === 'gestaltung') return zeige('bruecke-steuerstrategie');
-          return zeige('bruecke-nachfolge');
+          return zeige('bruecke-steuerstrategie');
         }
-        lane = anliegen === 'betreuung' ? 'Betreuung' : anliegen === 'gestaltung' ? 'Gestaltung' : 'Nachfolge';
+        lane = anliegen === 'betreuung' ? 'Betreuung' : 'Gestaltung';
         if (wert === '750bis1') lane = 'Grenzfall';
         return zeige('s4');
       case 's4':
         return zeige('s5');
       case 's5':
         if (wert === 'nein') return zeige('exit-F');
-        return formular(false);
+        return formular();
     }
   }
 
@@ -261,7 +273,7 @@ const intern = (z: string) => z.startsWith('/');
     const geh = (e.target as HTMLElement).closest<HTMLElement>('[data-geh]');
     if (geh) {
       const ziel = geh.dataset.geh!;
-      if (ziel === 'form-nachfolge') formular(true); else zeige(ziel);
+      zeige(ziel);
     }
   });
   back.addEventListener('click', () => { const z = verlauf.pop(); if (z) zeige(z, false); });

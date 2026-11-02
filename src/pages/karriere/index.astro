@@ -17,6 +17,17 @@ const faqLd = {
   '@context': 'https://schema.org', '@type': 'FAQPage',
   mainEntity: K.faq.fragen.map((f) => ({ '@type': 'Question', name: f.frage, acceptedAnswer: { '@type': 'Answer', text: f.antwort } }))
 };
+// Auszeichnungen derselben Reihe (gleiche Bildbeschreibung, nur andere Jahreszahl, z. B. kununu Top Company 2025/2026/2027)
+// stehen direkt hintereinander und werden als überlappender Stapel gezeigt. Gilt automatisch auch für weitere Reihen wie DATEV.
+type Award = { bild: string; alt: string; gross?: boolean };
+const awardGruppen: { familie: string; jahr: boolean; items: Award[] }[] = [];
+for (const a of K.benefits.awards as Award[]) {
+  const jahr = /\s(20\d\d)\s*$/.test(a.alt || '');
+  const familie = (a.alt || '').replace(/\s*20\d\d\s*$/, '').trim();
+  const letzte = awardGruppen[awardGruppen.length - 1];
+  if (jahr && letzte && letzte.familie === familie && letzte.jahr) letzte.items.push(a);
+  else awardGruppen.push({ familie, jahr, items: [a] });
+}
 ---
 <Base titel={K.seo.titel} beschreibung={K.seo.beschreibung} pfad="/karriere/" aktiv="karriere" bodyClass="page-karriere" footer="karriere" cta={{ text: 'Offene Stellen', href: '#jobs' }} jsonld={[faqLd]} bild={K.hero.bild}>
 
@@ -199,7 +210,9 @@ const faqLd = {
   <div class="wrap">
     <p class="lead reveal">{K.benefits.awards_titel}</p>
     <div class="logo-row reveal d1">
-      {K.benefits.awards.map((a) => <img src={u(a.bild)} alt={a.alt} class={a.gross ? 'gross' : ''} loading="lazy">)}
+      {awardGruppen.map((g) => g.items.length > 1
+        ? <span class="award-stapel" role="group" aria-label={g.familie}>{g.items.map((a) => <img src={u(a.bild)} alt={a.alt} class={a.gross ? 'gross' : ''} loading="lazy">)}</span>
+        : <img src={u(g.items[0].bild)} alt={g.items[0].alt} class={g.items[0].gross ? 'gross' : ''} loading="lazy">)}
     </div>
   </div>
 </section>

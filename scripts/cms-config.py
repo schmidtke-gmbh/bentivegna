@@ -58,7 +58,8 @@ for _k,_v in {'buchung_url':'Buchungslink (Microsoft Bookings, alle Buchen-Butto
 for _k,_v in {'social':'Social Media (Links im Footer; leeres Feld = Symbol ausgeblendet)','instagram':'Instagram (Link)','facebook':'Facebook (Link)','linkedin':'LinkedIn (Link)','kununu_url':'kununu (Link)',
  'tracking':'Cookie-Banner & Tracking','cookiebot_id':'Cookiebot-ID (Domain Group ID). Ohne ID bleiben Cookie-Banner, Google Analytics, Google Ads und Meta-Pixel aus.',
  'ga4_id':'Google Analytics 4: Mess-ID (G-…), lädt nur mit Zustimmung „Statistik“','google_ads_id':'Google Ads: Konto-ID (AW-…), lädt nur mit Zustimmung „Marketing“',
- 'meta_pixel_id':'Meta-Pixel-ID (nur Ziffern), lädt nur mit Zustimmung „Marketing“','matomo_url':'Matomo: Adresse (optional, ohne Cookies)','matomo_site_id':'Matomo: Website-ID'}.items(): L[_k]=_v
+ 'meta_pixel_id':'Meta-Pixel-ID (nur Ziffern), lädt nur mit Zustimmung „Marketing“','vermoegensstrategie_url':'Link zur Vermögensstrategie (Nachfolge-Brücke im Anfrage-Formular bei Privatpersonen)',
+ 'text_unternehmer':'Text für Unternehmer (führt zum Steuerstrategie-Gespräch)','button_unternehmer':'Button für Unternehmer','text_privat':'Text für Privatpersonen (führt zur Vermögensstrategie)','button_privat':'Button für Privatpersonen','matomo_url':'Matomo: Adresse (optional, ohne Cookies)','matomo_site_id':'Matomo: Website-ID'}.items(): L[_k]=_v
 ICONS=sorted(x[:-4] for x in os.listdir(ROOT+'src/icons'))
 def filecoll(name,label,path,desc):
     d=json.load(open(ROOT+path))

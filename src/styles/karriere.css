@@ -324,6 +324,12 @@ body:has(.khero--navy) .nav-inner{background:#fff}
 .awards .logo-row{gap:26px 48px}
 .awards .logo-row img{height:auto;max-height:50px;max-width:190px}
 .awards .logo-row img.gross{height:78px;max-height:78px;max-width:none}
+/* Siegel derselben Reihe überlappend (kununu 2025 bis 2027): das neueste vorn links, ältere dahinter, Jahreszahlen bleiben sichtbar */
+.awards .award-stapel{display:inline-flex;flex-direction:row-reverse;align-items:center;padding:6px 0}
+.awards .award-stapel img,.awards .award-stapel img.gross{position:relative;height:86px;max-height:86px;width:auto;max-width:none;background:#fff;border-radius:6px;padding:4px;filter:none;box-shadow:0 2px 4px rgba(20,29,58,.08),0 10px 24px rgba(20,29,58,.16);transition:margin .35s ease}
+.awards .award-stapel img+img{margin-right:-30px}
+.awards .award-stapel:hover img+img{margin-right:-14px}
+@media(max-width:640px){.awards .award-stapel img,.awards .award-stapel img.gross{height:72px;max-height:72px}.awards .award-stapel img+img{margin-right:-26px}}
 
 /* Ein Tag bei Bentivegna: Sticky-Scroll mit Uhr (30.10.2026) */
 .tag-sec{overflow:visible}
