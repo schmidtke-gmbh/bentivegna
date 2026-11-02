@@ -441,12 +441,42 @@
   "marken": {
     "titel": "Die Marken, mit denen unsere Kunden arbeiten",
     "liste": [
-      "GEBERIT",
-      "VIESSMANN",
-      "VAILLANT",
-      "BOSCH",
-      "REHAU",
-      "TECE"
+      {
+        "name": "Geberit",
+        "bild": "/uploads/logos/marken/geberit.png",
+        "hoehe": 27,
+        "anzeigen": true
+      },
+      {
+        "name": "Viessmann",
+        "bild": "/uploads/logos/marken/viessmann.png",
+        "hoehe": 34,
+        "anzeigen": true
+      },
+      {
+        "name": "Vaillant",
+        "bild": "/uploads/logos/marken/vaillant.png",
+        "hoehe": 34,
+        "anzeigen": true
+      },
+      {
+        "name": "Bosch",
+        "bild": "/uploads/logos/marken/bosch.png",
+        "hoehe": 32,
+        "anzeigen": true
+      },
+      {
+        "name": "Rehau",
+        "bild": "/uploads/logos/marken/rehau.png",
+        "hoehe": 32,
+        "anzeigen": true
+      },
+      {
+        "name": "TECE",
+        "bild": "/uploads/logos/marken/tece.png",
+        "hoehe": 30,
+        "anzeigen": true
+      }
     ]
   },
   "software": {

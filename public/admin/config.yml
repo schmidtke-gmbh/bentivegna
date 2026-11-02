@@ -1190,10 +1190,25 @@ collections:
       - label: Liste
         name: liste
         widget: list
-        field:
-          label: Eintrag
-          name: eintrag
+        fields:
+        - label: Name
+          name: name
           widget: string
+          required: false
+        - label: Bild
+          name: bild
+          widget: image
+          required: false
+        - label: Logo-Höhe in Pixel (für gleiche Optik)
+          name: hoehe
+          widget: number
+          value_type: int
+          required: false
+        - label: Auf der Seite anzeigen
+          name: anzeigen
+          widget: boolean
+          required: false
+        summary: '{{fields.name}}'
         required: false
     - label: Software
       name: software

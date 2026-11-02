@@ -49,6 +49,7 @@ const faqLd = {
 
 const UEB = [35.92, 93.58];
 const swListe = S.software.liste.filter((m) => m.anzeigen !== false);
+const markenListe = S.marken.liste.filter((m) => m.anzeigen !== false);
 const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43],[82.15,32.58],[17.44,45.5],[9.9,49.17],[11.93,52.9],[70.91,47.74],[85.77,51.45],[56.27,52.29],[30.69,63.51],[56.78,71.97],[36.15,80.66],[62.29,88.88],[21.54,90.63]];
 ---
 <Base titel={S.seo.titel} beschreibung={S.seo.beschreibung} pfad="/" jsonld={[faqLd]}>
@@ -612,10 +613,10 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
 <!-- ============ MARKEN & SOFTWARE ============ -->
 <section class="brands" aria-label="Marken und Software">
   <p class="lead">{S.marken.titel}</p>
-  <div class="brand-band" aria-hidden="true"><div class="brand-track">{[...S.marken.liste, ...S.marken.liste, ...S.marken.liste].map((m) => <span>{m}</span>)}</div></div>
+  <div class="brand-band sw-logos" aria-hidden="true"><div class="brand-track">{[...markenListe, ...markenListe, ...markenListe].map((m) => m.bild ? <span class="sw-logo"><img src={u(m.bild)} alt="" style={`height:${m.hoehe || 30}px`} loading="lazy"></span> : <span>{m.name}</span>)}</div></div>
   <p class="lead">{S.software.titel}</p>
   <div class="brand-band sw rev sw-logos" aria-hidden="true"><div class="brand-track">{[...swListe, ...swListe].map((m) => m.bild ? <span class="sw-logo"><img src={u(m.bild)} alt="" style={`height:${m.hoehe || 30}px`} loading="lazy"></span> : <span>{m.name}</span>)}</div></div>
-  <p class="sr-only">{S.marken.liste.join(', ')}. {swListe.map((m) => m.name).join(', ')}.</p>
+  <p class="sr-only">{markenListe.map((m) => m.name).join(', ')}. {swListe.map((m) => m.name).join(', ')}.</p>
 </section>
 
 <!-- ============ TEAM ============ -->
