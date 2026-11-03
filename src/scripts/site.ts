@@ -137,13 +137,12 @@ function textUmbruch() {
 }
 if (document.fonts && document.fonts.status !== 'loaded') document.fonts.ready.then(textUmbruch); else textUmbruch();
 
-/* ---------- Video-Modal: YouTube wird erst nach Zustimmung geladen ---------- */
-const KEY = 'bv-youtube-ok';
+/* ---------- Video-Modal: YouTube (ohne Cookies, youtube-nocookie.com) wird erst mit dem Klick auf Play geladen und startet sofort ---------- */
 let modal: HTMLElement | null = null;
 function closeModal() { if (!modal) return; modal.classList.remove('open'); modal.querySelector('.vmodal-box')!.innerHTML = ''; document.body.style.overflow = ''; }
 function play(id: string) {
   const box = modal!.querySelector('.vmodal-box')!;
-  box.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" title="Video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+  box.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1" title="Video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
   window.bvTrack('video_abgespielt', { video: id });
 }
 function openVideo(id: string, hochkant = false) {
@@ -158,18 +157,7 @@ function openVideo(id: string, hochkant = false) {
   }
   modal.classList.add('open'); document.body.style.overflow = 'hidden';
   modal.querySelector('.vmodal-box')!.classList.toggle('hochkant', hochkant);
-  let ok = false; try { ok = localStorage.getItem(KEY) === '1'; } catch (e) { ok = false; }
-  if (ok) { play(id); return; }
-  const box = modal.querySelector('.vmodal-box')!;
-  box.innerHTML = `<div class="vmodal-consent"><b style="font-size:1.3rem">Video von YouTube abspielen?</b>
-    <p>Das Video wird erst nach deinem Klick geladen. Dabei wird eine Verbindung zu YouTube (Google) hergestellt und Daten wie deine IP-Adresse werden übertragen. Mehr dazu in unserer Datenschutzerklärung.</p>
-    <button class="btn btn--gold" type="button">Video abspielen <span class="arr"></span></button>
-    <label><input type="checkbox"> Für diese Website merken</label></div>`;
-  box.querySelector('button')!.addEventListener('click', () => {
-    const cb = box.querySelector('input') as HTMLInputElement;
-    if (cb.checked) { try { localStorage.setItem(KEY, '1'); } catch (e) { /* leer */ } }
-    play(id);
-  });
+  play(id);
 }
 document.addEventListener('click', (e) => {
   const t = (e.target as HTMLElement).closest('[data-video]') as HTMLElement | null;
