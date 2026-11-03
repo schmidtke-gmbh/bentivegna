@@ -62,7 +62,8 @@ const { gestaltung = '', h1 } = Astro.props as { gestaltung?: string; h1?: { k: 
 // Entwurf „H1“: andere Kicker- und Claimzeilen nur unter /entwurf/h1/ (Text in *Sternchen* = blau)
 const entwurfPfad = h1 ? `/entwurf/h1/${h1.k}/` : gestaltung ? `/entwurf/gestaltung/${gestaltung}/` : '';
 const entwurfTitel = h1 ? `Entwurf H1 Variante ${h1.k} | Bentivegna` : gestaltung ? `Entwurf Gestaltung ${gestaltung.toUpperCase()} | Bentivegna` : '';
-const gA = gestaltung === 'a', gB = gestaltung === 'b', gC = gestaltung === 'c';
+const gA = gestaltung === 'a', gB = gestaltung === 'b', gC = gestaltung === 'c', gD = gestaltung === 'd';
+// Entwurf D: Fotos in den Leistungskarten ohne Grafik, Logo auf der Glastür hinter dem Schlussbereich
 const foto = (n: string) => ({ src: u(`/uploads/kanzlei/${n}.webp`), srcset: `${u(`/uploads/kanzlei/${n}-960.webp`)} 960w, ${u(`/uploads/kanzlei/${n}.webp`)} 1920w` });
 const schild = u('/uploads/logos/schild-mono.svg');
 
@@ -304,6 +305,7 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
       </div>
       <!-- 2: Vermögen & Nachfolge -->
       <div class="feat-card">
+        {gD && <figure class="feat-foto"><img src={foto('domenico-besprechung').src} srcset={foto('domenico-besprechung').srcset} sizes="(max-width: 560px) 100vw, 400px" alt="Domenico Bentivegna in der Kanzlei" loading="lazy" width="1920" height="1280"></figure>}
         <div class="feat-top">
           <div class="feat-ic"><Icon name="gem" /></div>
           <h3>{L.vermoegen.titel}</h3>
@@ -347,6 +349,7 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
       </div>
       <!-- 4: Liquidität -->
       <div class="feat-card">
+        {gD && <figure class="feat-foto"><img src={foto('arbeitsplatz-bildschirme').src} srcset={foto('arbeitsplatz-bildschirme').srcset} sizes="(max-width: 560px) 100vw, 400px" alt="Mitarbeiterin am Arbeitsplatz mit zwei Bildschirmen" loading="lazy" width="1920" height="1280"></figure>}
         <div class="feat-top">
           <div class="feat-ic"><Icon name="chart-column" /></div>
           <h3>{L.liquiditaet.titel}</h3>
@@ -356,6 +359,7 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
       </div>
       <!-- 5: Mitarbeiter -->
       <div class="feat-card">
+        {gD && <figure class="feat-foto"><img src={foto('kaffeebar').src} srcset={foto('kaffeebar').srcset} sizes="(max-width: 560px) 100vw, 400px" alt="Domenico Bentivegna mit Kolleginnen an der Kaffeebar" loading="lazy" width="1920" height="1280"></figure>}
         <div class="feat-top">
           <div class="feat-ic"><Icon name="users" /></div>
           <h3>{L.mitarbeiter.titel}</h3>
@@ -786,6 +790,7 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
   <div class="wrap">
     <div class="cta-band reveal">
       <img class="cta-stripes" src={u('/uploads/logos/logo-hoch.svg')} alt="" aria-hidden="true">
+      {gD && <div class="cta-glas" aria-hidden="true"><img src={foto('glastuer-logo').src} srcset={foto('glastuer-logo').srcset} sizes="(max-width: 900px) 100vw, 1200px" alt="" loading="lazy" width="1920" height="1185"></div>}
       {gA && <div class="cta-foto" aria-hidden="true"><img src={foto('domenico-besprechung').src} srcset={foto('domenico-besprechung').srcset} sizes="(max-width: 900px) 100vw, 560px" alt="" loading="lazy" width="1920" height="1280"></div>}
       <div class="cta-inner">
         <div>
