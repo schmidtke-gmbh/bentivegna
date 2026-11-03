@@ -227,8 +227,14 @@
 .stimmen-grid.alle{grid-template-columns:repeat(4,1fr)}
 .stimmen-grid.alle .stimme:first-child{grid-column:span 2}
 .stimme{display:flex;flex-direction:column;justify-content:space-between}
-.stimme .av-img{width:54px;height:54px;border-radius:50%;object-fit:cover;flex:0 0 auto;border:2px solid rgba(204,196,175,.6)}
+.stimme .av-img{width:64px;height:64px;border-radius:50%;object-fit:cover;flex:0 0 auto;border:2px solid rgba(204,196,175,.6)}
 @media(max-width:1100px){.stimmen-grid.alle{grid-template-columns:repeat(2,1fr)}.stimmen-grid.alle .stimme:first-child{grid-column:auto}}
+/* Stimmen 4 + 3 zentriert statt 3 + 4 (Feedback 3.11.); Handy bleibt beim Wischen */
+@media(min-width:641px){
+  .stimmen-grid.alle{display:flex;flex-wrap:wrap;justify-content:center;gap:20px}
+  .stimmen-grid.alle .stimme,.stimmen-grid.alle .stimme:first-child{flex:0 1 calc((100% - 60px) / 4);min-width:0}
+}
+@media(min-width:641px) and (max-width:1100px){.stimmen-grid.alle .stimme,.stimmen-grid.alle .stimme:first-child{flex-basis:calc((100% - 20px) / 2)}}
 @media(max-width:640px){.stimmen-grid.alle{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:86%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px}.stimmen-grid.alle .stimme{scroll-snap-align:start}}
 
 /* Bewerbung */

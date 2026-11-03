@@ -327,7 +327,7 @@ for (const a of K.benefits.awards as Award[]) {
       {K.stimmen.liste.map((s, i) => (
         <figure class={`stimme reveal d${i % 4}`} style="margin:0">
           <blockquote style="margin:0"><p>„{s.zitat}“</p></blockquote>
-          <figcaption class="who"><img class="av-img" src={u(s.bild)} alt={`Porträt ${s.name}`} loading="lazy" width="54" height="54"><div><b>{s.name}</b><span>{s.rolle}</span>{s.seit && <small class="seit">In der Kanzlei seit {s.seit}</small>}</div></figcaption>
+          <figcaption class="who"><img class="av-img" src={u(s.bild)} alt={`Porträt ${s.name}`} loading="lazy" width="64" height="64"><div><b>{s.name}</b><span>{s.rolle}</span>{s.seit && <small class="seit">In der Kanzlei seit {s.seit}</small>}</div></figcaption>
         </figure>
       ))}
     </div>
