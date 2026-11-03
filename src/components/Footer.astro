@@ -18,6 +18,8 @@ const sozial = [
   { name: 'kununu', label: 'kununu', href: S.kununu_url }
 ].filter((x) => x.href) as { name: 'youtube' | 'instagram' | 'facebook' | 'linkedin' | 'kununu'; label: string; href: string }[];
 const cookiebot = !!(E.tracking as any).cookiebot_id;
+// Kontaktblock: „Bentivegna“, darunter der Zusatz „Unternehmerberatung & Steuerstrategie“ (Wunsch Domenico, 3.11.)
+const markenname = E.firma.replace(E.claim, '').trim() || 'Bentivegna';
 ---
 <footer>
   <div class="wrap">
@@ -54,7 +56,7 @@ const cookiebot = !!(E.tracking as any).cookiebot_id;
       </div>
       <div class="foot-col foot-contact">
         <h4>Kontakt</h4>
-        <div><Icon name="map-pin" /><span>{E.firma.split(' & ')[0]}<br>{E.strasse}<br>{E.plz_ort}</span></div>
+        <div><Icon name="map-pin" /><span><span class="foot-name">{markenname}</span><small class="foot-claim">{E.claim}</small>{E.strasse}<br>{E.plz_ort}</span></div>
         <div><Icon name="phone" /><span><a href={telLink(E.telefon)}>{E.telefon}</a><br><small>{E.erreichbar}</small></span></div>
         <div><Icon name="mail" /><a href={`mailto:${variante === 'karriere' && E.karriere.kontakt_email ? E.karriere.kontakt_email : E.email}`}>{variante === 'karriere' && E.karriere.kontakt_email ? E.karriere.kontakt_email : E.email}</a></div>
         {wa ? <div><Brand name="whatsapp" class="wa" /><a href={wa} target="_blank" rel="noopener" data-track="whatsapp_klick">WhatsApp</a></div> : <div><Brand name="whatsapp" class="wa" /><span>WhatsApp (Nummer folgt)</span></div>}

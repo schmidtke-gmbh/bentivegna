@@ -222,7 +222,7 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
     </div>
   </div>
   <div class="wrap">
-    <div class="ref-grid">
+    <div class="ref-grid" style={`--rp:${Math.max(1, ...S.referenzen.eintraege.map((r: any) => r.punkte?.length || 0))}`}>
       {S.referenzen.eintraege.map((r, i) => (
         <article class={`ref-card reveal d${i}`}>
           <button type="button" class="ref-video" data-video={r.youtube_id || undefined} aria-label={`Video mit ${r.name} ansehen${r.dauer ? ', ' + r.dauer + ' Minuten' : ''}`}>

@@ -226,6 +226,8 @@ p,li,.ans{text-wrap:pretty}
 .foot-contact .ico{width:17px;height:17px;margin-top:3px;color:var(--beige-l)}
 .foot-contact a{color:rgba(255,255,255,.78)}
 .foot-contact a:hover{color:#fff}
+.foot-contact .foot-name{display:block;color:#fff;font-weight:600}
+.foot-contact .foot-claim{display:block;margin:1px 0 6px;font-size:.8rem;line-height:1.35;color:rgba(255,255,255,.55)}
 .foot-social{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 0;padding:0;list-style:none}
 .foot-social a{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff;transition:background .2s,border-color .2s,color .2s}
 .foot-social a:hover,.foot-social a:focus-visible{background:var(--beige-l,#ccc4af);border-color:transparent;color:var(--navy-900,#141d3a)}
@@ -894,6 +896,19 @@ html:not(.js) .gr-ringe{display:none}
 @media print{.ref-card{break-inside:avoid}}
 .ref-zitat{margin-bottom:20px}
 .ref-wer{margin-top:auto}
+/* Referenz-Karten auf eine Linie (Domenico, 3.11.): Zitat, Trennlinie, Name, Rolle, Ergebnis und jeder Punkt
+   stehen in allen drei Karten auf gleicher Höhe. Umsetzung mit CSS-Subgrid; die Zeilenzahl der Punkte kommt als --rp aus index.astro. */
+@media(min-width:1025px){
+  @supports (grid-template-rows:subgrid){
+    .ref-card{display:grid;grid-template-rows:subgrid;grid-row:span calc(5 + var(--rp,3));row-gap:0}
+    .ref-body{display:grid;grid-template-rows:subgrid;grid-row:span calc(4 + var(--rp,3));row-gap:0}
+    .ref-wer{display:grid;grid-template-rows:subgrid;grid-row:span 3;row-gap:0;margin-top:0;align-content:start}
+    .ref-wer .ref-rolle{align-self:start}
+    .ref-wer .ref-ergebnis{align-self:start}
+    .ref-punkte{display:grid;grid-template-rows:subgrid;grid-row:span var(--rp,3);row-gap:10px}
+    .ref-punkte li{align-self:stretch}
+  }
+}
 
 /* ==========================================================================
    Mobil-Feinschliff (2.11.2026)

@@ -150,10 +150,17 @@ const intern = (z: string) => z.startsWith('/');
   .fn-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
   .fn-form{display:grid;gap:14px;margin-top:22px}
   .fn-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  .fn-radio{border:0;padding:0;margin:0}
-  .fn-radio legend{font-size:.85rem;font-weight:700;color:var(--navy);margin-bottom:8px}
-  .fn-radio label{display:inline-flex;align-items:center;gap:8px;margin-right:18px;font-size:1rem;color:var(--ink);font-weight:500}
-  .fn-radio input{accent-color:var(--navy);width:18px;height:18px}
+  /* Rückruf-Auswahl als drei Felder nebeneinander. Die allgemeine Feldregel (.fld input: volle Breite, Innenabstand)
+     darf hier nicht greifen, sonst rutscht der Punkt in die Mitte und der Text an den Rand (Domenico, 3.11.). */
+  .fn-form .fn-radio{display:flex;flex-wrap:wrap;gap:10px;border:0;padding:0;margin:0;min-width:0}
+  .fn-form .fn-radio legend{float:left;width:100%;padding:0;font-size:.85rem;font-weight:700;color:var(--navy);margin-bottom:8px}
+  .fn-form .fn-radio label{flex:1 1 0;min-width:120px;display:flex;align-items:center;gap:10px;margin:0;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:#fff;font-size:1rem;font-weight:600;color:var(--navy);cursor:pointer;transition:border-color .2s,background .2s}
+  .fn-form .fn-radio label:hover{border-color:var(--navy)}
+  .fn-form .fn-radio label:has(input:checked){border-color:var(--navy);background:var(--cool)}
+  .fn-form .fn-radio input[type=radio]{flex:0 0 auto;width:18px;height:18px;margin:0;padding:0;border:0;accent-color:var(--navy)}
+  .fn-form .fn-radio input[type=radio]:focus{outline:none}
+  .fn-form .fn-radio input[type=radio]:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  @media(max-width:480px){.fn-form .fn-radio label{flex-basis:100%}}
   .fn-form .btn{justify-self:start;margin-top:4px}
   .fn-err{color:#b4583f;font-weight:600;font-size:.92rem}
   .fn-foot{display:flex;align-items:center;gap:8px;justify-content:center;margin-top:20px;color:var(--muted);font-size:.88rem}
