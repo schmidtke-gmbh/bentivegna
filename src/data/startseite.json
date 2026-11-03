@@ -69,6 +69,10 @@
     "titel": "Ausgezeichnet & zertifiziert",
     "logos": [
       {
+        "bild": "/uploads/logos/kanzleibooster-2025.png",
+        "alt": "Kanzleibooster-Award 2025 für vorbildliche Kanzleiführung"
+      },
+      {
         "bild": "/uploads/logos/kanzleibooster-2026.png",
         "alt": "Kanzleibooster-Award 2026 für vorbildliche Kanzleiführung"
       },

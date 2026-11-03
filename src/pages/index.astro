@@ -67,6 +67,16 @@ const gA = gestaltung === 'a', gB = gestaltung === 'b', gC = gestaltung === 'c',
 const foto = (n: string) => ({ src: u(`/uploads/kanzlei/${n}.webp`), srcset: `${u(`/uploads/kanzlei/${n}-960.webp`)} 960w, ${u(`/uploads/kanzlei/${n}.webp`)} 1920w` });
 const schild = u('/uploads/logos/schild-mono.svg');
 
+// Auszeichnungen derselben Reihe (gleiche Beschreibung, andere Jahreszahl, z. B. Kanzleibooster 2025 und 2026)
+// erscheinen als überlappender Stapel, das neueste vorn (wie die kununu-Siegel)
+type Siegel = { bild: string; alt: string };
+const siegelGruppen: Siegel[][] = [];
+for (const l of S.auszeichnungen.logos as Siegel[]) {
+  const key = (x: Siegel) => (x.alt || '').replace(/\b20\d\d\b/, '').trim();
+  const g = siegelGruppen[siegelGruppen.length - 1];
+  if (g && /\b20\d\d\b/.test(l.alt) && key(g[0]) === key(l)) g.push(l); else siegelGruppen.push([l]);
+}
+
 const initialen = (n: string) => n.split(' ').map((w) => w[0]).slice(0, 2).join('');
 
 const faqLd = {
@@ -146,7 +156,9 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
       <div class="hero-awards hero-awards--karte hero-in h5">
         <span class="ha-label">{S.auszeichnungen.titel}</span>
         <div class="ha-logos">
-          {S.auszeichnungen.logos.map((l) => <img src={u(l.bild)} alt={l.alt} height="72">)}
+          {siegelGruppen.map((g) => g.length > 1
+            ? <span class="siegel-stapel" role="group">{g.map((l) => <img src={u(l.bild)} alt={l.alt} height="72">)}</span>
+            : <img src={u(g[0].bild)} alt={g[0].alt} height="72">)}
           {S.auszeichnungen.textsiegel_bild
             ? <img class="ha-fb" src={u(S.auszeichnungen.textsiegel_bild)} alt={`${S.auszeichnungen.textsiegel_titel} (${S.auszeichnungen.textsiegel_unter})`} height="72">
             : <span class="seal-text ha-seal"><span class="ico-box"><Icon name="award" /></span><span><b>{S.auszeichnungen.textsiegel_titel}</b><small>{S.auszeichnungen.textsiegel_unter}</small></span></span>}
@@ -422,7 +434,9 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
       </div>
       <div class="award-card reveal">
         <h3>{S.kontaktblock.siegel_titel}</h3>
-        <div class="logos">{S.auszeichnungen.logos.map((l) => <img src={u(l.bild)} alt={l.alt} loading="lazy">)}
+        <div class="logos">{siegelGruppen.map((g) => g.length > 1
+            ? <span class="siegel-stapel" role="group">{g.map((l) => <img src={u(l.bild)} alt={l.alt} loading="lazy">)}</span>
+            : <img src={u(g[0].bild)} alt={g[0].alt} loading="lazy">)}
           {S.auszeichnungen.textsiegel_bild
             ? <img src={u(S.auszeichnungen.textsiegel_bild)} alt={`${S.auszeichnungen.textsiegel_titel} (${S.auszeichnungen.textsiegel_unter})`} loading="lazy">
             : <span class="seal-text"><span class="ico-box"><Icon name="award" /></span><span><b>{S.auszeichnungen.textsiegel_titel}</b><small>{S.auszeichnungen.textsiegel_unter}</small></span></span>}
