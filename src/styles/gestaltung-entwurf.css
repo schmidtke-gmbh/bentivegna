@@ -57,6 +57,8 @@
 .feat-foto{margin:-28px -28px 22px;height:150px;overflow:hidden;position:relative;z-index:1;flex:0 0 auto}
 .feat-foto img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
 .feat-card:hover .feat-foto img{transform:scale(1.04)}
+/* Porträt: Kopf ganz im Bild (oben ausrichten, Zoom von oben) */
+.feat-foto--kopf img{object-position:60% 0%;transform-origin:50% 0}
 .gestaltung-d .feat-grid{grid-auto-rows:auto}
 .gestaltung-d .feat-card{justify-content:flex-start}
 .gestaltung-d .feat-card .feat-top{margin-bottom:20px}
