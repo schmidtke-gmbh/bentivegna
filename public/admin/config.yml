@@ -298,7 +298,7 @@ collections:
         required: false
       - label: Headline Zeile 2
         name: zeile2
-        widget: string
+        widget: text
         required: false
       - label: Text unter der Headline
         name: subline

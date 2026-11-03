@@ -6,10 +6,10 @@ import S from '../../../data/startseite.json';
 import { u } from '../../../lib/site';
 
 const liste = [
-  { k: 'live', marke: 'Jetzt', name: 'Aktueller Stand', kurz: `Kicker „${S.hero.kicker}“, darunter „Dein Betrieb: rentabel. Steuerlich gestaltet. Verkaufsfähig.“ Das Wort „Steuerberater“ kommt im H1 nicht vor.`, url: u('/') },
+  { k: 'live', marke: 'Jetzt', name: 'Aktueller Stand (live)', kurz: `Seit 3.11. live: Variante 3 mit der Zeile darüber „${S.hero.marker_text}“ (Wunsch Domenico, damit sich die Aussage nicht doppelt und Sanitär, Heizung, Klima ausgeschrieben sind).`, url: u('/') },
   ...H1_VARIANTEN.map((v) => ({ k: v.k, name: v.name, kurz: `Kicker: „${v.kicker}“. ${v.kurz}`, plus: v.plus, minus: v.minus, url: u(`/entwurf/h1/${v.k}/`) }))
 ];
-const heute = { titel: S.seo.titel, text: S.seo.beschreibung };
+const heute = { titel: 'Bentivegna | Steuer- & Unternehmerberatung für SHK-Betriebe', text: 'Steuer- & Unternehmerberatung nur für SHK-Betriebe ab 1 Mio. € Umsatz: Steuergestaltung, GmbH & Holding, Kalkulation, Liquidität, Führung. Digital, deutschlandweit.' };
 const neu = {
   titel: 'Steuerberater für SHK-Betriebe | Bentivegna',
   text: 'Steuerberater für SHK-Betriebe ab 1 Mio. € Umsatz: Steuergestaltung, GmbH & Holding, Kalkulation, Liquidität und Unternehmerberatung. Digital, deutschlandweit.'
@@ -26,13 +26,13 @@ const neu = {
     <p class="h1-snip-kopf">Unabhängig von der Variante: So sähe der Eintrag bei Google aus</p>
     <div class="h1-snip-raster">
       <div class="h1-snip">
-        <span class="h1-snip-label">Heute</span>
+        <span class="h1-snip-label">Vorher</span>
         <span class="h1-snip-url">www.bentivegna.de</span>
         <span class="h1-snip-titel">{heute.titel}</span>
         <span class="h1-snip-text">{heute.text}</span>
       </div>
       <div class="h1-snip neu">
-        <span class="h1-snip-label">Neu</span>
+        <span class="h1-snip-label">Jetzt live</span>
         <span class="h1-snip-url">www.bentivegna.de</span>
         <span class="h1-snip-titel">{neu.titel}</span>
         <span class="h1-snip-text">{neu.text}</span>
