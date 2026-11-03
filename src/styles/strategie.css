@@ -198,3 +198,15 @@
   .ls-person-bild{max-width:none}
 }
 .ls-person-siegel{display:block;margin-top:26px;width:230px;height:auto}
+
+/* Handy: Kopfbereich mittig wie Startseite und Karriere */
+@media(max-width:600px){
+  .ls-hero-copy{text-align:center;min-width:0}
+  .ls-hero-grid>*{min-width:0}
+  .ls-hero-copy .eyebrow{justify-content:center}
+  .ls-hero-text{margin-left:auto;margin-right:auto}
+  .ls-hero-copy .eyebrow::before{display:none}
+  .ls-hero-punkte{align-items:flex-start;width:max-content;max-width:100%;margin-left:auto;margin-right:auto;text-align:left}
+  .ls-hero-punkte li{align-items:flex-start}
+  .ls-hinweis{justify-content:center;text-align:left;margin-left:auto;margin-right:auto}
+}

@@ -1211,3 +1211,27 @@ footer .foot-bottom{padding-bottom:78px}
   .art-hero-fuss{padding-top:28px}
   .art-hero .ac-badge{font-size:.66rem;letter-spacing:.1em}
 }
+
+/* ---------- Startseite Header auf dem Handy: alles mittig, Buttons gleich breit, Beschriftung exakt mittig ---------- */
+@media(max-width:600px){
+  .hero.hero--b .hero-marker-zeile{display:flex;justify-content:center}
+  .hero.hero--b .hero-marker.ohne-tag{justify-content:center;text-align:center;padding:10px 18px;border-radius:16px;max-width:100%}
+  .hero.hero--b .hero-marker.ohne-tag::before{display:none}
+  .hero.hero--b .hero-marker.ohne-tag span{font-size:.9rem;line-height:1.35}
+  .hero.hero--b h1{text-align:center;margin-top:22px}
+  .hero.hero--b h1 em{font-size:1.02rem;line-height:1.35;margin-bottom:12px;text-wrap:balance}
+  .hero.hero--b h1 .hz{white-space:normal}
+  .hero.hero--b .hero-sub{text-align:center;margin-left:auto;margin-right:auto;font-size:1.02rem;line-height:1.62}
+  .hero.hero--b .hero-cta{align-items:stretch}
+  .hero.hero--b .hero-wechsel{justify-content:center;text-align:center;margin-left:auto;margin-right:auto}
+  .hero.hero--b .hero-trust-row{justify-content:center}
+  /* Buttons: volle Breite, Text optisch exakt mittig (gleicher Abstand links und rechts wie der Pfeil) */
+  main .btn:not(.btn--frei),main .btn:not(.btn--frei):hover{padding-left:52px;padding-right:52px}
+  .hero.hero--b .hero-cta .btn{max-width:none;width:100%}
+}
+@media(max-width:360px){
+  main .btn:not(.btn--frei),main .btn:not(.btn--frei):hover{padding-left:40px;padding-right:40px;font-size:.86rem;letter-spacing:-.005em}
+  main .btn:not(.btn--frei)>.arr{width:32px;height:32px;right:6px}
+  .hero.hero--b h1{font-size:1.84rem}
+  .hero.hero--b h1 em{font-size:.95rem}
+}
