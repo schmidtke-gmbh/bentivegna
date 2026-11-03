@@ -337,7 +337,7 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
           <p class="feat-extra">{L.prozesse.kasten}</p>
         </div>
         <div class="feat-visual fv-bottom fv-bars" aria-hidden="true">
-          <svg viewBox="0 0 300 120" preserveAspectRatio="xMidYMax meet">
+          <svg class="fvb-flach" viewBox="0 0 300 120" preserveAspectRatio="xMidYMax meet">
             <defs>
               <linearGradient id="fb1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dcd6c8"/><stop offset="1" stop-color="#ccc4af"/></linearGradient>
               <linearGradient id="fb2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cdc4b1"/><stop offset="1" stop-color="#bcb098"/></linearGradient>
@@ -357,6 +357,28 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
               <circle cx="150" cy="50" r="3" fill="#fff" stroke="#998a6d" stroke-width="1.6"/>
               <circle cx="209" cy="34" r="3" fill="#fff" stroke="#345c9a" stroke-width="1.6"/>
               <circle cx="268" cy="18" r="3.6" fill="#273365" stroke="#fff" stroke-width="1.8"/>
+            </g>
+          </svg>
+          <svg class="fvb-hoch" viewBox="0 0 300 240" preserveAspectRatio="xMidYMax meet">
+            <defs>
+              <linearGradient id="fb1h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dcd6c8"/><stop offset="1" stop-color="#ccc4af"/></linearGradient>
+              <linearGradient id="fb2h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cdc4b1"/><stop offset="1" stop-color="#bcb098"/></linearGradient>
+              <linearGradient id="fb3h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b3a888"/><stop offset="1" stop-color="#998a6d"/></linearGradient>
+              <linearGradient id="fb4h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4f77b4"/><stop offset="1" stop-color="#345c9a"/></linearGradient>
+              <linearGradient id="fb5h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a4a7a"/><stop offset="1" stop-color="#273365"/></linearGradient>
+            </defs>
+            <line x1="6" y1="228" x2="294" y2="228" stroke="#e2dcd0" stroke-width="1.5"/>
+            <path class="fvb" d="M12 228 L12 170 Q12 164 18 164 L46 164 Q52 164 52 170 L52 228 Z" fill="url(#fb1h)"/>
+            <path class="fvb" d="M71 228 L71 146 Q71 140 77 140 L105 140 Q111 140 111 146 L111 228 Z" fill="url(#fb2h)"/>
+            <path class="fvb" d="M130 228 L130 118 Q130 112 136 112 L164 112 Q170 112 170 118 L170 228 Z" fill="url(#fb3h)"/>
+            <path class="fvb" d="M189 228 L189 86 Q189 80 195 80 L223 80 Q229 80 229 86 L229 228 Z" fill="url(#fb4h)"/>
+            <path class="fvb" d="M248 228 L248 54 Q248 48 254 48 L282 48 Q288 48 288 54 L288 228 Z" fill="url(#fb5h)"/>
+            <g class="fvdots">
+              <circle cx="32" cy="164" r="3" fill="#fff" stroke="#ccc4af" stroke-width="1.6"/>
+              <circle cx="91" cy="140" r="3" fill="#fff" stroke="#bcb098" stroke-width="1.6"/>
+              <circle cx="150" cy="112" r="3" fill="#fff" stroke="#998a6d" stroke-width="1.6"/>
+              <circle cx="209" cy="80" r="3" fill="#fff" stroke="#345c9a" stroke-width="1.6"/>
+              <circle cx="268" cy="48" r="3.6" fill="#273365" stroke="#fff" stroke-width="1.8"/>
             </g>
           </svg>
         </div>
