@@ -58,7 +58,8 @@
 .feat-foto img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
 .feat-card:hover .feat-foto img{transform:scale(1.04)}
 /* Porträt: Kopf ganz im Bild (oben ausrichten, Zoom von oben) */
-.feat-foto--kopf img{object-position:60% 0%;transform-origin:50% 0}
+.feat-foto--kopf{height:auto;aspect-ratio:3/2}
+.feat-foto--kopf img{object-position:50% 20%;transform-origin:50% 30%}
 .gestaltung-d .feat-grid{grid-auto-rows:auto}
 .gestaltung-d .feat-card{justify-content:flex-start}
 .gestaltung-d .feat-card .feat-top{margin-bottom:20px}
@@ -88,6 +89,7 @@
 }
 @media(max-width:640px){
   .feat-foto{height:160px}
+  .feat-foto--kopf{height:auto}
   .cta-glas::after{background:rgba(20,29,58,.86)}
   .pullquote--bild{padding:96px 0!important}
   .einblick-kopf{margin-bottom:30px;padding:0 24px}
