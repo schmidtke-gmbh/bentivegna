@@ -1226,6 +1226,8 @@ footer .foot-bottom{padding-bottom:78px}
   .hero.hero--b .hero-cta{margin-top:22px}
   .hero.hero--b .hero-cta{align-items:stretch}
   .hero.hero--b .hero-wechsel{justify-content:center;text-align:center;margin-left:auto;margin-right:auto}
+  .hero.hero--b .hw-lauf{align-items:center}
+  .hero.hero--b .hw-strich{transform-origin:center center}
   .hero.hero--b .hero-trust-row{justify-content:center}
   /* Buttons: volle Breite, Text optisch exakt mittig (gleicher Abstand links und rechts wie der Pfeil) */
   main .btn:not(.btn--frei),main .btn:not(.btn--frei):hover{padding-left:52px;padding-right:52px}
