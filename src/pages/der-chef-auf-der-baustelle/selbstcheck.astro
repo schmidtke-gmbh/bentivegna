@@ -302,6 +302,74 @@ const q = (n: string) => u(`/uploads/quiz/${n}.webp`);
     .qz-top{grid-template-columns:70px 1fr 70px}
     .qz-rohr{margin-bottom:30px}
   }
+
+  /* Plus/Minus neben dem Regler (nur Handy) */
+  .qz-pm{display:none}
+  .qz-stell-mitte{flex:1;min-width:0}
+  @media(max-width:600px){
+    /* Ein Bildschirm pro Frage: oben lesen, unten mit dem Daumen bedienen */
+    .qz{padding:82px 0 0}
+    .qz:has(.qz-card:not(.qz-laden)){padding-bottom:calc(190px + env(safe-area-inset-bottom))}
+    .qz-card{padding:14px 16px 18px}
+    .qz-top{margin-bottom:6px}
+    .qz-rohr{margin-bottom:30px}
+    .qz-count{letter-spacing:.1em;white-space:nowrap}
+    .qz-top{grid-template-columns:64px 1fr 64px}
+    /* kein Verschieben per transform, sonst kleben die festen Leisten nicht am Bildschirmrand */
+    .qz-screen{animation-name:qzInM}
+    .qz-screen.raus{animation-name:qzOutM}
+    @keyframes qzInM{from{opacity:0}to{opacity:1}}
+    @keyframes qzOutM{to{opacity:0}}
+    /* Frage oben, darunter Manometer und Stufentext nebeneinander */
+    .qz-q-grid{display:grid;grid-template-columns:118px 1fr;grid-template-areas:"e e" "h h" "f f" "x x" "m a";column-gap:12px;align-items:center;text-align:center}
+    .qz-bild{display:none}
+    .qz-q-txt .qz-eyebrow{grid-area:e}
+    .qz-q-txt h2{grid-area:h}
+    .qz-frage{grid-area:f}
+    .qz-helfer{grid-area:x}
+    .qz-mano,.qz-ziel .qz-mano{grid-area:m;width:118px;margin:14px 0 0}
+    .qz-anker,.qz-hinweis{grid-area:a;margin-top:14px;text-align:left;align-self:stretch;display:flex;flex-direction:column;justify-content:center}
+    .qz h2{font-size:1.45rem;margin-top:4px}
+    .qz-frage{font-size:1rem;line-height:1.42;margin-top:6px}
+    .qz-helfer{font-size:.8rem;line-height:1.4;margin-top:6px}
+    .qz-anker{min-height:0;padding:12px 14px 12px 16px}
+    .qz-anker p{font-size:.9rem;line-height:1.4}
+    .qz-hinweis{min-height:0;font-size:.86rem}
+    /* Bedienleiste fest unten im Daumenbereich */
+    .qz-skala,.qz-ziel .qz-skala{position:fixed;left:0;right:0;bottom:calc(74px + env(safe-area-inset-bottom));z-index:40;margin:0;background:#fff;
+      padding:14px 14px 4px;border-radius:20px 20px 0 0;box-shadow:0 -10px 30px rgba(20,29,58,.12);border-top:1px solid var(--line)}
+    .qz-ziel .qz-skala{padding-top:30px}
+    .qz-stell{display:flex;align-items:center;gap:10px}
+    .qz-pm{display:grid;place-items:center;flex:0 0 46px;width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line);background:#f7f5f0;
+      color:var(--navy);font-weight:800;font-size:1.5rem;line-height:1;cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+    .qz-pm:active{background:var(--navy);color:#fff;border-color:var(--navy)}
+    .qz-range{margin:8px 0}
+    .qz-card:not(.qz-laden) .qz-weiter{position:fixed;left:0;right:0;bottom:0;z-index:41;margin:0;background:#fff;padding:6px 14px calc(14px + env(safe-area-inset-bottom))}
+    .qz-pause .qz-weiter{border-top:1px solid var(--line);box-shadow:0 -10px 30px rgba(20,29,58,.12);border-radius:20px 20px 0 0;padding-top:14px}
+    .qz-weiter .btn{max-width:none}
+    body:has(.qz-card) .fab{display:none!important}
+  }
+
+  @media(max-width:600px) and (max-height:760px){
+    .qz{padding-top:76px}
+    .qz:has(.qz-card:not(.qz-laden)){padding-bottom:calc(170px + env(safe-area-inset-bottom))}
+    .qz-card{padding:10px 14px 14px}
+    .qz-rohr{margin-bottom:26px}
+    .qz h2{font-size:1.25rem}
+    .qz-frage{font-size:.93rem;line-height:1.38}
+    .qz-helfer{font-size:.76rem}
+    .qz-q-grid{grid-template-columns:100px 1fr}
+    .qz-mano,.qz-ziel .qz-mano{width:100px;margin-top:10px}
+    .qz-anker,.qz-hinweis{margin-top:10px}
+    .qz-anker{padding:9px 12px 10px 14px}
+    .qz-anker b{font-size:.64rem;margin-bottom:2px}
+    .qz-anker p{font-size:.84rem;line-height:1.36}
+    .qz-skala,.qz-ziel .qz-skala{bottom:calc(64px + env(safe-area-inset-bottom));padding:10px 12px 2px}
+    .qz-ziel .qz-skala{padding-top:26px}
+    .qz-pm{flex-basis:42px;width:42px;height:42px}
+    .qz-card:not(.qz-laden) .qz-weiter{padding:4px 12px calc(10px + env(safe-area-inset-bottom))}
+    .qz-weiter .btn{min-height:50px;height:50px}
+  }
   @media (prefers-reduced-motion:reduce){.qz *,.qz *::before,.qz *::after{animation:none!important;transition:none!important}}
   @media print{
     .nav,#progress,.mobile-menu,.mobile-overlay,footer,.fab,.qz-wrap,.qz-plan{display:none!important}
@@ -476,11 +544,17 @@ const q = (n: string) => u(`/uploads/quiz/${n}.webp`);
           <p class="qz-frage">${istZiel ? `${b.t}: Welche Zahl willst du bis zum ${datumText} erreichen?` : b.q}</p>
           ${ersteFrage ? '<p class="qz-helfer">Dreh am Regler, bis die Zahl zu deinem Betrieb passt. Wenn du zwischen zwei Stufen schwankst, nimm die niedrigere.</p>' : ''}
           <div class="qz-skala">
-            <div class="qz-range-wrap">
-              ${istZiel ? `<span class="qz-heute-marke" id="qzMarke">heute ${state.ist[i]}</span>` : ''}
-              <input class="qz-range" id="qzRange" type="range" min="1" max="10" step="1" value="${v}" aria-label="${b.t}, ${istZiel ? 'Ziel in sechs Monaten' : 'heute'}, 1 bis 10">
+            <div class="qz-stell">
+              <button type="button" class="qz-pm" data-d="-1" aria-label="Eine Stufe weniger">−</button>
+              <div class="qz-stell-mitte">
+                <div class="qz-range-wrap">
+                  ${istZiel ? `<span class="qz-heute-marke" id="qzMarke">heute ${state.ist[i]}</span>` : ''}
+                  <input class="qz-range" id="qzRange" type="range" min="1" max="10" step="1" value="${v}" aria-label="${b.t}, ${istZiel ? 'Ziel in sechs Monaten' : 'heute'}, 1 bis 10">
+                </div>
+                <div class="qz-ticks">${[1, 5, 10].map((t) => { const p = ((t - 1) / 9) * 100; return `<span style="left:calc(${p}% + ${(21 - (p / 100) * 42).toFixed(1)}px)">${t}</span>`; }).join('')}</div>
+              </div>
+              <button type="button" class="qz-pm" data-d="1" aria-label="Eine Stufe mehr">+</button>
             </div>
-            <div class="qz-ticks">${[1, 5, 10].map((t) => { const p = ((t - 1) / 9) * 100; return `<span style="left:calc(${p}% + ${(21 - (p / 100) * 42).toFixed(1)}px)">${t}</span>`; }).join('')}</div>
           </div>
           ${istZiel ? `<p class="qz-hinweis" id="qzHinweis"></p>` : `<div class="qz-anker" id="qzAnker"><b>${ankerLabel(v)}</b><p>${b.a[anker(v)]}</p></div>`}
           <div class="qz-weiter"><button type="button" class="btn btn--gold" data-akt="weiter">Weiter <span class="arr"></span></button></div>
@@ -693,6 +767,12 @@ const q = (n: string) => u(`/uploads/quiz/${n}.webp`);
   }
 
   app.addEventListener('click', (e) => {
+    const pm = (e.target as HTMLElement).closest<HTMLElement>('.qz-pm');
+    if (pm) {
+      const r = document.getElementById('qzRange') as HTMLInputElement | null;
+      if (r) { const nv = Math.max(1, Math.min(10, +r.value + Number(pm.dataset.d))); if (nv !== +r.value) { r.value = String(nv); r.dispatchEvent(new Event('input', { bubbles: true })); } }
+      return;
+    }
     const el = (e.target as HTMLElement).closest<HTMLElement>('[data-akt]'); if (!el) return;
     const akt = el.dataset.akt;
     if (akt === 'los') { track('selbstcheck_start'); vorladen(); gehe(1); }
