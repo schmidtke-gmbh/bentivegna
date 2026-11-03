@@ -55,7 +55,10 @@ const pctY = (y: number) => ((y / CH) * 100).toFixed(2) + '%';
 const mio = (t: number) => (t / 1000).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Mio €';
 
 // Entwurf „Gestaltung“: Varianten A (Bilder), B (Logo-Motive), C (Typografie) nur unter /entwurf/gestaltung/
-const { gestaltung = '' } = Astro.props as { gestaltung?: string };
+const { gestaltung = '', h1 } = Astro.props as { gestaltung?: string; h1?: { k: string; kicker: string; zeilen: string[] } };
+// Entwurf „H1“: andere Kicker- und Claimzeilen nur unter /entwurf/h1/ (Text in *Sternchen* = blau)
+const entwurfPfad = h1 ? `/entwurf/h1/${h1.k}/` : gestaltung ? `/entwurf/gestaltung/${gestaltung}/` : '';
+const entwurfTitel = h1 ? `Entwurf H1 Variante ${h1.k} | Bentivegna` : gestaltung ? `Entwurf Gestaltung ${gestaltung.toUpperCase()} | Bentivegna` : '';
 const gA = gestaltung === 'a', gB = gestaltung === 'b', gC = gestaltung === 'c';
 const foto = (n: string) => ({ src: u(`/uploads/kanzlei/${n}.webp`), srcset: `${u(`/uploads/kanzlei/${n}-960.webp`)} 960w, ${u(`/uploads/kanzlei/${n}.webp`)} 1920w` });
 const schild = u('/uploads/logos/schild-mono.svg');
@@ -72,7 +75,7 @@ const swListe = S.software.liste.filter((m) => m.anzeigen !== false);
 const markenListe = S.marken.liste.filter((m) => m.anzeigen !== false);
 const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43],[82.15,32.58],[17.44,45.5],[9.9,49.17],[11.93,52.9],[70.91,47.74],[85.77,51.45],[56.27,52.29],[30.69,63.51],[56.78,71.97],[36.15,80.66],[62.29,88.88],[21.54,90.63]];
 ---
-<Base titel={gestaltung ? `Entwurf Gestaltung ${gestaltung.toUpperCase()} | Bentivegna` : S.seo.titel} beschreibung={S.seo.beschreibung} pfad={gestaltung ? `/entwurf/gestaltung/${gestaltung}/` : '/'} jsonld={gestaltung ? [] : [faqLd]} noindex={!!gestaltung} bodyClass={gestaltung ? `gestaltung gestaltung-${gestaltung}` : ''}>
+<Base titel={entwurfTitel || S.seo.titel} beschreibung={S.seo.beschreibung} pfad={entwurfPfad || '/'} jsonld={entwurfPfad ? [] : [faqLd]} noindex={!!entwurfPfad} bodyClass={gestaltung ? `gestaltung gestaltung-${gestaltung}` : ''}>
 
 <!-- ============ HERO ============ -->
 <section class="hero hero--b" id="top">
@@ -81,9 +84,13 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
     <div class="hero-copy">
       <div class="hero-in h1 hero-marker-zeile"><span class={`hero-marker${S.hero.marker_tag ? '' : ' ohne-tag'}`}>{S.hero.marker_tag && <span class="tag">{S.hero.marker_tag}</span>}<span>{S.hero.marker_text}</span></span></div>
       <h1>
-        <em class="hero-in h2">{S.hero.kicker}</em>
-        <span class="hz hero-in h2">{S.hero.zeile1 + ' '}<span class="ln2">{heroTeile[0]}</span></span>
-        {heroTeile.slice(1).map((t) => <span class="hz ln2 hero-in h3">{t}</span>)}
+        <em class="hero-in h2">{h1 ? h1.kicker : S.hero.kicker}</em>
+        {h1
+          ? h1.zeilen.map((z, i) => <span class={`hz hero-in ${i === 0 ? 'h2' : 'h3'}`}>{z.split('*').map((t, j) => (j % 2 ? <span class="ln2">{t}</span> : t))}</span>)
+          : <>
+              <span class="hz hero-in h2">{S.hero.zeile1 + ' '}<span class="ln2">{heroTeile[0]}</span></span>
+              {heroTeile.slice(1).map((t) => <span class="hz ln2 hero-in h3">{t}</span>)}
+            </>}
       </h1>
       <p class="hero-sub hero-in h4">{S.hero.subline}</p>
       <div class="hero-cta hero-in h5">

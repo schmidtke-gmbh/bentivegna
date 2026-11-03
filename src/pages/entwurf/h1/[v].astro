@@ -1,0 +1,10 @@
+---
+// Entwurf „H1 mit Steuerberater“: die echte Startseite mit Variante 1 bis 5 (nicht verlinkt, noindex).
+import Startseite from '../../index.astro';
+import { H1_VARIANTEN } from '../../../components/entwurf/h1-varianten';
+export function getStaticPaths() {
+  return H1_VARIANTEN.map((v) => ({ params: { v: v.k }, props: { h1: v } }));
+}
+const { h1 } = Astro.props;
+---
+<Startseite h1={h1} />

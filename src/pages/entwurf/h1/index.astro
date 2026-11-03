@@ -1,0 +1,56 @@
+---
+// Übersicht der H1-Varianten mit „Steuerberater“ (nicht verlinkt, noindex). Vor dem Go-live löschen.
+import Uebersicht from '../../../components/entwurf/VariantenUebersicht.astro';
+import { H1_VARIANTEN } from '../../../components/entwurf/h1-varianten';
+import S from '../../../data/startseite.json';
+import { u } from '../../../lib/site';
+
+const liste = [
+  { k: 'live', marke: 'Jetzt', name: 'Aktueller Stand', kurz: `Kicker „${S.hero.kicker}“, darunter „Dein Betrieb: rentabel. Steuerlich gestaltet. Verkaufsfähig.“ Das Wort „Steuerberater“ kommt im H1 nicht vor.`, url: u('/') },
+  ...H1_VARIANTEN.map((v) => ({ k: v.k, name: v.name, kurz: `Kicker: „${v.kicker}“. ${v.kurz}`, plus: v.plus, minus: v.minus, url: u(`/entwurf/h1/${v.k}/`) }))
+];
+const heute = { titel: S.seo.titel, text: S.seo.beschreibung };
+const neu = {
+  titel: 'Steuerberater für SHK-Betriebe | Bentivegna',
+  text: 'Steuerberater für SHK-Betriebe ab 1 Mio. € Umsatz: Steuergestaltung, GmbH & Holding, Kalkulation, Liquidität und Unternehmerberatung. Digital, deutschlandweit.'
+};
+---
+<Uebersicht
+  titel="Entwurf: H1 mit Steuerberater | Bentivegna"
+  pfad="/entwurf/h1/"
+  ueberschrift="Fünf Varianten für die Hauptüberschrift"
+  text="Ziel: Das Suchwort „Steuerberater“ gehört in die Hauptüberschrift (H1). Die kleine Zeile über dem Claim und der Claim stehen schon heute gemeinsam im H1; geändert wird nur der Text. Die Zeile darüber („Die Steuer- & Unternehmerberatung nur für SHK-Betriebe …“) bleibt in allen Varianten gleich. Jede Vorschau ist die echte Startseite."
+  liste={liste}
+>
+  <div class="h1-snippets">
+    <p class="h1-snip-kopf">Unabhängig von der Variante: So sähe der Eintrag bei Google aus</p>
+    <div class="h1-snip-raster">
+      <div class="h1-snip">
+        <span class="h1-snip-label">Heute</span>
+        <span class="h1-snip-url">www.bentivegna.de</span>
+        <span class="h1-snip-titel">{heute.titel}</span>
+        <span class="h1-snip-text">{heute.text}</span>
+      </div>
+      <div class="h1-snip neu">
+        <span class="h1-snip-label">Neu</span>
+        <span class="h1-snip-url">www.bentivegna.de</span>
+        <span class="h1-snip-titel">{neu.titel}</span>
+        <span class="h1-snip-text">{neu.text}</span>
+      </div>
+    </div>
+  </div>
+</Uebersicht>
+
+<style is:global>
+.h1-snippets{margin-top:28px;max-width:980px}
+.h1-snip-kopf{font-size:.82rem!important;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--brown)!important;margin-bottom:12px}
+.h1-snip-raster{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.h1-snip{display:flex;flex-direction:column;gap:4px;padding:18px 20px;border-radius:14px;background:#fff;border:1px solid var(--line);font-family:Arial,Helvetica,sans-serif}
+.h1-snip.neu{border-color:var(--brown);box-shadow:0 10px 26px rgba(20,29,58,.08)}
+.h1-snip-label{align-self:flex-start;font-family:var(--sans,inherit);font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:var(--muted);padding:3px 9px;border-radius:20px;margin-bottom:6px}
+.h1-snip.neu .h1-snip-label{background:var(--brown)}
+.h1-snip-url{font-size:.82rem;color:#202124}
+.h1-snip-titel{font-size:1.2rem;line-height:1.3;color:#1a0dab;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.h1-snip-text{font-size:.88rem;line-height:1.5;color:#4d5156;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+@media(max-width:760px){.h1-snip-raster{grid-template-columns:minmax(0,1fr)}}
+</style>

@@ -12,6 +12,7 @@ const { titel, pfad, eyebrow = 'Entwurf zur Abstimmung', ueberschrift, text, lis
       <span class="eyebrow">{eyebrow}</span>
       <h1>{ueberschrift}</h1>
       <p>{text}</p>
+      <slot />
       <div class="hxl-groessen" role="group" aria-label="Bildschirmgröße der Vorschau">
         <button type="button" data-w="1500" data-h="754" class="ist">Laptop 15 Zoll</button>
         <button type="button" data-w="1280" data-h="720">Kleiner Laptop</button>
