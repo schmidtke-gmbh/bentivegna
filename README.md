@@ -34,7 +34,7 @@ Vorschau der Alternativtexte bei den Kennzahlen (Domenico wollte beide Varianten
 
 1. **GitHub:** Privates Repository anlegen (z. B. `schmidtke-gmbh/bentivegna-website`) und diesen Ordner hochladen. Den Namen in `public/admin/config.yml` unter `backend.repo` eintragen.
 2. **Netlify:** „Add new site“ → „Import from Git“ → Repository wählen. Build-Einstellungen kommen aus `netlify.toml`.
-3. **Formulare:** Netlify erkennt `anfrage` und `bewerbung` automatisch. Unter *Forms → Form notifications* E-Mail-Benachrichtigungen einrichten: `anfrage` an info@bentivegna.de, `bewerbung` an die Recruiting-Adresse (Faktenblatt). Spam-Schutz (Honeypot) ist eingebaut.
+3. **Formulare:** Netlify erkennt `anfrage` und `bewerbung` automatisch. Unter *Forms → Form notifications* E-Mail-Benachrichtigungen einrichten: `anfrage` an ueberlingen@lorbes.de, `bewerbung` an die Recruiting-Adresse (Faktenblatt). Spam-Schutz (Honeypot) ist eingebaut.
 4. **CMS-Login für Antonia (GitHub):**
    - Auf GitHub unter *Settings → Developer settings → OAuth Apps* eine App anlegen. Homepage: die Website-Adresse, Callback-URL: `https://api.netlify.com/auth/done`.
    - In Netlify unter *Site configuration → Access & security → OAuth* den Provider „GitHub“ mit Client ID und Secret hinzufügen.

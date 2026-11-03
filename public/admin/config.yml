@@ -12,8 +12,8 @@ backend:
     deleteMedia: 'Bild gelöscht: {{path}}'
 publish_mode: editorial_workflow
 locale: de
-site_url: https://www.bentivegna.de
-display_url: https://www.bentivegna.de
+site_url: https://www.shk-steuerberater.de
+display_url: https://www.shk-steuerberater.de
 logo_url: /uploads/logos/logo-quer.svg
 media_folder: public/uploads
 public_folder: /uploads

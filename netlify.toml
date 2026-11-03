@@ -5,7 +5,7 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  PUBLIC_SITE_URL = "https://www.bentivegna.de"
+  PUBLIC_SITE_URL = "https://www.shk-steuerberater.de"
 
 # Redaktionssystem und Danke-Seiten nicht in Suchmaschinen
 [[headers]]

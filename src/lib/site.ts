@@ -22,7 +22,7 @@ export const telLink = (t = '') => 'tel:' + t.replace(/[^0-9+]/g, '');
 export const waLink = (nr = '', text = '') =>
   nr ? `https://wa.me/${nr.replace(/[^0-9]/g, '')}${text ? '?text=' + encodeURIComponent(text) : ''}` : '';
 
-export const SITE_URL: string = (import.meta.env.PUBLIC_SITE_URL || 'https://www.bentivegna.de').replace(/\/$/, '');
+export const SITE_URL: string = (import.meta.env.PUBLIC_SITE_URL || 'https://www.shk-steuerberater.de').replace(/\/$/, '');
 export const absUrl = (p = '/') => SITE_URL + (p.startsWith('/') ? p : '/' + p);
 
 export const lesezeit = (text = '') => Math.max(1, Math.round(text.trim().split(/\s+/).length / 200));
