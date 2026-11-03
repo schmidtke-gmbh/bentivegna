@@ -43,6 +43,8 @@ const stellen = defineCollection({
     ort: z.string().optional().default('Überlingen'),
     arbeitsmodell: z.string().optional().default('vor Ort, Homeoffice, Hybrid'),
     start: z.string().optional().default('ab sofort'),
+    gehalt: z.string().optional().default(''),
+    teaser: z.string().optional().default(''),
     aufgaben: z.array(z.string()).default([]),
     anforderungen: z.array(z.string()).default([]),
     profil_pdf: z.string().optional().default(''),

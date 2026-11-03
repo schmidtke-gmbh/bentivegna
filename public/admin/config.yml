@@ -2246,6 +2246,14 @@ collections:
     name: start
     widget: string
     default: ab sofort
+  - label: Gehalt pro Jahr (z. B. 42.000 € bis 60.000 €)
+    name: gehalt
+    widget: string
+    required: false
+  - label: Kurzer Einstieg (unter der Überschrift im Stellenprofil)
+    name: teaser
+    widget: text
+    required: false
   - label: Aufgaben (die ersten drei erscheinen auf der Karriereseite)
     name: aufgaben
     widget: list
