@@ -639,8 +639,24 @@ collections:
           name: text
           widget: text
           required: false
+        - label: Themenfelder (Schlagworte unter dem Text)
+          name: themen
+          widget: list
+          field:
+            label: Eintrag
+            name: eintrag
+            widget: string
+          required: false
         - label: Zusatz
           name: zusatz
+          widget: string
+          required: false
+        - label: 'Grafik: Legende goldene Linie'
+          name: grafik_mit
+          widget: string
+          required: false
+        - label: 'Grafik: Legende rote Linie'
+          name: grafik_ohne
           widget: string
           required: false
       - label: Vermögen
@@ -2407,7 +2423,7 @@ collections:
           required: false
         summary: '{{fields.titel}}'
         required: false
-    - label: Worum es geht
+    - label: Themenfelder (Schlagworte unter dem Text)
       name: themen
       widget: object
       collapsed: true

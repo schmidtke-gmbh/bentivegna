@@ -163,7 +163,17 @@
     "unternehmensberatung": {
       "titel": "Unternehmensberatung",
       "text": "Aus dem Macher wird ein Unternehmer. Wir arbeiten mit dir an der ganzen Wertschöpfungskette: Digitalisierung, Vertriebsstruktur, Preisfindung, Rollenmodell im Team, Finanzierung, Marketing. Ziel: ein Betrieb, der rentabel ist, ohne dich läuft und verkaufsfähig wird. Beratung statt Verwaltung.",
-      "zusatz": ""
+      "themen": [
+        "Digitalisierung",
+        "Vertriebsstruktur",
+        "Preisfindung",
+        "Rollenmodell im Team",
+        "Finanzierung",
+        "Marketing"
+      ],
+      "zusatz": "",
+      "grafik_mit": "Mit Bentivegna",
+      "grafik_ohne": "Ohne Steuerung"
     },
     "vermoegen": {
       "titel": "Vermögen & Nachfolge",

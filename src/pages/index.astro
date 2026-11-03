@@ -297,6 +297,7 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
           <h3>{L.unternehmensberatung.titel}</h3>
           <p>{L.unternehmensberatung.text}</p>
           {L.unternehmensberatung.zusatz && <p class="feat-extra">{L.unternehmensberatung.zusatz}</p>}
+          {L.unternehmensberatung.themen?.length > 0 && <ul class="feat-themen" aria-label="Themenfelder">{L.unternehmensberatung.themen.map((t: string) => <li>{t}</li>)}</ul>}
         </div>
         <div class="feat-visual fv-graph" aria-hidden="true">
           <svg class="fg-svg" viewBox="0 0 300 180" fill="none">
@@ -312,6 +313,7 @@ const geoPins = [[46.39,9.43],[44.98,19.34],[67.92,12.39],[32,25.4],[42.13,34.43
             <g class="fg-months"><text x="6" y="173">Jun</text><text x="80" y="173">Jul</text><text x="152" y="173">Aug</text><text x="222" y="173">Sep</text><text x="294" y="173" text-anchor="end">Okt</text></g>
           </svg>
           <span class="fg-pill">MIT <img src={u('/uploads/logos/logo-quer-ohne-claim.svg')} alt="Bentivegna"></span>
+          <span class="fg-legende"><span class="fg-l fg-l--mit">{L.unternehmensberatung.grafik_mit || 'Mit Bentivegna'}</span><span class="fg-l fg-l--ohne">{L.unternehmensberatung.grafik_ohne || 'Ohne Steuerung'}</span></span>
         </div>
         <div class="feat-accent"></div>
       </div>
