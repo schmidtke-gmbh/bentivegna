@@ -1,14 +1,15 @@
 ---
 // Cookie-Banner (Cookiebot) und einwilligungspflichtige Dienste.
-// Solange unter „Kontakt & Einstellungen → Cookie-Banner & Tracking“ keine Cookiebot-ID steht, wird hier NICHTS ausgegeben:
-// kein Banner, kein Google Analytics, kein Google Ads, kein Meta-Pixel.
+// Solange unter „Kontakt & Einstellungen → Cookie-Banner & Tracking“ keine Cookiebot-ID steht, gibt es kein Banner, kein Google Analytics,
+// kein Google Ads und kein Meta-Pixel. Nur das Superchat-Chat-Widget lädt dann direkt; mit Cookiebot erst nach Zustimmung „Präferenzen“.
 // Mit ID: Google Consent Mode startet auf „verweigert“. Google Analytics 4 lädt erst nach Zustimmung „Statistik“,
 // Google Ads und Meta-Pixel erst nach Zustimmung „Marketing“ (Cookiebot im manuellen Modus, Laden über die Cookiebot-Ereignisse).
 import { E } from '../lib/site';
 const T = E.tracking as Record<string, string>;
 const cb = (T.cookiebot_id || '').trim();
-const ids = { ga: (T.ga4_id || '').trim(), ads: (T.google_ads_id || '').trim(), px: (T.meta_pixel_id || '').trim() };
+const ids = { ga: (T.ga4_id || '').trim(), ads: (T.google_ads_id || '').trim(), px: (T.meta_pixel_id || '').trim(), chat: (T.superchat_key || '').trim() };
 ---
+{!cb && ids.chat && <script is:inline src={`https://widget.superchat.de/snippet.js?applicationKey=${encodeURIComponent(ids.chat)}`} referrerpolicy="no-referrer-when-downgrade" defer></script>}
 {cb && (
   <>
     <script is:inline>
@@ -34,6 +35,8 @@ const ids = { ga: (T.ga4_id || '').trim(), ads: (T.google_ads_id || '').trim(), 
           !function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); }; if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s); }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
           window.fbq('init', ids.px); window.fbq('track', 'PageView');
         }
+        // Chat-Widget (Superchat) nach Zustimmung „Präferenzen“
+        if (c.preferences && ids.chat && !geladen.chat) { geladen.chat = 1; var sc = document.createElement('script'); sc.src = 'https://widget.superchat.de/snippet.js?applicationKey=' + encodeURIComponent(ids.chat); sc.referrerPolicy = 'no-referrer-when-downgrade'; sc.async = true; document.head.appendChild(sc); }
         if (!mkt && window.fbq) window.fbq('consent', 'revoke');
         window.bvEinwilligung = { statistik: stat, marketing: mkt, ga: !!(stat && geladen.ga), ads: !!(mkt && geladen.ads), px: !!(mkt && geladen.px) };
       }

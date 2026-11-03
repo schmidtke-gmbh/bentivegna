@@ -3602,6 +3602,10 @@ collections:
         name: matomo_site_id
         widget: string
         required: false
+      - label: 'Superchat: Widget-Schlüssel (applicationKey aus dem Einbettungscode). Leer = eigener WhatsApp-Knopf'
+        name: superchat_key
+        widget: string
+        required: false
     - label: Google & Social Media
       name: seo
       widget: object

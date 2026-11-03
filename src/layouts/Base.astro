@@ -43,6 +43,8 @@ const org = {
   sameAs: [E.youtube, ...Object.values((E as any).social || {})].filter(Boolean)
 };
 const wa = waLink(E.whatsapp);
+// Chat-Widget von Superchat (Schlüssel im Redaktionssystem unter Cookie-Banner & Tracking). Ist er gesetzt, ersetzt es den eigenen WhatsApp-Knopf.
+const superchat = ((E.tracking as Record<string, string>)?.superchat_key || '').trim();
 const matomo = E.tracking.matomo_url && E.tracking.matomo_site_id;
 ---
 <!doctype html>
@@ -83,8 +85,8 @@ const matomo = E.tracking.matomo_url && E.tracking.matomo_site_id;
     <slot />
   </main>
   <Footer variante={footer} />
-  <button type="button" class="fab" aria-label="Chat per WhatsApp öffnen" aria-expanded="false" aria-controls="wa-fenster" data-wa-auf data-track="whatsapp_klick"><Brand name="whatsapp" class="wa" /> WhatsApp</button>
-  <WaWidget />
+  {!superchat && <button type="button" class="fab" aria-label="Chat per WhatsApp öffnen" aria-expanded="false" aria-controls="wa-fenster" data-wa-auf data-track="whatsapp_klick"><Brand name="whatsapp" class="wa" /> WhatsApp</button>}
+  {!superchat && <WaWidget />}
   <script>
     import '../scripts/site.ts';
   </script>

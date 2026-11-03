@@ -1238,3 +1238,16 @@ footer .foot-bottom{padding-bottom:78px}
   .hero.hero--b h1 em{font-size:.95rem}
 }
 button.btn,.qz button{font-family:inherit}
+
+/* Handy: kein seitliches Verschieben mehr. Das geschlossene Menü liegt nicht mehr rechts neben dem Bildschirm, sondern wird weggeschnitten. */
+html,body{overflow-x:clip}
+@media(max-width:1180px){
+  .mobile-menu{transform:none!important;clip-path:inset(0 0 0 100%);transition:clip-path .4s var(--ease),visibility 0s linear .4s}
+  .mobile-menu.open{clip-path:inset(0);transition:clip-path .4s var(--ease),visibility 0s}
+}
+@media(max-width:600px){
+  /* Abstand zwischen Auszeichnungs-Karte im Header und der blauen Zahlen-Sektion */
+  .hero.hero--b{padding-bottom:44px}
+  /* Karte „Ausgezeichnet für unsere Arbeitsweise“: Überschrift mittig wie die Logos */
+  .award-card h3,.award-card .award-titel,.award-card>h2{text-align:center;margin-left:auto;margin-right:auto}
+}
