@@ -1,11 +1,20 @@
 ---
-// Artikelbild im Format 1,91:1. Ohne hochgeladenes Bild entsteht eine Titelkarte im Raster der Seite.
+// Artikelbild im Format 1,91:1.
+// Mit hochgeladenem Motiv (ohne Text): Cover im Stil der Reihe, Badge, Titel, Unterzeile, Kapitel und Logo werden als Text darübergelegt.
+// Ohne Motiv: Titelkarte im Raster der Seite.
 import { u } from '../lib/site';
-interface Props { bild?: string; alt?: string; teil: number; titel: string; kapitel?: string; klein?: boolean; eager?: boolean }
-const { bild, alt = '', teil, titel, kapitel = '', klein = false, eager = false } = Astro.props;
+interface Props { bild?: string; alt?: string; teil: number; titel: string; unterzeile?: string; kapitel?: string; klein?: boolean; eager?: boolean }
+const { bild, alt = '', teil, titel, unterzeile = '', kapitel = '', klein = false, eager = false } = Astro.props;
 ---
 {bild ? (
-  <img class={`art-bild${klein ? ' klein' : ''}`} src={u(bild)} alt={alt} width="1200" height="628" loading={eager ? 'eager' : 'lazy'}>
+  <div class={`art-bild art-cover${klein ? ' klein' : ''}`} role="img" aria-label={`Der Chef auf der Baustelle, Teil ${teil}: ${titel}`}>
+    <img class="ac-motiv" src={u(bild)} alt={alt} loading={eager ? 'eager' : 'lazy'} decoding="async" width="2000" height="1267">
+    <span class="ac-badge"><span class="r">Der Chef auf der Baustelle</span><span class="t">Teil {teil}</span></span>
+    <span class="ac-titel">{titel}</span>
+    {unterzeile && <span class="ac-unter">{unterzeile}</span>}
+    {kapitel && <span class="ac-kap">{kapitel}</span>}
+    <img class="ac-logo" src={u('/uploads/logos/logo-quer-ohne-claim.svg')} alt="">
+  </div>
 ) : (
   <div class={`art-bild art-karte${klein ? ' klein' : ''}`} role="img" aria-label={alt || `Der Chef auf der Baustelle, Teil ${teil}: ${titel}`}>
     <img class="ak-wm" src={u('/uploads/logos/schild-mono.svg')} alt="">

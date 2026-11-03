@@ -11,6 +11,7 @@ const artikel = (await getCollection('artikel')).filter((a) => istVeroeffentlich
 const neuester = artikel[artikel.length - 1];
 const proKapitel = kapitel.map((k) => ({ k, liste: artikel.filter((a) => a.data.kapitel === k.id) }));
 const ohneKapitel = artikel.filter((a) => !kapitel.some((k) => k.id === a.data.kapitel));
+const kapitelName = (a) => { const k = kapitel.find((x) => x.id === a.data.kapitel); return k ? `Kapitel ${k.data.nummer} · ${k.data.titel}` : ''; };
 const reiheUrl = absUrl('/der-chef-auf-der-baustelle/');
 const ld = {
   '@context': 'https://schema.org', '@type': 'CollectionPage', '@id': reiheUrl, name: R.titel, description: R.seo.beschreibung, url: reiheUrl, inLanguage: 'de-DE',
@@ -38,7 +39,7 @@ const ld = {
       </div>
       {neuester && (
         <a class="buch-neu" href={u(`/der-chef-auf-der-baustelle/${neuester.id}/`)}>
-          <ArtikelBild bild={neuester.data.bild} alt={neuester.data.bild_alt} teil={neuester.data.teil} titel={neuester.data.titel} eager />
+          <ArtikelBild bild={neuester.data.bild} alt={neuester.data.bild_alt} teil={neuester.data.teil} titel={neuester.data.titel} unterzeile={neuester.data.unterzeile} kapitel={kapitelName(neuester)} eager />
           <span class="buch-neu-txt"><small>Neuester Teil</small><b>Teil {neuester.data.teil}: {neuester.data.titel}</b></span>
         </a>
       )}

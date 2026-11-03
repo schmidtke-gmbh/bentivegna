@@ -46,7 +46,7 @@ const ld = [
   {
     '@context': 'https://schema.org', '@type': 'Article', '@id': `${url}#artikel`,
     headline: d.titel, description: d.meta_beschreibung || d.lead,
-    image: d.bild ? absUrl(d.bild) : absUrl(E.seo.standard_bild),
+    image: absUrl(`/der-chef-auf-der-baustelle/${a.id}/vorschau.jpg`),
     datePublished: new Date(d.datum).toISOString(), dateModified: new Date(d.datum).toISOString(),
     inLanguage: 'de-DE', wordCount: woerter, timeRequired: `PT${minuten}M`,
     articleSection: kapName || undefined,
@@ -66,21 +66,37 @@ const ld = [
   }
 ];
 ---
-<Base titel={d.meta_titel || `${d.titel} | ${R.titel}`} beschreibung={d.meta_beschreibung || d.lead} pfad={pfad} bild={d.bild || undefined} ogType="article" jsonld={ld}>
+<Base titel={d.meta_titel || `${d.titel} | ${R.titel}`} beschreibung={d.meta_beschreibung || d.lead} pfad={pfad} bild={`/der-chef-auf-der-baustelle/${a.id}/vorschau.jpg`} ogType="article" jsonld={ld}>
   <article class="artikel">
-    <header class="page-head art-head">
-      <div class="wrap art-wrap">
-        <nav class="crumbs" aria-label="Brotkrumen"><a href={u('/der-chef-auf-der-baustelle/')}>Der Chef auf der Baustelle</a> <Icon name="chevron-right" /> <span>Teil {d.teil}</span></nav>
-        <span class="chef-badge"><span class="r">Der Chef auf der Baustelle</span><span class="t">Teil {d.teil}</span></span>
-        {kapName && <span class="art-kap">{kapName}</span>}
-        <h1>{d.titel}</h1>
-        <p class="art-meta">Von {R.autor.name} · Lesezeit {minuten} Minuten · {datumDE(d.datum)}</p>
-        {d.lead && <p class="lead art-lead">{d.lead}</p>}
-      </div>
-    </header>
+    {d.bild ? (
+      <header class="art-hero">
+        <img class="art-hero-bild" src={u(d.bild)} alt={d.bild_alt} width="2000" height="1267" loading="eager" fetchpriority="high">
+        <div class="wrap art-hero-wrap">
+          <nav class="crumbs" aria-label="Brotkrumen"><a href={u('/der-chef-auf-der-baustelle/')}>Der Chef auf der Baustelle</a> <Icon name="chevron-right" /> <span>Teil {d.teil}</span></nav>
+          <span class="ac-badge"><span class="r">Der Chef auf der Baustelle</span><span class="t">Teil {d.teil}</span></span>
+          <h1>{d.titel}</h1>
+          {d.unterzeile && <p class="art-hero-unter">{d.unterzeile}</p>}
+          <div class="art-hero-fuss">
+            {kapName && <span class="art-hero-kap">{kapName}</span>}
+            <span class="art-hero-meta">Von {R.autor.name} · Lesezeit {minuten} Minuten · <span style="white-space:nowrap">{datumDE(d.datum)}</span></span>
+          </div>
+        </div>
+      </header>
+    ) : (
+      <header class="page-head art-head">
+        <div class="wrap art-wrap">
+          <nav class="crumbs" aria-label="Brotkrumen"><a href={u('/der-chef-auf-der-baustelle/')}>Der Chef auf der Baustelle</a> <Icon name="chevron-right" /> <span>Teil {d.teil}</span></nav>
+          <span class="chef-badge"><span class="r">Der Chef auf der Baustelle</span><span class="t">Teil {d.teil}</span></span>
+          {kapName && <span class="art-kap">{kapName}</span>}
+          <h1>{d.titel}</h1>
+          <p class="art-meta">Von {R.autor.name} · Lesezeit {minuten} Minuten · {datumDE(d.datum)}</p>
+          {d.lead && <p class="lead art-lead">{d.lead}</p>}
+        </div>
+      </header>
+    )}
 
     <div class="wrap art-wrap">
-      <figure class="art-figur"><ArtikelBild bild={d.bild} alt={d.bild_alt} teil={d.teil} titel={d.titel} kapitel={kapName} eager /></figure>
+      {d.bild ? (d.lead && <p class="lead art-lead art-lead--oben">{d.lead}</p>) : <figure class="art-figur"><ArtikelBild bild={d.bild} alt={d.bild_alt} teil={d.teil} titel={d.titel} kapitel={kapName} eager /></figure>}
 
       {R.audio_aktiv && d.audio && (
         <div class="art-audio">

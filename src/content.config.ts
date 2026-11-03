@@ -9,6 +9,7 @@ const artikel = defineCollection({
     teil: z.number(),
     kapitel: z.string(),
     lead: z.string().optional().default(''),
+    unterzeile: z.string().optional().default(''),
     datum: z.coerce.date(),
     entwurf: z.boolean().optional().default(false),
     bild: z.string().optional().default(''),

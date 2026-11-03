@@ -6,8 +6,9 @@ kapitel: grundlagen
 lead: Markt, Fachkräftemangel und Förderchaos erklären nicht, warum der Betrieb zwei Orte weiter mit denselben Bedingungen deutlich mehr verdient als deiner.
 datum: 2026-10-26
 entwurf: false
-bild: ""
-bild_alt: "Zahlentafel: 650.000 Euro gegenüber 200.000 Euro Gewinn bei gleichem Umsatz"
+unterzeile: Warum dein SHK-Betrieb weniger verdient als der Betrieb nebenan, und was das mit dir zu tun hat.
+bild: /uploads/artikel/teil-1-motiv.jpg
+bild_alt: Schreibtisch mit Bauplan, Füller und weißem Bauhelm vor dunkelblauem Hintergrund
 aufgabe_vor_ausblick: true
 aufgabe: Nenne einen Betrieb in deiner Region, von dem du weißt oder ahnst, dass er besser verdient als du. Schreib drei Dinge auf, die er anders macht. Keine Umstände, keine Vermutungen über seine Leute oder sein Glück. Nur Dinge, die er tut. Wenn dir nichts einfällt, ruf ihn an. Die meisten Inhaber erzählen gern, wie sie es machen.
 meta_titel: Warum dein SHK-Betrieb weniger verdient als der Betrieb nebenan, und was das mit dir zu tun hat

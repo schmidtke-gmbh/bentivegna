@@ -76,11 +76,17 @@ collections:
     name: lead
     widget: text
     required: false
-  - label: Artikelbild (1,91:1, z. B. 1200 × 628 px)
+  - label: Unterzeile im Cover (Klick-Titel)
+    name: unterzeile
+    widget: string
+    required: false
+    hint: Steht kursiv unter dem Titel im Cover, z. B. „Warum dein SHK-Betrieb weniger verdient als der Betrieb nebenan, und was das mit dir zu tun hat.“
+  - label: Cover-Motiv (ohne Text)
     name: bild
     widget: image
     required: false
-    hint: Wird auch als Vorschaubild für LinkedIn, WhatsApp und Facebook genutzt. Ohne Bild erscheint automatisch eine Titelkarte.
+    hint: Nur das Hintergrundbild, ohne Schrift und Logo. Mindestens 2000 px breit, wichtige Bildteile eher rechts, links bleibt Platz für den Text. Badge, Titel, Unterzeile, Kapitel und Logo setzt die
+      Website automatisch darüber. Daraus entsteht auch das Vorschaubild für LinkedIn, WhatsApp und Facebook. Ohne Motiv erscheint eine Titelkarte.
   - label: Bildbeschreibung (Alt-Text)
     name: bild_alt
     widget: string
