@@ -68,7 +68,7 @@ def filecoll(name,label,path,desc):
         if x['widget']=='object': x['collapsed']=True
     return {'name':name,'label':label,'description':desc,'editor':{'preview':False},'files':[{'name':name,'label':label,'file':path,'format':'json','fields':fl}]}
 cfg={
- 'backend':{'name':'github','repo':'schmidtke-gmbh/bentivegna-website','branch':'main','commit_messages':{'create':'Neu: {{collection}} „{{slug}}“','update':'Geändert: {{collection}} „{{slug}}“','delete':'Gelöscht: {{collection}} „{{slug}}“','uploadMedia':'Bild hochgeladen: {{path}}','deleteMedia':'Bild gelöscht: {{path}}'}},
+ 'backend':{'name':'github','repo':'schmidtke-gmbh/bentivegna','branch':'main','commit_messages':{'create':'Neu: {{collection}} „{{slug}}“','update':'Geändert: {{collection}} „{{slug}}“','delete':'Gelöscht: {{collection}} „{{slug}}“','uploadMedia':'Bild hochgeladen: {{path}}','deleteMedia':'Bild gelöscht: {{path}}'}},
  'publish_mode':'editorial_workflow','locale':'de','site_url':'https://www.bentivegna.de','display_url':'https://www.bentivegna.de',
  'logo_url':'/uploads/logos/logo-quer.svg','media_folder':'public/uploads','public_folder':'/uploads','show_preview_links':True,
  'collections':[]}

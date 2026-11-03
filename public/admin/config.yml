@@ -2,7 +2,7 @@
 # Erzeugt aus den Datendateien. Repository-Name unter backend.repo anpassen.
 backend:
   name: github
-  repo: schmidtke-gmbh/bentivegna-website
+  repo: schmidtke-gmbh/bentivegna
   branch: main
   commit_messages:
     create: 'Neu: {{collection}} „{{slug}}“'
