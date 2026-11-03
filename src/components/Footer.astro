@@ -2,9 +2,10 @@
 import Icon from './Icon.astro';
 import Brand from './Brand.astro';
 import { u, E, telLink, waLink } from '../lib/site';
-interface Props { variante?: 'start' | 'karriere' }
+interface Props { variante?: 'start' | 'karriere' | 'neutral' }
 const { variante = 'start' } = Astro.props;
-const claim = variante === 'karriere'
+// „neutral“: Strategie-Seiten für Unternehmer aller Branchen und Privatpersonen (ohne SHK-Fokus), Kontakt wie Startseite
+const claim = variante === 'karriere' || variante === 'neutral'
   ? 'Unternehmerberatung & Steuerstrategie, Überlingen am Bodensee'
   : 'Steuer- & Unternehmerberatung, spezialisiert auf SHK-Betriebe in ganz Deutschland. Digital, persönlich, per Teams.';
 const wa = waLink(E.whatsapp);
