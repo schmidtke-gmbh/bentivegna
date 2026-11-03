@@ -1108,11 +1108,13 @@ footer .foot-bottom{padding-bottom:78px}
 
 /* Siegel-Stapel (z. B. Kanzleibooster 2025 und 2026): neuestes vorn links, ältere dahinter, Jahreszahl bleibt sichtbar (3.11.2026) */
 .siegel-stapel{display:inline-flex;flex-direction:row-reverse;align-items:center;flex:0 0 auto;padding:3px 0}
-.siegel-stapel img{position:relative;background:#fff;border-radius:4px;box-shadow:0 1px 2px rgba(20,29,58,.10),0 4px 12px rgba(20,29,58,.16);transition:margin .3s ease}
+.siegel-stapel img{position:relative;background:#fff;border-radius:4px;box-shadow:0 1px 2px rgba(20,29,58,.10),0 4px 12px rgba(20,29,58,.16);transition:transform .3s ease}
 .siegel-stapel img+img{margin-right:-28%}
 .ha-logos .siegel-stapel img+img{margin-right:-20px}
 .award-card .siegel-stapel img+img{margin-right:-24px}
-.siegel-stapel:hover img+img{margin-right:-12px}
+.siegel-stapel:hover img:nth-child(2){transform:translateX(-12px)}
+.siegel-stapel:hover img:nth-child(3){transform:translateX(-24px)}
+.siegel-stapel:hover img:nth-child(4){transform:translateX(-36px)}
 @media(max-width:640px){.ha-logos .siegel-stapel img+img{margin-right:-16px}}
 /* Karte „Ausgezeichnet für unsere Arbeitsweise“: alle Siegel in einer Reihe über die volle Breite, vertikal mittig; wird es zu eng, bricht das DStV-Logo mittig darunter um */
 .award-card .logos{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px 20px;margin:auto 0}
