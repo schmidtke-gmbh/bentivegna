@@ -25,7 +25,7 @@ const fonts = [
   { name: 'S', data: schrift('source-sans-3-latin-400-italic.woff'), weight: 400 as const, style: 'italic' as const }
 ];
 const logoWeiss = 'data:image/svg+xml;base64,' + Buffer.from(
-  readFileSync(join(root, 'public/uploads/logos/logo-quer-ohne-claim.svg'), 'utf8').replace(/fill:\s*#[0-9a-f]{6}/gi, 'fill: #ffffff')
+  readFileSync(join(root, 'public/uploads/logos/logo-quer-mittig.svg'), 'utf8').replace(/fill:\s*#[0-9a-f]{6}/gi, 'fill: #ffffff')
 ).toString('base64');
 
 const el = (type: string, style: Record<string, unknown>, children?: unknown, extra: Record<string, unknown> = {}) =>

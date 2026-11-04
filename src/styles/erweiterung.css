@@ -403,7 +403,7 @@ p,li,.ans{text-wrap:pretty}
 .nav-logo.kurz{display:none;height:40px}
 .nav-inner{padding:9px 22px}
 @media(max-width:1320px){.nav-logo.voll{height:54px}}
-@media(max-width:560px){.nav-logo.voll{display:none}.nav-logo.kurz{display:block;height:36px}}
+@media(max-width:560px){.nav-logo.voll{display:none}.nav-logo.kurz{display:block;height:40px}}
 .cmp2-logo.voll{height:46px}
 
 /* Hero-Marker ohne „Nur SHK“-Etikett */

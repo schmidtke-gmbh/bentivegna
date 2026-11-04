@@ -13,7 +13,7 @@ const { bild, alt = '', teil, titel, unterzeile = '', kapitel = '', klein = fals
     <span class="ac-titel">{titel}</span>
     {unterzeile && <span class="ac-unter">{unterzeile}</span>}
     {kapitel && <span class="ac-kap">{kapitel}</span>}
-    <img class="ac-logo" src={u('/uploads/logos/logo-quer-ohne-claim.svg')} alt="">
+    <img class="ac-logo" src={u('/uploads/logos/logo-quer-mittig.svg')} alt="">
   </div>
 ) : (
   <div class={`art-bild art-karte${klein ? ' klein' : ''}`} role="img" aria-label={alt || `Der Chef auf der Baustelle, Teil ${teil}: ${titel}`}>
