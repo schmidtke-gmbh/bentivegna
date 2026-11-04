@@ -1,4 +1,4 @@
-# Alte Domain steuergestaltung-bodensee.de: dauerhaft (301) auf die neue Website
+# Alte Domain steuergestaltung-bodensee.de: dauerhaft (301) auf die neue Website (http und https)
 https://steuergestaltung-bodensee.de/vermoegensstrategie   https://www.shk-steuerberater.de/vermoegensstrategie/   301!
 https://steuergestaltung-bodensee.de/vermoegensstrategie/*   https://www.shk-steuerberater.de/vermoegensstrategie/   301!
 https://steuergestaltung-bodensee.de/steuerstrategie   https://www.shk-steuerberater.de/steuerstrategie/   301!
@@ -9,3 +9,13 @@ https://www.steuergestaltung-bodensee.de/vermoegensstrategie/*   https://www.shk
 https://www.steuergestaltung-bodensee.de/steuerstrategie   https://www.shk-steuerberater.de/steuerstrategie/   301!
 https://www.steuergestaltung-bodensee.de/steuerstrategie/*   https://www.shk-steuerberater.de/steuerstrategie/   301!
 https://www.steuergestaltung-bodensee.de/*   https://www.shk-steuerberater.de/   301!
+http://steuergestaltung-bodensee.de/vermoegensstrategie   https://www.shk-steuerberater.de/vermoegensstrategie/   301!
+http://steuergestaltung-bodensee.de/vermoegensstrategie/*   https://www.shk-steuerberater.de/vermoegensstrategie/   301!
+http://steuergestaltung-bodensee.de/steuerstrategie   https://www.shk-steuerberater.de/steuerstrategie/   301!
+http://steuergestaltung-bodensee.de/steuerstrategie/*   https://www.shk-steuerberater.de/steuerstrategie/   301!
+http://steuergestaltung-bodensee.de/*   https://www.shk-steuerberater.de/   301!
+http://www.steuergestaltung-bodensee.de/vermoegensstrategie   https://www.shk-steuerberater.de/vermoegensstrategie/   301!
+http://www.steuergestaltung-bodensee.de/vermoegensstrategie/*   https://www.shk-steuerberater.de/vermoegensstrategie/   301!
+http://www.steuergestaltung-bodensee.de/steuerstrategie   https://www.shk-steuerberater.de/steuerstrategie/   301!
+http://www.steuergestaltung-bodensee.de/steuerstrategie/*   https://www.shk-steuerberater.de/steuerstrategie/   301!
+http://www.steuergestaltung-bodensee.de/*   https://www.shk-steuerberater.de/   301!
