@@ -436,3 +436,7 @@ body:has(.khero--navy) .nav-inner{background:#fff}
   .final-band{padding-left:16px;padding-right:16px}
   .final-alt .btn,.bw-form .btn{max-width:100%;white-space:normal}
 }
+
+/* Rollen über zwei Zeilen kompakter (11.11.) */
+.stimme .who span{display:block;line-height:1.25}
+.stimme .who .seit{display:block;line-height:1.3;margin-top:3px}

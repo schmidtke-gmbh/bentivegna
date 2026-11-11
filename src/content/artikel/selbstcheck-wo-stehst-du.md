@@ -6,8 +6,8 @@ kapitel: grundlagen
 lead: Bevor du an deinem Betrieb drehst, gibst du dir auf sechs Baustellen eine ehrliche Note; das dauert zehn Minuten, und in sechs Monaten schaust du nach, ob sich die Zahlen bewegt haben.
 datum: 2026-11-02
 entwurf: false
-bild: ""
-bild_alt: "Selbstcheck mit sechs Baustellen und einer Skala von 1 bis 10"
+bild: /uploads/artikel/teil-1-motiv.jpg
+bild_alt: Schreibtisch mit Bauplan, Füller und weißem Bauhelm vor dunkelblauem Hintergrund
 lesezeit: 7
 aufgabe_vor_ausblick: true
 aufgabe: "Trag die sechs Ist-Zahlen ein, heute, nicht am Wochenende. Setz die Ziele für die ersten zwei Baustellen. Mach ein Foto von dem Blatt. Dann öffne deinen Kalender und trag dir einen Termin in genau sechs Monaten ein: „Selbstcheck wiederholen“. Das ist die einzige Verabredung in diesem Buch, die du mit dir selbst triffst, und die wichtigste."

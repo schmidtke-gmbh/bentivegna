@@ -6,8 +6,8 @@ kapitel: grundlagen
 lead: Jedes Problem in deinem Betrieb hängt an einem anderen; wer an der dringendsten Stelle anfängt statt an der ersten, arbeitet viel und ändert nichts.
 datum: 2026-11-02
 entwurf: false
-bild: ""
-bild_alt: "Die sechs Baustellen eines SHK-Betriebs in ihrer Reihenfolge"
+bild: /uploads/artikel/teil-1-motiv.jpg
+bild_alt: Schreibtisch mit Bauplan, Füller und weißem Bauhelm vor dunkelblauem Hintergrund
 lesezeit: 6
 aufgabe_vor_ausblick: true
 aufgabe: "Schreib die sechs Baustellen untereinander. Markiere, wo du im letzten Jahr Geld und Zeit reingesteckt hast: Software, Einstellungen, Werbung, Fahrzeuge. Dann markiere, wo es in der Reihenfolge am weitesten vorne klemmt. Wenn die beiden Markierungen nicht an derselben Stelle stehen, weißt du jetzt, warum sich so wenig bewegt hat."

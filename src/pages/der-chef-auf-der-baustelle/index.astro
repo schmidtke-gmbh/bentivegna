@@ -64,7 +64,9 @@ const ld = {
               <ol class="teil-liste">
                 {liste.map((a) => (
                   <li><a href={u(`/der-chef-auf-der-baustelle/${a.id}/`)}>
-                    <span class="teil-nr">Teil {a.data.teil}</span>
+                    {a.data.bild ? (
+                      <span class="teil-thumb"><img src={u(a.data.bild)} alt="" loading="lazy" decoding="async" width="300" height="190"><span class="teil-nr">Teil {a.data.teil}</span></span>
+                    ) : <span class="teil-nr">Teil {a.data.teil}</span>}
                     <span class="teil-txt"><b>{a.data.titel}</b><small>{a.data.lead}</small></span>
                     <span class="teil-meta"><Icon name="clock" /> {a.data.lesezeit || lesezeit(a.body)} Min.</span>
                   </a></li>

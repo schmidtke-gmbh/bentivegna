@@ -1253,3 +1253,11 @@ html,body{overflow-x:clip}
   /* Karte „Ausgezeichnet für unsere Arbeitsweise“: Überschrift mittig wie die Logos */
   .award-card h3,.award-card .award-titel,.award-card>h2{text-align:center;margin-left:auto;margin-right:auto}
 }
+
+/* Buchreihe: Vorschaubild je Teil in der Übersicht (11.11.) */
+.teil-thumb{position:relative;display:block;width:168px;aspect-ratio:3/2;border-radius:9px;overflow:hidden;background:var(--navy);flex:0 0 auto}
+.teil-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s var(--ease)}
+.teil-liste a:hover .teil-thumb img{transform:scale(1.04)}
+.teil-thumb .teil-nr{position:absolute;left:8px;bottom:8px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.teil-liste a:has(.teil-thumb){padding:12px 20px 12px 12px}
+@media(max-width:800px){.teil-thumb{width:100%;aspect-ratio:16/9}.teil-liste a:has(.teil-thumb){padding:12px}}
